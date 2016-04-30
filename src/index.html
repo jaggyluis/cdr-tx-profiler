@@ -1,11 +1,46 @@
 <!DOCTYPE HTML>
+<html>
 <head>
-<title>Aviation Passenger Timing Profile Generator</title>
+	<title>Aviation Passenger Timing Profile Generator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<table id="passenger-timing-table">
+		<tr class="bold">
+			<td>Flight Name</td>
+			<td>Flight Code</td>
+			<td>Gate</td>
+			<td>Passenger Type</td>
+			<td>Airport</td>
+			<td>Departure Lounge</td>
+			<td>Boarding Zone</td>
+			<td>Boarding</td>
+			<td>Departure</td>
+		</tr>
+	</table>
+
+	<script type="text/template" id="passenger-timing-template">
+		<tr>
+			<td>%flightName%</td>
+			<td>%flightCode%</td>
+			<td>%gate%</td>
+			<td>%passengerType%</td>
+			<td>%airport%</td>
+			<td>%departureLounge%</td>
+			<td>%boardingZone%</td>
+			<td>%boarding%</td>
+			<td>%departure%</td>
+		</tr>
+	</script>
+
 	<script src="js/airports.js"></script>
 	<script src="js/airlines.js"></script>
 	<script src="js/aircraft.js"></script>
-	<script src="js/designDay.js"></script>
+	<script src="js/sfo.js"></script>
 	<script src="js/app.js"></script>	
 </body>
+</html>
+
+
