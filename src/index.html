@@ -7,19 +7,24 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<table id="passenger-timing-table">
-		<tr class="bold">
-			<td>Flight Name</td>
-			<td>Flight Code</td>
-			<td>Gate</td>
-			<td>Passenger Type</td>
-			<td>Airport</td>
-			<td>Departure Lounge</td>
-			<td>Boarding Zone</td>
-			<td>Boarding</td>
-			<td>Departure</td>
-		</tr>
-	</table>
+	<div id="container">
+		<button id="upload">Upload CSV</button>
+		<button id="json">Save JSON</button>
+		<button id="csv">Save CSV</button>
+		<table id="passenger-timing-table">
+			<tr class="bold">
+				<td>Flight Name</td>
+				<td>Flight Code</td>
+				<td>Gate</td>
+				<td>Passenger Type</td>
+				<td>Airport</td>
+				<td>Departure Lounge</td>
+				<td>Boarding Zone</td>
+				<td>Boarding</td>
+				<td>Departure</td>
+			</tr>
+		</table>
+	</div>
 
 	<script type="text/template" id="passenger-timing-template">
 		<tr>
