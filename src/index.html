@@ -4,13 +4,26 @@
 	<title>Aviation Passenger Timing Profile Generator</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/style.css">
+	<style type="text/css">
+		table,
+		th,
+		tr,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 2px;
+		}
+		.bold {
+			font-weight: bold;
+		}
+	</style>
 </head>
 <body>
 	<div id="container">
-		<button id="upload">Upload CSV</button>
-		<button id="json">Save JSON</button>
-		<button id="csv">Save CSV</button>
+		<button id="uploadJSON">Upload JSON</button>
+		<button id="uploadCSV">Upload CSV</button>
+		<button id="downloadJSON">Save JSON</button>
+		<button id="downloadTSV">Save TSV</button>
 		<table id="passenger-timing-table">
 			<tr class="bold">
 				<td>Flight Name</td>

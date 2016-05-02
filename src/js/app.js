@@ -6,39 +6,77 @@ var app = app || {};
 	app.init = function() {
 		this.designDay = designDay;
 		this.model = new this.Model(airports, airlines, aircraft);
-		this.passengers = []
+		this.passengers = [];
+		this.view = new this.View();
 	}
 	app.run = function() {
 		for (var d=0; d<designDay.length; d++) {
-			this.passengers.push(new this.Flight(this.designDay[d], 0.90).getPassengers());
+			var passengers = new this.Flight(this.designDay[d], 0.90).getPassengers()
+			for (var p=0; p<passengers.length; p++) {
+				this.passengers.push(passengers[p]);
+			}
 		}
+		console.log('simulation complete'); // control time
 	}
 	app.display = function() {
-		this.view = new this.View();
+		this.view.displayTable();
 	}
-
 	app.View = function() {
 		this.table = document.getElementById("passenger-timing-table");
-		this.innerString = ""
 		this.template = document.querySelector("#passenger-timing-template").innerHTML;
-		this.elements = app.passengers.reduce(function(a,b) {
-			return a.concat(b);
-		},[])
-		this.elements.forEach((function(element) {
-			var string = this.template.replace('%flightName%', element.flightName)
-				.replace('%flightCode%', element.flightCode)
-				.replace('%gate%', element.gate)
-				.replace('%passengerType%', element.passengerType)
-				.replace('%airport%', element.airport)
-				.replace('%departureLounge%', element.departureLounge)
-				.replace('%boardingZone%', element.boardingZone)
-				.replace('%boarding%', element.boarding)
-				.replace('%departure%', element.departureTime);
-			this.innerString+=string;
+		this.downloadJSONButton = document.getElementById("downloadJSON");
+		this.downloadJSONButton.addEventListener('click', (function() {
+			this.downloadJSON();
 		}).bind(this));
-		this.table.innerHTML+=this.innerString;
-	}
+		this.downloadTSVButton = document.getElementById("downloadTSV");
+		this.downloadTSVButton.addEventListener('click', (function() {
+			this.downloadTSV();
+		}).bind(this));
 
+		this.displayTable = function() {
+			var innerString = "";
+			app.passengers.forEach((function(passenger, idx) {
+				var string = this.template.replace('%flightName%', passenger.flightName)
+					.replace('%flightCode%', passenger.flightCode)
+					.replace('%gate%', passenger.gate)
+					.replace('%passengerType%', passenger.passengerType)
+					.replace('%airport%', passenger.airport)
+					.replace('%departureLounge%', passenger.departureLounge)
+					.replace('%boardingZone%', passenger.boardingZone)
+					.replace('%boarding%', passenger.boarding)
+					.replace('%departure%', passenger.departureTime);
+				innerString+=string;
+			}).bind(this));
+			this.table.innerHTML+=innerString;
+		}
+		this.downloadJSON = function() {
+			/*
+			 * modified from
+			 * http://stackoverflow.com/questions/13405129/javascript-create-and-save-file
+			 */
+			var a = document.createElement("a");
+			var file = new Blob([JSON.stringify(app.passengers)], {type:'text/plain'});
+			a.href = URL.createObjectURL(file);
+			a.download = 'passengerProfiles.json';
+			a.click();
+			console.log('download json:', file);
+		}
+		this.serializeJSON = function(json) {
+			return json.reduce(function(a,b) {
+				return a+(Object.keys(b).map(function(key) {
+					return b[key];
+				}).join('\t')+'\n');
+			}, Object.keys(json[0]).join('\t')+'\n')
+		}
+		this.downloadTSV  = function() {
+			var a = document.createElement("a");
+			var file = new Blob([this.serializeJSON(app.passengers)], {type:'text/plain'});
+			a.href = URL.createObjectURL(file);
+			a.download = 'passengerProfiles.tsv';
+			a.click();
+			console.log('download tsv', file);
+		}
+	}
 	app.Model = function(airports, airlines, aircraft, pax) {
 		this.airports = airports;
 		this.airlines = airlines;
@@ -86,7 +124,6 @@ var app = app || {};
 			})[0];
 		};
 	}
-
 	app.Flight = function(flight, loadFactor) {
 		this.flight = flight;
 		this.destination = app.model.getAirportByCode(this.flight.destination);
@@ -110,16 +147,26 @@ var app = app || {};
 		}
 		this.getMovementMatrix = function() {
 			var matrix = []
-			for (var i=0; i<this.profile.length; i++) {
-				matrix.push(this.profile[i].map((function(percentage) {
-					return Math.round(this.aircraft.seats*percentage/100);
-				}).bind(this)));
-			}
+			this.profile.forEach((function(arr, index) {
+				var seats = this.aircraft.seats;
+				var mArray = [];
+				arr.forEach((function(num) {
+					var count = 0;
+					for (var i=0; i< Math.ceil(this.aircraft.seats*num/100); i++) {
+						if (seats >0 ) {
+							seats--;
+							count++;
+						} else break;
+					}
+					mArray.push(count);
+				}).bind(this));
+				matrix.push(mArray);
+			}).bind(this));
 			return matrix;
 		}
 		this.getPassengerArray = function() {
 			var pArray = []
-			for (var i=0; i<=this.aircraft.seats; i++) {
+			for (var i=0; i<this.aircraft.seats; i++) {
 				pArray.push(new app.Passenger(this.getFlightName(), 
 					this.airline.IATA, 
 					this.decimalDayToTime(this.flight.time)));
@@ -163,7 +210,6 @@ var app = app || {};
 			return dday;
 		}
 	}
-
 	app.Passenger = function(flightName, flightCode, departureTime) {
 
 		var percentages = { // Pull this from spreadsheet?
@@ -185,7 +231,6 @@ var app = app || {};
 		this.passengerType = types[Math.floor(Math.random() * (100 - 0 + 1)) + 0];
 		this.gate = 0;
 	}
-
 	app.init();
 	app.run();
 	app.display();
