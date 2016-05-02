@@ -1,0 +1,6 @@
+X include seatconfig if available
+X implement loadfactor
+- implement domestic/international?
+X apply other aiplane pax types
+- loading csv and/or json files in
+- handle flights with missing data instead of skipping?

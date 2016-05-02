@@ -5,11 +5,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">
+		
+		button,
+		input {
+			margin-bottom: 5px;
+			width: 200px;
+			border: 1px solid grey;
+			box-sizing: border-box;
+		}
+
 		table,
 		th,
 		tr,
 		td {
-			border: 1px solid black;
+			border: 1px solid grey;
 			border-collapse: collapse;
 			padding: 2px;
 		}
@@ -20,22 +29,22 @@
 </head>
 <body>
 	<div id="container">
-		<button id="uploadJSON">Upload JSON</button>
-		<button id="uploadCSV">Upload CSV</button>
-		<button id="downloadJSON">Save JSON</button>
-		<button id="downloadTSV">Save TSV</button>
+		<!--<input type="file" style="position: fixed; top: -100em">-->
+		<div>
+			<input id="loadFactor" placeholder="Load Factor (0 - 1)">
+			<input id="timeRange" placeholder="Time Range">
+		</div>
+		<div>
+			<button id="uploadJSON" disabled>Upload JSON (broken)</button>
+			<button id="uploadCSV" disabled>Upload CSV (broken)</button>
+			<button id="run">Run</button>
+		</div>
+		<div>
+			<button id="downloadJSON" disabled>Save JSON</button>
+			<button id="downloadCSV" disabled>Save CSV</button>
+			<button id="showResults" disabled>Show Results (slow)</button>
+		</div>
 		<table id="passenger-timing-table">
-			<tr class="bold">
-				<td>Flight Name</td>
-				<td>Flight Code</td>
-				<td>Gate</td>
-				<td>Passenger Type</td>
-				<td>Airport</td>
-				<td>Departure Lounge</td>
-				<td>Boarding Zone</td>
-				<td>Boarding</td>
-				<td>Departure</td>
-			</tr>
 		</table>
 	</div>
 
@@ -49,13 +58,27 @@
 			<td>%departureLounge%</td>
 			<td>%boardingZone%</td>
 			<td>%boarding%</td>
-			<td>%departure%</td>
+			<td>%departureTime%</td>
+		</tr>
+	</script>
+	<script type="text/template" id="passenger-timing-header">
+		<tr class="bold">
+			<td>Flight Name</td>
+			<td>Flight Code</td>
+			<td>Gate</td>
+			<td>Passenger Type</td>
+			<td>Airport</td>
+			<td>Departure Lounge</td>
+			<td>Boarding Zone</td>
+			<td>Boarding</td>
+			<td>Departure</td>
 		</tr>
 	</script>
 
-	<script src="js/airports.js"></script>
-	<script src="js/airlines.js"></script>
-	<script src="js/aircraft.js"></script>
+	<script src="js/model/airports.js"></script>
+	<script src="js/model/airlines.js"></script>
+	<script src="js/model/aircraft.js"></script>
+	<script src="js/model/pax.js"></script>
 	<script src="js/sfo.js"></script>
 	<script src="js/app.js"></script>	
 </body>

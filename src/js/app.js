@@ -1,51 +1,83 @@
 var app = app || {};
 
+
 (function() {
 	'use strict';
 
 	app.init = function() {
 		this.designDay = designDay;
-		this.model = new this.Model(airports, airlines, aircraft);
+		this.loadFactor = 1;
+		this.model = new this.Model(airports, airlines, aircraft, pax);
 		this.passengers = [];
 		this.view = new this.View();
 	}
 	app.run = function() {
+		this.passengers = [];
+		this.view.clearResults();
+		this.loadFactor = this.view.getLoadFactor();
 		for (var d=0; d<designDay.length; d++) {
-			var passengers = new this.Flight(this.designDay[d], 0.90).getPassengers()
-			for (var p=0; p<passengers.length; p++) {
-				this.passengers.push(passengers[p]);
-			}
+			new this.Flight(this.designDay[d], this.loadFactor).getPassengers().forEach((function(passenger) {
+				this.passengers.push(passenger);
+			}).bind(this));
 		}
-		console.log('simulation complete'); // control time
+		this.view.enableDownloads();
 	}
 	app.display = function() {
 		this.view.displayTable();
 	}
 	app.View = function() {
 		this.table = document.getElementById("passenger-timing-table");
+		this.header = document.querySelector("#passenger-timing-header").innerHTML;
 		this.template = document.querySelector("#passenger-timing-template").innerHTML;
+
 		this.downloadJSONButton = document.getElementById("downloadJSON");
 		this.downloadJSONButton.addEventListener('click', (function() {
 			this.downloadJSON();
 		}).bind(this));
-		this.downloadTSVButton = document.getElementById("downloadTSV");
-		this.downloadTSVButton.addEventListener('click', (function() {
-			this.downloadTSV();
+
+		this.downloadCSVButton = document.getElementById("downloadCSV");
+		this.downloadCSVButton.addEventListener('click', (function() {
+			this.downloadCSV();
 		}).bind(this));
 
+		this.showResultsButton = document.getElementById("showResults");
+		this.showResultsButton.addEventListener('click', (function() {
+			this.showResults();
+		}).bind(this));
+
+		this.runButton = document.getElementById("run");
+		this.runButton.addEventListener('click', (function() {
+			app.run();
+		}).bind(this));
+
+		this.keys = [ // Probably a better spot for this - passed in?
+				'flightName', 
+				'flightCode',
+				'gate',
+				'passengerType',
+				'airport',
+				'departureLounge',
+				'boardingZone',
+				'boarding',
+				'departureTime'];
+		
+		this.getLoadFactor = function () {
+			var loadFactor = document.getElementById("loadFactor").value;
+			if (loadFactor>0 && loadFactor<=1) {
+				return loadFactor;
+			} else {
+				return 1;
+			}
+		}
+
 		this.displayTable = function() {
-			var innerString = "";
+			var innerString = this.header;
 			app.passengers.forEach((function(passenger, idx) {
-				var string = this.template.replace('%flightName%', passenger.flightName)
-					.replace('%flightCode%', passenger.flightCode)
-					.replace('%gate%', passenger.gate)
-					.replace('%passengerType%', passenger.passengerType)
-					.replace('%airport%', passenger.airport)
-					.replace('%departureLounge%', passenger.departureLounge)
-					.replace('%boardingZone%', passenger.boardingZone)
-					.replace('%boarding%', passenger.boarding)
-					.replace('%departure%', passenger.departureTime);
-				innerString+=string;
+				var passengerString = this.template;
+				this.keys.forEach(function(key) {
+					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
+				})
+				innerString+=passengerString;
 			}).bind(this));
 			this.table.innerHTML+=innerString;
 		}
@@ -57,57 +89,41 @@ var app = app || {};
 			var a = document.createElement("a");
 			var file = new Blob([JSON.stringify(app.passengers)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
-			a.download = 'passengerProfiles.json';
+			a.download = 'PassengerTimingProfiles.json';
 			a.click();
-			console.log('download json:', file);
 		}
 		this.serializeJSON = function(json) {
-			return json.reduce(function(a,b) {
-				return a+(Object.keys(b).map(function(key) {
-					return b[key];
-				}).join('\t')+'\n');
-			}, Object.keys(json[0]).join('\t')+'\n')
+			return json.reduce((function(a,b) {
+				return a+(this.keys.map(function(key) {
+					return '"'+b[key]+'"';
+				}).join(',')+'\n');
+			}).bind(this), this.keys.join(',')+'\n');
 		}
-		this.downloadTSV  = function() {
+		this.downloadCSV  = function() {
 			var a = document.createElement("a");
 			var file = new Blob([this.serializeJSON(app.passengers)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
-			a.download = 'passengerProfiles.tsv';
+			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
-			console.log('download tsv', file);
+		}
+		this.enableDownloads = function() {
+			document.getElementById("downloadJSON").disabled = false;
+			document.getElementById("downloadCSV").disabled = false;
+			document.getElementById("showResults").disabled = false;
+		}
+		this.showResults = function() {
+			app.display();
+		}
+		this.clearResults = function() {
+			this.table.innerHTML = "";
 		}
 	}
 	app.Model = function(airports, airlines, aircraft, pax) {
-		this.airports = airports;
-		this.airlines = airlines;
-		this.aircraft = aircraft;
-		this.pax = {
-			'time':[180,0,5],
-			'legend':[
-				'airport',
-				'departureLounge',
-				'boardingZone',
-				'boarding'
-			],
-			'C': [
-					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
-			],
-			'D': [ // this needs to be swapped out
-					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
-			],
-			'E': [ // this needs to be swapped out
-					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
-					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
-			]
-		};
+		this.airports = airports; 	// these should probably be jsons - AJAX?
+		this.airlines = airlines;	//
+		this.aircraft = aircraft;	//
+		this.pax = pax;				//
+
 		this.getAirportByCode = function(code) {
 			return this.airports.filter(function(obj) {
 				return obj.IATA == code;
@@ -129,7 +145,10 @@ var app = app || {};
 		this.destination = app.model.getAirportByCode(this.flight.destination);
 		this.airline = app.model.getAirlineByCode(this.flight.airline);
 		this.aircraft = app.model.getAircraftByCode(this.flight.aircraft)
+		this.aircraft.seats = this.flight.seats !== undefined ? this.flight.seats*loadFactor : this.aircraft.seats*loadFactor;
 		this.profile = app.model.pax[this.aircraft.code];
+
+
 
 
 		this.getFlightName = function() {
@@ -212,7 +231,7 @@ var app = app || {};
 	}
 	app.Passenger = function(flightName, flightCode, departureTime) {
 
-		var percentages = { // Pull this from spreadsheet?
+		var percentages = { // Pull this from spreadsheet? - passed in?
 			"Leisure": 30,
 			"Assisted": 5,
 			"Business": 25,
@@ -231,8 +250,7 @@ var app = app || {};
 		this.passengerType = types[Math.floor(Math.random() * (100 - 0 + 1)) + 0];
 		this.gate = 0;
 	}
+
 	app.init();
-	app.run();
-	app.display();
 
 })();
