@@ -4,3 +4,6 @@ X implement loadfactor
 X apply other aiplane pax types
 - loading csv and/or json files in
 - handle flights with missing data instead of skipping?
+X interpolate granularity
+- assign gates to output?
+

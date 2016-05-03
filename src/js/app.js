@@ -19,7 +19,7 @@ var app = app || {};
 		this.loadFactor = this.view.getLoadFactor();
 		this.filter = this.view.getFilter();
 
-		for (var d=0; d<designDay.length; d++) {
+		for (var d=0; d<1; d++) {
 			/*
 			if (this.filter !== null) {
 				if (Object.keys(this.designDay[d]).map((function(key) {
@@ -32,7 +32,6 @@ var app = app || {};
 				this.passengers.push(passenger);
 			}).bind(this));
 		}
-
 		this.view.enableDownloads();
 	}
 	app.display = function() {
@@ -84,6 +83,7 @@ var app = app || {};
 				'boardingZone',
 				'boarding',
 				'departureTime'];
+
 		this.getFilter = function() {
 			var filter = document.getElementById("filter").value;
 			if (filter !== undefined && filter !== null && filter!== "") {
@@ -194,8 +194,6 @@ var app = app || {};
 		this.profile = app.model.pax[this.aircraft.code];
 
 
-
-
 		this.getFlightName = function() {
 			return '%airline% to %municipality%, %plane%'
 				.replace('%municipality%', this.destination.municipality)
@@ -242,19 +240,19 @@ var app = app || {};
 
 				var passengers = this.getPassengerArray();
 				var passengerArrivalTimes = this.getArrivalTimes(app.model.pax.time);
-				var passengerMatrix = this.getMovementMatrix();
 
-				this.getMovementMatrix().forEach((function(arr, index) {
-					var count=0;
-					for (var i=0; i<=arr.length; i++) {
-						for (var j=0; j<arr[i]; j++) {
-							if (passengers[count] !== undefined && count < passengers.length) {
-								var time = this.decimalDayToTime(this.flight.time-passengerArrivalTimes[i])
-								passengers[count][app.model.pax.legend[index]] = time;
-								count++;
-							}
+				this.getMovementMatrix().forEach((function(paxTimes, legend) {
+					var count = 0;
+					paxTimes.forEach((function(numPeople, index) {
+						for (var i=0; i<numPeople; i++) {
+							var interp = this.decimalDayToTime(this.flight.time -
+								passengerArrivalTimes[index] +
+								i * this.minutesToDecimalDay(app.model.pax.time[2] / numPeople));
+
+							passengers[count][app.model.pax.legend[legend]] = interp;
+							count++;
 						}
-					}
+					}).bind(this));
 				}).bind(this));
 				return passengers;
 			}
