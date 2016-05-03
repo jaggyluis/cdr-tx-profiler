@@ -7,19 +7,32 @@ var app = app || {};
 	app.init = function() {
 		this.designDay = designDay;
 		this.loadFactor = 1;
+		this.filter = null;
 		this.model = new this.Model(airports, airlines, aircraft, pax);
 		this.passengers = [];
 		this.view = new this.View();
 	}
 	app.run = function() {
+
 		this.passengers = [];
 		this.view.clearResults();
 		this.loadFactor = this.view.getLoadFactor();
+		this.filter = this.view.getFilter();
+
 		for (var d=0; d<designDay.length; d++) {
+			/*
+			if (this.filter !== null) {
+				if (Object.keys(this.designDay[d]).map((function(key) {
+						return this.designDay[d][key];
+					}).bind(this)).includes(this.filter.toString())) {
+					console.log(designDay[d]);
+				}
+			}*/
 			new this.Flight(this.designDay[d], this.loadFactor).getPassengers().forEach((function(passenger) {
 				this.passengers.push(passenger);
 			}).bind(this));
 		}
+
 		this.view.enableDownloads();
 	}
 	app.display = function() {
@@ -29,6 +42,17 @@ var app = app || {};
 		this.table = document.getElementById("passenger-timing-table");
 		this.header = document.querySelector("#passenger-timing-header").innerHTML;
 		this.template = document.querySelector("#passenger-timing-template").innerHTML;
+		
+		this.trigger = document.getElementById("fileUpload");
+		this.trigger.addEventListener('change', (function(val) {
+			console.log(val.target.value);
+			console.log(this.loadJSON(val.target.value))
+		}).bind(this));
+
+		this.uploadJSONButton = document.getElementById("uploadJSON");
+		this.uploadJSONButton.addEventListener('click', (function() {
+			this.trigger.click();
+		}).bind(this));
 
 		this.downloadJSONButton = document.getElementById("downloadJSON");
 		this.downloadJSONButton.addEventListener('click', (function() {
@@ -60,7 +84,14 @@ var app = app || {};
 				'boardingZone',
 				'boarding',
 				'departureTime'];
-		
+		this.getFilter = function() {
+			var filter = document.getElementById("filter").value;
+			if (filter !== undefined && filter !== null && filter!== "") {
+				return filter;
+			} else {
+				return null;
+			}
+		}
 		this.getLoadFactor = function () {
 			var loadFactor = document.getElementById("loadFactor").value;
 			if (loadFactor>0 && loadFactor<=1) {
@@ -69,7 +100,6 @@ var app = app || {};
 				return 1;
 			}
 		}
-
 		this.displayTable = function() {
 			var innerString = this.header;
 			app.passengers.forEach((function(passenger, idx) {
@@ -80,6 +110,21 @@ var app = app || {};
 				innerString+=passengerString;
 			}).bind(this));
 			this.table.innerHTML+=innerString;
+		}
+		this.loadJSON = function(filePath) {
+
+		    var startIndex = filePath.indexOf('\\') >= 0 ? filePath.lastIndexOf('\\') : filePath.lastIndexOf('/');
+		    var filename = filePath.substring(startIndex);
+		    if(filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+		        filename = filename.substring(1);
+		    }
+			return $.ajax({
+				url: filename,
+				success: function(data) {
+					fileContent = data;
+					return data;
+				}
+			});
 		}
 		this.downloadJSON = function() {
 			/*

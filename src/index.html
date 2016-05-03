@@ -4,6 +4,7 @@
 	<title>Aviation Passenger Timing Profile Generator</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/libs/jquery-1.12.3.js"></script>
 	<style type="text/css">
 		
 		button,
@@ -21,6 +22,7 @@
 			border: 1px solid grey;
 			border-collapse: collapse;
 			padding: 2px;
+			font-size: 10px;
 		}
 		.bold {
 			font-weight: bold;
@@ -31,18 +33,20 @@
 	<div id="container">
 		<!--<input type="file" style="position: fixed; top: -100em">-->
 		<div>
-			<input id="loadFactor" placeholder="Load Factor (0 - 1)">
-			<input id="timeRange" placeholder="Time Range">
+			<input id="loadFactor" placeholder="Load Factor">
+			<input id="timeRange" placeholder="Time Range //disabled">
+			<input id="filter" placeholder="Filter //disabled">
+			<input id="fileUpload" type="file" name="inputFile" style="display: none;" />
 		</div>
 		<div>
-			<button id="uploadJSON" disabled>Upload JSON (broken)</button>
-			<button id="uploadCSV" disabled>Upload CSV (broken)</button>
+			<button id="uploadJSON"disabled>Upload JSON //disabled</button>
+			<button id="uploadCSV" disabled>Upload CSV //disabled</button>
 			<button id="run">Run</button>
 		</div>
 		<div>
 			<button id="downloadJSON" disabled>Save JSON</button>
 			<button id="downloadCSV" disabled>Save CSV</button>
-			<button id="showResults" disabled>Show Results (slow)</button>
+			<button id="showResults" disabled>Show Results</button>
 		</div>
 		<table id="passenger-timing-table">
 		</table>
