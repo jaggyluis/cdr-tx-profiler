@@ -5,38 +5,20 @@ var app = app || {};
 	'use strict';
 
 	app.init = function() {
-		this.designDay = designDay;
-		this.loadFactor = 1;
-		this.filter = null;
 		this.model = new this.Model(airports, airlines, aircraft, pax);
-		this.passengers = [];
 		this.view = new this.View();
 	}
-	app.run = function() {
-
-		this.passengers = [];
+	app.run = function(designDay) {
 		this.view.clearResults();
-		this.loadFactor = this.view.getLoadFactor();
-		this.filter = this.view.getFilter();
-
-		for (var d=0; d<1; d++) {
-			/*
-			if (this.filter !== null) {
-				if (Object.keys(this.designDay[d]).map((function(key) {
-						return this.designDay[d][key];
-					}).bind(this)).includes(this.filter.toString())) {
-					console.log(designDay[d]);
-				}
-			}*/
-			new this.Flight(this.designDay[d], this.loadFactor).getPassengers().forEach((function(passenger) {
-				this.passengers.push(passenger);
-			}).bind(this));
-		}
+		this.model.setFlights(designDay, this.view.getLoadFactor(), this.view.getFilter());
+		this.model.setGates();
 		this.view.enableDownloads();
 	}
 	app.display = function() {
 		this.view.displayTable();
 	}
+
+
 	app.View = function() {
 		this.table = document.getElementById("passenger-timing-table");
 		this.header = document.querySelector("#passenger-timing-header").innerHTML;
@@ -44,8 +26,8 @@ var app = app || {};
 		
 		this.trigger = document.getElementById("fileUpload");
 		this.trigger.addEventListener('change', (function(val) {
-			console.log(val.target.value);
-			console.log(this.loadJSON(val.target.value))
+			//console.log(val.target.value);
+			//console.log(this.loadJSON(val.target.value))
 		}).bind(this));
 
 		this.uploadJSONButton = document.getElementById("uploadJSON");
@@ -70,7 +52,7 @@ var app = app || {};
 
 		this.runButton = document.getElementById("run");
 		this.runButton.addEventListener('click', (function() {
-			app.run();
+			app.run(designDay);
 		}).bind(this));
 
 		this.keys = [ // Probably a better spot for this - passed in?
@@ -86,7 +68,7 @@ var app = app || {};
 
 		this.getFilter = function() {
 			var filter = document.getElementById("filter").value;
-			if (filter !== undefined && filter !== null && filter!== "") {
+			if (filter !== undefined && filter !== null && filter !== "") {
 				return filter;
 			} else {
 				return null;
@@ -102,7 +84,7 @@ var app = app || {};
 		}
 		this.displayTable = function() {
 			var innerString = this.header;
-			app.passengers.forEach((function(passenger, idx) {
+			app.model.getPassengers().forEach((function(passenger, idx) {
 				var passengerString = this.template;
 				this.keys.forEach(function(key) {
 					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
@@ -132,7 +114,7 @@ var app = app || {};
 			 * http://stackoverflow.com/questions/13405129/javascript-create-and-save-file
 			 */
 			var a = document.createElement("a");
-			var file = new Blob([JSON.stringify(app.passengers)], {type:'text/plain'});
+			var file = new Blob([JSON.stringify(app.model.getPassengers())], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.json';
 			a.click();
@@ -146,7 +128,7 @@ var app = app || {};
 		}
 		this.downloadCSV  = function() {
 			var a = document.createElement("a");
-			var file = new Blob([this.serializeJSON(app.passengers)], {type:'text/plain'});
+			var file = new Blob([this.serializeJSON(app.model.getPassengers())], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
@@ -163,11 +145,19 @@ var app = app || {};
 			this.table.innerHTML = "";
 		}
 	}
+
+
 	app.Model = function(airports, airlines, aircraft, pax) {
 		this.airports = airports; 	// these should probably be jsons - AJAX?
 		this.airlines = airlines;	//
 		this.aircraft = aircraft;	//
 		this.pax = pax;				//
+		this.flights = [];
+
+		this.gates = {};
+		for (var i=0; i<25; i++) {
+			this.gates['B'+ i] = [];
+		}
 
 		this.getAirportByCode = function(code) {
 			return this.airports.filter(function(obj) {
@@ -183,16 +173,65 @@ var app = app || {};
 			return this.aircraft.filter(function(obj) {
 				return obj.IATA == code;
 			})[0];
-		};
+		}
+		this.setFlights = function(designDay, loadFactor) {
+			designDay.forEach((function(flight) {
+				this.flights.push(new app.Flight(flight, loadFactor));
+			}).bind(this));
+		}
+		this.setGates = function() {
+			this.flights.forEach((function(flight, idx) {
+				flight.gate = this.findGate(flight);
+			}).bind(this));
+		}
+		this.findGate = function(flight) {
+
+			if (flight.flight.tt === 0) return '__'; 
+
+			for (var gate in this.gates) {
+
+					if (this.gates[gate].some(function(t) {
+
+						var a0 = t.flight.time - t.flight.tt;
+						var a1 = t.flight.time;
+						var b0 = flight.flight.time - flight.flight.tt;
+						var b1 = flight.flight.time;
+						
+						return ((a0 <= b0 && a1 >= b1 && a0 <= b1 && a1 >= b0) || 
+							(a0 <= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0) || 
+							(a0 >= b0 && a1 >= b1 && a0 <= b1 && a1 >= b0) ||
+							(a0 >= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0));
+
+					})) {
+						continue;
+					} else {
+						this.gates[gate].push(flight);
+						return gate;
+					}		
+			}
+			return null;
+			
+		}
+		this.getPassengers = function() {
+			var passengers = [];
+			this.flights.forEach(function(flight) {
+				flight.getPassengers().forEach(function(passenger) {
+					passengers.push(passenger);
+				});
+			})
+			return passengers;
+		}
 	}
+
+
 	app.Flight = function(flight, loadFactor) {
 		this.flight = flight;
 		this.destination = app.model.getAirportByCode(this.flight.destination);
 		this.airline = app.model.getAirlineByCode(this.flight.airline);
 		this.aircraft = app.model.getAircraftByCode(this.flight.aircraft)
 		this.aircraft.seats = this.flight.seats !== undefined ? this.flight.seats*loadFactor : this.aircraft.seats*loadFactor;
+		this.gate = null;
 		this.profile = app.model.pax[this.aircraft.code];
-
 
 		this.getFlightName = function() {
 			return '%airline% to %municipality%, %plane%'
@@ -231,7 +270,8 @@ var app = app || {};
 			for (var i=0; i<this.aircraft.seats; i++) {
 				pArray.push(new app.Passenger(this.getFlightName(), 
 					this.airline.IATA, 
-					this.decimalDayToTime(this.flight.time)));
+					this.decimalDayToTime(this.flight.time),
+					this.gate));
 			}
 			return pArray;
 		}
@@ -272,7 +312,9 @@ var app = app || {};
 			return dday;
 		}
 	}
-	app.Passenger = function(flightName, flightCode, departureTime) {
+
+
+	app.Passenger = function(flightName, flightCode, departureTime, gate) {
 
 		var percentages = { // Pull this from spreadsheet? - passed in?
 			"Leisure": 30,
@@ -291,7 +333,7 @@ var app = app || {};
 		this.flightCode = flightCode;
 		this.departureTime = departureTime;
 		this.passengerType = types[Math.floor(Math.random() * (100 - 0 + 1)) + 0];
-		this.gate = 0;
+		this.gate = gate;
 	}
 
 	app.init();

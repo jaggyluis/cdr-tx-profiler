@@ -92,6 +92,10 @@ var airlines = [
         "name": "Air New Zealand"
     },
     {
+        "IATA": "OO",
+        "name": "SkyWest Airlines"
+    },
+    {
         "IATA": "PR",
         "name": "Philippines Airlines"
     },
@@ -106,6 +110,10 @@ var airlines = [
     {
         "IATA": "QR",
         "name": "Qatar Airways"
+    },
+    {
+        "IATA": "QX",
+        "name": "Horizon Air"
     },
     {
         "IATA": "QZ",
