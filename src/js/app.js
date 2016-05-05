@@ -7,15 +7,23 @@ var app = app || {};
 	app.init = function() {
 		this.model = new this.Model(airports, airlines, aircraft, pax);
 		this.view = new this.View();
+		this.view.init();
 	}
 	app.run = function(designDay) {
-		this.view.clearResults();
-		this.model.setFlights(designDay, this.view.getLoadFactor(), this.view.getFilter());
+		this.clearAll();
+		this.model.setFlights(designDay, 
+			this.view.getLoadFactor(), 
+			this.view.getFilter(), 
+			this.view.getTimeFrame());
 		this.model.setGates();
 		this.view.enableDownloads();
 	}
 	app.display = function() {
 		this.view.displayTable();
+	}
+	app.clearAll = function() {
+		this.view.clearAll();
+		this.model.clearAll();
 	}
 
 
@@ -49,11 +57,26 @@ var app = app || {};
 		this.showResultsButton.addEventListener('click', (function() {
 			this.showResults();
 		}).bind(this));
+		this.showResultsButton.addEventListener('mousedown',function() {
+			var loading = document.getElementById("loading");
+			loading.classList.toggle("hidden");
+		});
+		this.showResultsButton.addEventListener('mouseup',function() {
+			var loading = document.getElementById("loading");
+			loading.classList.toggle("hidden");
+		});
 
 		this.runButton = document.getElementById("run");
 		this.runButton.addEventListener('click', (function() {
 			app.run(designDay);
 		}).bind(this));
+
+		this.inputs = document.getElementsByTagName("input");
+		for (var i=0; i<this.inputs.length; i++) {
+			this.inputs[i].addEventListener('click', function() {
+				//app.clearAll();
+			});
+		}
 
 		this.keys = [ // Probably a better spot for this - passed in?
 				'flightName', 
@@ -66,12 +89,24 @@ var app = app || {};
 				'boarding',
 				'departureTime'];
 
+		this.init = function() {
+			this.clearAll();
+		}
 		this.getFilter = function() {
-			var filter = document.getElementById("filter").value;
-			if (filter !== undefined && filter !== null && filter !== "") {
-				return filter;
+			return document.getElementById("filter").value;
+		}
+		this.getTimeFrame = function() {
+			var timeFrame = document.getElementById('timeFrame')
+				.value.split(" to ")
+				.map(function (str) {
+				return Number(str);
+			});
+			if (timeFrame.length == 2 && 
+				!isNaN(timeFrame[0] &&
+				!isNaN(timeFrame[1]))) {
+				return timeFrame;
 			} else {
-				return null;
+				return [0, 24];
 			}
 		}
 		this.getLoadFactor = function () {
@@ -83,7 +118,7 @@ var app = app || {};
 			}
 		}
 		this.displayTable = function() {
-			var innerString = this.header;
+			var innerString = "";
 			app.model.getPassengers().forEach((function(passenger, idx) {
 				var passengerString = this.template;
 				this.keys.forEach(function(key) {
@@ -141,8 +176,8 @@ var app = app || {};
 		this.showResults = function() {
 			app.display();
 		}
-		this.clearResults = function() {
-			this.table.innerHTML = "";
+		this.clearAll = function() {
+			this.table.innerHTML = this.header;
 		}
 	}
 
@@ -153,7 +188,6 @@ var app = app || {};
 		this.aircraft = aircraft;	//
 		this.pax = pax;				//
 		this.flights = [];
-
 		this.gates = {};
 		for (var i=0; i<25; i++) {
 			this.gates['B'+ i] = [];
@@ -174,15 +208,27 @@ var app = app || {};
 				return obj.IATA == code;
 			})[0];
 		}
-		this.setFlights = function(designDay, loadFactor) {
-			designDay.forEach((function(flight) {
-				this.flights.push(new app.Flight(flight, loadFactor));
+		this.setFlights = function(designDay, loadFactor, filter, timeFrame) {
+			designDay.forEach((function(_flight) {
+				if (decimalDayToTime(_flight.time).split(':')[0] > timeFrame[0] &&
+					decimalDayToTime(_flight.time).split(':')[0] < timeFrame[1]) {
+					var flight = new app.Flight(_flight, loadFactor)
+					if (JSON.stringify(flight).match(filter)) {
+						this.flights.push(flight);
+					}
+				}
 			}).bind(this));
 		}
 		this.setGates = function() {
 			this.flights.forEach((function(flight, idx) {
 				flight.gate = this.findGate(flight);
 			}).bind(this));
+		}
+		this.clearAll = function () {
+			this.flights = [];
+			for (var gate in this.gates) {
+				this.gates[gate] = [];
+			}
 		}
 		this.findGate = function(flight) {
 
@@ -201,7 +247,6 @@ var app = app || {};
 							(a0 <= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0) || 
 							(a0 >= b0 && a1 >= b1 && a0 <= b1 && a1 >= b0) ||
 							(a0 >= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0));
-
 					})) {
 						continue;
 					} else {
@@ -242,7 +287,7 @@ var app = app || {};
 		this.getArrivalTimes = function(arr) {
 			var arrTimes = []
 			for (var i=arr[0]; i>=arr[1]; i-=arr[2]) {
-				arrTimes.push(this.minutesToDecimalDay(i));
+				arrTimes.push(minutesToDecimalDay(i));
 			}
 			return arrTimes;
 		}
@@ -270,7 +315,7 @@ var app = app || {};
 			for (var i=0; i<this.aircraft.seats; i++) {
 				pArray.push(new app.Passenger(this.getFlightName(), 
 					this.airline.IATA, 
-					this.decimalDayToTime(this.flight.time),
+					decimalDayToTime(this.flight.time),
 					this.gate));
 			}
 			return pArray;
@@ -285,9 +330,9 @@ var app = app || {};
 					var count = 0;
 					paxTimes.forEach((function(numPeople, index) {
 						for (var i=0; i<numPeople; i++) {
-							var interp = this.decimalDayToTime(this.flight.time -
+							var interp = decimalDayToTime(this.flight.time -
 								passengerArrivalTimes[index] +
-								i * this.minutesToDecimalDay(app.model.pax.time[2] / numPeople));
+								i * minutesToDecimalDay(app.model.pax.time[2] / numPeople));
 
 							passengers[count][app.model.pax.legend[legend]] = interp;
 							count++;
@@ -297,19 +342,6 @@ var app = app || {};
 				return passengers;
 			}
 			return [];
-		}
-		this.decimalDayToTime = function(dday) {
-			dday = dday>=0 ? dday : 1 + dday;
-			var hours = (dday*24).toString().split('.')[0];
-			var minutes = (dday*24).toString().split('.')[1]
-			minutes = minutes ? (Number("." + minutes)*60).toString().split('.')[0] : "00";
-			minutes = minutes.length > 1 ? minutes  : "0"+minutes;
-			return hours + ':' + minutes;
-		}
-		this.minutesToDecimalDay = function(minutes) {
-			var hours = minutes/60;
-			var dday = hours/24;
-			return dday;
 		}
 	}
 
@@ -337,5 +369,23 @@ var app = app || {};
 	}
 
 	app.init();
+
+	/// utility functions
+
+
+	function decimalDayToTime(dday) {
+		dday = dday>=0 ? dday : 1 + dday;
+		var hours = (dday*24).toString().split('.')[0];
+		var minutes = (dday*24).toString().split('.')[1]
+		minutes = minutes ? (Number("." + minutes)*60).toString().split('.')[0] : "00";
+		minutes = minutes.length > 1 ? minutes  : "0"+minutes;
+		return hours + ':' + minutes;
+	}
+
+	function minutesToDecimalDay(minutes) {
+		var hours = minutes/60;
+		var dday = hours/24;
+		return dday;
+	}
 
 })();

@@ -10,4 +10,6 @@ X assign gates to output?
 - plane size/area in choosing gate
 - gates choice needs to be more effective
 
-
+X implement timeframe
+X implement filter
+X implement better filter

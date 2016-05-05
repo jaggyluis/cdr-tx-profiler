@@ -5,48 +5,42 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="js/libs/jquery-1.12.3.js"></script>
-	<style type="text/css">
-		button,
-		input {
-			margin-bottom: 5px;
-			width: 200px;
-			border: 1px solid grey;
-			box-sizing: border-box;
-		}
-		table,
-		th,
-		tr,
-		td {
-			border: 1px solid grey;
-			border-collapse: collapse;
-			padding: 2px;
-			font-size: 10px;
-		}
-		.bold {
-			font-weight: bold;
-		}
-	</style>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div id="container">
-		<div>
-			<input id="loadFactor" placeholder="Load Factor">
-			<input id="timeRange" placeholder="Time Range //disabled">
-			<input id="filter" placeholder="Filter //disabled">
-			<input id="fileUpload" type="file" name="inputFile" style="display: none;" />
+		<input id="fileUpload" type="file" name="inputFile" style="display: none;" />
+		<div id="table-box">
+			<table id="passenger-timing-table"></table>
 		</div>
-		<div>
-			<button id="uploadJSON"disabled>Upload JSON //disabled</button>
-			<button id="uploadCSV" disabled>Upload CSV //disabled</button>
-			<button id="run">Run</button>
+		<div id="nav-bar">
+			<div class="input-box">
+				<input id="loadFactor" placeholder="0.9">
+				<div class="input-title">Load Factor</div>
+			</div>
+			<div class="input-box">
+				<input id="timeFrame" placeholder="0 to 24">
+				<div class="input-title">Time Frame</div>
+			</div>
+			<div id="input-box">
+				<input id="filter" placeholder="American Airlines">
+				<div class="input-title">Filter Flights</div>
+			</div>	
+			<div class="button-box">
+				<button id="uploadJSON"disabled>Upload JSON //disabled</button>
+				<button id="uploadCSV" disabled>Upload CSV //disabled</button>
+				<button id="run">Run</button>
+				<button id="downloadJSON" disabled>Save JSON</button>
+				<button id="downloadCSV" disabled>Save CSV</button>
+				<div id="show-box">
+					<button id="showResults" disabled>Show Results</button>
+					<div id="loading" class="hidden">
+						<img src="img/loading.gif">
+					</div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<button id="downloadJSON" disabled>Save JSON</button>
-			<button id="downloadCSV" disabled>Save CSV</button>
-			<button id="showResults" disabled>Show Results</button>
-		</div>
-		<table id="passenger-timing-table">
-		</table>
+
 	</div>
 
 	<script type="text/template" id="passenger-timing-template">
@@ -80,7 +74,35 @@
 	<script src="js/model/airlines.js"></script>
 	<script src="js/model/aircraft.js"></script>
 	<script src="js/model/pax.js"></script>
-	<script src="js/app.js"></script>	
+	<script src="js/app.js"></script>
+	<!-- Additional Evaluations -->
+	<script type="text/javascript">
+
+	//evaluate average turnaround time by plane
+	// this should be addeed according to AIRLINE
+
+	var tts = {};
+
+	for (var i=0; i< designDay.length; i++ ) {
+		var plane = app.model.getAircraftByCode(designDay[i].aircraft);
+		if (designDay[i].tt !== 0) {
+			if (plane.IATA in tts) {
+				tts[plane.IATA].push(designDay[i].tt);
+			} else {
+				tts[plane.IATA] = [designDay[i].tt];
+			}
+		}
+
+	}
+	for ( var IATA in tts) {
+		length = tts[IATA].length;
+		sum = tts[IATA].reduce(function(a,b) {
+			return a+b;
+		})
+		tts[IATA] = sum/length;
+	}
+	console.log(tts);
+	</script>
 </body>
 </html>
 
