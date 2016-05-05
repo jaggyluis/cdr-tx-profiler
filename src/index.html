@@ -74,35 +74,9 @@
 	<script src="js/model/airlines.js"></script>
 	<script src="js/model/aircraft.js"></script>
 	<script src="js/model/pax.js"></script>
+	<script src="js/model/tt.js"></script>
 	<script src="js/app.js"></script>
 	<!-- Additional Evaluations -->
-	<script type="text/javascript">
-
-	//evaluate average turnaround time by plane
-	// this should be addeed according to AIRLINE
-
-	var tts = {};
-
-	for (var i=0; i< designDay.length; i++ ) {
-		var plane = app.model.getAircraftByCode(designDay[i].aircraft);
-		if (designDay[i].tt !== 0) {
-			if (plane.IATA in tts) {
-				tts[plane.IATA].push(designDay[i].tt);
-			} else {
-				tts[plane.IATA] = [designDay[i].tt];
-			}
-		}
-
-	}
-	for ( var IATA in tts) {
-		length = tts[IATA].length;
-		sum = tts[IATA].reduce(function(a,b) {
-			return a+b;
-		})
-		tts[IATA] = sum/length;
-	}
-	console.log(tts);
-	</script>
 </body>
 </html>
 

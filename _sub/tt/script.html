@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head></head>
+<body>
+	<script src="info.js"></script>
+	<script type="text/javascript">
+
+	var averageTT = {}
+
+	for (var i=0; i< tt.length; i++) {
+		if (tt[i].aircraft.toString() in averageTT) {
+			if (tt[i].airline in averageTT[tt[i].aircraft.toString()]) {
+				averageTT[tt[i].aircraft.toString()][tt[i].airline].push(tt[i].tt)
+			} else {
+				averageTT[tt[i].aircraft.toString()][tt[i].airline] = [tt[i].tt]
+			}
+		} else {
+			averageTT[tt[i].aircraft.toString()] = {};
+			averageTT[tt[i].aircraft.toString()][tt[i].airline] = [tt[i].tt]
+		}
+	}
+
+	/*
+	for (var aircraft in averageTT) {
+		for (var airline in averageTT[aircraft]) {
+			var length = averageTT[aircraft][airline].length
+			var sum = averageTT[aircraft][airline].reduce(function(a,b) {
+				return a+b;
+			});
+			averageTT[aircraft][airline] = sum/length;
+		}
+	}*/
+
+	console.log(JSON.stringify(averageTT));
+
+	</script>
+</body>
+</html>

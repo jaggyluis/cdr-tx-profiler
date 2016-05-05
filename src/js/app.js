@@ -5,7 +5,7 @@ var app = app || {};
 	'use strict';
 
 	app.init = function() {
-		this.model = new this.Model(airports, airlines, aircraft, pax);
+		this.model = new this.Model(airports, airlines, aircraft, pax, tt);
 		this.view = new this.View();
 		this.view.init();
 	}
@@ -92,6 +92,17 @@ var app = app || {};
 		this.init = function() {
 			this.clearAll();
 		}
+		this.enableDownloads = function() {
+			document.getElementById("downloadJSON").disabled = false;
+			document.getElementById("downloadCSV").disabled = false;
+			document.getElementById("showResults").disabled = false;
+		}
+		this.showResults = function() {
+			app.display();
+		}
+		this.clearAll = function() {
+			this.table.innerHTML = this.header;
+		}
 		this.getFilter = function() {
 			return document.getElementById("filter").value;
 		}
@@ -168,31 +179,23 @@ var app = app || {};
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
 		}
-		this.enableDownloads = function() {
-			document.getElementById("downloadJSON").disabled = false;
-			document.getElementById("downloadCSV").disabled = false;
-			document.getElementById("showResults").disabled = false;
-		}
-		this.showResults = function() {
-			app.display();
-		}
-		this.clearAll = function() {
-			this.table.innerHTML = this.header;
-		}
 	}
 
 
-	app.Model = function(airports, airlines, aircraft, pax) {
+	app.Model = function(airports, airlines, aircraft, pax, tt) {
 		this.airports = airports; 	// these should probably be jsons - AJAX?
 		this.airlines = airlines;	//
 		this.aircraft = aircraft;	//
 		this.pax = pax;				//
+		this.tt = tt
 		this.flights = [];
 		this.gates = {};
 		for (var i=0; i<25; i++) {
 			this.gates['B'+ i] = [];
 		}
 
+		// these should probably be moved to the model files if they stay as .js
+		//
 		this.getAirportByCode = function(code) {
 			return this.airports.filter(function(obj) {
 				return obj.IATA == code;
@@ -231,31 +234,24 @@ var app = app || {};
 			}
 		}
 		this.findGate = function(flight) {
-
-			if (flight.flight.tt === 0) return '__'; 
-
+			if (flight.tt === 0) return '__'; 
 			for (var gate in this.gates) {
-
-					if (this.gates[gate].some(function(t) {
-
-						var a0 = t.flight.time - t.flight.tt;
-						var a1 = t.flight.time;
-						var b0 = flight.flight.time - flight.flight.tt;
-						var b1 = flight.flight.time;
-						
-						return ((a0 <= b0 && a1 >= b1 && a0 <= b1 && a1 >= b0) || 
-							(a0 <= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0) || 
-							(a0 >= b0 && a1 >= b1 && a0 <= b1 && a1 >= b0) ||
-							(a0 >= b0 && a1 <= b1 && a0 <= b1 && a1 >= b0));
-					})) {
-						continue;
-					} else {
-						this.gates[gate].push(flight);
-						return gate;
-					}		
+				if (this.gates[gate].some(function(t) {
+					var a = [t.flight.time - t.tt, t.flight.time];
+					var b = [flight.flight.time - flight.tt, flight.flight.time];		
+					return ((a[0] <= b[0] && a[1] >= b[1] && a[0] <= b[1] && a[1] >= b[0]) || 
+						(a[0] <= b[0] && a[1] <= b[1] && a[0] <= b[1] && a[1] >= b[0]) || 
+						(a[0] >= b[0] && a[1] >= b[1] && a[0] <= b[1] && a[1] >= b[0]) ||
+						(a[0] >= b[0] && a[1] <= b[1] && a[0] <= b[1] && a[1] >= b[0]));
+				})) {
+					continue;
+				} else {
+					this.gates[gate].push(flight);
+					return gate;
+				}		
 			}
+			console.log(flight.getFlightName(), decimalDayToTime(flight.tt));
 			return null;
-			
 		}
 		this.getPassengers = function() {
 			var passengers = [];
@@ -266,6 +262,30 @@ var app = app || {};
 			})
 			return passengers;
 		}
+		this.getTurnaroundTime = function(flight) {
+			if (flight.aircraft in this.tt) {
+				if (flight.airline in this.tt[flight.aircraft]) { // do average for now
+					var length = this.tt[flight.aircraft][flight.airline].length;
+					var sum = this.tt[flight.aircraft][flight.airline].reduce(function(a,b) {
+						return a+b;
+					})
+					return sum/length;
+				} else {
+					var length = 0;
+					var sum = Object.keys(this.tt[flight.aircraft]).map((function(a){
+						return this.tt[flight.aircraft][a];
+					}).bind(this)).reduce(function(a,b) {
+						return a.concat(b)
+					},[]).reduce(function(a,b) {
+						length++;
+						return a+b;
+					});
+					return sum/length;
+				}
+			} else {
+				return 0;
+			}
+		}
 	}
 
 
@@ -274,6 +294,7 @@ var app = app || {};
 		this.destination = app.model.getAirportByCode(this.flight.destination);
 		this.airline = app.model.getAirlineByCode(this.flight.airline);
 		this.aircraft = app.model.getAircraftByCode(this.flight.aircraft)
+		this.tt = this.flight.tt !== 0 ? this.flight.tt : app.model.getTurnaroundTime(this.flight);
 		this.aircraft.seats = this.flight.seats !== undefined ? this.flight.seats*loadFactor : this.aircraft.seats*loadFactor;
 		this.gate = null;
 		this.profile = app.model.pax[this.aircraft.code];
@@ -370,7 +391,8 @@ var app = app || {};
 
 	app.init();
 
-	/// utility functions
+	// utility functions
+	//
 
 
 	function decimalDayToTime(dday) {

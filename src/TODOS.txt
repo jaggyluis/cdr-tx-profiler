@@ -6,10 +6,10 @@ X apply other aiplane pax types
 - handle flights with missing/broken data instead of skipping?
 X interpolate granularity
 X assign gates to output?
-- turnaround time for planes with no tt - by plane type
+X turnaround time for planes with no tt - by plane type
 - plane size/area in choosing gate
-- gates choice needs to be more effective
+- gate choice needs to be more effective
 
-X implement timeframe
+X implement time frame
 X implement filter
 X implement better filter
