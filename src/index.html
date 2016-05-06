@@ -9,7 +9,6 @@
 </head>
 <body>
 	<div id="container">
-		<input id="fileUpload" type="file" name="inputFile" style="display: none;" />
 		<div id="table-box">
 			<table id="passenger-timing-table"></table>
 			<div id="drop">DRAG AND DROP FILE (CSV OR JSON)</div>
@@ -27,15 +26,28 @@
 				<input id="filter" placeholder="American Airlines">
 				<div class="input-title">Filter Flights</div>
 			</div>	
-			<div class="button-box">
-				<button id="run" disabled>Run</button>
-				<button id="downloadJSON" disabled>Save JSON</button>
-				<button id="downloadCSV" disabled>Save CSV</button>
-				<div id="show-box">
-					<button id="showResults" disabled>Show Results</button>
-					<div id="loading" class="hidden">
-						<img src="img/loading.gif">
-					</div>
+			<div class="btn-box">
+				<button id="run" class="btn-toggle" disabled>Run</button>
+				<div id="run-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="downloadJSON" class="btn-toggle" disabled>Save JSON</button>
+				<div id="json-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="downloadCSV" class="btn-toggle" disabled>Save CSV</button>
+				<div id="csv-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="showResults" class="btn-toggle" disabled>Show Results</button>
+				<div id="show-icn" class="hidden loading">
+					<img src="img/loading.gif">
 				</div>
 			</div>
 		</div>

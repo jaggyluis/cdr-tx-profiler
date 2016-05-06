@@ -21,6 +21,7 @@ table {
 	border-collapse: collapse;
 	font-size: 9px;
 	width: 800px;
+	margin-bottom: 10px;
 }
 td {
 	border: 1px solid grey;
@@ -30,20 +31,10 @@ img {
 	height: 100%;
 }
 #nav-bar {
-	//margin-left: 825px;
 	margin-left: 799px;
 	padding-left: 5px;
 	border-left: 1px solid grey;
 	position: fixed;
-}
-#loading {
-	width: 15px;
-	height: 15px;
-	float: left;
-}
-#showResults {
-	float: left;
-	margin-right: 4px;
 }
 #table-box {
 	float: left;
@@ -59,20 +50,28 @@ img {
 #drop:hover {
 	background-color: #ddd;
 }
-.button-box {
-	width: 230px;
+.btn-toggle {
+	float: left;
+	margin-right: 4px;
 }
-
+.loading {
+	width: 15px;
+	height: 15px;
+	float: left;
+}
+.btn-box {
+	width: 230px;
+	overflow: hidden;
+}
 .input-title {
 	display: inline-block;
-	//width: 100px;
-	//text-align: right;
-	//position: relative;
-	//left: -110px;
 }
 .bold {
 	font-weight: bold;
 }
 .hidden {
-	display: none;
+	visibility: hidden;
+}
+.bounded {
+	border: 1px solid black;
 }

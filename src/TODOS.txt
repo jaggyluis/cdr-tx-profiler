@@ -7,14 +7,19 @@ X loading csv and/or json files in
 X interpolate granularity
 X assign gates to output?
 X turnaround time for planes with no tt - by plane type
-- plane size/area in choosing gate
-- gate choice needs to be more effective
+- gate choice needs to be more effective:
+	- plane size/area
 
 X implement time frame
 X implement filter
 X implement better filter
 
-- convert all to 
+X implement seconds on decimalDayToTime
+- implement actual gates if avaiable 
+
+
+// later
+- convert all to // major overhaul
 {
   'foo': function(bar) {
   }

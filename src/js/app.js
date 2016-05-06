@@ -10,11 +10,16 @@ var app = app || {};
 
 	function decimalDayToTime(dday) {
 		dday = dday>=0 ? dday : 1 + dday;
-		var hours = (dday*24).toString().split('.')[0];
-		var minutes = (dday*24).toString().split('.')[1]
-		minutes = minutes ? (Number("." + minutes)*60).toString().split('.')[0] : "00";
-		minutes = minutes.length > 1 ? minutes  : "0"+minutes;
-		return hours + ':' + minutes;
+		var hours = Number((dday*24).toString().split('.')[0]);
+		var minutes = Number((dday*24*60 - hours*60).toString().split('.')[0]);
+		var seconds = Number((dday*24*60*60 - hours*60*60 - minutes*60).toString().split('.')[0]);
+		hours = hours > 0 ? hours.toString() : '00';
+		minutes = minutes > 0 ? minutes.toString() : '00';
+		seconds = seconds > 0 ? seconds.toString() : '00';
+		hours = hours.length > 1 ? hours : "0"+hours;
+		minutes = minutes.length > 1 ? minutes: "0"+minutes;
+		seconds = seconds.length > 1 ? seconds: "0"+seconds;
+		return hours+':'+minutes+':'+seconds;
 	}
 
 	function minutesToDecimalDay(minutes) {
@@ -27,6 +32,7 @@ var app = app || {};
 	 	var splitStr = time.split(':');
 	 	var hours = Number(splitStr[0]);
 	 	var minutes = Number(splitStr[1]);
+	 	var seconds = null // not needed in current simulation
 	 	return minutesToDecimalDay(hours*60+minutes);
 	 }
 
@@ -48,9 +54,6 @@ var app = app || {};
 		this.model.setGates();
 		this.view.enableDownloads();
 	}
-	app.display = function() {
-		this.view.displayTable();
-	}
 	app.set = function(data) {
 		this.data = data;
 	}
@@ -64,33 +67,43 @@ var app = app || {};
 		this.table = document.getElementById("passenger-timing-table");
 		this.header = document.querySelector("#passenger-timing-header").innerHTML;
 		this.template = document.querySelector("#passenger-timing-template").innerHTML;
-		
-		this.trigger = document.getElementById("fileUpload");
-		this.trigger.addEventListener('change', (function(val) {
-			//console.log(val.target.value);
-			//console.log(this.loadJSON(val.target.value))
-		}).bind(this));
 
 		this.downloadJSONButton = document.getElementById("downloadJSON");
 		this.downloadJSONButton.addEventListener('click', (function() {
 			this.downloadJSON();
 		}).bind(this));
+		this.downloadJSONButton.addEventListener('mousedown',function() {
+			var loading = document.getElementById("json-icn");
+			loading.classList.toggle("hidden");
+		});
+		this.downloadJSONButton.addEventListener('mouseup',function() {
+			var loading = document.getElementById("json-icn");
+			loading.classList.toggle("hidden");
+		});
 
 		this.downloadCSVButton = document.getElementById("downloadCSV");
 		this.downloadCSVButton.addEventListener('click', (function() {
 			this.downloadCSV();
 		}).bind(this));
+		this.downloadCSVButton.addEventListener('mousedown',function() {
+			var loading = document.getElementById("csv-icn");
+			loading.classList.toggle("hidden");
+		});
+		this.downloadCSVButton.addEventListener('mouseup',function() {
+			var loading = document.getElementById("csv-icn");
+			loading.classList.toggle("hidden");
+		});
 
 		this.showResultsButton = document.getElementById("showResults");
 		this.showResultsButton.addEventListener('click', (function() {
 			this.showResults();
 		}).bind(this));
 		this.showResultsButton.addEventListener('mousedown',function() {
-			var loading = document.getElementById("loading");
+			var loading = document.getElementById("show-icn");
 			loading.classList.toggle("hidden");
 		});
 		this.showResultsButton.addEventListener('mouseup',function() {
-			var loading = document.getElementById("loading");
+			var loading = document.getElementById("show-icn");
 			loading.classList.toggle("hidden");
 		});
 
@@ -98,6 +111,14 @@ var app = app || {};
 		this.runButton.addEventListener('click', (function() {
 			app.run();
 		}).bind(this));
+		this.runButton.addEventListener('mousedown',function() {
+			var loading = document.getElementById("run-icn");
+			loading.classList.toggle("hidden");
+		});
+		this.runButton.addEventListener('mouseup',function() {
+			var loading = document.getElementById("run-icn");
+			loading.classList.toggle("hidden");
+		});
 
 		this.keys = [ // Probably a better spot for this - passed in?
 				'flightName', 
@@ -120,7 +141,8 @@ var app = app || {};
 			document.getElementById("showResults").disabled = false;
 		}
 		this.showResults = function() {
-			app.display();
+			this.clearAll();
+			this.displayTable();
 		}
 		this.clearAll = function() {
 			this.table.innerHTML = this.header;
@@ -233,7 +255,6 @@ var app = app || {};
 				if (e.preventDefault) { e.preventDefault(); }
 				var reader = new FileReader();
 				var fileName = e.dataTransfer.files[0].name;
-				console.log(fileName); // do something with this
 				reader.addEventListener('loadend', function(e, file) {
 					if (fileName.split('.')[1] === 'json' ) {
 						app.set(self.readJSON(this.result));
@@ -241,9 +262,11 @@ var app = app || {};
 						app.set(self.readCSV(this.result));
 					}
 					document.getElementById('run').disabled = false;
-					drop.classList.toggle('hidden');
+					//drop.classList.toggle('hidden');
+
 				});
 				reader.readAsText(e.dataTransfer.files[0]);
+				drop.innerText = fileName.toUpperCase();
 			})
 		}
 	}
