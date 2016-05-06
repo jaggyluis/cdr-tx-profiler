@@ -12,6 +12,7 @@
 		<input id="fileUpload" type="file" name="inputFile" style="display: none;" />
 		<div id="table-box">
 			<table id="passenger-timing-table"></table>
+			<div id="drop">DRAG AND DROP FILE (CSV OR JSON)</div>
 		</div>
 		<div id="nav-bar">
 			<div class="input-box">
@@ -27,9 +28,7 @@
 				<div class="input-title">Filter Flights</div>
 			</div>	
 			<div class="button-box">
-				<button id="uploadJSON"disabled>Upload JSON //disabled</button>
-				<button id="uploadCSV" disabled>Upload CSV //disabled</button>
-				<button id="run">Run</button>
+				<button id="run" disabled>Run</button>
 				<button id="downloadJSON" disabled>Save JSON</button>
 				<button id="downloadCSV" disabled>Save CSV</button>
 				<div id="show-box">
@@ -69,7 +68,6 @@
 			<td>Departure</td>
 		</tr>
 	</script>
-	<script src="SFO Terminal 1 Design Day.js"></script>
 	<script src="js/model/airports.js"></script>
 	<script src="js/model/airlines.js"></script>
 	<script src="js/model/aircraft.js"></script>

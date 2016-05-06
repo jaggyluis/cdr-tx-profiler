@@ -4,14 +4,44 @@ var app = app || {};
 (function() {
 	'use strict';
 
+
+	// utility functions
+	//
+
+	function decimalDayToTime(dday) {
+		dday = dday>=0 ? dday : 1 + dday;
+		var hours = (dday*24).toString().split('.')[0];
+		var minutes = (dday*24).toString().split('.')[1]
+		minutes = minutes ? (Number("." + minutes)*60).toString().split('.')[0] : "00";
+		minutes = minutes.length > 1 ? minutes  : "0"+minutes;
+		return hours + ':' + minutes;
+	}
+
+	function minutesToDecimalDay(minutes) {
+		var hours = minutes/60;
+		var dday = hours/24;
+		return dday;
+	}
+
+	 function timeToDecimalDay(time) {
+	 	var splitStr = time.split(':');
+	 	var hours = Number(splitStr[0]);
+	 	var minutes = Number(splitStr[1]);
+	 	return minutesToDecimalDay(hours*60+minutes);
+	 }
+
+	// main app
+	//
+
 	app.init = function() {
 		this.model = new this.Model(airports, airlines, aircraft, pax, tt);
 		this.view = new this.View();
 		this.view.init();
+		this.data = null;
 	}
-	app.run = function(designDay) {
-		this.clearAll();
-		this.model.setFlights(designDay, 
+	app.run = function() {
+		this.clear();
+		this.model.setFlights(this.data, 
 			this.view.getLoadFactor(), 
 			this.view.getFilter(), 
 			this.view.getTimeFrame());
@@ -21,7 +51,10 @@ var app = app || {};
 	app.display = function() {
 		this.view.displayTable();
 	}
-	app.clearAll = function() {
+	app.set = function(data) {
+		this.data = data;
+	}
+	app.clear = function() {
 		this.view.clearAll();
 		this.model.clearAll();
 	}
@@ -36,11 +69,6 @@ var app = app || {};
 		this.trigger.addEventListener('change', (function(val) {
 			//console.log(val.target.value);
 			//console.log(this.loadJSON(val.target.value))
-		}).bind(this));
-
-		this.uploadJSONButton = document.getElementById("uploadJSON");
-		this.uploadJSONButton.addEventListener('click', (function() {
-			this.trigger.click();
 		}).bind(this));
 
 		this.downloadJSONButton = document.getElementById("downloadJSON");
@@ -68,15 +96,8 @@ var app = app || {};
 
 		this.runButton = document.getElementById("run");
 		this.runButton.addEventListener('click', (function() {
-			app.run(designDay);
+			app.run();
 		}).bind(this));
-
-		this.inputs = document.getElementsByTagName("input");
-		for (var i=0; i<this.inputs.length; i++) {
-			this.inputs[i].addEventListener('click', function() {
-				//app.clearAll();
-			});
-		}
 
 		this.keys = [ // Probably a better spot for this - passed in?
 				'flightName', 
@@ -91,6 +112,7 @@ var app = app || {};
 
 		this.init = function() {
 			this.clearAll();
+			this.initFileUploader();
 		}
 		this.enableDownloads = function() {
 			document.getElementById("downloadJSON").disabled = false;
@@ -139,21 +161,6 @@ var app = app || {};
 			}).bind(this));
 			this.table.innerHTML+=innerString;
 		}
-		this.loadJSON = function(filePath) {
-
-		    var startIndex = filePath.indexOf('\\') >= 0 ? filePath.lastIndexOf('\\') : filePath.lastIndexOf('/');
-		    var filename = filePath.substring(startIndex);
-		    if(filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
-		        filename = filename.substring(1);
-		    }
-			return $.ajax({
-				url: filename,
-				success: function(data) {
-					fileContent = data;
-					return data;
-				}
-			});
-		}
 		this.downloadJSON = function() {
 			/*
 			 * modified from
@@ -164,6 +171,13 @@ var app = app || {};
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.json';
 			a.click();
+		}
+		this.readJSON = function(fileStr) {
+			try {
+				return JSON.parse(fileStr);
+			} catch (e) {
+				return null;
+			}
 		}
 		this.serializeJSON = function(json) {
 			return json.reduce((function(a,b) {
@@ -178,6 +192,59 @@ var app = app || {};
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
+		}
+		this.readCSV = function(fileStr) {
+			var parsed = fileStr.split('\n');
+			var re = /[^\w\:\-]/gi;
+			var keys = parsed[0].split(',').map(function(str) {
+				return str.replace(re, "");
+			});
+			return parsed.slice(1).map(function(csvArray) {
+				var flight = {};
+				csvArray.split(',').map(function(str) {
+					return str.replace(re, "");
+				}).forEach(function(value, idx) {
+					if (!isNaN(Number(value))) {
+						flight[keys[idx]] =  Number(value);
+					} else if (value.match(':')){
+						flight[keys[idx]] = timeToDecimalDay(value);
+					} else {
+						flight[keys[idx]] = value;
+					}
+				});
+				return flight;
+			});
+		}
+		this.initFileUploader= function() {
+			/*
+			 * modified from
+			 * http://www.htmlgoodies.com
+			 * /html5/javascript/drag-files-into-the-browser-from-the-desktop-HTML5.html#fbid=fCs8ypx8lEd
+			 */
+			var self = this;
+			var drop = document.getElementById('drop');
+			drop.addEventListener('dragover', function (e) {
+				if (e.preventDefault) { e.preventDefault(); }
+			})
+			drop.addEventListener('dragenter', function (e) {
+				if (e.preventDefault) { e.preventDefault(); }
+			})
+			drop.addEventListener('drop', function (e) {
+				if (e.preventDefault) { e.preventDefault(); }
+				var reader = new FileReader();
+				var fileName = e.dataTransfer.files[0].name;
+				console.log(fileName); // do something with this
+				reader.addEventListener('loadend', function(e, file) {
+					if (fileName.split('.')[1] === 'json' ) {
+						app.set(self.readJSON(this.result));
+					} else if (fileName.split('.')[1] === 'csv' ) {
+						app.set(self.readCSV(this.result));
+					}
+					document.getElementById('run').disabled = false;
+					drop.classList.toggle('hidden');
+				});
+				reader.readAsText(e.dataTransfer.files[0]);
+			})
 		}
 	}
 
@@ -211,8 +278,8 @@ var app = app || {};
 				return obj.IATA == code;
 			})[0];
 		}
-		this.setFlights = function(designDay, loadFactor, filter, timeFrame) {
-			designDay.forEach((function(_flight) {
+		this.setFlights = function(data, loadFactor, filter, timeFrame) {
+			data.forEach((function(_flight) {
 				if (decimalDayToTime(_flight.time).split(':')[0] > timeFrame[0] &&
 					decimalDayToTime(_flight.time).split(':')[0] < timeFrame[1]) {
 					var flight = new app.Flight(_flight, loadFactor)
@@ -390,24 +457,4 @@ var app = app || {};
 	}
 
 	app.init();
-
-	// utility functions
-	//
-
-
-	function decimalDayToTime(dday) {
-		dday = dday>=0 ? dday : 1 + dday;
-		var hours = (dday*24).toString().split('.')[0];
-		var minutes = (dday*24).toString().split('.')[1]
-		minutes = minutes ? (Number("." + minutes)*60).toString().split('.')[0] : "00";
-		minutes = minutes.length > 1 ? minutes  : "0"+minutes;
-		return hours + ':' + minutes;
-	}
-
-	function minutesToDecimalDay(minutes) {
-		var hours = minutes/60;
-		var dday = hours/24;
-		return dday;
-	}
-
 })();

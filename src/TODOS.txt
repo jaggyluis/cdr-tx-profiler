@@ -2,7 +2,7 @@ X include seatconfig if available
 X implement loadfactor
 - implement domestic/international?
 X apply other aiplane pax types
-- loading csv and/or json files in
+X loading csv and/or json files in
 - handle flights with missing/broken data instead of skipping?
 X interpolate granularity
 X assign gates to output?
@@ -13,3 +13,9 @@ X turnaround time for planes with no tt - by plane type
 X implement time frame
 X implement filter
 X implement better filter
+
+- convert all to 
+{
+  'foo': function(bar) {
+  }
+} 

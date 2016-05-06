@@ -47,8 +47,17 @@ img {
 }
 #table-box {
 	float: left;
-	//max-height: 800px;
-	//overflow-y: scroll;
+}
+#drop {
+	padding-top: 50px;
+	vertical-align: middle;
+	width: inherit;
+	height: 60px;
+	text-align: center;
+	z-index: 10;
+}
+#drop:hover {
+	background-color: #ddd;
 }
 .button-box {
 	width: 230px;

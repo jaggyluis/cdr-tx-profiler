@@ -52,38 +52,24 @@
 	    addEventHandler(drop, 'dragover', cancel);
 	    addEventHandler(drop, 'dragenter', cancel);
 	    addEventHandler(drop, 'drop', function (e) {
-			  e = e || window.event; // get window.event if e argument missing (in IE)   
-			  if (e.preventDefault) { e.preventDefault(); } // stops the browser from redirecting off to the image.
+			e = e || window.event; // get window.event if e argument missing (in IE)   
+			if (e.preventDefault) { e.preventDefault(); } // stops the browser from redirecting off to the image.
 
-			  var dt    = e.dataTransfer;
-			  var files = dt.files;
-			  for (var i=0; i<files.length; i++) {
+			var dt    = e.dataTransfer;
+			var files = dt.files;
+			for (var i=0; i<files.length; i++) {
 			    var file = files[i];
 			    var reader = new FileReader();
-			      
-			    //attach event handlers here...
+			    
 			   	addEventHandler(reader, 'loadend', function(e, file) {
-				    var bin           = this.result; 
-				    var newFile       = document.createElement('div');
-				    newFile.innerHTML = 'Loaded : '+file.name+' size '+file.size+' B';
-				    list.appendChild(newFile);  
-				    var fileNumber = list.getElementsByTagName('div').length;
-				    status.innerHTML = fileNumber < files.length 
-				                     ? 'Loaded 100% of file '+fileNumber+' of '+files.length+'...' 
-				                     : 'Done loading. processed '+fileNumber+' files.';
-
-				    var img = document.createElement("img"); 
-				    img.file = file;   
-				    img.src = bin;
-				    list.appendChild(img);
+			   		console.log(this.result);
+				    console.log(JSON.parse(this.result));
 				}.bindToEventHandler(file));
 			   
-			    reader.readAsDataURL(file);
-			  }
-			  return false;
-			});
-
-
+			    reader.readAsText(file);
+			}
+			return false;
+		});
 	  });
 	} else { 
 	  document.getElementById('status').innerHTML = 'Your browser does not support the HTML5 FileReader.';
