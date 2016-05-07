@@ -397,7 +397,7 @@ var app = app || {};
 			return '%airline% to %municipality%, %plane%'
 				.replace('%municipality%', this.destination.municipality)
 				.replace('%airline%', this.airline.name)
-				.replace('%plane%', this.aircraft.name);
+				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
 		}
 		this.getArrivalTimes = function(arr) {
 			var arrTimes = []
