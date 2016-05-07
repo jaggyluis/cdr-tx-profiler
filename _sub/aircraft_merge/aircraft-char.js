@@ -1,14 +1,11 @@
-var aircraft = [
+var nair = [
     {
         "manufacturer": "Adam Aircraft Industries",
         "name": "A500",
         "ICAO": "A500",
         "wingspan": 44,
         "height": 9.58,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Aero Spacelines",
@@ -16,10 +13,7 @@ var aircraft = [
         "ICAO": "SGUP",
         "wingspan": 156.25,
         "height": 48.5,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Aeronca",
@@ -27,10 +21,7 @@ var aircraft = [
         "ICAO": "AR11",
         "wingspan": 36,
         "height": 6,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Aeronca",
@@ -38,10 +29,7 @@ var aircraft = [
         "ICAO": "AR15",
         "wingspan": 37.5,
         "height": 10.33,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -49,10 +37,7 @@ var aircraft = [
         "ICAO": "AT43",
         "wingspan": 80.58,
         "height": 24.92,
-        "ARC": "C-III",
-        "IATA": "AT4",
-        "wake": "M",
-        "seats": 42
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -60,10 +45,7 @@ var aircraft = [
         "ICAO": "AT45",
         "wingspan": 80.6,
         "height": 24.9,
-        "ARC": "C-III",
-        "IATA": "AT5",
-        "wake": "M",
-        "seats": 42
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -71,10 +53,7 @@ var aircraft = [
         "ICAO": "AT72",
         "wingspan": 88.75,
         "height": 25,
-        "ARC": "C-III",
-        "IATA": "AT7",
-        "wake": "M",
-        "seats": 68
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -82,10 +61,7 @@ var aircraft = [
         "ICAO": "N262",
         "wingspan": 74.17,
         "height": 20.4,
-        "ARC": "B-II",
-        "IATA": "ND2",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -93,10 +69,7 @@ var aircraft = [
         "ICAO": "S210",
         "wingspan": 112.5,
         "height": 28.58,
-        "ARC": "C-III",
-        "IATA": "CRV",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Aerospatiale",
@@ -104,10 +77,7 @@ var aircraft = [
         "ICAO": "S601",
         "wingspan": 42.25,
         "height": 13.92,
-        "ARC": "B-I",
-        "IATA": "NDC",
-        "wake": "L",
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Aerostar Aircraft Corp",
@@ -115,10 +85,7 @@ var aircraft = [
         "ICAO": "AEST",
         "wingspan": 36.7,
         "height": 13.2,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Aerostar Aircraft Corp",
@@ -126,10 +93,7 @@ var aircraft = [
         "ICAO": "AEST",
         "wingspan": 36.71,
         "height": 12.13,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Aerostar Aircraft Corp",
@@ -137,10 +101,7 @@ var aircraft = [
         "ICAO": "AEST",
         "wingspan": 36.71,
         "height": 12.13,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Air Tractor",
@@ -148,10 +109,7 @@ var aircraft = [
         "ICAO": "AT3P",
         "wingspan": 45.15,
         "height": 8.5,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Air Tractor",
@@ -159,10 +117,7 @@ var aircraft = [
         "ICAO": "AT3T",
         "wingspan": 51,
         "height": 9.5,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Air Tractor",
@@ -170,10 +125,7 @@ var aircraft = [
         "ICAO": "AT5T",
         "wingspan": 52,
         "height": 10.25,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Air Tractor",
@@ -181,10 +133,7 @@ var aircraft = [
         "ICAO": "AT6T",
         "wingspan": 56,
         "height": 11,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Air Tractor",
@@ -192,10 +141,7 @@ var aircraft = [
         "ICAO": "AT8T",
         "wingspan": 52.1,
         "height": 11.2,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -203,10 +149,7 @@ var aircraft = [
         "ICAO": "A306",
         "wingspan": 147.08,
         "height": 55.25,
-        "ARC": "C-IV",
-        "IATA": "AB6",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -214,10 +157,7 @@ var aircraft = [
         "ICAO": "A3ST",
         "wingspan": 147.17,
         "height": 56.58,
-        "ARC": "C-IV",
-        "IATA": "ABB",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -225,10 +165,7 @@ var aircraft = [
         "ICAO": "A30B",
         "wingspan": 147.08,
         "height": 54.25,
-        "ARC": "C-IV",
-        "IATA": "AB3",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -236,10 +173,7 @@ var aircraft = [
         "ICAO": "A30B",
         "wingspan": 147.08,
         "height": 54.25,
-        "ARC": "C-IV",
-        "IATA": "AB3",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -247,10 +181,7 @@ var aircraft = [
         "ICAO": "A310",
         "wingspan": 144,
         "height": 52,
-        "ARC": "C-IV",
-        "IATA": "310",
-        "wake": "H",
-        "seats": 243
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -258,10 +189,7 @@ var aircraft = [
         "ICAO": "A310",
         "wingspan": 144.1,
         "height": 52.3,
-        "ARC": "C-IV",
-        "IATA": "310",
-        "wake": "H",
-        "seats": 243
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -269,10 +197,7 @@ var aircraft = [
         "ICAO": "A318",
         "wingspan": 111.9,
         "height": 41.2,
-        "ARC": "C-III",
-        "IATA": "318",
-        "wake": "M",
-        "seats": 124
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -280,10 +205,7 @@ var aircraft = [
         "ICAO": "A319",
         "wingspan": 111.3,
         "height": 38.7,
-        "ARC": "C-III",
-        "IATA": "319",
-        "wake": "M",
-        "seats": 116
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -291,10 +213,7 @@ var aircraft = [
         "ICAO": "A320",
         "wingspan": 111.3,
         "height": 39.1,
-        "ARC": "C-III",
-        "IATA": "320",
-        "wake": "M",
-        "seats": 140
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -302,10 +221,7 @@ var aircraft = [
         "ICAO": "A320",
         "wingspan": 111.3,
         "height": 38.9,
-        "ARC": "C-III",
-        "IATA": "320",
-        "wake": "M",
-        "seats": 140
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -313,10 +229,7 @@ var aircraft = [
         "ICAO": "A321",
         "wingspan": 111.83,
         "height": 38.58,
-        "ARC": "C-III",
-        "IATA": "321",
-        "wake": "M",
-        "seats": 149
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -324,10 +237,7 @@ var aircraft = [
         "ICAO": "A388",
         "wingspan": 261.3,
         "height": 78.96,
-        "ARC": "D-VI",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-VI"
     },
     {
         "manufacturer": "Airbus Industries",
@@ -335,10 +245,7 @@ var aircraft = [
         "ICAO": "A38F",
         "wingspan": 261.65,
         "height": 79.3,
-        "ARC": "D-VI",
-        "IATA": "38F",
-        "wake": "H",
-        "seats": null
+        "ARC": "D-VI"
     },
     {
         "manufacturer": "American Aviation",
@@ -346,10 +253,7 @@ var aircraft = [
         "ICAO": "AA1",
         "wingspan": 24.5,
         "height": 7.58,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "American Aviation",
@@ -357,10 +261,7 @@ var aircraft = [
         "ICAO": "AA5",
         "wingspan": 31.5,
         "height": 8,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "American Champion Aircraft",
@@ -368,10 +269,7 @@ var aircraft = [
         "ICAO": "CH7A",
         "wingspan": 33.5,
         "height": 7.7,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "American Champion Aircraft",
@@ -379,10 +277,7 @@ var aircraft = [
         "ICAO": "CH7A",
         "wingspan": 33.5,
         "height": 7.7,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "American Champion Aircraft",
@@ -390,10 +285,7 @@ var aircraft = [
         "ICAO": "CH7B",
         "wingspan": 34.5,
         "height": 7.7,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "American Champion Aircraft",
@@ -401,10 +293,7 @@ var aircraft = [
         "ICAO": "BL8",
         "wingspan": 36.2,
         "height": 9.7,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "American Champion Aircraft",
@@ -412,10 +301,7 @@ var aircraft = [
         "ICAO": "BL8",
         "wingspan": 32,
         "height": 7.7,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Antonov",
@@ -423,10 +309,7 @@ var aircraft = [
         "ICAO": "AN12",
         "wingspan": 124.8,
         "height": 34.6,
-        "ARC": "C-IV",
-        "IATA": "ANF",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Antonov",
@@ -434,10 +317,7 @@ var aircraft = [
         "ICAO": "A124",
         "wingspan": 240.5,
         "height": 69.17,
-        "ARC": "C-VI",
-        "IATA": "A4F",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-VI"
     },
     {
         "manufacturer": "Antonov",
@@ -445,10 +325,7 @@ var aircraft = [
         "ICAO": "A140",
         "wingspan": 83.67,
         "height": 27,
-        "ARC": "E-III",
-        "IATA": "A40",
-        "wake": "M",
-        "seats": null
+        "ARC": "E-III"
     },
     {
         "manufacturer": "Antonov",
@@ -456,10 +333,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.8,
         "height": 28.1,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Antonov",
@@ -467,10 +341,7 @@ var aircraft = [
         "ICAO": "AN72",
         "wingspan": 84.7,
         "height": 27,
-        "ARC": "A-III",
-        "IATA": "AN7",
-        "wake": "M",
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "ATR",
@@ -478,10 +349,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 80.07,
         "height": 25.05,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -489,10 +357,7 @@ var aircraft = [
         "ICAO": "AT72",
         "wingspan": 88.09,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": "AT7",
-        "wake": "M",
-        "seats": 68
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -500,10 +365,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 88.09,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -511,10 +373,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 88.09,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -522,10 +381,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 88.09,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -533,10 +389,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 88.09,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -544,10 +397,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 80.07,
         "height": 25.05,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -555,10 +405,7 @@ var aircraft = [
         "ICAO": "AT43",
         "wingspan": 58.02,
         "height": 21.11,
-        "ARC": "B-II",
-        "IATA": "AT4",
-        "wake": "M",
-        "seats": 42
+        "ARC": "B-II"
     },
     {
         "manufacturer": "ATR",
@@ -566,10 +413,7 @@ var aircraft = [
         "ICAO": "AT43",
         "wingspan": 80.58,
         "height": 24.92,
-        "ARC": "B-III",
-        "IATA": "AT4",
-        "wake": "M",
-        "seats": 42
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -577,10 +421,7 @@ var aircraft = [
         "ICAO": "AT44",
         "wingspan": 80.58,
         "height": 24.92,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -588,10 +429,7 @@ var aircraft = [
         "ICAO": "AT45",
         "wingspan": 80.42,
         "height": 24.92,
-        "ARC": "B-III",
-        "IATA": "AT5",
-        "wake": "M",
-        "seats": 42
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -599,10 +437,7 @@ var aircraft = [
         "ICAO": "AT72",
         "wingspan": 88.75,
         "height": 25.08,
-        "ARC": "B-III",
-        "IATA": "AT7",
-        "wake": "M",
-        "seats": 68
+        "ARC": "B-III"
     },
     {
         "manufacturer": "ATR",
@@ -610,10 +445,7 @@ var aircraft = [
         "ICAO": "AT72",
         "wingspan": 88.75,
         "height": 25.01,
-        "ARC": "B-III",
-        "IATA": "AT7",
-        "wake": "M",
-        "seats": 68
+        "ARC": "B-III"
     },
     {
         "manufacturer": "BAC",
@@ -621,10 +453,7 @@ var aircraft = [
         "ICAO": "BA11",
         "wingspan": 88.5,
         "height": 24.5,
-        "ARC": "C-III",
-        "IATA": "B11",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "BAC",
@@ -632,10 +461,7 @@ var aircraft = [
         "ICAO": "BA11",
         "wingspan": 88.5,
         "height": 24.5,
-        "ARC": "C-III",
-        "IATA": "B11",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "BAC",
@@ -643,10 +469,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.5,
         "height": 24.5,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "BAE",
@@ -654,10 +477,7 @@ var aircraft = [
         "ICAO": "B461",
         "wingspan": 86.42,
         "height": 28.25,
-        "ARC": "B-III",
-        "IATA": "141",
-        "wake": "M",
-        "seats": 82
+        "ARC": "B-III"
     },
     {
         "manufacturer": "BAE",
@@ -665,10 +485,7 @@ var aircraft = [
         "ICAO": "B462",
         "wingspan": 86.42,
         "height": 28.25,
-        "ARC": "B-III",
-        "IATA": "142",
-        "wake": "M",
-        "seats": 100
+        "ARC": "B-III"
     },
     {
         "manufacturer": "BAE",
@@ -676,10 +493,7 @@ var aircraft = [
         "ICAO": "B463",
         "wingspan": 86.42,
         "height": 28.17,
-        "ARC": "C-III",
-        "IATA": "143",
-        "wake": "M",
-        "seats": 112
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Beechcraft",
@@ -687,10 +501,7 @@ var aircraft = [
         "ICAO": "BE18",
         "wingspan": 49.67,
         "height": 9.33,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Beechcraft",
@@ -698,10 +509,7 @@ var aircraft = [
         "ICAO": "BE24",
         "wingspan": 38.67,
         "height": 8.2,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -709,10 +517,7 @@ var aircraft = [
         "ICAO": "BE55",
         "wingspan": 37.83,
         "height": 9.17,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -720,10 +525,7 @@ var aircraft = [
         "ICAO": "B190",
         "wingspan": 58,
         "height": 15.5,
-        "ARC": "B-II",
-        "IATA": "BE1",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Beechcraft",
@@ -731,10 +533,7 @@ var aircraft = [
         "ICAO": "BE99",
         "wingspan": 45.92,
         "height": 14.33,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -742,10 +541,7 @@ var aircraft = [
         "ICAO": "B190",
         "wingspan": 54.5,
         "height": 14.9,
-        "ARC": "B-II",
-        "IATA": "BE1",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Beechcraft",
@@ -753,10 +549,7 @@ var aircraft = [
         "ICAO": "BE58",
         "wingspan": 37.8,
         "height": 9.8,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -764,10 +557,7 @@ var aircraft = [
         "ICAO": "BE58",
         "wingspan": 37.8,
         "height": 9.1,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -775,10 +565,7 @@ var aircraft = [
         "ICAO": "BE58",
         "wingspan": 37.8,
         "height": 9.1,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -786,10 +573,7 @@ var aircraft = [
         "ICAO": "BE36",
         "wingspan": 33.5,
         "height": 8.58,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -797,10 +581,7 @@ var aircraft = [
         "ICAO": "BE36",
         "wingspan": 37.83,
         "height": 8.58,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -808,10 +589,7 @@ var aircraft = [
         "ICAO": "BE35",
         "wingspan": 33.5,
         "height": 7.58,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -819,10 +597,7 @@ var aircraft = [
         "ICAO": "BE76",
         "wingspan": 38,
         "height": 9.5,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -830,10 +605,7 @@ var aircraft = [
         "ICAO": "BE60",
         "wingspan": 39.25,
         "height": 12.33,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -841,10 +613,7 @@ var aircraft = [
         "ICAO": "BE10",
         "wingspan": 45.92,
         "height": 15.42,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -852,10 +621,7 @@ var aircraft = [
         "ICAO": "BE9L",
         "wingspan": 50.25,
         "height": 14.25,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Beechcraft",
@@ -863,10 +629,7 @@ var aircraft = [
         "ICAO": "BE9T",
         "wingspan": 45.9,
         "height": 15.1,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -874,10 +637,7 @@ var aircraft = [
         "ICAO": "PRM1",
         "wingspan": 44.5,
         "height": 15.33,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -885,10 +645,7 @@ var aircraft = [
         "ICAO": "BE77",
         "wingspan": 30,
         "height": 7.92,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -896,10 +653,7 @@ var aircraft = [
         "ICAO": "BE23",
         "wingspan": 32.75,
         "height": 8.25,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Beechcraft",
@@ -907,10 +661,7 @@ var aircraft = [
         "ICAO": "BE20",
         "wingspan": 54.5,
         "height": 15,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Boeing",
@@ -918,10 +669,7 @@ var aircraft = [
         "ICAO": "B720",
         "wingspan": 130.83,
         "height": 41.42,
-        "ARC": "C-IV",
-        "IATA": "B72",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -929,10 +677,7 @@ var aircraft = [
         "ICAO": "B742",
         "wingspan": 195.67,
         "height": 63.42,
-        "ARC": "D-V",
-        "IATA": "742",
-        "wake": "H",
-        "seats": 400
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -940,10 +685,7 @@ var aircraft = [
         "ICAO": "B74S",
         "wingspan": 195.67,
         "height": 65.42,
-        "ARC": "C-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-V"
     },
     {
         "manufacturer": "Boeing",
@@ -951,10 +693,7 @@ var aircraft = [
         "ICAO": "B74R",
         "wingspan": 195.7,
         "height": 64.3,
-        "ARC": "D-V",
-        "IATA": "74R",
-        "wake": "H",
-        "seats": 400
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -962,10 +701,7 @@ var aircraft = [
         "ICAO": "B752",
         "wingspan": 124.67,
         "height": 44.5,
-        "ARC": "C-IV",
-        "IATA": "752",
-        "wake": "H",
-        "seats": 220
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -973,10 +709,7 @@ var aircraft = [
         "ICAO": "B752",
         "wingspan": 124.83,
         "height": 44.5,
-        "ARC": "C-IV",
-        "IATA": "752",
-        "wake": "H",
-        "seats": 220
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -984,10 +717,7 @@ var aircraft = [
         "ICAO": "B772",
         "wingspan": 212.07,
         "height": 60,
-        "ARC": "D-V",
-        "IATA": "772",
-        "wake": "H",
-        "seats": 275
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -995,10 +725,7 @@ var aircraft = [
         "ICAO": "B773",
         "wingspan": 212.07,
         "height": 60,
-        "ARC": "D-V",
-        "IATA": "773",
-        "wake": "H",
-        "seats": 368
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1006,10 +733,7 @@ var aircraft = [
         "ICAO": "B701",
         "wingspan": 130.83,
         "height": 41.67,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1017,10 +741,7 @@ var aircraft = [
         "ICAO": "B703",
         "wingspan": 142.42,
         "height": 42.17,
-        "ARC": "C-IV",
-        "IATA": "703",
-        "wake": "H",
-        "seats": 147
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1028,10 +749,7 @@ var aircraft = [
         "ICAO": "B703",
         "wingspan": 145.75,
         "height": 42.08,
-        "ARC": "C-IV",
-        "IATA": "703",
-        "wake": "H",
-        "seats": 147
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1039,10 +757,7 @@ var aircraft = [
         "ICAO": "B712",
         "wingspan": 93.33,
         "height": 29.75,
-        "ARC": "C-III",
-        "IATA": "717",
-        "wake": "M",
-        "seats": 115
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1050,10 +765,7 @@ var aircraft = [
         "ICAO": "B720",
         "wingspan": 130.83,
         "height": 41.17,
-        "ARC": "C-IV",
-        "IATA": "B72",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1061,10 +773,7 @@ var aircraft = [
         "ICAO": "B721",
         "wingspan": 108,
         "height": 34.25,
-        "ARC": "C-III",
-        "IATA": "721",
-        "wake": "M",
-        "seats": 150
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1072,10 +781,7 @@ var aircraft = [
         "ICAO": "B722",
         "wingspan": 108,
         "height": 34.92,
-        "ARC": "C-III",
-        "IATA": "722",
-        "wake": "M",
-        "seats": 150
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1083,10 +789,7 @@ var aircraft = [
         "ICAO": "B731",
         "wingspan": 94,
         "height": 37.17,
-        "ARC": "C-III",
-        "IATA": "731",
-        "wake": "M",
-        "seats": 134
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1094,10 +797,7 @@ var aircraft = [
         "ICAO": "B732",
         "wingspan": 93,
         "height": 37.25,
-        "ARC": "C-III",
-        "IATA": "732",
-        "wake": "M",
-        "seats": 134
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1105,10 +805,7 @@ var aircraft = [
         "ICAO": "B733",
         "wingspan": 94.75,
         "height": 36.58,
-        "ARC": "C-III",
-        "IATA": "733",
-        "wake": "M",
-        "seats": 128
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1116,10 +813,7 @@ var aircraft = [
         "ICAO": "B734",
         "wingspan": 94.75,
         "height": 36.58,
-        "ARC": "C-III",
-        "IATA": "734",
-        "wake": "M",
-        "seats": 159
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1127,10 +821,7 @@ var aircraft = [
         "ICAO": "B735",
         "wingspan": 94.75,
         "height": 36.58,
-        "ARC": "C-III",
-        "IATA": "735",
-        "wake": "M",
-        "seats": 100
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1138,10 +829,7 @@ var aircraft = [
         "ICAO": "B736",
         "wingspan": 112.58,
         "height": 41.25,
-        "ARC": "C-III",
-        "IATA": "736",
-        "wake": "M",
-        "seats": 130
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1149,10 +837,7 @@ var aircraft = [
         "ICAO": "B737",
         "wingspan": 112.58,
         "height": 41.17,
-        "ARC": "C-III",
-        "IATA": "73G",
-        "wake": "M",
-        "seats": 128
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1160,10 +845,7 @@ var aircraft = [
         "ICAO": "B738",
         "wingspan": 112.58,
         "height": 41.17,
-        "ARC": "D-III",
-        "IATA": "738",
-        "wake": "M",
-        "seats": 168
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1171,10 +853,7 @@ var aircraft = [
         "ICAO": "B739",
         "wingspan": 112.07,
         "height": 41.02,
-        "ARC": "D-III",
-        "IATA": "739",
-        "wake": "M",
-        "seats": 204
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Boeing",
@@ -1182,10 +861,7 @@ var aircraft = [
         "ICAO": "B744",
         "wingspan": 213,
         "height": 64.3,
-        "ARC": "D-V",
-        "IATA": "744",
-        "wake": "H",
-        "seats": 420
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1193,10 +869,7 @@ var aircraft = [
         "ICAO": "B753",
         "wingspan": 124.83,
         "height": 44.5,
-        "ARC": "D-IV",
-        "IATA": "753",
-        "wake": "H",
-        "seats": 287
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1204,10 +877,7 @@ var aircraft = [
         "ICAO": "B762",
         "wingspan": 156.08,
         "height": 52.92,
-        "ARC": "C-IV",
-        "IATA": "762",
-        "wake": "H",
-        "seats": 210
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1215,10 +885,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 156.01,
         "height": 52.11,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1226,10 +893,7 @@ var aircraft = [
         "ICAO": "B753",
         "wingspan": 156.08,
         "height": 52.58,
-        "ARC": "C-IV",
-        "IATA": "753",
-        "wake": "H",
-        "seats": 287
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1237,10 +901,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 156.01,
         "height": 52.07,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1248,10 +909,7 @@ var aircraft = [
         "ICAO": "B772",
         "wingspan": 199.9,
         "height": 61.5,
-        "ARC": "D-V",
-        "IATA": "772",
-        "wake": "H",
-        "seats": 275
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1259,10 +917,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 199.92,
         "height": 44.8,
-        "ARC": "D-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1270,10 +925,7 @@ var aircraft = [
         "ICAO": "B773",
         "wingspan": 199.9,
         "height": 61.5,
-        "ARC": "D-V",
-        "IATA": "773",
-        "wake": "H",
-        "seats": 368
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1281,10 +933,7 @@ var aircraft = [
         "ICAO": "B52",
         "wingspan": 185,
         "height": 40.8,
-        "ARC": "D-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing",
@@ -1292,10 +941,7 @@ var aircraft = [
         "ICAO": "C97",
         "wingspan": 141.3,
         "height": 38.3,
-        "ARC": "B-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1303,10 +949,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 145.9,
         "height": 42,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Boeing",
@@ -1314,10 +957,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 195.7,
         "height": 64.7,
-        "ARC": "D-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-V"
     },
     {
         "manufacturer": "Boeing Australia",
@@ -1325,10 +965,7 @@ var aircraft = [
         "ICAO": "NOMA",
         "wingspan": 54,
         "height": 18.1,
-        "ARC": "A-II",
-        "IATA": "CD2",
-        "wake": "L",
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Boeing Australia",
@@ -1336,10 +973,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 54.2,
         "height": 18.2,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Bombardier",
@@ -1347,10 +981,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 43.08,
         "height": 12.02,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Bombardier",
@@ -1358,10 +989,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 47.1,
         "height": 14.01,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Bombardier",
@@ -1369,10 +997,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 43.75,
         "height": 14.58,
-        "ARC": "D-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-I"
     },
     {
         "manufacturer": "Bombardier",
@@ -1380,10 +1005,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 64.33,
         "height": 20.33,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Bombardier",
@@ -1391,10 +1013,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 63.8,
         "height": 20.3,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Bombardier",
@@ -1402,10 +1021,7 @@ var aircraft = [
         "ICAO": "GLEX",
         "wingspan": 94,
         "height": 24.8,
-        "ARC": "C-III",
-        "IATA": "CCX",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Bombardier",
@@ -1413,10 +1029,7 @@ var aircraft = [
         "ICAO": "CL60",
         "wingspan": 61.8,
         "height": 20.67,
-        "ARC": "C-II",
-        "IATA": "CCJ",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Bombardier",
@@ -1424,10 +1037,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 63.08,
         "height": 20.03,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Britten-Norman",
@@ -1435,10 +1045,7 @@ var aircraft = [
         "ICAO": "TRIS",
         "wingspan": 53,
         "height": 14.2,
-        "ARC": "A-II",
-        "IATA": "BNT",
-        "wake": "L",
-        "seats": 16
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Canadair",
@@ -1446,10 +1053,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.3,
         "height": 38.4,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Canadair",
@@ -1457,10 +1061,7 @@ var aircraft = [
         "ICAO": "CL60",
         "wingspan": 61.8,
         "height": 20.7,
-        "ARC": "C-II",
-        "IATA": "CCJ",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Canadair",
@@ -1468,10 +1069,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.3,
         "height": 38.4,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Canadair",
@@ -1479,10 +1077,7 @@ var aircraft = [
         "ICAO": "CL44",
         "wingspan": 142.3,
         "height": 38.4,
-        "ARC": "C-IV",
-        "IATA": "CL4",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Casa",
@@ -1490,10 +1085,7 @@ var aircraft = [
         "ICAO": "C207",
         "wingspan": 91.2,
         "height": 25.4,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Casa",
@@ -1501,10 +1093,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 62.3,
         "height": 20.7,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1512,10 +1101,7 @@ var aircraft = [
         "ICAO": "C150",
         "wingspan": 33.5,
         "height": 7.83,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1523,10 +1109,7 @@ var aircraft = [
         "ICAO": "C177",
         "wingspan": 35.5,
         "height": 8.5,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1534,10 +1117,7 @@ var aircraft = [
         "ICAO": "C182",
         "wingspan": 36,
         "height": 9.33,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1545,10 +1125,7 @@ var aircraft = [
         "ICAO": "C206",
         "wingspan": 36,
         "height": 9.3,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1556,10 +1133,7 @@ var aircraft = [
         "ICAO": "C402",
         "wingspan": 44.17,
         "height": 11.5,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1567,10 +1141,7 @@ var aircraft = [
         "ICAO": "C402",
         "wingspan": 44.17,
         "height": 11.5,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1578,10 +1149,7 @@ var aircraft = [
         "ICAO": "C404",
         "wingspan": 46.3,
         "height": 13.2,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1589,10 +1157,7 @@ var aircraft = [
         "ICAO": "C414",
         "wingspan": 44.1,
         "height": 11.5,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1600,10 +1165,7 @@ var aircraft = [
         "ICAO": "C421",
         "wingspan": 41.7,
         "height": 11.6,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1611,10 +1173,7 @@ var aircraft = [
         "ICAO": "C421",
         "wingspan": 41.7,
         "height": 11.6,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1622,10 +1181,7 @@ var aircraft = [
         "ICAO": "C441",
         "wingspan": 49.3,
         "height": 13.1,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1633,10 +1189,7 @@ var aircraft = [
         "ICAO": "C208",
         "wingspan": 52.1,
         "height": 14.8,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1644,10 +1197,7 @@ var aircraft = [
         "ICAO": "A37*",
         "wingspan": 35.92,
         "height": 8.92,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1655,10 +1205,7 @@ var aircraft = [
         "ICAO": "C550",
         "wingspan": 52.17,
         "height": 15,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1666,10 +1213,7 @@ var aircraft = [
         "ICAO": "C525",
         "wingspan": 46.8,
         "height": 13.8,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1677,10 +1221,7 @@ var aircraft = [
         "ICAO": "C25A",
         "wingspan": 49.83,
         "height": 14,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1688,10 +1229,7 @@ var aircraft = [
         "ICAO": "C560",
         "wingspan": 54.08,
         "height": 15.17,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1699,10 +1237,7 @@ var aircraft = [
         "ICAO": "C500",
         "wingspan": 47.1,
         "height": 14.3,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Cessna",
@@ -1710,10 +1245,7 @@ var aircraft = [
         "ICAO": "C550",
         "wingspan": 51.7,
         "height": 15,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1721,10 +1253,7 @@ var aircraft = [
         "ICAO": "C650",
         "wingspan": 53.5,
         "height": 16.8,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Cessna",
@@ -1732,10 +1261,7 @@ var aircraft = [
         "ICAO": "C560",
         "wingspan": 55.8,
         "height": 17.2,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Convair",
@@ -1743,10 +1269,7 @@ var aircraft = [
         "ICAO": "CVLP",
         "wingspan": 91.8,
         "height": 26.9,
-        "ARC": "B-III",
-        "IATA": "CV4",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Convair",
@@ -1754,10 +1277,7 @@ var aircraft = [
         "ICAO": "CVLP",
         "wingspan": 105.33,
         "height": 28.17,
-        "ARC": "B-III",
-        "IATA": "CV4",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Convair",
@@ -1765,10 +1285,7 @@ var aircraft = [
         "ICAO": "CVLP",
         "wingspan": 105.33,
         "height": 28.17,
-        "ARC": "B-III",
-        "IATA": "CV4",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Convair",
@@ -1776,10 +1293,7 @@ var aircraft = [
         "ICAO": "CVLT",
         "wingspan": 105.3,
         "height": 29.2,
-        "ARC": "B-III",
-        "IATA": "CV5",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1787,10 +1301,7 @@ var aircraft = [
         "ICAO": "FA20",
         "wingspan": 61.92,
         "height": 22.92,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1798,10 +1309,7 @@ var aircraft = [
         "ICAO": "F900",
         "wingspan": 63.42,
         "height": 24.75,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1809,10 +1317,7 @@ var aircraft = [
         "ICAO": "F2TH",
         "wingspan": 63.33,
         "height": 23.16,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1820,10 +1325,7 @@ var aircraft = [
         "ICAO": "ATLA",
         "wingspan": 119.08,
         "height": 37.08,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1831,10 +1333,7 @@ var aircraft = [
         "ICAO": "FA10",
         "wingspan": 42.92,
         "height": 15.08,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1842,10 +1341,7 @@ var aircraft = [
         "ICAO": "FA20",
         "wingspan": 53.5,
         "height": 17.42,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Dassault Aviation",
@@ -1853,10 +1349,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 100.25,
         "height": 37.33,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1864,10 +1357,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.63,
         "height": 31.75,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1875,10 +1365,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 90,
         "height": 24.07,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1886,10 +1373,7 @@ var aircraft = [
         "ICAO": "DOVE",
         "wingspan": 57,
         "height": 13.3,
-        "ARC": "A-II",
-        "IATA": "DHD",
-        "wake": "L",
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "De Havilland",
@@ -1897,10 +1381,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 115,
         "height": 29.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1908,10 +1389,7 @@ var aircraft = [
         "ICAO": "HERN",
         "wingspan": 71.5,
         "height": 15.6,
-        "ARC": "A-II",
-        "IATA": "DHH",
-        "wake": "L",
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "De Havilland",
@@ -1919,10 +1397,7 @@ var aircraft = [
         "ICAO": "DH2T",
         "wingspan": 48,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": "DHR",
-        "wake": "L",
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "De Havilland",
@@ -1930,10 +1405,7 @@ var aircraft = [
         "ICAO": "DHC4",
         "wingspan": 95.67,
         "height": 31.75,
-        "ARC": "A-III",
-        "IATA": "DHC",
-        "wake": "M",
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1941,10 +1413,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 96,
         "height": 28.7,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1952,10 +1421,7 @@ var aircraft = [
         "ICAO": "DHC6",
         "wingspan": 65,
         "height": 19.5,
-        "ARC": "A-II",
-        "IATA": "DHT",
-        "wake": "L",
-        "seats": 19
+        "ARC": "A-II"
     },
     {
         "manufacturer": "De Havilland",
@@ -1963,10 +1429,7 @@ var aircraft = [
         "ICAO": "DHC7",
         "wingspan": 93,
         "height": 26.17,
-        "ARC": "A-III",
-        "IATA": "DH7",
-        "wake": "M",
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "De Havilland",
@@ -1974,10 +1437,7 @@ var aircraft = [
         "ICAO": "DH8C",
         "wingspan": 90,
         "height": 24.58,
-        "ARC": "A-III",
-        "IATA": "DH3",
-        "wake": "M",
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "Embraer",
@@ -1985,10 +1445,7 @@ var aircraft = [
         "ICAO": "E110",
         "wingspan": 50.3,
         "height": 16.5,
-        "ARC": "B-II",
-        "IATA": "EMB",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Embraer",
@@ -1996,10 +1453,7 @@ var aircraft = [
         "ICAO": "E121",
         "wingspan": 47.4,
         "height": 15.9,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Embraer",
@@ -2007,10 +1461,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35.6,
         "height": 12.2,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Embraer",
@@ -2018,10 +1469,7 @@ var aircraft = [
         "ICAO": "PA31",
         "wingspan": 40.58,
         "height": 13,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2029,10 +1477,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 109.3,
         "height": 27.5,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2040,10 +1485,7 @@ var aircraft = [
         "ICAO": "D28D",
         "wingspan": 51,
         "height": 12.8,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2051,10 +1493,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 58.4,
         "height": 18.2,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2062,10 +1501,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 109,
         "height": 27.5,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2073,10 +1509,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 110,
         "height": 34.1,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2084,10 +1517,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 27.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2095,10 +1525,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 27.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2106,10 +1533,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 27.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fairchild Dornier",
@@ -2117,10 +1541,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 27.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fairchild Industries",
@@ -2128,10 +1549,7 @@ var aircraft = [
         "ICAO": "A10*",
         "wingspan": 57.5,
         "height": 14.67,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Fma",
@@ -2139,10 +1557,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 64.1,
         "height": 19.1,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Fokker",
@@ -2150,10 +1565,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 82.3,
         "height": 27.1,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Fokker",
@@ -2161,10 +1573,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 29.3,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fokker",
@@ -2172,10 +1581,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 77.3,
         "height": 27.8,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Fokker",
@@ -2183,10 +1589,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 77.3,
         "height": 27.8,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Fokker",
@@ -2194,10 +1597,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 82.3,
         "height": 27.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Fokker",
@@ -2205,10 +1605,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 82.3,
         "height": 27.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Fokker",
@@ -2216,10 +1613,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 82.3,
         "height": 27.8,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Fokker",
@@ -2227,10 +1621,7 @@ var aircraft = [
         "ICAO": "VF14",
         "wingspan": 70.5,
         "height": 25.6,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2238,10 +1629,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35.07,
         "height": 12.07,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2249,10 +1637,7 @@ var aircraft = [
         "ICAO": "LJ25",
         "wingspan": 35.6,
         "height": 12.07,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2260,10 +1645,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 43.7,
         "height": 14.7,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2271,10 +1653,7 @@ var aircraft = [
         "ICAO": "LJ24",
         "wingspan": 35.6,
         "height": 12.6,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2282,10 +1661,7 @@ var aircraft = [
         "ICAO": "LJ25",
         "wingspan": 35.6,
         "height": 12.6,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2293,10 +1669,7 @@ var aircraft = [
         "ICAO": "LJ28",
         "wingspan": 43.7,
         "height": 12.3,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2304,10 +1677,7 @@ var aircraft = [
         "ICAO": "LJ28",
         "wingspan": 39.5,
         "height": 12.3,
-        "ARC": "D-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-I"
     },
     {
         "manufacturer": "Gates Learjet",
@@ -2315,10 +1685,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 43.7,
         "height": 14.7,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "General Dynamics",
@@ -2326,10 +1693,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 120,
         "height": 36,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "General Dynamics",
@@ -2337,10 +1701,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 120,
         "height": 39.5,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Grumman",
@@ -2348,10 +1709,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 78.8,
         "height": 23,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Grumman",
@@ -2359,10 +1717,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 78.3,
         "height": 23,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Grumman",
@@ -2370,10 +1725,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 68.8,
         "height": 24.5,
-        "ARC": "D-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-II"
     },
     {
         "manufacturer": "Grumman",
@@ -2381,10 +1733,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 77.8,
         "height": 24.4,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Grumman",
@@ -2392,10 +1741,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 77.8,
         "height": 24.4,
-        "ARC": "D-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2403,10 +1749,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 78.04,
         "height": 22.9,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2414,10 +1757,7 @@ var aircraft = [
         "ICAO": "GLF2",
         "wingspan": 68.1,
         "height": 24.06,
-        "ARC": "D-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2425,10 +1765,7 @@ var aircraft = [
         "ICAO": "GLF3",
         "wingspan": 77.1,
         "height": 24.04,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2436,10 +1773,7 @@ var aircraft = [
         "ICAO": "GLF4",
         "wingspan": 77.1,
         "height": 24.1,
-        "ARC": "D-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2447,10 +1781,7 @@ var aircraft = [
         "ICAO": "GLF4",
         "wingspan": 77.1,
         "height": 24.1,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Gulfstream Aerospace",
@@ -2458,10 +1789,7 @@ var aircraft = [
         "ICAO": "GLF5",
         "wingspan": 93.5,
         "height": 25.1,
-        "ARC": "D-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Handley-Page",
@@ -2469,10 +1797,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 94.8,
         "height": 24.1,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2480,10 +1805,7 @@ var aircraft = [
         "ICAO": "A748",
         "wingspan": 102.46,
         "height": 24.83,
-        "ARC": "B-III",
-        "IATA": "HS7",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2491,10 +1813,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 115,
         "height": 27,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2502,10 +1821,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 115,
         "height": 27,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2513,10 +1829,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95,
         "height": 27,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2524,10 +1837,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 98,
         "height": 27,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2535,10 +1845,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 98,
         "height": 28.3,
-        "ARC": "D-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2546,10 +1853,7 @@ var aircraft = [
         "ICAO": "TRID",
         "wingspan": 98,
         "height": 28.3,
-        "ARC": "D-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2557,10 +1861,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 47,
         "height": 16.5,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2568,10 +1869,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 47,
         "height": 17.2,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2579,10 +1877,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 47,
         "height": 17.6,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2590,10 +1885,7 @@ var aircraft = [
         "ICAO": "A748",
         "wingspan": 98.2,
         "height": 30.1,
-        "ARC": "B-III",
-        "IATA": "HS7",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Hawker-Siddeley",
@@ -2601,10 +1893,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 114.8,
         "height": 29.7,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Iai",
@@ -2612,10 +1901,7 @@ var aircraft = [
         "ICAO": "WW23",
         "wingspan": 44.8,
         "height": 15.8,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "IAI",
@@ -2623,10 +1909,7 @@ var aircraft = [
         "ICAO": "ASTR",
         "wingspan": 54.7,
         "height": 18.02,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "IAI",
@@ -2634,10 +1917,7 @@ var aircraft = [
         "ICAO": "ARVA",
         "wingspan": 68.8,
         "height": 17.1,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "IAI",
@@ -2645,10 +1925,7 @@ var aircraft = [
         "ICAO": "ARVA",
         "wingspan": 68.8,
         "height": 17.1,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "IAI",
@@ -2656,10 +1933,7 @@ var aircraft = [
         "ICAO": "JCOM",
         "wingspan": 43.3,
         "height": 15.8,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "IAI",
@@ -2667,10 +1941,7 @@ var aircraft = [
         "ICAO": "WW24",
         "wingspan": 44.8,
         "height": 15.8,
-        "ARC": "C-I",
-        "IATA": "WWP",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "IAI",
@@ -2678,10 +1949,7 @@ var aircraft = [
         "ICAO": "WW24",
         "wingspan": 44.8,
         "height": 15.8,
-        "ARC": "C-I",
-        "IATA": "WWP",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Ilyushin",
@@ -2689,10 +1957,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 104,
         "height": 30.5,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "Ilyushin",
@@ -2700,10 +1965,7 @@ var aircraft = [
         "ICAO": "IL18",
         "wingspan": 122.7,
         "height": 33.3,
-        "ARC": "B-IV",
-        "IATA": "IL8",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-IV"
     },
     {
         "manufacturer": "Ilyushin",
@@ -2711,10 +1973,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 141.8,
         "height": 40.5,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Ilyushin",
@@ -2722,10 +1981,7 @@ var aircraft = [
         "ICAO": "IL76",
         "wingspan": 165.7,
         "height": 48.4,
-        "ARC": "B-IV",
-        "IATA": "IL7",
-        "wake": "H",
-        "seats": null
+        "ARC": "B-IV"
     },
     {
         "manufacturer": "Ilyushin",
@@ -2733,10 +1989,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 157.7,
         "height": 51.8,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Kawasaki Heavy Industries",
@@ -2744,10 +1997,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 100.4,
         "height": 32.9,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Let",
@@ -2755,10 +2005,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 65.55,
         "height": 19.13,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Let",
@@ -2766,10 +2013,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 65.55,
         "height": 19.13,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Let",
@@ -2777,10 +2021,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 65.05,
         "height": 19.01,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Let",
@@ -2788,10 +2029,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 65.05,
         "height": 19.01,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Lockheed",
@@ -2799,10 +2037,7 @@ var aircraft = [
         "ICAO": "C130",
         "wingspan": 132.07,
         "height": 39.3,
-        "ARC": "C-IV",
-        "IATA": "LOH",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2810,10 +2045,7 @@ var aircraft = [
         "ICAO": "C130",
         "wingspan": 132.6,
         "height": 39.3,
-        "ARC": "C-IV",
-        "IATA": "LOH",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2821,10 +2053,7 @@ var aircraft = [
         "ICAO": "C130",
         "wingspan": 132.07,
         "height": 39.2,
-        "ARC": "C-IV",
-        "IATA": "LOH",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2832,10 +2061,7 @@ var aircraft = [
         "ICAO": "C130",
         "wingspan": 132.6,
         "height": 39.2,
-        "ARC": "C-IV",
-        "IATA": "LOH",
-        "wake": "M",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2843,10 +2069,7 @@ var aircraft = [
         "ICAO": "L101",
         "wingspan": 155.3,
         "height": 55.3,
-        "ARC": "C-IV",
-        "IATA": "L10",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2854,10 +2077,7 @@ var aircraft = [
         "ICAO": "L101",
         "wingspan": 155.3,
         "height": 55.3,
-        "ARC": "C-IV",
-        "IATA": "L10",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2865,10 +2085,7 @@ var aircraft = [
         "ICAO": "L101",
         "wingspan": 155.3,
         "height": 55.3,
-        "ARC": "D-IV",
-        "IATA": "L10",
-        "wake": "H",
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2876,10 +2093,7 @@ var aircraft = [
         "ICAO": "L101",
         "wingspan": 155.3,
         "height": 55.3,
-        "ARC": "D-IV",
-        "IATA": "L10",
-        "wake": "H",
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2887,10 +2101,7 @@ var aircraft = [
         "ICAO": "L101",
         "wingspan": 155.3,
         "height": 55.3,
-        "ARC": "D-IV",
-        "IATA": "L10",
-        "wake": "H",
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2898,10 +2109,7 @@ var aircraft = [
         "ICAO": "L29A",
         "wingspan": 54.4,
         "height": 20.4,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Lockheed",
@@ -2909,10 +2117,7 @@ var aircraft = [
         "ICAO": "C141",
         "wingspan": 159.9,
         "height": 39.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2920,10 +2125,7 @@ var aircraft = [
         "ICAO": "C141",
         "wingspan": 159.9,
         "height": 39.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Lockheed",
@@ -2931,10 +2133,7 @@ var aircraft = [
         "ICAO": "C5",
         "wingspan": 222.7,
         "height": 65.1,
-        "ARC": "C-VI",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-VI"
     },
     {
         "manufacturer": "Lockheed",
@@ -2942,10 +2141,7 @@ var aircraft = [
         "ICAO": "C5",
         "wingspan": 222.7,
         "height": 65.1,
-        "ARC": "C-VI",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-VI"
     },
     {
         "manufacturer": "Lockheed",
@@ -2953,10 +2149,7 @@ var aircraft = [
         "ICAO": "P3",
         "wingspan": 99.7,
         "height": 33.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Martin",
@@ -2964,10 +2157,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 28.7,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -2975,10 +2165,7 @@ var aircraft = [
         "ICAO": "A4*",
         "wingspan": 27.5,
         "height": 15,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -2986,10 +2173,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 117.5,
         "height": 29.3,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -2997,10 +2181,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.4,
         "height": 43.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3008,10 +2189,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.4,
         "height": 43.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3019,10 +2197,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.05,
         "height": 43.04,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3030,10 +2205,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3041,10 +2213,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.4,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3052,10 +2221,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.05,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3063,10 +2229,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3074,10 +2237,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3085,10 +2245,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3096,10 +2253,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.05,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3107,10 +2261,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.05,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3118,10 +2269,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.05,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3129,10 +2277,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43.05,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3140,10 +2285,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3151,10 +2293,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3162,10 +2301,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3173,10 +2309,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.05,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3184,10 +2317,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 27.05,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3195,10 +2325,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 27.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3206,10 +2333,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 155.3,
         "height": 58.5,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3217,10 +2341,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 165.3,
         "height": 58.07,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3228,10 +2349,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 165.04,
         "height": 58.07,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3239,10 +2357,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 28.4,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3250,10 +2365,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 28.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3261,10 +2373,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 165.3,
         "height": 58.07,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3272,10 +2381,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 179.7,
         "height": 48.2,
-        "ARC": "C-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-V"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3283,10 +2389,7 @@ var aircraft = [
         "ICAO": "DC10",
         "wingspan": 155.3,
         "height": 58.4,
-        "ARC": "C-IV",
-        "IATA": "D10",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3294,10 +2397,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 165.3,
         "height": 58.6,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3305,10 +2405,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 165.4,
         "height": 58.6,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3316,10 +2413,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95,
         "height": 23.5,
-        "ARC": "A-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3327,10 +2421,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 117.5,
         "height": 27.9,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3338,10 +2429,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 117.5,
         "height": 29.3,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3349,10 +2437,7 @@ var aircraft = [
         "ICAO": "DC7",
         "wingspan": 127.5,
         "height": 31.7,
-        "ARC": "B-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3360,10 +2445,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.4,
         "height": 43.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3371,10 +2453,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.4,
         "height": 43.3,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3382,10 +2461,7 @@ var aircraft = [
         "ICAO": "DC85",
         "wingspan": 142.4,
         "height": 43.3,
-        "ARC": "C-IV",
-        "IATA": "D8T",
-        "wake": "H",
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3393,10 +2469,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 142.4,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3404,10 +2477,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 148.4,
         "height": 43,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3415,10 +2485,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 89.4,
         "height": 27.6,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3426,10 +2493,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 27.4,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3437,10 +2501,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 27.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3448,10 +2509,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 28.4,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3459,10 +2517,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 93.3,
         "height": 28.8,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3470,10 +2525,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 107.8,
         "height": 30.3,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3481,10 +2533,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 107.8,
         "height": 30.3,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Mcdonnell Douglas",
@@ -3492,10 +2541,7 @@ var aircraft = [
         "ICAO": "MD11",
         "wingspan": 169.8,
         "height": 57.8,
-        "ARC": "D-IV",
-        "IATA": "M11",
-        "wake": "H",
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Mitsubishi",
@@ -3503,10 +2549,7 @@ var aircraft = [
         "ICAO": "BE40",
         "wingspan": 43.5,
         "height": 13.8,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Mitsubishi",
@@ -3514,10 +2557,7 @@ var aircraft = [
         "ICAO": "MU2",
         "wingspan": 39.17,
         "height": 13.58,
-        "ARC": "A-I",
-        "IATA": "MU2",
-        "wake": "L",
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Mitsubishi",
@@ -3525,10 +2565,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 39.2,
         "height": 13.7,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Mitsubishi",
@@ -3536,10 +2573,7 @@ var aircraft = [
         "ICAO": "MU2",
         "wingspan": 39.2,
         "height": 13.8,
-        "ARC": "B-I",
-        "IATA": "MU2",
-        "wake": "L",
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Navion",
@@ -3547,10 +2581,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 34,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Nihon",
@@ -3558,10 +2589,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 105,
         "height": 29.5,
-        "ARC": "B-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-III"
     },
     {
         "manufacturer": "Northrop",
@@ -3569,10 +2597,7 @@ var aircraft = [
         "ICAO": "B2",
         "wingspan": 172,
         "height": 17,
-        "ARC": "C-V",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-V"
     },
     {
         "manufacturer": "Partenavia",
@@ -3580,10 +2605,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 39.3,
         "height": 11.9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Piaggio",
@@ -3591,10 +2613,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 47.2,
         "height": 16.4,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Piaggio",
@@ -3602,10 +2621,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 43.3,
         "height": 15.8,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Pilatus",
@@ -3613,10 +2629,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 49.7,
         "height": 10.5,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Piper",
@@ -3624,10 +2637,7 @@ var aircraft = [
         "ICAO": "AEST",
         "wingspan": 36.67,
         "height": 13.2,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Piper",
@@ -3635,10 +2645,7 @@ var aircraft = [
         "ICAO": "PA31",
         "wingspan": 40.7,
         "height": 13,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Piper",
@@ -3646,10 +2653,7 @@ var aircraft = [
         "ICAO": "PAY4",
         "wingspan": 47.7,
         "height": 17,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "PZL-Mielec",
@@ -3657,10 +2661,7 @@ var aircraft = [
         "ICAO": "AN2",
         "wingspan": 59.67,
         "height": 13.17,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "PZL-Mielec",
@@ -3668,10 +2669,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 72.4,
         "height": 16.1,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Raytheon",
@@ -3679,10 +2677,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 38,
         "height": 9.5,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3690,10 +2685,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 32.8,
         "height": 8.2,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3701,10 +2693,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 32.8,
         "height": 8.2,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3712,10 +2701,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 54.06,
         "height": 14.04,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Raytheon",
@@ -3723,10 +2709,7 @@ var aircraft = [
         "ICAO": "BE40",
         "wingspan": 43.06,
         "height": 13.11,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3734,10 +2717,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 33.5,
         "height": 8.6,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3745,10 +2725,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 45.8,
         "height": 15.3,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3756,10 +2733,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 54.5,
         "height": 15,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Raytheon",
@@ -3767,10 +2741,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 37.8,
         "height": 8.6,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3778,10 +2749,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 39.2,
         "height": 12.3,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3789,10 +2757,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 50.2,
         "height": 14.2,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Raytheon",
@@ -3800,10 +2765,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 45.9,
         "height": 14.4,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3811,10 +2773,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 49.7,
         "height": 9.5,
-        "ARC": "A-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-II"
     },
     {
         "manufacturer": "Raytheon",
@@ -3822,10 +2781,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 37.8,
         "height": 9.1,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3833,10 +2789,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 33.5,
         "height": 8.2,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3844,10 +2797,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 45.9,
         "height": 15.1,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Raytheon",
@@ -3855,10 +2805,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 33.5,
         "height": 6.6,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3866,10 +2813,7 @@ var aircraft = [
         "ICAO": "AC11",
         "wingspan": 46,
         "height": 9.58,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3877,10 +2821,7 @@ var aircraft = [
         "ICAO": "AC95",
         "wingspan": 52.2,
         "height": 15,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3888,10 +2829,7 @@ var aircraft = [
         "ICAO": "AC50",
         "wingspan": 49.08,
         "height": 15,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3899,10 +2837,7 @@ var aircraft = [
         "ICAO": "AC56",
         "wingspan": 49.08,
         "height": 14.5,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3910,10 +2845,7 @@ var aircraft = [
         "ICAO": "AC68",
         "wingspan": 49.08,
         "height": 14.5,
-        "ARC": "B-II",
-        "IATA": "ACP",
-        "wake": "L",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3921,10 +2853,7 @@ var aircraft = [
         "ICAO": "B1*",
         "wingspan": 137,
         "height": 34,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3932,10 +2861,7 @@ var aircraft = [
         "ICAO": "AC52",
         "wingspan": 44.1,
         "height": 14.83,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3943,10 +2869,7 @@ var aircraft = [
         "ICAO": "AC80",
         "wingspan": 49.05,
         "height": 14.5,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Rockwell International",
@@ -3954,10 +2877,7 @@ var aircraft = [
         "ICAO": "AC90",
         "wingspan": 46.67,
         "height": 15,
-        "ARC": "B-I",
-        "IATA": "ACT",
-        "wake": "L",
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -3965,10 +2885,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 34,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -3976,10 +2893,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 34,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -3987,10 +2901,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -3998,10 +2909,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -4009,10 +2917,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -4020,10 +2925,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35,
         "height": 9,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Ryan Aeronautical",
@@ -4031,10 +2933,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 35,
         "height": 7.42,
-        "ARC": "A-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "A-I"
     },
     {
         "manufacturer": "Sabreliner Corp",
@@ -4042,10 +2941,7 @@ var aircraft = [
         "ICAO": "SBR1",
         "wingspan": 44.5,
         "height": 16,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Sabreliner Corp",
@@ -4053,10 +2949,7 @@ var aircraft = [
         "ICAO": "SBR1",
         "wingspan": 44.5,
         "height": 16,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Sabreliner Corp",
@@ -4064,10 +2957,7 @@ var aircraft = [
         "ICAO": "SBR1",
         "wingspan": 50.5,
         "height": 16,
-        "ARC": "B-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Sabreliner Corp",
@@ -4075,10 +2965,7 @@ var aircraft = [
         "ICAO": "SBR2",
         "wingspan": 44.5,
         "height": 17.02,
-        "ARC": "C-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-I"
     },
     {
         "manufacturer": "Sabreliner Corp",
@@ -4086,10 +2973,7 @@ var aircraft = [
         "ICAO": "SBR2",
         "wingspan": 50.4,
         "height": 17.03,
-        "ARC": "C-II",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-II"
     },
     {
         "manufacturer": "Shorts Brothers",
@@ -4097,10 +2981,7 @@ var aircraft = [
         "ICAO": "SH33",
         "wingspan": 74.67,
         "height": 16.25,
-        "ARC": "B-II",
-        "IATA": "SH3",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Shorts Brothers",
@@ -4108,10 +2989,7 @@ var aircraft = [
         "ICAO": "SH36",
         "wingspan": 74.8,
         "height": 23.08,
-        "ARC": "B-II",
-        "IATA": "SH6",
-        "wake": "M",
-        "seats": null
+        "ARC": "B-II"
     },
     {
         "manufacturer": "Swearingen",
@@ -4119,10 +2997,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 46.2,
         "height": 16.7,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Swearingen",
@@ -4130,10 +3005,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 46.2,
         "height": 16.7,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     },
     {
         "manufacturer": "Tupolev",
@@ -4141,10 +3013,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 167.6,
         "height": 50,
-        "ARC": "C-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-IV"
     },
     {
         "manufacturer": "Tupolev",
@@ -4152,10 +3021,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 83.8,
         "height": 50,
-        "ARC": "C-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "C-III"
     },
     {
         "manufacturer": "Tupolev",
@@ -4163,10 +3029,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 95.2,
         "height": 30,
-        "ARC": "D-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-III"
     },
     {
         "manufacturer": "Tupolev",
@@ -4174,10 +3037,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 94.8,
         "height": 42.2,
-        "ARC": "E-III",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "E-III"
     },
     {
         "manufacturer": "Tupolev",
@@ -4185,10 +3045,7 @@ var aircraft = [
         "ICAO": 0,
         "wingspan": 123.3,
         "height": 37.4,
-        "ARC": "D-IV",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "D-IV"
     },
     {
         "manufacturer": "Volpar",
@@ -4196,9 +3053,6 @@ var aircraft = [
         "ICAO": "B18T",
         "wingspan": 46,
         "height": 9.5,
-        "ARC": "B-I",
-        "IATA": null,
-        "wake": null,
-        "seats": null
+        "ARC": "B-I"
     }
 ]

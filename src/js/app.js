@@ -40,7 +40,11 @@ var app = app || {};
 	//
 
 	app.init = function() {
-		this.model = new this.Model(airports, airlines, aircraft, pax, tt);
+		this.model = new this.Model(airports, 
+			airlines, 
+			aircraft.concat(aircraftSup), 
+			pax, 
+			tt);
 		this.view = new this.View();
 		this.view.init();
 		this.data = null;
@@ -387,7 +391,7 @@ var app = app || {};
 		this.tt = this.flight.tt !== 0 ? this.flight.tt : app.model.getTurnaroundTime(this.flight);
 		this.aircraft.seats = this.flight.seats !== undefined ? this.flight.seats*loadFactor : this.aircraft.seats*loadFactor;
 		this.gate = null;
-		this.profile = app.model.pax[this.aircraft.code];
+		this.profile = app.model.pax[this.aircraft.ARC.split('-')[0]];
 
 		this.getFlightName = function() {
 			return '%airline% to %municipality%, %plane%'

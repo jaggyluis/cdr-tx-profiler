@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="aircraft.js"></script>
+	<script src="aircraft-char.js"></script>
+	<script type="text/javascript">
+
+		console.log(aircraft.length, nair.length);
+
+		var re = [];
+		
+		aircraft.forEach(function(plane) {
+
+			nfil = nair.filter(function (nplane) {
+				return nplane.ICAO === plane.ICAO;
+			});
+			if (nfil.length !== 0) {
+			} else {
+				//console.log(plane);
+				var template = {
+	        		"manufacturer": plane.name.split(" ")[0],
+	        		"name": plane.name.split(" ")[1],
+	        		"ICAO": plane.ICAO,
+	        		"wingspan": null,
+	        		"height": null,
+        			"ARC": plane.code !== "" ? plane.code+"-*" : "*-*",
+        			"IATA": plane.IATA !== "" ? plane.IATA : null,
+        			"wake": plane.wake !== "" ? plane.wake : null,
+        			"seats": plane.seats !== 0 ? plane.seats : null,
+    			};
+    			//console.log(template);
+    			re.push(template);
+			}
+		})
+		console.log(JSON.stringify(re));
+		
+		/*
+		nair.forEach(function(nplane) {
+
+			nplane.IATA = null;
+			nplane.wake = null,
+			nplane.seats = null;
+
+
+			fil = aircraft.filter(function (plane) {
+				return nplane.ICAO === plane.ICAO;
+			});
+			if (fil.length !== 0) {
+
+				if (fil[0].seats === 0) {
+					fil[0].seats = null;
+				}
+				if (fil[0].wake === "") {
+					fil[0].wake = null;
+				}
+				if(fil[0].IATA === ""){
+					fil[0].IATA = null;
+				}
+
+				nplane.IATA = fil[0].IATA;
+				nplane.wake = fil[0].wake;
+				nplane.seats = fil[0].seats
+
+			} else {
+
+			}
+		})
+		console.log(JSON.stringify(nair));
+		*/
+	</script>
+</head>
+<body>
+
+</body>
+</html>
