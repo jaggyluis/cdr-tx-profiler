@@ -4,9 +4,9 @@ var app = app || {};
 (function() {
 	'use strict';
 
-
+	//--------------------------------------------------------
 	// utility functions
-	//
+	//--------------------------------------------------------
 
 	function decimalDayToTime(dday) {
 		dday = dday>=0 ? dday : 1 + dday;
@@ -36,13 +36,14 @@ var app = app || {};
 	 	return minutesToDecimalDay(hours*60+minutes);
 	 }
 
+	//--------------------------------------------------------
 	// main app
-	//
+	//--------------------------------------------------------
 
 	app.init = function() {
 		this.model = new this.Model(airports, 
 			airlines, 
-			aircraft.concat(aircraftSup), 
+			aircraft.concat(aircraftBis), 
 			pax, 
 			tt);
 		this.view = new this.View();
@@ -129,6 +130,7 @@ var app = app || {};
 				'flightCode',
 				'gate',
 				'passengerType',
+				'gender',
 				'airport',
 				'departureLounge',
 				'boardingZone',
@@ -266,8 +268,6 @@ var app = app || {};
 						app.set(self.readCSV(this.result));
 					}
 					document.getElementById('run').disabled = false;
-					//drop.classList.toggle('hidden');
-
 				});
 				reader.readAsText(e.dataTransfer.files[0]);
 				drop.innerText = fileName.toUpperCase();
@@ -318,7 +318,8 @@ var app = app || {};
 		}
 		this.setGates = function() {
 			this.flights.forEach((function(flight, idx) {
-				flight.gate = this.findGate(flight);
+				//flight.gate = this.setGate(flight);
+				this.gate = this.assignGateFromTemplate(flight);
 			}).bind(this));
 		}
 		this.clearAll = function () {
@@ -327,7 +328,7 @@ var app = app || {};
 				this.gates[gate] = [];
 			}
 		}
-		this.findGate = function(flight) {
+		this.setGate = function(flight) {
 			if (flight.tt === 0) return '__'; 
 			for (var gate in this.gates) {
 				if (this.gates[gate].some(function(t) {
@@ -344,7 +345,11 @@ var app = app || {};
 					return gate;
 				}		
 			}
-			console.log(flight.getFlightName(), decimalDayToTime(flight.tt));
+			console.warn(flight.getFlightName(), decimalDayToTime(flight.tt));
+			return null;
+		}
+		this.assignGateFromTemplate = function(flight) {
+			console.log('assigning gate');
 			return null;
 		}
 		this.getPassengers = function() {
@@ -481,6 +486,7 @@ var app = app || {};
 		this.departureTime = departureTime;
 		this.passengerType = types[Math.floor(Math.random() * (100 - 0 + 1)) + 0];
 		this.gate = gate;
+		this.gender = ['M', 'F'][Math.round(Math.random())];
 	}
 
 	app.init();

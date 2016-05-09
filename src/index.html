@@ -4,7 +4,6 @@
 	<title>Aviation Passenger Timing Profile Generator</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="js/libs/jquery-1.12.3.js"></script>
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -60,6 +59,7 @@
 			<td>%flightCode%</td>
 			<td>%gate%</td>
 			<td>%passengerType%</td>
+			<td>%gender%</td>
 			<td>%airport%</td>
 			<td>%departureLounge%</td>
 			<td>%boardingZone%</td>
@@ -73,6 +73,7 @@
 			<td>Flight Code</td>
 			<td>Gate</td>
 			<td>Passenger Type</td>
+			<td>Gender</td>
 			<td>Airport</td>
 			<td>Departure Lounge</td>
 			<td>Boarding Zone</td>
@@ -83,11 +84,13 @@
 	<script src="js/model/airports.js"></script>
 	<script src="js/model/airlines.js"></script>
 	<script src="js/model/aircraft.js"></script>
-	<script src="js/model/aircraft-supplemental.js"></script>
+	<script src="js/model/aircraft-bis.js"></script>
 	<script src="js/model/pax.js"></script>
 	<script src="js/model/tt.js"></script>
+	<!-- Main App -->
 	<script src="js/app.js"></script>
 	<!-- Additional Evaluations -->
+	<script src="SFO Terminal 1 Gate Scheme.js"></script>
 </body>
 </html>
 

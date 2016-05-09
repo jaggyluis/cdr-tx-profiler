@@ -1,4 +1,4 @@
-var aircraftSup = [
+var aircraftBis = [
     {
         "manufacturer": "Fokker",
         "name": "100",
