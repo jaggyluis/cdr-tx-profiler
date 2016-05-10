@@ -4,7 +4,6 @@ var app = app || {};
 (function() {
 	'use strict';
 
-
 	//--------------------------------------------------------
 	// main app
 	//--------------------------------------------------------
@@ -18,23 +17,24 @@ var app = app || {};
 		this._view = new View();
 		this._view.init();
 		this._data = null;
+		this._gates = gates;
 	}
 	app.run = function() {
 		this.clear();
+
+		this._model.setGates(this._gates);
 		this._model.setFlights(this._data, 
 			this._view.getLoadFactor(), 
 			this._view.getFilter(), 
 			this._view.getTimeFrame());
-		this._model.setGates();
-		this.get();
+		
+		this._view.data = this._model.getPassengers();
 		this._view.enableDownloads();
 	}
 	app.set = function(data) {
 		this._data = data;
 	}
-	app.get = function() {
-		this._view.data = this._model.getPassengers();
-	}
+
 	app.clear = function() {
 		this._view.clearAll();
 		this._model.clearAll();

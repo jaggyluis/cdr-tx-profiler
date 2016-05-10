@@ -13,14 +13,9 @@ X turnaround time for planes with no tt - by plane type
 X implement time frame
 X implement filter
 X implement better filter
+X add gender to profile output
 
 X implement seconds on decimalDayToTime
 - implement actual gates if avaiable 
 
-
-// later
-- convert all to // major overhaul
-{
-  'foo': function(bar) {
-  }
-} 
+X convert all to code refactor// major overhaul
