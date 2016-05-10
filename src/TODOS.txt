@@ -13,9 +13,17 @@ X turnaround time for planes with no tt - by plane type
 X implement time frame
 X implement filter
 X implement better filter
+X implement passenger filter
 X add gender to profile output
 
 X implement seconds on decimalDayToTime
-- implement actual gates if avaiable 
+X implement actual gates if avaiable
+- implemeent MARS
 
 X convert all to code refactor// major overhaul
+- track down richard to confirm aircraft codes:
+	*-* - what is what
+	-design reference code
+	-arc
+- fix aircraft database to reflect actual aircraft codes
+	

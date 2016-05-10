@@ -25,10 +25,10 @@ var app = app || {};
 		this._model.setGates(this._gates);
 		this._model.setFlights(this._data, 
 			this._view.getLoadFactor(), 
-			this._view.getFilter(), 
+			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());
 		
-		this._view.data = this._model.getPassengers();
+		this._view.data = this._model.getPassengers(this._view.getPassengerFilter());
 		this._view.enableDownloads();
 	}
 	app.set = function(data) {

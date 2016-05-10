@@ -10,6 +10,17 @@ function View() {
 		this.header = document.querySelector("#passenger-timing-header").innerHTML;
 		this.template = document.querySelector("#passenger-timing-template").innerHTML;
 		this.data = null;
+		this.keys = [ // Probably a better spot for this - passed in?
+			'flightName', 
+			'flightCode',
+			'gate',
+			'passengerType',
+			'gender',
+			'airport',
+			'departureLounge',
+			'boardingZone',
+			'boarding',
+			'departureTime'];
 
 
 		this.runButton = document.getElementById("run");
@@ -63,18 +74,6 @@ function View() {
 			var loading = document.getElementById("show-icn");
 			loading.classList.toggle("hidden");
 		});
-
-		this.keys = [ // Probably a better spot for this - passed in?
-				'flightName', 
-				'flightCode',
-				'gate',
-				'passengerType',
-				'gender',
-				'airport',
-				'departureLounge',
-				'boardingZone',
-				'boarding',
-				'departureTime'];
 };
 View.prototype = {
 
@@ -98,8 +97,12 @@ View.prototype = {
 		this.table.innerHTML = this.header;
 	},
 
-	getFilter : function() {
-		return document.getElementById("filter").value;
+	getFlightFilter : function() {
+		return document.getElementById("filter-flights").value;
+	},
+
+	getPassengerFilter : function() {
+		return document.getElementById("filter-passengers").value;
 	},
 
 	getTimeFrame : function() {

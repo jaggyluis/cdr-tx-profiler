@@ -149,7 +149,7 @@ AviationModel.prototype = {
 			flight, flight.getFlightName(), decimalDayToTime(flight.tt));
 	},
 
-	getPassengers : function() {
+	getPassengers : function(filter) {
 		var passengers = [];
 		this.flights.forEach((function(flight) {
 			var profile = this.pax[flight.getCategory()];
@@ -157,7 +157,9 @@ AviationModel.prototype = {
 			var time = this.pax.time;
 			if (profile !== undefined) {
 				flight.getPassengers(profile, legend, time).forEach(function(passenger) {
-					passengers.push(passenger);
+					if (JSON.stringify(passenger).match(filter)) {
+						passengers.push(passenger);
+					}
 				});
 			}
 		}).bind(this));
