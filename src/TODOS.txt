@@ -17,7 +17,7 @@ X implement passenger filter
 X add gender to profile output
 
 X implement seconds on decimalDayToTime
-- implement actual gates if avaiable 
+X implement actual gates if avaiable 
 
 X convert all to code refactor// major overhaul
 - track down richard to confirm aircraft codes:

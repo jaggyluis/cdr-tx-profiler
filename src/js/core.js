@@ -1,59 +1,8 @@
 
 //--------------------------------------------------------
-// utility functions
+// core aviation module
 //--------------------------------------------------------
 'use strict';
-
-function decimalDayToTime(dday) {
-	dday = dday>=0 ? dday : 1 + dday;
-	var hours = Number((dday*24).toString().split('.')[0]);
-	var minutes = Number((dday*24*60 - hours*60).toString().split('.')[0]);
-	var seconds = Number((dday*24*60*60 - hours*60*60 - minutes*60).toString().split('.')[0]);
-	hours = hours > 0 ? hours.toString() : '00';
-	minutes = minutes > 0 ? minutes.toString() : '00';
-	seconds = seconds > 0 ? seconds.toString() : '00';
-	hours = hours.length > 1 ? hours : "0"+hours;
-	minutes = minutes.length > 1 ? minutes: "0"+minutes;
-	seconds = seconds.length > 1 ? seconds: "0"+seconds;
-	return hours+':'+minutes+':'+seconds;
-};
-
-function minutesToDecimalDay(minutes) {
-	var hours = minutes/60;
-	var dday = hours/24;
-	return dday;
-};
-
-function timeToDecimalDay(time) {
-	var splitStr = time.split(':');
-	var hours = Number(splitStr[0]);
-	var minutes = Number(splitStr[1]);
-	var seconds = null // not needed in current simulation
-	return minutesToDecimalDay(hours*60+minutes);
-};
-
-function romanToNumber(str) {
-	var dict = {
-		"I" : 1,
-		"II" : 2,
-		"III" : 3,
-		"IV" : 4,
-		"V" : 5,
-		"VI" : 6,
-	};
-	if (dict[str] !== undefined) {
-		return dict[str];
-	} else {
-		//console.warn('number not in dict: ', str);
-		return 3; // for now
-	}
-}
-	
-
-//--------------------------------------------------------
-// core Aviation module classes
-//--------------------------------------------------------
-
 
 function AviationModel(airports, airlines, aircraft, pax, tt) {
 	this.airports = airports; 	// these should probably be jsons - AJAX?
@@ -110,6 +59,10 @@ AviationModel.prototype = {
 				}
 			}
 		}).bind(this));
+
+		this.gates.forEach(function(gate) {
+			gate.verify();
+		});
 	},
 
 	setGates : function(gates) {
@@ -150,8 +103,8 @@ AviationModel.prototype = {
 				return;
 			}
 		}
-		console.warn('gate not assigned: ', 
-			flight, flight.getFlightName(), decimalDayToTime(flight.tt));
+		console.error('gate not assigned: ', 
+			flight, flight.getFlightName(), decimalDayToTime(flight.getTime()));
 	},
 
 	getPassengers : function(filter) {
@@ -316,6 +269,48 @@ Gate.prototype = {
 
 	verify : function () {
 
+		console.log('veryfying gate: ', this.name);
+
+		for (var sub in this.flights) {
+			for (var i=0; i<this.flights[sub].length; i++) {
+				for (var j=0; j<this.flights[sub].length; j++) {
+					if (j !== i) {
+
+						var ival = this.flights[sub][i].ival,
+							jval = this.flights[sub][j].ival;
+
+						if (ival.intersects(jval)) {
+							console.error('intersecting flights:', 
+								this.flights[sub][i], 
+								this.flights[sub][j]);
+						}
+					}
+				}
+			}
+		}
+		if (this.isMARS) {
+			for (var i=0; i<this.flights[this.name+'a'].length; i++) {
+				for (var j=0; j<this.flights[this.name+'b'].length; j++) {
+
+					var fi = this.flights[this.name+'a'][i],
+						fj = this.flights[this.name+'b'][j]
+
+					if (fi !== fj) {
+						if (fi.ival.intersects(fj.ival)) {
+							console.warn('simultaneous flights: ');
+							console.warn('\t', fi.gate, 
+								fi.getFlightName(), 
+								decimalDayToTime(fi.getTime()));
+							console.warn('\t', fj.gate, 
+								fj.getFlightName(), 
+								decimalDayToTime(fj.getTime()));
+						}
+					}
+				}
+			}
+		}
+		console.log('gate verified: ', this);
+		console.log('\n');
 	}
 }
 
