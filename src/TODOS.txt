@@ -30,3 +30,6 @@ X add padding to tt
 -reevaluate efficient padding based on:
 	- % of time landed
 	- size of plane
+
+- implement module pattern
+- number of passengers output
