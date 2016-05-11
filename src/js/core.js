@@ -59,10 +59,6 @@ AviationModel.prototype = {
 				}
 			}
 		}).bind(this));
-
-		this.gates.forEach(function(gate) {
-			gate.verify();
-		});
 	},
 
 	setGates : function(gates) {
@@ -147,6 +143,20 @@ AviationModel.prototype = {
 		} else {
 			return 0;
 		}
+	},
+
+	verify : function() {
+		var count = 0;
+		this.gates.forEach(function(gate) {
+			console.log('veryfying gate: ', gate.name);
+			console.log(gate);
+			gate.verify();
+			var gateCount = gate.getFlights().length
+			console.log('gate verified: ', gateCount, ' flights');
+			console.log('\n');
+			count+=gateCount;
+		});
+		console.warn('total flights allocated: ', count, '/', this.flights.length);
 	}
 }
 
@@ -155,6 +165,7 @@ function Gate(name, isMARS) {
 	this.name = name;
 	this.isMARS = isMARS;
 	this.seats = null;
+	this.padding = timeToDecimalDay('00:15:00');
 	this.sf = {}
 	this.group = {
 		mars : null,
@@ -218,11 +229,17 @@ Gate.prototype = {
 		if (sub && this.isMARS) {
 			return this.flights[sub];
 		} else {
-			return Object.keys(this.flights).map((function(key) {
+			var uniq= [];
+			Object.keys(this.flights).map((function(key) {
 				return this.flights[key]
 			}).bind(this)).reduce(function(a, b) {
 				return a.concat(b);
-			}, []);
+			}, []).forEach(function(flight) {
+				if (!uniq.includes(flight)) {
+					uniq.push(flight);
+				}
+			});
+			return uniq;
 		}
 	},
 
@@ -262,14 +279,13 @@ Gate.prototype = {
 	},
 
 	tap : function(flight, fArr) {
-		return !fArr.some(function(f) {
-			return f.ival.intersects(flight.ival);
-		});
+		return !fArr.some((function(f) {
+			return f.ival.padded(this.padding)
+				.intersects(flight.ival.padded(this.padding));
+		}).bind(this));
 	},
 
 	verify : function () {
-
-		console.log('veryfying gate: ', this.name);
 
 		for (var sub in this.flights) {
 			for (var i=0; i<this.flights[sub].length; i++) {
@@ -309,8 +325,6 @@ Gate.prototype = {
 				}
 			}
 		}
-		console.log('gate verified: ', this);
-		console.log('\n');
 	}
 }
 
@@ -466,5 +480,9 @@ Interval.prototype = {
 
 	includes : function (num) {
 		return;
+	},
+
+	padded : function(val) {
+		return new Interval(this.start-val, this.end+val);
 	}
 };

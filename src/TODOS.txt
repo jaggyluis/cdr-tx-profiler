@@ -26,3 +26,7 @@ X convert all to code refactor// major overhaul
 	-arc
 
 - output statistics in a visual manner in order to baseline/verify
+X add padding to tt
+-reevaluate efficient padding based on:
+	- % of time landed
+	- size of plane

@@ -27,9 +27,11 @@ var app = app || {};
 			this._view.getLoadFactor(), 
 			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());
+		this._model.verify();
 		
 		this._view.data = this._model.getPassengers(this._view.getPassengerFilter());
 		this._view.enableDownloads();
+
 	}
 	app.set = function(data) {
 		this._data = data;
