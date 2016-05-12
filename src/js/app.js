@@ -28,7 +28,7 @@ var app = app || {};
 			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());
 
-		console.log(JSON.stringify(this._model.toStash()));
+		console.log(this._model.toStash());
 		
 		this._view.data = this._model.getPassengers(this._view.getPassengerFilter());
 		this._view.enableDownloads();

@@ -114,6 +114,10 @@ AviationModel.prototype = {
 				if (profile !== undefined) {
 					flight.setPassengers(profile, legend, time)	
 				}
+				if (flight.passengers.length === 0) {
+					console.error('passengers not assigned: ', 
+						flight, flight.getFlightName(), decimalDayToTime(flight.getTime()));
+				}
 				if (JSON.stringify(flight).match(filter)) {
 					this.flights.push(flight);
 				}
@@ -508,10 +512,10 @@ Passenger.prototype = {
 				gender : this.gender
 			},
 			profile : {
-				airport : null,
-				lounge : null,
-				boardingZone : null,
-				boarding: null
+				airport : this['airport'],
+				lounge : this['departureLounge'],
+				boardingZone : this['boardingZone'],
+				boarding: this['boarding']
 			}
 		};
 	}

@@ -6,6 +6,20 @@
 	<script src="aircraft-char.js"></script>
 	<script type="text/javascript">
 
+		
+		var template_base = {
+    		"manufacturer": null,
+    		"name": null,
+    		"ICAO": null, 			// shorthand for plane name
+    		"wingspan": null,		
+    		"height": null,
+			"ARC": null,			// *-* --> Aircraft Aproach Category - Airplane Design Group		
+			"IATA": null,			
+			"wake": null,			// turbulence category
+			"seats": null,			// default seating by manufacturer
+		}
+
+
 		console.log(aircraft.length, nair.length);
 
 		var re = [];

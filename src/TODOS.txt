@@ -1,35 +1,34 @@
 X include seatconfig if available
 X implement loadfactor
-- implement domestic/international?
 X apply other aiplane pax types
 X loading csv and/or json files in
-- handle flights with missing/broken data instead of skipping?
 X interpolate granularity
 X assign gates to output?
 X turnaround time for planes with no tt - by plane type
 X gate choice needs to be more effective:
 	X plane size/area
-
 X implement time frame
 X implement filter
 X implement better filter
 X implement passenger filter
 X add gender to profile output
-
 X implement seconds on decimalDayToTime
-X implement actual gates if avaiable 
-
+X implement actual gates if available 
 X convert all to code refactor// major overhaul
+X add padding to tt
+
+-reevaluate efficient padding based on:
+	- % of time landed
+	- size of plane
+
 - track down richard to confirm aircraft codes:
 	*-* - what is what
 	-design reference code
 	-arc
 
+- fix aircraft stats
 - output statistics in a visual manner in order to baseline/verify
-X add padding to tt
--reevaluate efficient padding based on:
-	- % of time landed
-	- size of plane
-
 - implement module pattern
 - number of passengers output
+- handle flights with missing/broken data instead of skipping?
+- implement domestic/international?
