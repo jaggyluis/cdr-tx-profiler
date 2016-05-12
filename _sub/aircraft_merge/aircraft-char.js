@@ -1,4 +1,4 @@
-var nair = [
+var aircraft_bis = [
     {
         "manufacturer": "Adam Aircraft Industries",
         "name": "A500",

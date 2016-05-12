@@ -6,85 +6,92 @@
 	<script src="aircraft-char.js"></script>
 	<script type="text/javascript">
 
+		var outlist = [];
+		var ter = [];
 		
-		var template_base = {
-    		"manufacturer": null,
-    		"name": null,
-    		"ICAO": null, 			// shorthand for plane name
-    		"wingspan": null,		
-    		"height": null,
-			"ARC": null,			// *-* --> Aircraft Aproach Category - Airplane Design Group		
-			"IATA": null,			
-			"wake": null,			// turbulence category
-			"seats": null,			// default seating by manufacturer
+		function template_base() {
+    		this.manufacturer = null;
+    		this.name = null;
+    		this.ICAO = null; 			// International Civil Aviation Organization - aircraft type designator (air traffic control / flight planning)
+    		this.IATA = null;			// International Air Transport Association - aircraft type designator (general public)
+    		this.wingspan = null;		
+    		this.height = null;
+			this.ARC = null;			// *-* - Aircraft Aproach Category (letter) / Airplane Design Group (numeral)
+			this.RFLW = null;			// IACA Aerodrome Reference Code - Aeroplane reference Field length (number) / Windgspan (letter)
+			this.wake = null;			// turbulence category
+			this.seats = null;			// default seating by manufacturer
 		}
 
 
-		console.log(aircraft.length, nair.length);
-
-		var re = [];
+		console.log(aircraft.length, aircraft_bis.length);
 		
+		aircraft_bis.forEach(function(plane) {
+
+			var filteredArray = aircraft.filter(function (p) {
+				return p.ICAO === plane.ICAO;
+			});
+			if (filteredArray.length !== 0) {
+
+				var p1 = plane;
+				var p2 = filteredArray[0];
+				var template = new template_base();
+
+				template.manufacturer = p1.manufacturer || null;
+				template.name = p1.name || null;
+				template.ICAO = p1.ICAO || null;
+				template.IATA = p2.IATA || null;
+				template.wingspan = p1.wingspan || null;
+				template.height = p1.height || null;
+				template.ARC = p1.ARC || null;
+				template.RFLW = p2.code || null;
+				template.wake = p2.wake || null;
+				template.seats = p2.seats || null;
+
+				outlist.push(template);
+			} else {
+				
+				var template = new template_base();
+
+				template.manufacturer = plane.manufacturer || null;
+				template.name = plane.manufacturer || null;
+				template.ICAO = plane.ICAO || null;
+				template.wingspan = plane.wingspan || null;
+				template.height = plane.height || null;
+				template.ARC = plane.ARC || null;
+
+				outlist.push(template);
+			}
+		})
 		aircraft.forEach(function(plane) {
 
-			nfil = nair.filter(function (nplane) {
-				return nplane.ICAO === plane.ICAO;
+			var filteredArray = outlist.filter(function (p) {
+				return p.ICAO === plane.ICAO;
 			});
-			if (nfil.length !== 0) {
-			} else {
-				//console.log(plane);
-				var template = {
-	        		"manufacturer": plane.name.split(" ")[0],
-	        		"name": plane.name.split(" ")[1],
-	        		"ICAO": plane.ICAO,
-	        		"wingspan": null,
-	        		"height": null,
-        			"ARC": plane.code !== "" ? plane.code+"-*" : "*-*",
-        			"IATA": plane.IATA !== "" ? plane.IATA : null,
-        			"wake": plane.wake !== "" ? plane.wake : null,
-        			"seats": plane.seats !== 0 ? plane.seats : null,
-    			};
-    			//console.log(template);
-    			re.push(template);
-			}
+
+			if (filteredArray.length === 0) {
+				
+				var template = new template_base();
+
+				template.manufacturer = plane.name.split(' ')[0] || null;
+				template.name = plane.name.split(' ')[1] || null;
+				template.ICAO = plane.ICAO || null;
+				template.IATA = plane.IATA || null;
+				template.RFLW = plane.RFLW || null;
+				template.wake = plane.wake || null;
+				template.seats = plane.seats || null;
+
+				Object.keys(template).forEach(function(key) {
+					if (template[key] === 'n/a'){
+						template[key] = null;
+					}
+				})
+
+				outlist.push(template);
+			} 
 		})
-		console.log(JSON.stringify(re));
-		
-		/*
-		nair.forEach(function(nplane) {
-
-			nplane.IATA = null;
-			nplane.wake = null,
-			nplane.seats = null;
-
-
-			fil = aircraft.filter(function (plane) {
-				return nplane.ICAO === plane.ICAO;
-			});
-			if (fil.length !== 0) {
-
-				if (fil[0].seats === 0) {
-					fil[0].seats = null;
-				}
-				if (fil[0].wake === "") {
-					fil[0].wake = null;
-				}
-				if(fil[0].IATA === ""){
-					fil[0].IATA = null;
-				}
-
-				nplane.IATA = fil[0].IATA;
-				nplane.wake = fil[0].wake;
-				nplane.seats = fil[0].seats
-
-			} else {
-
-			}
-		})
-		console.log(JSON.stringify(nair));
-		*/
+		console.log(JSON.stringify(outlist));
 	</script>
 </head>
 <body>
-
 </body>
 </html>

@@ -188,6 +188,7 @@ AviationModel.prototype = {
 	toStash : function() {
 		return {
 			info : {
+				totalFlights: this.flights.length
 			},
 			gates : this.gates.map(function(g) {
 				return g.toStash();
@@ -378,6 +379,10 @@ function Flight(flight, destination, airline, aircraft, tt, loadFactor) {
 	this.seats = Math.round(this.seats);
 	this.passengers = [];
 	if (this.seats === 0) console.warn('seats not available: ', this);
+	if (this.aircraft.RFLW == null || this.aircraft.ARC == null){
+		console.warn('null reference needed', this.aircraft);
+	}
+
 };	
 Flight.prototype = {
 	getTime : function() {
@@ -388,7 +393,7 @@ Flight.prototype = {
 		return romanToNumber(this.aircraft.ARC.split('-')[1]);
 	},
 	getCategory : function() {
-		return this.aircraft.ARC.split('-')[0];
+		return this.aircraft.RFLW;
 	},
 	setGate : function(gate) {
 		this.gate = gate;

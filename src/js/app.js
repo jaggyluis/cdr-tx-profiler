@@ -11,7 +11,7 @@ var app = app || {};
 	app.init = function() {
 		this._model = new AviationModel(airports, 
 			airlines, 
-			aircraft.concat(aircraftBis), 
+			aircraft, 
 			pax, 
 			tt);
 		this._view = new View();

@@ -26,7 +26,8 @@ X add padding to tt
 	-design reference code
 	-arc
 
-- fix aircraft stats
+X fix aircraft stats
+
 - output statistics in a visual manner in order to baseline/verify
 - implement module pattern
 - number of passengers output
