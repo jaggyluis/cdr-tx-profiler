@@ -14,19 +14,19 @@
 		</div>
 		<div id="nav-bar">
 			<div class="input-box">
-				<input id="loadFactor" placeholder="0.9">
+				<input id="loadFactor" class="filter" placeholder="0.9">
 				<div class="input-title">Load Factor</div>
 			</div>
 			<div class="input-box">
-				<input id="timeFrame" placeholder="0 to 24">
+				<input id="timeFrame" class="filter" placeholder="0 to 24">
 				<div class="input-title">Time Frame</div>
 			</div>
 			<div id="input-box">
-				<input id="filter-flights" placeholder="American Airlines">
+				<input id="filter-flights" class="filter" placeholder="American Airlines">
 				<div class="input-title">Filter Flights</div>
 			</div>
 			<div id="input-box">
-				<input id="filter-passengers" placeholder="Leisure">
+				<input id="filter-passengers" class="filter" placeholder="Leisure">
 				<div class="input-title">Filter Passengers</div>
 			</div>	
 			<div class="btn-box">
@@ -36,9 +36,21 @@
 				</div>
 			</div>
 			<div class="btn-box">
-				<button id="downloadJSON" class="btn-toggle" disabled>Save JSON</button>
+				<button id="downloadJSON" class="btn-toggle" disabled>Save</button>
 				<div id="json-icn" class="hidden loading">
 					<img src="img/loading.gif">
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" type="checkbox" checked></input>
+					<div class="chk-txt">JSON</div>
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" type="checkbox" ></input>
+					<div class="chk-txt">CSV</div>
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" type="checkbox" ></input>
+					<div class="chk-txt">LOG</div>
 				</div>
 			</div>
 			<div class="btn-box">
