@@ -72,6 +72,7 @@ img {
 .chk-txt {
 	margin-top: 1px;
 	float: left;
+	width: 70px;
 
 }
 .btn-toggle {

@@ -18,6 +18,7 @@ var app = app || {};
 		this._view.init();
 		this._data = null;
 		this._gates = gates;
+		this._stash = null;
 	}
 	app.run = function() {
 		this.clear();
@@ -27,17 +28,15 @@ var app = app || {};
 			this._view.getLoadFactor(), 
 			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());
-
-		console.log(this._model.toStash());
-		
+	
 		this._view.data = this._model.getPassengers(this._view.getPassengerFilter());
+		this._stash = this._model.toStash();
 		this._view.enableDownloads();
 
 	}
 	app.set = function(data) {
 		this._data = data;
 	}
-
 	app.clear = function() {
 		this._view.clearAll();
 		this._model.clearAll();
