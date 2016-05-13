@@ -475,10 +475,20 @@ Flight.prototype = {
 					total : this.flight.seats
 				}
 			},
-			passengers : this.passengers.map(function(p) {
-				return p.toStash();
-			})
-		};
+			// turn this on for full list
+			//
+			//passengers : this.passengers.map(function(p) {
+			//	return p.toStash();
+			//})
+			passengers : this.passengers.reduce(function(obj , p) {
+					if (Object.keys(obj).includes(p.passengerType)) {
+						obj[p.passengerType]++;
+					} else {
+						obj[p.passengerType] = 1;
+					}
+					return obj;
+				}, {})
+		}
 	}
 }
 
