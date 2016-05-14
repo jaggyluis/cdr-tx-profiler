@@ -30,6 +30,7 @@ X fix aircraft stats
 
 - output statistics in a visual manner in order to baseline/verify
 - implement module pattern
-- number of passengers output
+X number of passengers output
 - handle flights with missing/broken data instead of skipping?
 - implement domestic/international?
+- research better passenger profiles?

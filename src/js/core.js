@@ -312,8 +312,8 @@ Gate.prototype = {
 					fj = this.flights[this.name+'b'][j]
 				if (fi !== fj) {
 					if (fi.ival.intersects(fj.ival)) {
-						mars.push([fi.getFlightName()+' '+decimalDayToTime(fi.getTime()),
-							fj.getFlightName()+' '+decimalDayToTime(fj.getTime())]);
+						mars.push([fi.gate+' '+fi.getFlightName()+' '+decimalDayToTime(fi.getTime()),
+							fj.gate+' '+fj.getFlightName()+' '+decimalDayToTime(fj.getTime())]);
 					}
 				}
 			}
