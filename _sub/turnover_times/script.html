@@ -2,7 +2,7 @@
 <html>
 <head></head>
 <body>
-	<script src="info.js"></script>
+	<script src="turnover_times.js"></script>
 	<script type="text/javascript">
 
 	var averageTT = {}
@@ -19,17 +19,6 @@
 			averageTT[tt[i].aircraft.toString()][tt[i].airline] = [tt[i].tt]
 		}
 	}
-
-	/*
-	for (var aircraft in averageTT) {
-		for (var airline in averageTT[aircraft]) {
-			var length = averageTT[aircraft][airline].length
-			var sum = averageTT[aircraft][airline].reduce(function(a,b) {
-				return a+b;
-			});
-			averageTT[aircraft][airline] = sum/length;
-		}
-	}*/
 
 	console.log(JSON.stringify(averageTT));
 
