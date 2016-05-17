@@ -1,6 +1,6 @@
 var AVIATION = (function (aviation) {   
 
-    aviation.airports = [
+    aviation._airports = [
         {
             "IATA": "UTK",
             "name": "Utirik Airport",

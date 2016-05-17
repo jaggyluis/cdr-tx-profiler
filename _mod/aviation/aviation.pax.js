@@ -1,6 +1,6 @@
 var AVIATION = (function (aviation) {
 
-	aviation.pax = {
+	aviation._pax = {
 		'time': [180,0,5],
 		'legend':[
 			'airport',

@@ -1,6 +1,6 @@
 var AVIATION = (function (aviation) {
 
-    aviation.airlines = [
+    aviation._airlines = [
         {
             "IATA": "3K",
             "name": "Jetstar Asia"
@@ -39,7 +39,7 @@ var AVIATION = (function (aviation) {
         },
         {
             "IATA": "BR",
-            "name": "Evergreen Airways"
+            "name": "Evergreen Airways (EVA)"
         },
         {
             "IATA": "CA",
@@ -191,7 +191,7 @@ var AVIATION = (function (aviation) {
         },
         {
             "IATA": "SY",
-            "name": "MN Airlines"
+            "name": "MN Airlines (Sun Country)"
         },
         {
             "IATA": "TA",

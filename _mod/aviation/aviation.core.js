@@ -1,7 +1,7 @@
 var AVIATION = (function (aviation) {
 
-	aviation.flights = [];
-	aviation.gates = [];
+	aviation._flights = [];
+	aviation._gates = [];
 
 	aviation.parseCSV = parseCSV;
 
@@ -59,31 +59,31 @@ var AVIATION = (function (aviation) {
 		}
 	};
 	function getAirportByCode(code) {
-		return aviation.airports.filter(function(obj) {
+		return aviation._airports.filter(function(obj) {
 			return obj.IATA == code;
 		})[0];
 	};
 	function getAirlineByCode(code) {
-		return aviation.airlines.filter(function(obj) {
+		return aviation._airlines.filter(function(obj) {
 			return obj.IATA == code;
 		})[0];
 	};
 	function getAircraftByCode(code) {
-		return aviation.aircraft.filter(function(obj) {
+		return aviation._aircraft.filter(function(obj) {
 			return obj.IATA == code;
 		})[0];
 	};
 	function set(gates, flights, loadFactor, filter, timeFrame) {
-		aviation.gates = setGates(gates);
-		aviation.flights = setFlights(
+		aviation._gates = setGates(gates);
+		aviation._flights = setFlights(
 			flights, 
 			loadFactor, 
 			filter, 
 			timeFrame);
 	}
 	function clear() {
-		aviation.gates = [];
-		aviation.flights = [];	
+		aviation._gates = [];
+		aviation._flights = [];	
 	};
 	function setGates(data) {
 
@@ -118,9 +118,9 @@ var AVIATION = (function (aviation) {
 						getAircraftByCode(_flight.aircraft),
 						loadFactor),
 
-					profile = aviation.pax[flight.getCategory()],
-					legend = aviation.pax.legend,
-					time = aviation.pax.time;
+					profile = aviation._pax[flight.getCategory()],
+					legend = aviation._pax.legend,
+					time = aviation._pax.time;
 
 				flight.findGate();
 
@@ -143,7 +143,7 @@ var AVIATION = (function (aviation) {
 	};
 	function getPassengers(filter) {
 		var passengers = [];
-		aviation.flights.forEach(function(flight) {
+		aviation._flights.forEach(function(flight) {
 			flight.getPassengers().forEach(function(passenger) {
 				if (JSON.stringify(passenger).match(filter)) {
 					passengers.push(passenger);
@@ -177,9 +177,9 @@ var AVIATION = (function (aviation) {
 	function parseStash() {
 		return {
 			info : {
-				totalFlights: aviation.flights.length
+				totalFlights: aviation._flights.length
 			},
-			gates : aviation.gates.map(function(g) {
+			gates : aviation._gates.map(function(g) {
 				return g.parseStash();
 			})
 		}
@@ -420,17 +420,17 @@ var AVIATION = (function (aviation) {
 			if (this.flight.tt !== 0) {
 				tt = this.flight.tt;
 			} else {
-				if (t1 in aviation.tt) {
-					if (t2 in aviation.tt[t1]) {
-						var length = aviation.tt[t1][t2].length;
-						var sum = aviation.tt[t1][t2].reduce(function(a,b) {
+				if (t1 in aviation._tt) {
+					if (t2 in aviation._tt[t1]) {
+						var length = aviation._tt[t1][t2].length;
+						var sum = aviation._tt[t1][t2].reduce(function(a,b) {
 							return a+b;
 						})
 						tt = sum/length;
 					} else {
 						var length = 0;
-						var sum = Object.keys(aviation.tt[t1]).map((function(a){
-							return aviation.tt[t1][a];
+						var sum = Object.keys(aviation._tt[t1]).map((function(a){
+							return aviation._tt[t1][a];
 						}).bind(this)).reduce(function(a,b) {
 							return a.concat(b)
 						},[]).reduce(function(a,b) {
@@ -467,9 +467,9 @@ var AVIATION = (function (aviation) {
 				this.setGate('*');
 				return;
 			}
-			for (var i=0; i<aviation.gates.length; i++) {
-				var gate = aviation.gates[i];
-				if (aviation.gates[i].fit(this, (function(data, flight) {
+			for (var i=0; i<aviation._gates.length; i++) {
+				var gate = aviation._gates[i];
+				if (aviation._gates[i].fit(this, (function(data, flight) {
 					if (data.response) {
 						this.setGate(data.gate);
 						gate.setFlight(this, data.gate);

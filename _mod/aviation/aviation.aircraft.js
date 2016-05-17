@@ -1,6 +1,6 @@
 var AVIATION = (function (aviation) {
 
-    aviation.aircraft = [
+    aviation._aircraft = [
         {
             "manufacturer": "Adam Aircraft Industries",
             "name": "Adam Aircraft Industries",

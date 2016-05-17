@@ -1,6 +1,6 @@
 var AVIATION = (function (aviation) { 
 
-    aviation.tt = {
+    aviation._tt = {
         "319": {
             "AC": [
                 0.029861111,

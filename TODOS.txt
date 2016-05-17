@@ -20,6 +20,7 @@ X add padding to tt
 -reevaluate efficient padding based on:
 	- % of time landed
 	- size of plane
+	-fix null
 
 - track down richard to confirm aircraft codes:
 	*-* - what is what
@@ -29,8 +30,8 @@ X add padding to tt
 X fix aircraft stats
 
 - output statistics in a visual manner in order to baseline/verify
-- implement module pattern
+X implement module pattern
 X number of passengers output
 - handle flights with missing/broken data instead of skipping?
 - implement domestic/international?
-- research better passenger profiles?
+X research better passenger profiles?

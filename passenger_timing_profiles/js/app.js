@@ -7,6 +7,7 @@
 var app = app || {};
 
 (function() {
+
 	
 	app.init = function() {
 		this._view = new this.View();
