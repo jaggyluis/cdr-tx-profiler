@@ -26,7 +26,7 @@ var app = app || {};
 			this._view.getTimeFrame());
 
 		this._view.data = AVIATION.getPassengers(this._view.getPassengerFilter());
-		this._stash = AVIATION.toStash();
+		this._stash = AVIATION.parseStash();
 		this._view.enableDownloads();
 
 	}
@@ -43,6 +43,17 @@ var app = app || {};
 			this.header = document.querySelector("#passenger-timing-header").innerHTML;
 			this.template = document.querySelector("#passenger-timing-template").innerHTML;
 			this.data = null;
+			this.keys = [ 
+				'flightName', 
+				'flightCode',
+				'gate',
+				'passengerType',
+				'gender',
+				'airport',
+				'departureLounge',
+				'boardingZone',
+				'boarding',
+				'departureTime'];
 
 			this.runButton = document.getElementById("run");
 			this.runButton.addEventListener('click', (function() {
@@ -101,7 +112,7 @@ var app = app || {};
 			document.getElementById("showResults").disabled = false;
 		},
 		showResults : function() {
-			this.clearAll();
+			this.clear();
 			this.displayTable();
 		},
 		clear : function() {
@@ -137,21 +148,11 @@ var app = app || {};
 		},
 		displayTable : function() {
 			var innerString = "";
-			var keys = [ 
-				'flightName', 
-				'flightCode',
-				'gate',
-				'passengerType',
-				'gender',
-				'airport',
-				'departureLounge',
-				'boardingZone',
-				'boarding',
-				'departureTime'];
+
 
 			this.data.forEach((function(passenger, idx) {
 				var passengerString = this.template;
-				keys.forEach(function(key) {
+				this.keys.forEach(function(key) {
 					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
 				})
 				innerString+=passengerString;
@@ -201,7 +202,7 @@ var app = app || {};
 		},
 		downloadCSV : function() {
 			var a = document.createElement("a");
-			var file = new Blob([AVIATION.serializeJSON(this.data)], {type:'text/plain'});
+			var file = new Blob([AVIATION.serializeJSON(this.data, this.keys)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
@@ -226,9 +227,9 @@ var app = app || {};
 				var fileName = e.dataTransfer.files[0].name;
 				reader.addEventListener('loadend', function(e, file) {
 					if (fileName.split('.')[1] === 'json' ) {
-						app.set(AVIATION.readJSON(this.result));
+						app.set(AVIATION.parseJSON(this.result));
 					} else if (fileName.split('.')[1] === 'csv' ) {
-						app.set(AVIATION.readCSV(this.result));
+						app.set(AVIATION.parseCSV(this.result));
 					}
 					document.getElementById('run').disabled = false;
 				});

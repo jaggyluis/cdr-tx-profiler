@@ -3,12 +3,12 @@ var AVIATION = (function (aviation) {
 	aviation.flights = [];
 	aviation.gates = [];
 
-	aviation.readJSON = readJSON;
-	aviation.readCSV = readCSV;
+	aviation.parseCSV = parseCSV;
 
 	aviation.serializeJSON = serializeJSON;
-
-	aviation.toStash = toStash;
+	aviation.parseJSON = parseJSON;
+	
+	aviation.serializeStash = serializeStash;
 	aviation.parseStash = parseStash;
 
 	aviation.set = set;
@@ -152,18 +152,9 @@ var AVIATION = (function (aviation) {
 		});
 		return passengers;
 	};
-	function toStash() {
-		return {
-			info : {
-				totalFlights: aviation.flights.length
-			},
-			gates : aviation.gates.map(function(g) {
-				return g.toStash();
-			})
-		}
-	};
-	function parseStash(data) {
-		function parse(obj, _tabs) {
+	function serializeStash(data) {
+
+		function serialize(obj, _tabs) {
 			var tabs = _tabs+"\t";
 			var str = "";
 			if (obj instanceof Array) {
@@ -183,7 +174,18 @@ var AVIATION = (function (aviation) {
 		var parsed = parse(data, "");
 		return parsed;
 	};
-	function readCSV(fileStr) {
+	function parseStash() {
+		return {
+			info : {
+				totalFlights: aviation.flights.length
+			},
+			gates : aviation.gates.map(function(g) {
+				return g.parseStash();
+			})
+		}
+	};
+	function parseCSV(fileStr) {
+
 		var parsed = fileStr.split('\n');
 		var re = /[^\w\:\-]/gi;
 		var keys = parsed[0].split(',').map(function(str) {
@@ -205,32 +207,19 @@ var AVIATION = (function (aviation) {
 			return flight;
 		});
 	};
-	function readJSON(fileStr) {
-		try {
-			return JSON.parse(fileStr);
-		} catch (e) {
-			return null;
-		}
-	};
-	function serializeJSON(json) {
-
-		var keys = [ 
-			'flightName', 
-			'flightCode',
-			'gate',
-			'passengerType',
-			'gender',
-			'airport',
-			'departureLounge',
-			'boardingZone',
-			'boarding',
-			'departureTime'];
-
+	function serializeJSON(json, keys) {
 		return json.reduce(function(a,b) {
 			return a+(keys.map(function(key) {
 				return '"'+b[key]+'"';
 			}).join(',')+'\n');
 		}, keys.join(',')+'\n');
+	};
+	function parseJSON(fileStr) {
+		try {
+			return JSON.parse(fileStr);
+		} catch (e) {
+			return null;
+		}
 	};
 
 
@@ -379,7 +368,7 @@ var AVIATION = (function (aviation) {
 			}
 			return xs;
 		},
-		toStash : function() {
+		parseStash : function() {
 			return {
 				name : this.name,
 				info : {
@@ -391,7 +380,7 @@ var AVIATION = (function (aviation) {
 					intersections : this.getXS()
 				},
 				flights : this.getFlights().map(function(f) {
-					return f.toStash();
+					return f.parseStash();
 				})
 			};	
 		}
@@ -564,7 +553,7 @@ var AVIATION = (function (aviation) {
 		getPassengers : function () {
 			return this.passengers;
 		},
-		toStash : function () {
+		parseStash : function () {
 			return {
 				name : this.getFlightName(),
 				info : {
@@ -579,7 +568,7 @@ var AVIATION = (function (aviation) {
 				// turn this on for full list
 				//
 				//passengers : this.passengers.map(function(p) {
-				//	return p.toStash();
+				//	return p.parseStash();
 				//})
 				passengers : this.passengers.reduce(function(obj , p) {
 						if (Object.keys(obj).includes(p.passengerType)) {
@@ -614,7 +603,7 @@ var AVIATION = (function (aviation) {
 		this.gender = ['M', 'F'][Math.round(Math.random())];
 	};
 	Passenger.prototype = {
-		toStash : function() {
+		parseStash : function() {
 			return {
 				info : {
 					type : this.passengerType,
