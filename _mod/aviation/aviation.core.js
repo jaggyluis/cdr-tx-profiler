@@ -15,6 +15,13 @@ var AVIATION = (function (aviation) {
 	aviation.clear = clear;
 
 	aviation.getPassengers = getPassengers;
+
+	aviation.class = {
+		Gate : Gate,
+		Flight : Flight,
+		Passenger : Passenger,
+		Interval : Interval
+	}
 	
 
 	function decimalDayToTime(dday) {
