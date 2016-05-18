@@ -15,14 +15,18 @@
 			flights.push({
 				passengers : aLib[airline],
 				flight : aLib[airline][0].FLIGHT,
-				destination : dest,
+				destination : key.DESTINATION[dest],
 				airline : key.AIRLINE[airline],
 				aircraft : null,
 			})
 		}
 	})
-	console.log(flights);
+	//console.log(flights);
 	console.log(flights.length)
+	var BAB = flights.sort(function(a,b) {
+		return a.passengers.length - b.passengers.length
+	});
+	console.log(BAB)
 
 
 	function buildLib(pArr, key) {
