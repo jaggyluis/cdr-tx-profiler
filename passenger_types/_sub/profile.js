@@ -26,8 +26,25 @@
 	var BAB = flights.sort(function(a,b) {
 		return a.passengers.length - b.passengers.length
 	});
-	console.log(BAB)
+	//console.log(BAB)
+	BAB.forEach(function(flight) {
+		console.log(flight.destination, getAirportByString(flight.destination));
+	})
 
+	function getAirportByString(str) {
+		var airports = AVIATION._airports.filter(function(airport) {
+			return airport.name.match(str) || 
+				airport.municipality.match(str);
+		});
+		if (airports.length === 0) {
+			var spl = str.split(/ /);
+			var all = [];
+			spl.forEach(function(s) {
+				AVIATION._airpo
+			})
+		}
+		return airports;
+	}
 
 	function buildLib(pArr, key) {
 		var lib = {};

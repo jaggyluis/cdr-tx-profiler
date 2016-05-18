@@ -166,12 +166,12 @@ var AVIATION = (function (aviation) {
 			var str = "";
 			if (obj instanceof Array) {
 				obj.forEach((function(i) {
-					str+="\r\n"+tabs+parse(i, tabs);
+					str+="\r\n"+tabs+serialize(i, tabs);
 				}).bind(this));
 			} else if (obj instanceof Object ){
 				for (var k in obj) {
 					str+= "\r\n"+ tabs + k
-					str+= parse(obj[k], tabs);
+					str+= serialize(obj[k], tabs);
 				}
 			} else {
 				str+= "\t"+obj;
