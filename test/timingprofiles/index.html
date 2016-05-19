@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Aviation Passenger Timing Profile Generator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="container">
+		<div id="table-box">
+			<table id="passenger-timing-table"></table>
+			<div id="drop">DRAG AND DROP FILE (CSV OR JSON)</div>
+		</div>
+		<div id="nav-bar">
+			<div class="input-box">
+				<input id="loadFactor" class="filter" placeholder="0.9">
+				<div class="input-title">Load Factor</div>
+			</div>
+			<div class="input-box">
+				<input id="timeFrame" class="filter" placeholder="0 to 24">
+				<div class="input-title">Time Frame</div>
+			</div>
+			<div id="input-box">
+				<input id="filter-flights" class="filter" placeholder="American Airlines">
+				<div class="input-title">Filter Flights</div>
+			</div>
+			<div id="input-box">
+				<input id="filter-passengers" class="filter" placeholder="Leisure">
+				<div class="input-title">Filter Passengers</div>
+			</div>	
+			<div class="btn-box">
+				<button id="run" class="btn-toggle" disabled>Run</button>
+				<div id="run-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="save" class="btn-toggle" disabled>Save</button>
+				<div id="save-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" id="json" type="checkbox" checked></input>
+					<div class="chk-txt">profiles.json</div>
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" id="log" type="checkbox" ></input>
+					<div class="chk-txt">summary.json</div>
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" id="csv" type="checkbox" ></input>
+					<div class="chk-txt">profiles.csv</div>
+				</div>
+				<div class="chk-box">
+					<input class="chk-toggle" id="txt" type="checkbox" ></input>
+					<div class="chk-txt">summary.txt</div>
+				</div>
+			</div>
+			<div class="btn-box">
+				<button id="showResults" class="btn-toggle" disabled>Show Results</button>
+				<div id="show-icn" class="hidden loading">
+					<img src="img/loading.gif">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/template" id="passenger-timing-template">
+		<tr>
+			<td>%flightName%</td>
+			<td>%flightCode%</td>
+			<td>%gate%</td>
+			<td>%passengerType%</td>
+			<td>%gender%</td>
+			<td>%airport%</td>
+			<td>%departureLounge%</td>
+			<td>%boardingZone%</td>
+			<td>%boarding%</td>
+			<td>%departureTime%</td>
+		</tr>
+	</script>
+	<script type="text/template" id="passenger-timing-header">
+		<tr class="bold">
+			<td>Flight Name</td>
+			<td>Flight Code</td>
+			<td>Gate</td>
+			<td>Passenger Type</td>
+			<td>Gender</td>
+			<td>Airport</td>
+			<td>Departure Lounge</td>
+			<td>Boarding Zone</td>
+			<td>Boarding</td>
+			<td>Departure</td>
+		</tr>
+	</script>
+	<!-- Scheme variables -->
+	<script src="js/p12.js"></script>
+	<script src="js/p13.js"></script>
+	<script src="js/p14.js"></script>
+	<script src="js/p15.js"></script>
+	<script src="js/key.js"></script>
+	<script src="../../aviation/lib/sfo/t1gatelayout.js"></script>
+	<!-- aviation module -->
+	<script src="../../aviation/src/airports.js"></script>
+	<script src="../../aviation/src/airlines.js"></script>
+	<script src="../../aviation/src/aircraft.js"></script>
+	<script src="../../aviation/src/tt.js"></script>
+	<script src="../../aviation/src/pax.js"></script>
+	<script src="../../aviation/src/core.js"></script>
+	<!-- Main App -->
+	<script src="js/app.js"></script>
+	<!-- Additional Evaluations -->
+</body>
+</html>
+
+
