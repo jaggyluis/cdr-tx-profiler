@@ -11,16 +11,18 @@ var app = app || {};
 
 	
 	app.init = function() {
+
+		//this.TEMP();
+		this.getPassengerTypes();
+
 		this._view = new this.View();
 		this._view.init();
 		this._data = null;
-		this._gates = t1gatelayout;
+		this._gates = gatelayout;
 		this._stash = null;
 	}
 	app.run = function() {
 		this.clear();
-
-		this.TEMP();
 
 		AVIATION.set(
 			this._gates,
@@ -40,31 +42,55 @@ var app = app || {};
 		this._view.clear();
 		AVIATION.clear();
 	}
-	app.TEMP = function() {
+	app.getPassengerTypes = function() {
+
+		function getPassengersByType(pArr) {
+			var types = {
+				leisure : [2,3,5,6],
+				assisted : [4,6,10],
+				business : [1,5,11],
+				unique : [12,13,7],
+				family : [2,3,13]
+			}
+			var filtered = {
+				leisure : [],
+				assisted : [],
+				business : [],
+				unique : [],
+				family : []
+			}
+			var Q8keys = [9,15,16,17,107];
+
+			pArr.forEach(function(p) {
+				for (var i=0; i<6; i++) {
+					for (var type in types) {
+						if (types[type].includes(p['Q2PURP'+i.toString()])) {
+							filtered[type].push(p);
+						}
+					}
+					if (Q8keys.includes(p['Q8COM'+i.toString()])) {
+						filtered['assisted'].push(p);
+					}
+				}	
+			})
+			return filtered;
+		}
+
+		var passengers = p12.concat(p13).concat(p14).concat(p15);
+		var len = passengers.length;
+		var filtered = getPassengersByType(passengers);
+		console.log(filtered);
 
 
-		function round5 (num) {
-			return Math.round(num/5)*5;
-		}
-		function dist(Arr) {
-			var len = Arr.length;
-			var perc = {};
-			for (var i=0; i<Arr.length; i++) {
-				if (perc[Arr[i]]) {
-					perc[Arr[i]]++;
-				} else {
-					perc[Arr[i]] = 1;
-				}
-			}
-			for (var p in perc) {
-				perc[p] = Math.round((perc[p]/len)*100);
-			}
-			return perc;
-		}
+		
+
+	}
+	app.TEMP = function() { //Separate App?
 
 		function getArrivalDistribution(pArr) {
 
-			var delta = [];
+			var delta = [],
+				dist;
 
 			pArr.forEach(function(p) {
 
@@ -82,12 +108,17 @@ var app = app || {};
 					depTime = p.DEPTIME;
 				}
 				if (arrTime && depTime) {
-					var near = round5(AVIATION.time.decimalDayToMinutes(depTime-arrTime))
+					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),5)
 					delta.push(near);
 				}
 			});
-
-			console.log(dist(delta));
+			dist = AVIATION.array.dist(delta);
+			console.log(Object.keys(dist).map(function(o) {
+				return dist[o];
+			}).reduce(function(a,b) {
+				return a+b;
+			}))
+			return dist;
 			}
 
 		var flights = [];
@@ -118,15 +149,20 @@ var app = app || {};
 			var airline = AVIATION.get.airlineByCode(f.airline);
 			
 			if (airport !== undefined && airline !== undefined) {
-				var matchedFlights = this._data.filter(function(flight) {
-					return flight.airline == airline.IATA && 
-						flight.destination == airport.IATA
+
+				var matchedFlights = designDay.filter(function(flight) {
+					return flight.OPERATOR == airline.IATA && 
+						flight["DEST."] == airport.IATA
 				});
 				if (matchedFlights.length !== 0) {
 					//console.log(airport.IATA, airline.IATA);
 					//console.log(matchedFlights);
 					var types = matchedFlights.map(function(m) {
-						return AVIATION.get.aircraftByCode(m.aircraft).RFLW;
+						try {
+							return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
+						} catch (e) {
+							console.log('not in library: ', m.AIRCRAFT)
+						}
 					});
 					var type = AVIATION.array.mode(types);
 					if (type in typeData) {
@@ -136,13 +172,15 @@ var app = app || {};
 					} else {
 						typeData[type] = f.passengers;
 					}
-				}	
+				} else {
+					console.log('flight not matched');
+				}
 			}
 
 		}).bind(this));
 
 		console.log(typeData);
-		console.log(getArrivalDistribution(typeData.E));
+		console.log(getArrivalDistribution(typeData.C));
 	}
 	app.View = function() {
 			this.table = document.getElementById("passenger-timing-table");

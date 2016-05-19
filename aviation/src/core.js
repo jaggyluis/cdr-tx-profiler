@@ -38,6 +38,7 @@ var AVIATION = (function (aviation) {
 			best : filterBest,
 		},
 		mode : mode,
+		dist : dist,
 		matchAll : matchAll,
 		buildLib : buildLib
 	}
@@ -49,6 +50,9 @@ var AVIATION = (function (aviation) {
 		romanToNumber : romanToNumber,
 		aptimeToDecimalDay : aptimeToDecimalDay,
 		isapTime : isapTime
+	}
+	aviation.math = {
+		round : round,
 	}
 	function decimalDayToTime(dday) {
 		dday = dday>=0 ? dday : 1 + dday;
@@ -160,6 +164,24 @@ var AVIATION = (function (aviation) {
 			return bc-ac;
 		})[0];
 	};
+	function round (num, mod) {
+		return Math.round(num/mod)*mod;
+	}
+	function dist(Arr) {
+		var len = Arr.length;
+		var perc = {};
+		for (var i=0; i<Arr.length; i++) {
+			if (perc[Arr[i]]) {
+				perc[Arr[i]]++;
+			} else {
+				perc[Arr[i]] = 1;
+			}
+		}
+		for (var p in perc) {
+			perc[p] = Math.round((perc[p]/len)*100);
+		}
+		return perc;
+	}
 	function mode(Arr) {
 		var max = Arr[0];
 		var hold = {};
@@ -201,6 +223,7 @@ var AVIATION = (function (aviation) {
 		})
 		return true;
 	};
+
 	function set(gates, flights, loadFactor, filter, timeFrame) {
 		aviation._gates = setGates(gates);
 		aviation._flights = setFlights(
