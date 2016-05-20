@@ -205,12 +205,27 @@ var key = {
 		2 : false,
 		3 : null
 	},
-	"Q8*" : {
+	"Q8assisted" : {
 		9 : "Walks too long",
 		15 : "More services for the disabled",
 		16 : "Better trained assisted",
 		17 : "walkways wider",
 		107 : "TSA do not deal well with assisted",
 
+	},
+	"Q8family" : {
+		29 : "Play area for children needed"
+	},
+	"Q8unique" : {
+		25 : "Need pet area post-security"
+	},
+	"Q18AGE" : {
+		1 : "<18",
+		2 : "18-24",
+		3 : "25-34",
+		4 : "35-44",
+		5 : "45-54",
+		6 : "55-64",
+		7 : "65>"
 	}
 }
