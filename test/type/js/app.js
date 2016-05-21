@@ -1,126 +1,119 @@
-
-//--------------------------------------------------------
-// main app
-//--------------------------------------------------------
-'use strict';
-
-
 (function() {	
 
 	function typeBuilder() {
 
-		function getPassengersByType(pArr) {
-
-			var types = {
-				leasure : [2,3,4,5,6],
-				business : [1,11],
-				assisted : [10],
-				unique : [7,12],
-				family : [13]
-			};
+		function getPassengersByDI(pArr) {
 
 			var filtered = {
-				leasure : [],
-				business : [],
-				assisted : [],
-				unique : [],
-				family : []
-			};
-
-			var Q8assisted = Object.keys(key.Q8assisted),
-				Q8family = Object.keys(key.Q8family),
-				Q8unique = Object.keys(key.Q8unique);
+				domestic : [],
+				international : [],
+			}
 
 			pArr.forEach(function(p) {
 
-				var age = p.Q18AGE;
+			});
+		}
 
-				if (age === 1) {
-					filtered['assisted'].push(p);
-					return;
-				}
+		function getPassengersByDT(pArr) {
 
-				for (var i=0; i<=6; i++) {
+			var filtered = {
+				departing : [],
+				transfer : []
+			}
 
-					if (Q8assisted.includes(p['Q8COM'+i.toString()])) { //answered assisted
-						filtered['assisted'].push(p);
-						return;
-					}
-					if (Q8family.includes(p['Q8COM'+i.toString()])) { //answered assisted
-						filtered['family'].push(p);
-						return;
-					}
-					if (p['Q2PURP']+i.toString() == 4 && age > 2) {
-						filtered['family'].push(p);
-						return;
-					}
-					if (Q8unique.includes(p['Q8COM'+i.toString()])) { //answered assisted
-						filtered['unique'].push(p);
+			pArr.forEach(function(p) {
+
+				for (var i=1; i<=6; i++) {
+
+					var dt = p['Q3GETTO'+i.toString()]
+					var arrTime = p['ARRTIME'];
+
+					if (dt === 3 || arrTime === 'N') {
+						filtered.transfer.push(p);
 						return;
 					}
 				}
+				filtered.departing.push(p);
+				return;
 
-				for (var i=0; i<=6; i++) {
+			});
+			return filtered;
+		}
 
-					for (var type in types) {
-						if (types[type].includes(p['Q2PURP'+i.toString()])) {
-							filtered[type].push(p);
+		function getPassengersByType(pArr) {
+
+			var filtered = {
+				leisure : [],
+				business : [],
+				other : []
+			};
+
+			pArr.forEach(function(p) {
+
+				for (var i=1; i<=3; i++) {
+
+					var type = p['Q2PURP'+i.toString()]
+
+					switch ( type ) {
+						case 1 :
+							filtered.business.push(p);
 							return;
-						}
+						case 2 || 3 || 4 || 5 || 6: 
+							filtered.leisure.push(p);
+							return;
+						default :
+							break;
 					}
 				}
+				filtered.other.push(p);
+				return;
 			});
 			return filtered;
 		};
-		function buildTypeProfile(pArr, weighted) {
+
+		function getTypeProfile(pArr, weighted) {
 			
-			var profile = {
+			var filtered = {
 				percentage : 0,
-				speed : 0,
 				bags : 0,
-				df : 0,
-				food : 0
+				shop : 0,
+				food : 0,
 			};
 
 			pArr.forEach(function(p) {
 				var weight = p.WEIGHT && weighted ? p.WEIGHT : 1;
-				profile.percentage++;
-				if(p.Q4BAGS === 1) profile.bags+=weight;
-				if(p.Q4STORE === 1) profile.df+=weight;
-				if(p.Q4FOOD === 1) profile.food+=weight;
-			})
+				filtered.percentage++;
+				if(p.Q4BAGS === 1) filtered.bags+=weight;
+				if(p.Q4STORE === 1) filtered.shop+=weight;
+				if(p.Q4FOOD === 1) filtered.food+=weight;
+			});
 
-			console.log(profile);
+			console.log(filtered);
 
-			return Object.keys(profile).reduce(function(a,b) {
-				a[b] = Math.round((profile[b]/profile.percentage)*100);
+			return Object.keys(filtered).reduce(function(a,b) {
+				a[b] = Math.round((filtered[b]/filtered.percentage)*100);
 				return a;
 			},{})
 		};
 
 		var passengers = p12.concat(p13).concat(p14).concat(p15);
 		passengers = passengers.filter(function(p) {
-			return p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
-				p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13);
-			//return p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-			//return p.BAREA == 'D' || (p.GATE >= 50 && p.GATE < 60);
-			//return p.BAREA == 'E' || (p.GATE >= 60 && p.GATE < 70);
-			//return p.BAREA == 'F' || (p.GATE >= 70 && p.GATE < 91);
-			//return p.BAREA == 'G' || (p.GATE >= 91 && p.GATE < 103);
-		})
+			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13) ||
+				p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
+				p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
+		});
+
 		var len = passengers.length;
-		var filtered = getPassengersByType(passengers);
+		//var filtered = getPassengersByType(passengers);
+		var filtered = getPassengersByDT(passengers);
 
 		console.log('total profile');
-		console.log(buildTypeProfile(passengers))
-		//console.log(buildTypeProfile(passengers, true))
-
+		console.log(getTypeProfile(passengers))
 		console.log(filtered)
 
 		for (var type in filtered) {
 			console.log(type, Math.round(filtered[type].length/passengers.length*100));
-			console.log(buildTypeProfile(filtered[type]));
-			//console.log(buildTypeProfile(filtered[type], true));
+			console.log(getTypeProfile(filtered[type]));
 		}
 	}
 
