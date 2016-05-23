@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Aviation Passenger Timing Profile Generator</title>
+	<title>Aviation Passenger Type Profile Generator</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/style.css">
@@ -9,88 +9,28 @@
 <body>
 	<div id="container">
 		<div id="table-box">
-			<table id="passenger-timing-table">
-				<tr class="bold">
-					<td>Name</td>
-					<td>Percentage</td>
-					<td>Walking Speed</td>
-					<td>Check Bags</td>
-					<td>Buy DF</td>
-					<td>Buy Food</td>
-				</tr>
-			</table>
 		</div>
-		<div id="nav-bar">
-			<div class="input-box">
-				<input id="loadFactor" class="filter" placeholder="0.9">
-				<div class="input-title">Load Factor</div>
-			</div>
-			<div class="input-box">
-				<input id="timeFrame" class="filter" placeholder="0 to 24">
-				<div class="input-title">Time Frame</div>
-			</div>
-			<div id="input-box">
-				<input id="filter-flights" class="filter" placeholder="American Airlines">
-				<div class="input-title">Filter Flights</div>
-			</div>
-			<div id="input-box">
-				<input id="filter-passengers" class="filter" placeholder="Leisure">
-				<div class="input-title">Filter Passengers</div>
-			</div>	
-			<div class="btn-box">
-				<button id="run" class="btn-toggle" disabled>Run</button>
-				<div id="run-icn" class="hidden loading">
-					<img src="img/loading.gif">
-				</div>
-			</div>
-			<div class="btn-box">
-				<button id="save" class="btn-toggle" disabled>Save</button>
-				<div id="save-icn" class="hidden loading">
-					<img src="img/loading.gif">
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="json" type="checkbox" checked></input>
-					<div class="chk-txt">profiles.json</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="log" type="checkbox" ></input>
-					<div class="chk-txt">summary.json</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="csv" type="checkbox" ></input>
-					<div class="chk-txt">profiles.csv</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="txt" type="checkbox" ></input>
-					<div class="chk-txt">summary.txt</div>
-				</div>
-			</div>
-			<div class="btn-box">
-				<button id="showResults" class="btn-toggle" disabled>Show Results</button>
-				<div id="show-icn" class="hidden loading">
-					<img src="img/loading.gif">
-				</div>
-			</div>
-		</div>
-
 	</div>
 
-	<script type="text/template" id="passenger-timing-template">
+	<script type="text/template" id="passenger-type-template">
 		<tr>
-			<td>%flightName%</td>
-			<td>%flightCode%</td>
-			<td>%gate%</td>
-			<td>%passengerType%</td>
-			<td>%gender%</td>
-			<td>%airport%</td>
-			<td>%departureLounge%</td>
-			<td>%boardingZone%</td>
-			<td>%boarding%</td>
-			<td>%departureTime%</td>
+			<td>%name%</td>
+			<td>%count%</td>
+			<td>%percent%</td>
+			<td>%bags%</td>
+			<td>%food%</td>
+			<td>%shop%</td>
 		</tr>
 	</script>
-	<script type="text/template" id="passenger-timing-header">
-
+	<script type="text/template" id="passenger-type-header">
+		<tr class="bold">
+			<td>Name</td>
+			<td>Count</td>
+			<td>% of Total Passengers</td>
+			<td>Checked Bags</td>
+			<td>Bought Food</td>
+			<td>Bought Store</td>
+		</tr>
 	</script>
 	<!-- Scheme variables -->
 	<script src="../../aviation/lib/sfo/passengers/p12.js"></script>
