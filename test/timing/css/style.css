@@ -30,13 +30,14 @@ img {
 	height: 100%;
 }
 #nav-bar {
-	margin-left: 799px;
+	margin-left: 849px;
 	padding-left: 5px;
 	border-left: 1px solid grey;
 	position: fixed;
 	width: 100px; //remove?
 }
 #table-box {
+	margin-left: 50px;
 	float: left;
 }
 #drop {
