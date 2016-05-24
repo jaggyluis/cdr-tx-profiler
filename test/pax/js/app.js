@@ -98,4 +98,6 @@
 		console.log(getArrivalDistribution(typeData.C));
 	}
 
+	paxBuilder();
+
 })();
