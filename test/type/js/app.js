@@ -128,7 +128,7 @@
 				this.transfer = new TypeClass('transfer', dt.transfer, length, tt);
 			}
 		}
-		TypeClass.prototype._buildTable = function (drawHeader, tabs) {
+		TypeClass.prototype._buildTable = function (drawHeader, tabs, parents) {
 			
 
 			var container = document.createElement('div'),
@@ -141,6 +141,9 @@
 				tabs = tabs++;
 
 			container.style.paddingLeft = (tabs*50).toString()+"px";
+			col.classList.add('table-container');
+
+
 
 			table.classList.toggle('passenger-timing-table');
 			if (drawHeader) table.innerHTML+= header
@@ -152,11 +155,19 @@
 								.replace('%food%', this._data.food)
 								.replace('%bags%', this._data.bags)
 								.replace('%shop%', this._data.shop)
+			
+			
+			var parent = table.children[1].children[0].children[0];
+			var trace = parents.slice();
+			trace.push(parent);
 			container.appendChild(table);
 
 			var sub = [];
 			for (var type in this) {
-				if (!type.match(/_/)) sub.push(this[type]._buildTable(true, tabs));
+				if (!type.match(/_/)){
+					var sTable = this[type]._buildTable(true, tabs, trace)
+					sub.push(sTable);
+				} 
 			}
 
 			if (sub.length !== 0) {
@@ -176,8 +187,8 @@
 					}
 				});
 
-				col.classList.add('table-container');
 				
+
 				expand.appendChild(expImg);
 				container.appendChild(expand);
 				container.appendChild(col);
@@ -185,6 +196,18 @@
 				for (var s in sub ) col.appendChild(sub[s]);
 			}
 	
+			container.addEventListener('mouseenter', function() {
+				for (var i=0; i<parents.length; i++) {
+					parents[i].classList.add('sel');
+					parent.classList.add('sel');
+				}
+			})
+			container.addEventListener('mouseleave', function() {
+				for (var i=0; i<parents.length; i++) {
+					parents[i].classList.remove('sel');
+					parent.classList.remove('sel');
+				}
+			})
 			return container;
 		}
 
@@ -198,8 +221,7 @@
 		});	
 
 		var typeClass = new TypeClass('total T1', passengers, passengers.length, []);
-		console.log(typeClass)
-		document.getElementById('table-box').appendChild(typeClass._buildTable(true, 1));
+		document.getElementById('table-box').appendChild(typeClass._buildTable(true, 1, []));
 	}
 
 	typeBuilder();
