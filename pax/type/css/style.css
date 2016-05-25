@@ -37,6 +37,10 @@ tr:hover {
 	border-right: 1px dotted grey;
 	min-width: 1051px;
 }
+#log {
+	margin-left: 1060px;
+	position: fixed;
+}
 .table-container {
 	clear: both;
 	overflow: hidden;

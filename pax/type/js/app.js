@@ -2,105 +2,6 @@
 
 	function typeBuilder(passengers) {
 
-		function getArrivalDistribution(pArr, mod) {
-
-			var delta = [],
-				dist;
-
-			pArr.forEach(function(p) {
-
-				var arrTime,
-					depTime;
-
-				if (AVIATION.time.isapTime(p.ARRTIME)) {
-					arrTime = AVIATION.time.aptimeToDecimalDay(p.ARRTIME);
-				} else if (!isNaN(p.ARRTIME)) {
-					arrTime = p.ARRTIME;
-				}
-				if (AVIATION.time.isapTime(p.DEPTIME)) {
-					depTime = AVIATION.time.aptimeToDecimalDay(p.DEPTIME);
-				} else if (!isNaN(p.DEPTIME)) {
-					depTime = p.DEPTIME;
-				}
-				if (arrTime && depTime) {
-					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),mod)
-					delta.push(near);
-				}
-			});
-			dist = AVIATION.array.dist(delta, true);
-
-			//console.log('percent sum: ', Object.keys(dist).map(function(o) {
-			//	return dist[o];
-			//}).reduce(function(a,b) {
-			//	return a+b;
-			//}));
-
-			return dist;
-			}
-
-		function getPaxData (pArr) {
-
-			var flights = [];
-			var passengers = pArr;
-			var typeData = {};
-			//console.log('total passengers: ', passengers.length);
-
-			var destinations = AVIATION.array.buildLib(passengers, 'DEST');
-			Object.keys(destinations).map(function(dest) {
-				var aLib = AVIATION.array.buildLib(destinations[dest], 'AIRLINE');
-				for (var airline in aLib) {
-					flights.push({
-						passengers : aLib[airline],
-						flight : aLib[airline][0].FLIGHT,
-						destination : key.DESTINATION[dest],
-						airline : key.AIRLINE[airline],
-						aircraft : null,
-					})
-				}
-			})
-			//console.log('total flight types: ', flights.length)
-			var sorted = flights.sort(function(a,b) {
-				return b.passengers.length - a.passengers.length
-			});
-			sorted.forEach((function(f) {
-
-				var airport = AVIATION.get.airportByString(f.destination);
-				var airline = AVIATION.get.airlineByCode(f.airline);
-				
-				if (airport !== undefined && airline !== undefined) {
-
-					var matchedFlights = designDay.filter(function(flight) {
-						return flight.OPERATOR == airline.IATA && 
-							flight["DEST."] == airport.IATA
-					});
-					if (matchedFlights.length !== 0) {
-						//console.log(airport.IATA, airline.IATA);
-						//console.log(matchedFlights);
-						var types = matchedFlights.map(function(m) {
-							try {
-								return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
-							} catch (e) {
-								//console.warn('not in library: ', m.AIRCRAFT)
-								return 'OTHER';
-							}
-						});
-						var type = AVIATION.array.mode(types);
-						if (type in typeData) {
-							f.passengers.forEach(function(p) {
-								typeData[type].push(p);
-							})
-						} else {
-							typeData[type] = f.passengers;
-						}
-					} else {
-						//console.warn('flight not matched');
-					}
-				}
-			}).bind(this));
-
-			return typeData;
-		}
-
 		function TypeClass(name, pArr, length, trace) {
 
 			var type = this._getPassengersByType(pArr);
@@ -108,32 +9,84 @@
 			var di = this._getPassengersByDI(pArr);
 
 			this._name = name;
-			this._passengers = pArr;
 			this._data = this._getTypeProfile(pArr, length);
+			this._pax = pArr;
 
 			if (!trace.includes('type')) {
 				var ty = trace.slice();
 				ty.push('type');
-				this.business = new TypeClass('business', type.business, length, ty);
-				this.leisure = new TypeClass('leisure', type.leisure, length, ty);
-				this.other = new TypeClass('other', type.other, length, ty);
+				this.business = new TypeClass(this._name+'.'+'business', type.business, length, ty);
+				this.leisure = new TypeClass(this._name+'.'+'leisure', type.leisure, length, ty);
+				this.other = new TypeClass(this._name+'.'+'other', type.other, length, ty);
 			}
 			if (!trace.includes('di')) {
 				var ti = trace.slice();
 				ti.push('di');
-				this.domestic = new TypeClass('domestic', di.domestic, length, ti);
-				this.international = new TypeClass('international', di.international, length, ti);
+				this.domestic = new TypeClass(this._name+'.'+'domestic', di.domestic, length, ti);
+				this.international = new TypeClass(this._name+'.'+'international', di.international, length, ti);
 			}
 			if (!trace.includes('dt')) {
 				var tt = trace.slice();
 				tt.push('dt');
-				this.departing = new TypeClass('departing', dt.departing, length, tt);
-				this.transfer = new TypeClass('transfer', dt.transfer, length, tt);
+				this.departing = new TypeClass(this._name+'.'+'departing', dt.departing, length, tt);
+				this.transfer = new TypeClass(this._name+'.'+'transfer', dt.transfer, length, tt);
 			}
+			var _types = this._filterTypes();
+			if(!Object.keys(_types).includes(this._name)) this._types = _types;
 		};
 		TypeClass.prototype = {
 
-			get _types() {
+			_getPaxProfile : function() {
+
+				var pax = this._getPaxData(this._pax),
+					data = this._data;
+					dist = {};
+
+				for (var t in pax) {
+					dist[t] = this._getArrivalDistribution(pax[t], 10);
+				}
+				return {
+					pax : pax,
+					data : data,
+					dist : dist
+				};
+			},
+			_getArrivalDistribution : function (pArr, mod) {
+
+				var delta = [],
+					dist;
+
+				pArr.forEach(function(p) {
+
+					var arrTime,
+						depTime;
+
+					if (AVIATION.time.isapTime(p.ARRTIME)) {
+						arrTime = AVIATION.time.aptimeToDecimalDay(p.ARRTIME);
+					} else if (!isNaN(p.ARRTIME)) {
+						arrTime = p.ARRTIME;
+					}
+					if (AVIATION.time.isapTime(p.DEPTIME)) {
+						depTime = AVIATION.time.aptimeToDecimalDay(p.DEPTIME);
+					} else if (!isNaN(p.DEPTIME)) {
+						depTime = p.DEPTIME;
+					}
+					if (arrTime && depTime) {
+						var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),mod)
+						delta.push(near);
+					}
+				});
+				dist = AVIATION.array.dist(delta, true);
+
+				//console.log('percent sum: ', Object.keys(dist).map(function(o) {
+				//	return dist[o];
+				//}).reduce(function(a,b) {
+				//	return a+b;
+				//}));
+
+				return dist;
+			},
+			_getTypes() {
 				var types = [];
 				for (var type in this) {
 					if (!type.match(/_/)){
@@ -171,7 +124,7 @@
 					perm = '',
 					self = this;
 
-				this._types.forEach(function(type) {
+				this._getTypes().forEach(function(type) {
 					var u = self[type]._uniq();
 					perm+=' '+u[1];
 					u[0].forEach(function(uArr) {
@@ -198,7 +151,7 @@
 					for (var i=0; i<keys.length; i++){
 						curr = curr[keys[i]];
 					}
-					types[keys.join('.')] = curr;
+					types[curr._name] = curr;
 				}
 				return types;
 			},
@@ -291,6 +244,69 @@
 					return a;
 				},{count:count, percentage: Math.round(count/total*100)});
 			},
+			_getPaxData : function (pArr) {
+
+				var flights = [];
+				var passengers = pArr;
+				var typeData = {};
+				//console.log('total passengers: ', passengers.length);
+
+				var destinations = AVIATION.array.buildLib(passengers, 'DEST');
+				Object.keys(destinations).map(function(dest) {
+					var aLib = AVIATION.array.buildLib(destinations[dest], 'AIRLINE');
+					for (var airline in aLib) {
+						flights.push({
+							passengers : aLib[airline],
+							flight : aLib[airline][0].FLIGHT,
+							destination : key.DESTINATION[dest],
+							airline : key.AIRLINE[airline],
+							aircraft : null,
+						})
+					}
+				})
+				//console.log('total flight types: ', flights.length)
+				var sorted = flights.sort(function(a,b) {
+					return b.passengers.length - a.passengers.length
+				});
+				sorted.forEach((function(f) {
+
+					var airport = AVIATION.get.airportByString(f.destination);
+					var airline = AVIATION.get.airlineByCode(f.airline);
+					
+					if (airport !== undefined && airline !== undefined) {
+
+						var matchedFlights = designDay.filter(function(flight) {
+							return flight.OPERATOR == airline.IATA && 
+								flight["DEST."] == airport.IATA
+						});
+						if (matchedFlights.length !== 0) {
+							//console.log(airport.IATA, airline.IATA);
+							//console.log(matchedFlights);
+							var types = matchedFlights.map(function(m) {
+								try {
+									return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
+								} catch (e) {
+									//console.warn('not in library: ', m.AIRCRAFT)
+									return 'OTHER';
+								}
+							});
+							var type = AVIATION.array.mode(types);
+							if (type in typeData) {
+								f.passengers.forEach(function(p) {
+									typeData[type].push(p);
+								})
+							} else {
+								typeData[type] = f.passengers;
+							}
+						} else {
+							//console.warn('flight not matched');
+							//console.warn(f)
+						}
+					}
+				}).bind(this));
+
+				return typeData;
+			},
 			_buildTable : function (drawHeader, tabs, parents) {
 
 				var container = document.createElement('div'),
@@ -325,9 +341,9 @@
 				container.appendChild(table);
 
 				var sub = [];
-				for (var type in this._types) {
-					sub.push(this[this._types[type]]._buildTable(true, tabs, trace));
-				}
+				this._getTypes().forEach((function(type) {
+					sub.push(this[type]._buildTable(true, tabs, trace));
+				}).bind(this));
 
 				if (sub.length !== 0) {
 
@@ -375,30 +391,41 @@
 				p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
 		});	
 
-		var typeClass = new TypeClass('total T1', passengers, passengers.length, []),
-			types = typeClass._filterTypes(),
+		var typeClass = new TypeClass('t1', passengers, passengers.length, []),
+			keys = Object.keys(typeClass._types),
 			box = document.getElementById('table-box'),
-			count = 0;
+			children = [],
+			logbar = document.getElementById('log'),
+			i = 0,	
+			obj;
 
-		for (type in types) {
-			var cl = types[type],
-				dat = getPaxData(types[type]._passengers),
-				draw = !count;
 
-			cl._name = type;
-			box.appendChild(cl._buildTable(draw, 1, []));
-
-			for (var fType in dat) {
-				var dist = getArrivalDistribution(dat[fType], 10);
-			}
-
-			count++;
+		function _log(dest, str) {
+			dest.innerHTML+='<div>*</div>'.replace("*", str)
+		};
+		function _add() {
+		    obj = typeClass._types[keys[i]];
+		    children.push(obj._buildTable(!i, 1, []));
+		    profile = obj._getPaxProfile()
+		    _log(logbar, obj._name);
+		    i++;
+		    if (i < keys.length) {
+		    	window.setTimeout(_add, 0)
+		    } else {
+		    	var d = document.createElement('div')
+		    	_log(d, '<br><div style="padding-left: 50px">UNIQUE PROFILES</div><br>');
+		    	children.forEach(function(childElem) {
+		    		d.appendChild(childElem);
+		    	})
+		    	box.appendChild(d);
+		    };
 		}
 
-		box.innerHTML+='<div><br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br></div>';
+		_log(logbar, '<br>>>><br><br>')
+		_add()
+		_log(box, '<br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br>');
 		box.appendChild(typeClass._buildTable(true, 1, []));
 	}
-
 	var profiles = typeBuilder(p12.concat(p13).concat(p14).concat(p15));
 
 })();
