@@ -11,10 +11,16 @@ table {
 	border-collapse: collapse;
 	font-size: 9px;
 	width: 800px;
+	table-layout: fixed;
 }
 td {
 	border: 1px solid grey;
-	width: 100px;
+	width: 150px;
+}
+td+td {
+	width: auto;
+	text-align: right;
+	padding-right: 2px;
 }
 td:hover {
 	background-color: yellow;

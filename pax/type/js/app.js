@@ -1,8 +1,8 @@
 (function() {	
 
-	function typeBuilder() {
+	function typeBuilder(passengers) {
 
-		function getArrivalDistribution(pArr) {
+		function getArrivalDistribution(pArr, mod) {
 
 			var delta = [],
 				dist;
@@ -23,16 +23,18 @@
 					depTime = p.DEPTIME;
 				}
 				if (arrTime && depTime) {
-					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),5)
+					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),mod)
 					delta.push(near);
 				}
 			});
-			dist = AVIATION.array.dist(delta);
-			console.log(Object.keys(dist).map(function(o) {
-				return dist[o];
-			}).reduce(function(a,b) {
-				return a+b;
-			}))
+			dist = AVIATION.array.dist(delta, true);
+
+			//console.log('percent sum: ', Object.keys(dist).map(function(o) {
+			//	return dist[o];
+			//}).reduce(function(a,b) {
+			//	return a+b;
+			//}));
+
 			return dist;
 			}
 
@@ -41,7 +43,7 @@
 			var flights = [];
 			var passengers = pArr;
 			var typeData = {};
-			console.log('total passengers: ', passengers.length);
+			//console.log('total passengers: ', passengers.length);
 
 			var destinations = AVIATION.array.buildLib(passengers, 'DEST');
 			Object.keys(destinations).map(function(dest) {
@@ -56,7 +58,7 @@
 					})
 				}
 			})
-			console.log('total flight types: ', flights.length)
+			//console.log('total flight types: ', flights.length)
 			var sorted = flights.sort(function(a,b) {
 				return b.passengers.length - a.passengers.length
 			});
@@ -78,7 +80,8 @@
 							try {
 								return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
 							} catch (e) {
-								console.warn('not in library: ', m.AIRCRAFT)
+								//console.warn('not in library: ', m.AIRCRAFT)
+								return 'OTHER';
 							}
 						});
 						var type = AVIATION.array.mode(types);
@@ -90,7 +93,7 @@
 							typeData[type] = f.passengers;
 						}
 					} else {
-						console.warn('flight not matched');
+						//console.warn('flight not matched');
 					}
 				}
 			}).bind(this));
@@ -297,12 +300,13 @@
 					table = document.createElement('table'),
 					header = document.getElementById('passenger-type-header').innerText,
 					template = document.getElementById('passenger-type-template').innerText,
+					trace = parents.slice();
 					tabs = tabs++;
 
 				container.style.paddingLeft = (tabs*50).toString()+"px";
 				col.classList.add('table-container');
-
 				table.classList.toggle('passenger-timing-table');
+
 				if (drawHeader) table.innerHTML+= header;
 
 				table.innerHTML+=template.replace('%name%', this._name)
@@ -314,9 +318,10 @@
 									.replace('%shop%', this._data.shop)
 				
 				
-				var parent = table.children[1].children[0].children[0];
-				var trace = parents.slice();
-				trace.push(parent);
+				if (drawHeader) {
+					var parent = table.children[1].children[0].children[0];
+					trace.push(parent);
+				}
 				container.appendChild(table);
 
 				var sub = [];
@@ -364,8 +369,6 @@
 			}
 		}
 
-
-		var passengers = p12.concat(p13).concat(p14).concat(p15);
 		passengers = passengers.filter(function(p) {
 			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13) ||
 				p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
@@ -373,19 +376,29 @@
 		});	
 
 		var typeClass = new TypeClass('total T1', passengers, passengers.length, []),
-			types = typeClass._filterTypes();
-
-		console.log(types);
+			types = typeClass._filterTypes(),
+			box = document.getElementById('table-box'),
+			count = 0;
 
 		for (type in types) {
-			console.log(type);
-			console.log(types[type]);
-			console.log(getPaxData(types[type]._passengers));
+			var cl = types[type],
+				dat = getPaxData(types[type]._passengers),
+				draw = !count;
+
+			cl._name = type;
+			box.appendChild(cl._buildTable(draw, 1, []));
+
+			for (var fType in dat) {
+				var dist = getArrivalDistribution(dat[fType], 10);
+			}
+
+			count++;
 		}
 
-		document.getElementById('table-box').appendChild(typeClass._buildTable(true, 1, []));
+		box.innerHTML+='<div><br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br></div>';
+		box.appendChild(typeClass._buildTable(true, 1, []));
 	}
 
-	typeBuilder();
+	var profiles = typeBuilder(p12.concat(p13).concat(p14).concat(p15));
 
 })();

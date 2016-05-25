@@ -167,7 +167,7 @@ var AVIATION = (function (aviation) {
 	function round (num, mod) {
 		return Math.round(num/mod)*mod;
 	}
-	function dist(Arr) {
+	function dist(Arr, clean) {
 		var len = Arr.length;
 		var perc = {};
 		for (var i=0; i<Arr.length; i++) {
@@ -179,6 +179,7 @@ var AVIATION = (function (aviation) {
 		}
 		for (var p in perc) {
 			perc[p] = Math.round((perc[p]/len)*100);
+			if (perc[p] === 0 && clean) delete perc[p];
 		}
 		return perc;
 	}
