@@ -426,14 +426,18 @@
 					} 
 				}
 				return perc;
+			},
+			_buildTable : function() {
+				var template = document.getElementById('flight-box-template').innerHTML;
+				return template.replace(/%name%/g, this._name);
 			}
 		}
 
-		//passengers = passengers.filter(function(p) {
-		//	return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
-		//		//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
+		passengers = passengers.filter(function(p) {
+			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
+				//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
 				//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-		//});	
+		});	
 
 		var typeClass = new TypeClass('total', passengers, passengers.length, []),
 			keys = Object.keys(typeClass._types),
@@ -471,17 +475,18 @@
 		};
 
 		append(logbar, '<br>>>><br><br>')
-		append(box, '<br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br>');
+		append(box, '<br><div class="pad">TOTAL SIMULATION RESULTS</div><br>');
 		box.appendChild(typeClass._buildTable(true, 1, []));
 
 		compute_profiles(function(profiles) {
 
 			var d = document.createElement('div');
-	    	append(d, '<br><div style="padding-left: 50px">UNIQUE PROFILES</div><br>');
+			//d.style.paddingLeft = '50px';
+	    	append(d, '<br><div class="pad">PASSENGER PROFILES</div><br>');
 	    	children.forEach(function(childElem) {
 	    		d.appendChild(childElem);
 	    	})	    	
-	    	append(d, '<br><div style="padding-left: 50px">FLIGHT PROFILES</div><br>')
+	    	append(d, '<br><div class="pad">FLIGHT PROFILES</div><br>')
 	    	box.appendChild(d);
 
 	    	var flights = [];
@@ -490,6 +495,7 @@
 	    		var flightClass = new FlightClass(flightType, profiles[flightType]);
 	    		console.log(flightClass._name);
 	    		console.log(flightClass._getPerc());
+	    		append(d, flightClass._buildTable());
 	    	}	    	
 		});
 	}

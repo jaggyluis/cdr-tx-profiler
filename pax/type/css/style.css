@@ -48,6 +48,12 @@ tr:hover {
 	border-top: 1px dotted grey;
 	width: 1000px;
 }
+.flight-box {
+	padding-bottom: 10px;
+}
+.flight-table-box {
+	width: 950px !important;
+}
 .passenger-timing-table {
 	margin-top: -1px;
 }
@@ -77,4 +83,7 @@ tr:hover {
 }
 .sel {
 	background-color: yellow;
+}
+.pad {
+	padding-left: 50px;
 }

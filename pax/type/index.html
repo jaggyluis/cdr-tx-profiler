@@ -33,6 +33,19 @@
 			<td>% Shop</td>
 		</tr>
 	</script>
+	<script type="text/template" id="flight-box-template">
+		<div class="pad flight-box">
+			<div class="flight-name">%name%</div>
+			<div id="%name%-hook" class="expand"><img src="img/expand.png"></div>
+			<div class="flight-table-box table-container pad outlined-left">%type%</div>
+		</div>
+	</script>
+	<script type="text/template" id="flight-type-template">
+		<div>		
+			<div>%type%</div>
+			<div id="%name%-%type%-hook" class="expand"><img src="img/expand.png"></div>
+		</div>
+	</script>
 	<!-- Scheme variables -->
 	<script src="../../aviation/lib/sfo/passengers/p12.js"></script>
 	<script src="../../aviation/lib/sfo/passengers/p13.js"></script>
