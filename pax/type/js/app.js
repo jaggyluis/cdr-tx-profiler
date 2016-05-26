@@ -46,6 +46,7 @@
 					dist[t] = this._getArrivalDistribution(pax[t], 10);
 				}
 				return {
+					_name: this._name,
 					pax : pax,
 					data : data,
 					dist : dist
@@ -385,46 +386,112 @@
 			}
 		}
 
-		passengers = passengers.filter(function(p) {
-			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13) ||
-				p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
-				p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-		});	
 
-		var typeClass = new TypeClass('t1', passengers, passengers.length, []),
+		function FlightClass (name, types) {
+			this._name = name;
+			this._types = types;
+			this._di = this._getDIDist();
+		}
+		FlightClass.prototype = {
+
+			_getDIDist : function() {
+				var dist = {
+					domestic : {},
+					international : {}
+				};
+				for (var type in this._types) {
+					if (type.split('.').includes('domestic')) {
+						dist.domestic[type] = this._types[type];
+					} else if (type.split('.').includes('international')) {
+						dist.international[type] = this._types[type];
+					}
+				}
+				return dist;
+			},
+			_getPerc : function() {
+				var perc = {};
+				for (var d in this._di) {
+					var count = 0
+					perc[d] = {}
+					for (var t in this._di[d]) {
+						perc[d][t] = this._di[d][t].pax.length
+						count+=this._di[d][t].pax.length
+					}
+					for (var p in perc[d]){
+						perc[d][p] = {
+							count : perc[d][p],
+							percentage : Math.round(perc[d][p]/count*100),
+							dist : this._types[p].dist
+						}
+					} 
+				}
+				return perc;
+			}
+		}
+
+		//passengers = passengers.filter(function(p) {
+		//	return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
+		//		//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
+				//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
+		//});	
+
+		var typeClass = new TypeClass('total', passengers, passengers.length, []),
 			keys = Object.keys(typeClass._types),
 			box = document.getElementById('table-box'),
 			children = [],
+			obj,
+			flightProfiles = {},
 			logbar = document.getElementById('log'),
-			i = 0,	
-			obj;
+			i = 0;	
 
-
-		function _log(dest, str) {
+		function append(dest, str) {
 			dest.innerHTML+='<div>*</div>'.replace("*", str)
 		};
-		function _add() {
-		    obj = typeClass._types[keys[i]];
+		function compute_profiles(cb) {
+
+			obj = typeClass._types[keys[i]];
 		    children.push(obj._buildTable(!i, 1, []));
 		    profile = obj._getPaxProfile()
-		    _log(logbar, obj._name);
-		    i++;
-		    if (i < keys.length) {
-		    	window.setTimeout(_add, 0)
-		    } else {
-		    	var d = document.createElement('div')
-		    	_log(d, '<br><div style="padding-left: 50px">UNIQUE PROFILES</div><br>');
-		    	children.forEach(function(childElem) {
-		    		d.appendChild(childElem);
-		    	})
-		    	box.appendChild(d);
-		    };
-		}
 
-		_log(logbar, '<br>>>><br><br>')
-		_add()
-		_log(box, '<br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br>');
+		    for (var flightClass in profile.pax) {
+		    	if (!(flightClass in flightProfiles)) flightProfiles[flightClass]= {};
+		    	flightProfiles[flightClass][profile._name] = {
+		    		pax : profile.pax[flightClass],
+		    		dist : profile.dist[flightClass]
+		    	}
+		    }
+		    append(logbar, obj._name); // log
+		    i++;
+
+		    if (i < keys.length) {
+		    	window.setTimeout(compute_profiles.bind(null, cb), 0)
+		    } else {
+		    	return cb(flightProfiles);
+		    };
+		};
+
+		append(logbar, '<br>>>><br><br>')
+		append(box, '<br><div style="padding-left: 50px">TOTAL SIMULATION RESULTS</div><br>');
 		box.appendChild(typeClass._buildTable(true, 1, []));
+
+		compute_profiles(function(profiles) {
+
+			var d = document.createElement('div');
+	    	append(d, '<br><div style="padding-left: 50px">UNIQUE PROFILES</div><br>');
+	    	children.forEach(function(childElem) {
+	    		d.appendChild(childElem);
+	    	})	    	
+	    	append(d, '<br><div style="padding-left: 50px">FLIGHT PROFILES</div><br>')
+	    	box.appendChild(d);
+
+	    	var flights = [];
+
+	    	for (var flightType in profiles) {
+	    		var flightClass = new FlightClass(flightType, profiles[flightType]);
+	    		console.log(flightClass._name);
+	    		console.log(flightClass._getPerc());
+	    	}	    	
+		});
 	}
 	var profiles = typeBuilder(p12.concat(p13).concat(p14).concat(p15));
 
