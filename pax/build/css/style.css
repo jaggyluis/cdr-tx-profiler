@@ -18,12 +18,12 @@ table {
 	//float: left;
 	border-collapse: collapse;
 	font-size: 9px;
-	width: 800px;
+	width: 1000px;
 	table-layout: fixed;
 }
 td {
 	border: 1px solid grey;
-	width: 200px;
+	width: 250px;
 }
 td+td {
 	width: auto;
@@ -41,7 +41,7 @@ tr:hover {
 	background-color: #ffffcc;
 }
 #nav-bar {
-	margin-left: 849px;
+	margin-left: 1049px;
 	padding-left: 5px;
 	border-left: 1px solid grey;
 	position: relative;
@@ -50,7 +50,7 @@ tr:hover {
 #table-box {
 	float: left;
 	border-right: 1px dotted grey;
-	min-width: 1054px;
+	min-width: 1254px;
 }
 #drop-box {
 	margin-left: 50px;
@@ -64,7 +64,7 @@ tr:hover {
 	padding-top: 80px;
 	vertical-align: middle;
 	width: inherit;
-	height: 100px;
+	height: 90px;
 	text-align: center;
 	z-index: 10;
 }
@@ -113,7 +113,7 @@ tr:hover {
 	display: inline-block;
 }
 #log {
-	margin-left: 1080px;
+	margin-left: 1280px;
 	position: fixed;
 	float: left;
 }
@@ -122,16 +122,22 @@ tr:hover {
 	overflow: hidden;
 	margin-bottom: 10px;
 	border-top: 1px dotted grey;
-	width: 1000px;
+	//width: 1200px;
 }
 .count {
 	width: 47px;
+}
+.small {
+	width: 30px;
+}
+.med {
+	width: 200px;
 }
 .flight-box {
 	padding-bottom: 10px;
 }
 .flight-table-box {
-	width: 950px !important;
+	//width: 950px !important;
 }
 .type-name {
 	padding-top: 5px;

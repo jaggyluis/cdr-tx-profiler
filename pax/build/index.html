@@ -139,10 +139,10 @@
 	<script type="text/template" id="passenger-timing-template">
 		<tr>
 			<td>%flightName%</td>
-			<td>%flightCode%</td>
-			<td>%gate%</td>
-			<td>%passengerType%</td>
-			<td>%gender%</td>
+			<td class="small">%flightCode%</td>
+			<td class="small">%gate%</td>
+			<td class="med">%passengerType%</td>
+			<td class="small">%gender%</td>
 			<td>%airport%</td>
 			<td>%departureLounge%</td>
 			<td>%boardingZone%</td>
@@ -152,11 +152,11 @@
 	</script>
 	<script type="text/template" id="passenger-timing-header">
 		<tr class="bold">
-			<td>Flight Name</td>
-			<td>Flight Code</td>
-			<td>Gate</td>
-			<td>Passenger Type</td>
-			<td>Gender</td>
+			<td>Name</td>
+			<td class="small">Code</td>
+			<td class="small">Gate</td>
+			<td class="med">Passenger Type</td>
+			<td class="small">Gender</td>
 			<td>Airport</td>
 			<td>Departure Lounge</td>
 			<td>Boarding Zone</td>
@@ -180,6 +180,7 @@
 	<script src="../../aviation/src/pax.js"></script>
 	<script src="../../aviation/src/core.js"></script>
 	<!-- Main App -->
+	<script src="js/view.js"></script>
 	<script src="js/app.js"></script>
 	<!-- Additional Evaluations -->
 </body>

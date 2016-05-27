@@ -1,6 +1,43 @@
-(function() {	
+var app = app || {};
 
-	function typeBuilder(passengers) {
+(function() {
+
+	function append(dest, str) {
+		dest.innerHTML+='<div>*</div>'.replace("*", str)
+	};
+	
+	app.init = function(profiles) {
+
+		this._view = new this.View();
+		this._view.init();
+		this._data = null;
+		this._gates = gatelayout;
+		this._stash = null;
+		this._profiles = profiles;
+	}
+	app.run = function() {
+		this.clear();
+
+		AVIATION.set(
+			this._gates,
+			this._data,
+			this._profiles,
+			this._view.getLoadFactor(), 
+			this._view.getFlightFilter(), 
+			this._view.getTimeFrame());
+
+		this._view.data = AVIATION.get.passengers(this._view.getPassengerFilter());
+		this._stash = AVIATION.stash.parse();
+		this._view.enableDownloads();
+	};
+	app.set = function(data) {
+		this._data = data;
+	};
+	app.clear = function() {
+		this._view.clear();
+		AVIATION.clear();
+	};
+	app.initTypeBuilder = function(passengers) {
 
 		function TypeClass(name, pArr, length, trace) {
 
@@ -414,6 +451,15 @@
 				}
 				return dist;
 			},
+			_getPercArray : function (dist) {
+				var arr = [];
+				for (var d in dist) {
+					for (var i=0; i<dist[d].percentage; i++) {
+						arr.push(d);
+					}
+				}
+				return arr;
+			},
 			_getPerc : function() {
 				var perc = {};
 				for (var d in this._di) {
@@ -469,7 +515,7 @@
 											return percs[type][k].count
 										}).reduce(function(a,b) {
 											return a+b;
-										}));
+										}, 0));
 					for (var p in percs[type]) {
 						var f = percs[type][p],
 							st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
@@ -488,11 +534,11 @@
 			}
 		}
 
-		//passengers = passengers.filter(function(p) {
-			//return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
+		passengers = passengers.filter(function(p) {
+			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
 				//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
 				//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-		//});	
+		});	
 
 		var typeClass = new TypeClass('total', passengers, passengers.length, []),
 			keys = Object.keys(typeClass._types),
@@ -503,9 +549,6 @@
 			logbar = document.getElementById('log'),
 			i = 0;	
 
-		function append(dest, str) {
-			dest.innerHTML+='<div>*</div>'.replace("*", str)
-		};
 		function compute_profiles(cb) {
 
 			obj = typeClass._types[keys[i]];
@@ -552,12 +595,16 @@
 	    	for (var flightType in profiles) {
 	    		var flightClass = new FlightClass(flightType, profiles[flightType]);
 	    		append(logbar, flightType+'...');
+	    		flights.push(flightClass);
 	    		d.appendChild(flightClass._buildTable());
 	    	}
 
 	    	append(logbar, '<br>...done');
+
+	    	app.init(flights);
+
+	    	return flights;
 		});
 	}
-	var profiles = typeBuilder(p12.concat(p13).concat(p14).concat(p15));
-
+	app.initTypeBuilder(p12.concat(p13).concat(p14).concat(p15));
 })();

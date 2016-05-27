@@ -2,6 +2,7 @@ var AVIATION = (function (aviation) {
 
 	aviation._flights = [];
 	aviation._gates = [];
+	aviation._profiles = [];
 	
 	aviation.set = set;
 	aviation.clear = clear;
@@ -135,6 +136,11 @@ var AVIATION = (function (aviation) {
 		}
 		return filterBest(airports, str);
 	};
+	function getProfileByAircraftType(type) {
+		return aviation._profiles.filter(function(p) {
+			return p._name === type;
+		})[0];
+	}
 	function filterStrict(Arr, str) {
 		var spl = str.split(/[^\w\.]/);
 		return Arr.filter(function(obj) {
@@ -225,8 +231,9 @@ var AVIATION = (function (aviation) {
 		return true;
 	};
 
-	function set(gates, flights, loadFactor, filter, timeFrame) {
+	function set(gates, flights, profiles, loadFactor, filter, timeFrame) {
 		aviation._gates = setGates(gates);
+		aviation._profiles = profiles;
 		aviation._flights = setFlights(
 			flights, 
 			loadFactor, 
@@ -671,10 +678,15 @@ var AVIATION = (function (aviation) {
 			return matrix;
 		},
 		getPassengerArray : function() {
-			var pArray = [];
+			var pArray = [],
+				profile = getProfileByAircraftType(this.aircraft.RFLW),
+				percs = profile._getPerc()[this.flight.di],
+				dArray = profile._getPercArray(percs);
+
 			for (var i=0; i<this.seats; i++) {
 				pArray.push(new Passenger(this.getFlightName(), 
-					this.airline.IATA, 
+					this.airline.IATA,
+					dArray[Math.floor(Math.random()*(dArray.length-1-0+1)+0)],
 					decimalDayToTime(this.flight.time),
 					this.gate));
 			}
@@ -733,24 +745,11 @@ var AVIATION = (function (aviation) {
 			}
 		}
 	}
-	function Passenger(flightName, flightCode, departureTime, gate) {
-		var percentages = { // Pull this from spreadsheet? - passed in?
-			"Leisure": 30,
-			"Assisted": 5,
-			"Business": 25,
-			"Unique": 20,
-			"Family": 20
-		}
-		var types = [];
-		for (var type in percentages) {
-			for (var i = 0; i <=percentages[type]; i++) {
-				types.push(type);
-			}
-		}
+	function Passenger(flightName, flightCode, type, departureTime, gate) {
 		this.flightName = flightName;
 		this.flightCode = flightCode;
 		this.departureTime = departureTime;
-		this.passengerType = types[Math.floor(Math.random() * (100 - 0 + 1)) + 0];
+		this.passengerType = type;
 		this.gate = gate;
 		this.gender = ['M', 'F'][Math.round(Math.random())];
 	};
