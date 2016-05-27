@@ -1,0 +1,180 @@
+
+html,
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+button{
+	margin-bottom: 1px;
+	width: 200px;
+	border: 1px solid grey;
+	font-size: 10px;
+	box-sizing: border-box;
+	padding-left: 2px;
+}
+div {
+	font-size: 10px;
+}
+table {
+	//float: left;
+	border-collapse: collapse;
+	font-size: 9px;
+	width: 800px;
+	table-layout: fixed;
+}
+td {
+	border: 1px solid grey;
+	width: 200px;
+}
+td+td {
+	width: auto;
+	text-align: right;
+	padding-right: 2px;
+}
+td:hover {
+	background-color: yellow;
+}
+img {
+	width: 100%;
+	height: 100%;
+}
+tr:hover {
+	background-color: #ffffcc;
+}
+#nav-bar {
+	margin-left: 849px;
+	padding-left: 5px;
+	border-left: 1px solid grey;
+	position: relative;
+	width: 100px; //remove?
+}
+#table-box {
+	float: left;
+	border-right: 1px dotted grey;
+	min-width: 1054px;
+}
+#drop-box {
+	margin-left: 50px;
+	float: left;
+}
+#clear-box {
+	overflow: hidden;
+	clear: both;
+}
+#drop {
+	padding-top: 80px;
+	vertical-align: middle;
+	width: inherit;
+	height: 100px;
+	text-align: center;
+	z-index: 10;
+}
+#drop:hover {
+	background-color: #ddd;
+}
+
+.filter {
+	margin-bottom: 1px;
+	width: 200px;
+	border: 1px solid grey;
+	font-size: 10px;
+	box-sizing: border-box;
+	padding-left: 1px;
+}
+.chk-box {
+	height: 13px;
+	float: left;
+	padding-right: 10px;
+}
+.chk-toggle {
+	height: 10px;
+	float: left;
+	margin: 2px;
+}
+.chk-txt {
+	margin-top: 1px;
+	float: left;
+	width: 70px;
+
+}
+.btn-toggle {
+	float: left;
+	margin-right: 4px;
+}
+.loading {
+	width: 15px;
+	height: 15px;
+	float: left;
+}
+.btn-box {
+	width: 230px;
+	overflow: hidden;
+}
+.input-title {
+	display: inline-block;
+}
+#log {
+	margin-left: 1080px;
+	position: fixed;
+	float: left;
+}
+.table-container {
+	clear: both;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border-top: 1px dotted grey;
+	width: 1000px;
+}
+.count {
+	width: 47px;
+}
+.flight-box {
+	padding-bottom: 10px;
+}
+.flight-table-box {
+	width: 950px !important;
+}
+.type-name {
+	padding-top: 5px;
+}
+.passenger-timing-table {
+	margin-top: -1px;
+}
+.expand {
+	width: 10px;
+	height: 10px;
+	margin-left: -20px;
+	position: relative;
+	top: -10px;
+	clear: both;
+	overflow: hidden;
+}
+.expand:hover {
+	background-color: yellow;
+}
+.bold {
+	font-weight: bold;
+}
+.hidden {
+	visibility: hidden;
+}
+.collapsed  {
+	display: none;
+}
+.outlined-left {
+	border-left : 1px solid grey;
+}
+.sel {
+	background-color: yellow;
+}
+.pad {
+	padding-left: 50px;
+}
+.top {
+	border-top: none;
+}
+.dist {
+	width: 500px;
+}
+.bounded {
+	border: 1px solid black;
+}
