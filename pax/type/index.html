@@ -16,35 +16,68 @@
 	<script type="text/template" id="passenger-type-template">
 		<tr>
 			<td>%name%</td>
-			<td>%count%</td>
+			<td class="count">%count%</td>
 			<td>%percent%</td>
 			<td>%bags%</td>
 			<td>%food%</td>
 			<td>%shop%</td>
+			<td>%weighted%</td>
 		</tr>
 	</script>
 	<script type="text/template" id="passenger-type-header">
 		<tr class="bold">
 			<td>Name</td>
-			<td>Count</td>
+			<td class="count">Count</td>
 			<td>% Total Count</td>
 			<td>% Bags</td>
 			<td>% Food</td>
 			<td>% Shop</td>
+			<td>Weighted</td>
 		</tr>
 	</script>
 	<script type="text/template" id="flight-box-template">
 		<div class="pad flight-box">
 			<div class="flight-name">%name%</div>
 			<div id="%name%-hook" class="expand"><img src="img/expand.png"></div>
-			<div class="flight-table-box table-container pad outlined-left">%type%</div>
+			<div class="flight-table-box table-container pad outlined-left collapsed"><tt></div>
 		</div>
 	</script>
 	<script type="text/template" id="flight-type-template">
 		<div>		
-			<div>%type%</div>
+			<table>
+				<tr class="bold">
+					<td class="top">Name</td>
+					<td class="top count">Count</td>
+					<td class="top"></td>
+				</tr>
+				<tr>
+					<td>%type%</td>
+					<td>%count%</td>
+				</tr>
+			</table>
 			<div id="%name%-%type%-hook" class="expand"><img src="img/expand.png"></div>
+			<div class="pad outlined-left table-container collapsed">
+				<table>
+					<tr class="bold">
+						<td class="top">Name</td>
+						<td class="top count">Count</td>
+						<td class="top">% Passengers</td>
+						<td class="top">Weighted</td>
+						<td class="top">Arrival Distribution</td>
+					</tr>
+					<tl>
+				</table>
+			</div>
 		</div>
+	</script>
+	<script type="text/template" id="flight-info-template">
+		<tr>
+			<td>%name%</td>
+			<td class="count">%count%</td>
+			<td>%percent%</td>
+			<td>%weighted%</td>
+			<td class="dist">%dist%</td>
+		</tr>
 	</script>
 	<!-- Scheme variables -->
 	<script src="../../aviation/lib/sfo/passengers/p12.js"></script>

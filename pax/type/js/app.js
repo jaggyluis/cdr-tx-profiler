@@ -228,6 +228,7 @@
 			_getTypeProfile : function (pArr, total, weighted) {
 				
 				var count = 0,
+					weighted = weighted === undefined ? false : weighted,
 					filtered = {
 					bags : 0,
 					shop : 0,
@@ -243,7 +244,11 @@
 				return Object.keys(filtered).reduce(function(a,b) {
 					a[b] = Math.round((filtered[b]/count)*100);
 					return a;
-				},{count:count, percentage: Math.round(count/total*100)});
+				},{
+					count:count, 
+					weighted:weighted, 
+					percentage: Math.round(count/total*100)
+				});
 			},
 			_getPaxData : function (pArr) {
 
@@ -288,7 +293,7 @@
 									return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
 								} catch (e) {
 									//console.warn('not in library: ', m.AIRCRAFT)
-									return 'OTHER';
+									return '_';
 								}
 							});
 							var type = AVIATION.array.mode(types);
@@ -333,6 +338,7 @@
 									.replace('%food%', this._data.food)
 									.replace('%bags%', this._data.bags)
 									.replace('%shop%', this._data.shop)
+									.replace('%weighted%', this._data.weighted);
 				
 				
 				if (drawHeader) {
@@ -427,17 +433,66 @@
 				}
 				return perc;
 			},
-			_buildTable : function() {
-				var template = document.getElementById('flight-box-template').innerHTML;
-				return template.replace(/%name%/g, this._name);
+			_buildTable : function(weighted) {
+
+				function insert(s, l, str) {
+					return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');
+				};
+				function addClickEvent(nodeArray) {
+					for (var i=0; i<nodeArray.length; i++) {
+						if (nodeArray[i].id.match(/hook/)) {
+							nodeArray[i].addEventListener('click', (function(a,b) {
+								b.classList.toggle('collapsed');
+								if (b.classList.contains('collapsed')) {
+									a.children[0].src = 'img/expand.png';
+								} else {
+									a.children[0].src = 'img/collapse.png'
+								}
+							}).bind(undefined, nodeArray[i], nodeArray[i+1]))
+						}
+						addClickEvent(nodeArray[i].children);
+					}
+				};
+
+				var boxTemplate = document.getElementById('flight-box-template').innerHTML,
+					typeTemplate = document.getElementById('flight-type-template').innerHTML,
+					flightTemplate = document.getElementById('flight-info-template').innerHTML,
+					weighted = weighted === undefined ? false : weighted,
+					div = document.createElement('div'),
+					top = boxTemplate.replace(/%name%/g, this._name),
+					percs = this._getPerc();
+
+				for (var type in percs) {
+					var rep = typeTemplate.replace(/%type%/g, this._name+'.'+type)
+										.replace(/%name%/g, this._name)
+										.replace(/%count%/, Object.keys(percs[type]).map(function(k) {
+											return percs[type][k].count
+										}).reduce(function(a,b) {
+											return a+b;
+										}));
+					for (var p in percs[type]) {
+						var f = percs[type][p],
+							st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
+							flight = flightTemplate.replace(/%name%/g, [this._name, p.split('.').slice(1)].join('.'))
+											.replace(/%count%/g, f.count)
+											.replace(/%percent%/g, f.percentage)
+											.replace(/%weighted%/g, weighted)
+											.replace(/%dist%/g, '--');
+						rep = insert(flight, '<tl>', rep);
+					}
+					top = insert(rep, '<tt>', top);
+				}
+				div.innerHTML = top;
+				addClickEvent(div.children[0].children);
+				return div;
 			}
 		}
 
-		passengers = passengers.filter(function(p) {
-			return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
+		//passengers = passengers.filter(function(p) {
+			//return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
 				//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
 				//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-		});	
+		//});	
 
 		var typeClass = new TypeClass('total', passengers, passengers.length, []),
 			keys = Object.keys(typeClass._types),
@@ -474,8 +529,9 @@
 		    };
 		};
 
-		append(logbar, '<br>>>><br><br>')
-		append(box, '<br><div class="pad">TOTAL SIMULATION RESULTS</div><br>');
+		append(logbar, '<br>>>><br><br>');
+		append(logbar, '<br>computing passenger profiles...<br><br>');
+		append(box, '<br><div class="pad">TOTALS</div><br>');
 		box.appendChild(typeClass._buildTable(true, 1, []));
 
 		compute_profiles(function(profiles) {
@@ -491,12 +547,15 @@
 
 	    	var flights = [];
 
+	    	append(logbar, '<br>computing flight profiles...<br><br>');
+
 	    	for (var flightType in profiles) {
 	    		var flightClass = new FlightClass(flightType, profiles[flightType]);
-	    		console.log(flightClass._name);
-	    		console.log(flightClass._getPerc());
-	    		append(d, flightClass._buildTable());
-	    	}	    	
+	    		append(logbar, flightType);
+	    		d.appendChild(flightClass._buildTable());
+	    	}
+
+	    	append(logbar, '<br>...done');
 		});
 	}
 	var profiles = typeBuilder(p12.concat(p13).concat(p14).concat(p15));
