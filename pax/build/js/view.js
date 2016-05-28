@@ -112,8 +112,7 @@ var app = app || {};
 		},
 		displayTable : function() {
 			var innerString = "";
-
-
+			
 			this.data.forEach((function(passenger, idx) {
 				var passengerString = this.template;
 				this.keys.forEach(function(key) {
