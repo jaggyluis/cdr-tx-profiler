@@ -69,7 +69,6 @@ var app = app || {};
 	app.View.prototype = {
 		init : function() {
 			this.clear();
-			this.initFileUploader();
 		},
 		enableDownloads : function() {
 			document.getElementById("save").disabled = false;
@@ -169,36 +168,6 @@ var app = app || {};
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
-		},
-		initFileUploader : function() {
-			/*
-			 * modified from
-			 * http://www.htmlgoodies.com
-			 * /html5/javascript/drag-files-into-the-browser-from-the-desktop-HTML5.html#fbid=fCs8ypx8lEd
-			 */
-			var self = this;
-			var drop = document.getElementById('drop');
-			drop.addEventListener('dragover', function (e) {
-				if (e.preventDefault) { e.preventDefault(); }
-			})
-			drop.addEventListener('dragenter', function (e) {
-				if (e.preventDefault) { e.preventDefault(); }
-			})
-			drop.addEventListener('drop', function (e) {
-				if (e.preventDefault) { e.preventDefault(); }
-				var reader = new FileReader();
-				var fileName = e.dataTransfer.files[0].name;
-				reader.addEventListener('loadend', function(e, file) {
-					if (fileName.split('.')[1] === 'json' ) {
-						app.set(AVIATION.JSON.parse(this.result));
-					} else if (fileName.split('.')[1] === 'csv' ) {
-						app.set(AVIATION.CSV.parse(this.result));
-					}
-					document.getElementById('run').disabled = false;
-				});
-				reader.readAsText(e.dataTransfer.files[0]);
-				drop.innerText = fileName.toUpperCase();
-			})
 		}
 	};
 

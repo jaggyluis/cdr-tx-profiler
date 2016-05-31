@@ -2,9 +2,9 @@ var app = app || {};
 
 (function() {
 
-	function append(dest, str) {
-		dest.innerHTML+='<div>*</div>'.replace("*", str)
-	};
+	app.initDesignDay = function() {
+		console.log(designDay);
+	}
 
 	app.initTypeBuilder = function(passengers) {
 
@@ -318,83 +318,6 @@ var app = app || {};
 				}).bind(this));
 
 				return typeData;
-			},
-			_buildTable : function (drawHeader, tabs, parents) {
-
-				var container = document.createElement('div'),
-					col = document.createElement('div'),
-					expand = document.createElement('div'),
-					expImg = document.createElement('img'),
-					table = document.createElement('table'),
-					header = document.getElementById('passenger-type-header').innerText,
-					template = document.getElementById('passenger-type-template').innerText,
-					trace = parents.slice();
-					tabs = tabs++;
-
-				container.style.paddingLeft = (tabs*50).toString()+"px";
-				col.classList.add('table-container');
-				table.classList.toggle('passenger-timing-table');
-
-				if (drawHeader) table.innerHTML+= header;
-
-				table.innerHTML+=template.replace('%name%', this._name)
-									.replace('%name%', this._name)
-									.replace('%count%', this._data.count)
-									.replace('%percent%', this._data.percentage)
-									.replace('%food%', this._data.food)
-									.replace('%bags%', this._data.bags)
-									.replace('%shop%', this._data.shop)
-									.replace('%weighted%', this._data.weighted);
-				
-				
-				if (drawHeader) {
-					var parent = table.children[1].children[0].children[0];
-					trace.push(parent);
-				}
-				container.appendChild(table);
-
-				var sub = [];
-				this._getTypes().forEach((function(type) {
-					sub.push(this[type]._buildTable(true, tabs, trace));
-				}).bind(this));
-
-				if (sub.length !== 0) {
-
-					col.classList.toggle('collapsed');
-					expand.classList.toggle('expand');
-
-					expImg.src = 'img/expand.png';
-					expImg.addEventListener('click', function() {
-						col.classList.toggle('collapsed');
-						col.classList.add('outlined-left')
-
-						if (col.classList.contains('collapsed')) {
-							expImg.src = 'img/expand.png';
-						} else {
-							expImg.src = 'img/collapse.png';
-						}
-					});
-
-					expand.appendChild(expImg);
-					container.appendChild(expand);
-					container.appendChild(col);
-					for (var s in sub ) col.appendChild(sub[s]);
-				};
-		
-				table.addEventListener('mouseenter', function() {
-					for (var i=0; i<parents.length; i++) {
-						parents[i].classList.add('sel');
-						parent.classList.add('sel');
-					}
-				});
-				table.addEventListener('mouseleave', function() {
-					for (var i=0; i<parents.length; i++) {
-						parents[i].classList.remove('sel');
-						parent.classList.remove('sel');
-					}
-				});
-
-				return container;
 			}
 		}
 
@@ -447,60 +370,134 @@ var app = app || {};
 					} 
 				}
 				return perc;
-			},
-			_buildTable : function(weighted) {
-
-				function insert(s, l, str) {
-					return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');
-				};
-				function addClickEvent(nodeArray) {
-					for (var i=0; i<nodeArray.length; i++) {
-						if (nodeArray[i].id.match(/hook/)) {
-							nodeArray[i].addEventListener('click', (function(a,b) {
-								b.classList.toggle('collapsed');
-								if (b.classList.contains('collapsed')) {
-									a.children[0].src = 'img/expand.png';
-								} else {
-									a.children[0].src = 'img/collapse.png'
-								}
-							}).bind(undefined, nodeArray[i], nodeArray[i+1]))
-						}
-						addClickEvent(nodeArray[i].children);
-					}
-				};
-
-				var boxTemplate = document.getElementById('flight-box-template').innerHTML,
-					typeTemplate = document.getElementById('flight-type-template').innerHTML,
-					flightTemplate = document.getElementById('flight-info-template').innerHTML,
-					weighted = weighted === undefined ? false : weighted,
-					div = document.createElement('div'),
-					top = boxTemplate.replace(/%name%/g, this._name),
-					percs = this._getPerc();
-
-				for (var type in percs) {
-					var rep = typeTemplate.replace(/%type%/g, this._name+'.'+type)
-										.replace(/%name%/g, this._name)
-										.replace(/%count%/, Object.keys(percs[type]).map(function(k) {
-											return percs[type][k].count
-										}).reduce(function(a,b) {
-											return a+b;
-										}, 0));
-					for (var p in percs[type]) {
-						var f = percs[type][p],
-							st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
-							flight = flightTemplate.replace(/%name%/g, [this._name, p.split('.').slice(1)].join('.'))
-											.replace(/%count%/g, f.count)
-											.replace(/%percent%/g, f.percentage)
-											.replace(/%weighted%/g, weighted)
-											.replace(/%dist%/g, '--');
-						rep = insert(flight, '<tl>', rep);
-					}
-					top = insert(rep, '<tt>', top);
-				}
-				div.innerHTML = top;
-				addClickEvent(div.children[0].children);
-				return div;
 			}
+		}
+
+		function buildTypeTable(typeObj, parents, weighted) {
+			
+			var template = document.getElementById('passenger-box-template').innerHTML,
+				div = document.createElement('div');
+				trace = parents.slice();
+
+			div.innerHTML = template;
+
+			var container = div.children[0],
+				table = container.children[0],
+				collapsed = container.children[2],
+				expand = container.children[1],
+				img = expand.children[0];
+
+			table.appendChild(buildTypeTableRow(typeObj));
+			
+			var parent = table.children[1].children[0];
+			var sub = [];
+
+			typeObj._getTypes().forEach((function(type) {
+				sub.push(buildTypeTable(typeObj[type], trace.concat([parent])));
+			}));
+
+			if (sub.length !== 0) {
+				expand.addEventListener('click', function() {
+					collapsed.classList.toggle('collapsed');
+					collapsed.classList.add('outlined-left')
+
+					if (collapsed.classList.contains('collapsed')) {
+						img.src = 'img/expand.png';
+					} else {
+						img.src = 'img/collapse.png';
+					}
+				});
+				for (var s in sub ) collapsed.appendChild(sub[s]);
+			} else {
+				container.removeChild(expand);
+				container.removeChild(collapsed);
+			};
+			table.addEventListener('mouseenter', function() {
+				for (var i=0; i<parents.length; i++) {
+					parents[i].classList.add('sel');
+					parent.classList.add('sel');
+				}
+			});
+			table.addEventListener('mouseleave', function() {
+				for (var i=0; i<parents.length; i++) {
+					parents[i].classList.remove('sel');
+					parent.classList.remove('sel');
+				}
+			});
+
+			return container;
+		}
+
+		function buildTypeTableRow(typeObj, weighted) {
+
+			var template = document.getElementById("passenger-type-template").innerHTML,
+				row = document.createElement('tr');
+
+			row.innerHTML += template.replace('%name%', typeObj._name)
+								.replace('%name%', typeObj._name)
+								.replace('%count%', typeObj._data.count)
+								.replace('%percent%', typeObj._data.percentage)
+								.replace('%food%', typeObj._data.food)
+								.replace('%bags%', typeObj._data.bags)
+								.replace('%shop%', typeObj._data.shop)
+								.replace('%weighted%', typeObj._data.weighted);
+			return row;
+		}
+
+		function buildFlightTable(flightObj, weighted) {
+
+			function insert(s, l, str) {
+				return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');
+			};
+			function addClickEvent(nodeArray) {
+				for (var i=0; i<nodeArray.length; i++) {
+					if (nodeArray[i].id.match(/hook/)) {
+						nodeArray[i].addEventListener('click', (function(a,b) {
+							b.classList.toggle('collapsed');
+							if (b.classList.contains('collapsed')) {
+								a.children[0].src = 'img/expand.png';
+							} else {
+								a.children[0].src = 'img/collapse.png'
+							}
+						}).bind(undefined, nodeArray[i], nodeArray[i+1]))
+					}
+					addClickEvent(nodeArray[i].children);
+				}
+			};
+
+			var boxTemplate = document.getElementById('flight-box-template').innerHTML,
+				typeTemplate = document.getElementById('flight-type-template').innerHTML,
+				flightTemplate = document.getElementById('flight-info-template').innerHTML,
+				div = document.createElement('div'),
+				weighted = weighted === undefined ? false : weighted,
+				top = boxTemplate.replace(/%name%/g, flightObj._name),
+				percs = flightObj._getPerc();
+
+			for (var type in percs) {
+				var rep = typeTemplate.replace(/%type%/g, flightObj._name+'.'+type)
+									.replace(/%name%/g, flightObj._name)
+									.replace(/%count%/, Object.keys(percs[type]).map(function(k) {
+										return percs[type][k].count
+									}).reduce(function(a,b) {
+										return a+b;
+									}, 0));
+				for (var p in percs[type]) {
+					var f = percs[type][p],
+						st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
+						flight = flightTemplate.replace(/%name%/g, [flightObj._name, 
+													p.split('.').slice(1)].join('.'))
+										.replace(/%count%/g, f.count)
+										.replace(/%percent%/g, f.percentage)
+										.replace(/%weighted%/g, weighted)
+										.replace(/%dist%/g, '--');
+					rep = insert(flight, '<tl>', rep);
+				}
+				top = insert(rep, '<tt>', top);
+			}
+			div.innerHTML = top;
+			addClickEvent(div.children[0].children);
+			
+			return div;
 		}
 
 		passengers = passengers.filter(function(p) {
@@ -509,71 +506,40 @@ var app = app || {};
 				//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
 		});	
 
-		var typeClass = new TypeClass('total', passengers, passengers.length, []),
-			keys = Object.keys(typeClass._types),
-			box = document.getElementById('table-box'),
-			children = [],
-			obj,
+		var pTable = document.getElementById('passenger-profile-table'),
+			fBox = document.getElementById('aircraft-profile-box'),
+			tBox = document.getElementById('total-box'),
+			typeClass = new TypeClass('total', 
+				passengers, 
+				passengers.length, 
+				[]),
 			flightProfiles = {},
-			logbar = document.getElementById('log'),
-			i = 0;	
+			flights = [];
 
-		function compute_profiles(cb) {
+		tBox.appendChild(buildTypeTable(typeClass, []));
 
-			obj = typeClass._types[keys[i]];
-		    children.push(obj._buildTable(!i, 1, []));
-		    profile = obj._getPaxProfile()
+		for (var type in typeClass._types) {
 
-		    for (var flightClass in profile.pax) {
-		    	if (!(flightClass in flightProfiles)) flightProfiles[flightClass]= {};
-		    	flightProfiles[flightClass][profile._name] = {
-		    		pax : profile.pax[flightClass],
-		    		dist : profile.dist[flightClass]
-		    	}
-		    }
-		    append(logbar, obj._name+'...'); // log
-		    i++;
+			var obj = typeClass._types[type],
+				profile = obj._getPaxProfile();
 
-		    if (i < keys.length) {
-		    	window.setTimeout(compute_profiles.bind(null, cb), 0)
-		    } else {
-		    	return cb(flightProfiles);
-		    };
-		};
+			for (var p in profile.pax) {
+				if (!(p in flightProfiles)) flightProfiles[p] = {};
+				flightProfiles[p][profile._name] = {
+					pax : profile.pax[p],
+		    		dist : profile.dist[p]
+				}
+			}
+			pTable.appendChild(buildTypeTableRow(obj));
+		}
 
-		append(logbar, '<br>>>><br><br>');
-		append(logbar, '<br>computing passenger profiles...<br><br>');
-		append(box, '<br><div class="pad">TOTALS</div><br>');
-		box.appendChild(typeClass._buildTable(true, 1, []));
+		for (var flightType in flightProfiles) {
+    		var flightClass = new FlightClass(flightType, flightProfiles[flightType]);
+    		flights.push(flightClass);
+    		fBox.appendChild(buildFlightTable(flightClass));
+    	}
 
-		compute_profiles(function(profiles) {
-
-			var d = document.createElement('div');
-			//d.style.paddingLeft = '50px';
-	    	append(d, '<br><div class="pad">PASSENGER PROFILES</div><br>');
-	    	children.forEach(function(childElem) {
-	    		d.appendChild(childElem);
-	    	})	    	
-	    	append(d, '<br><div class="pad">FLIGHT PROFILES</div><br>')
-	    	box.appendChild(d);
-
-	    	var flights = [];
-
-	    	append(logbar, '<br>computing flight profiles...<br><br>');
-
-	    	for (var flightType in profiles) {
-	    		var flightClass = new FlightClass(flightType, profiles[flightType]);
-	    		append(logbar, flightType+'...');
-	    		flights.push(flightClass);
-	    		d.appendChild(flightClass._buildTable());
-	    	}
-
-	    	append(logbar, '<br>...done');
-
-	    	app.init(flights);
-
-	    	return flights;
-		});
+		return flights;
 
 	}
 })();

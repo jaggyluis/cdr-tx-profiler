@@ -43,7 +43,6 @@ tr:hover {
 #nav-bar {
 	margin-left: 1049px;
 	padding-left: 5px;
-	border-left: 1px solid grey;
 	position: relative;
 	width: 100px; //remove?
 }
@@ -136,8 +135,11 @@ tr:hover {
 .flight-box {
 	padding-bottom: 10px;
 }
-.flight-table-box {
-	//width: 950px !important;
+.box {
+	padding-bottom: 10px;
+}
+.title {
+	margin-bottom: 5px;
 }
 .type-name {
 	padding-top: 5px;
@@ -168,6 +170,9 @@ tr:hover {
 }
 .outlined-left {
 	border-left : 1px solid grey;
+}
+.outlined-bottom {
+	border-bottom: 1px dotted grey;
 }
 .sel {
 	background-color: yellow;
