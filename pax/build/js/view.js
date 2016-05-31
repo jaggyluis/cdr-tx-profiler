@@ -133,11 +133,11 @@ var app = app || {};
 				case "csv":
 					this.downloadCSV();
 					break;
-				case "log":
+				case "sum":
 					this.downloadJSON(app._stash, 'logFile.json');
 					break;
 				case "txt":
-					this.downloadTXT(AVIATION.stash.parse(app._stash));
+					this.downloadTXT(AVIATION.stash.serialize(app._stash));
 					break;
 				default :
 					break;

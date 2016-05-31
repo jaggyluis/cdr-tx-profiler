@@ -330,8 +330,8 @@ var AVIATION = (function (aviation) {
 			}
 			return str;
 		}
-		var parsed = parse(data, "");
-		return parsed;
+		var serialized = serialize(data, "");
+		return serialized;
 	};
 	function parseStash() {
 		return {
