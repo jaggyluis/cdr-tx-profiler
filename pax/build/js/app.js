@@ -8,10 +8,20 @@ var app = app || {};
 		this._view.init();
 		this._gates = gatelayout;
 		this._stash = null;
-		this._profiles = this.initTypeBuilder(
+		
+		var flightBuilder = new this.FlightBuilder(designDay);
+		var profileBuilder = new this.ProfileBuilder(
 			p12.concat(p13)
 			.concat(p14)
 			.concat(p15));
+		profileBuilder.run(undefined, (function() {
+			this._view.enableRunButton();
+			this._view.buildTables(profileBuilder);
+
+			this._profiles = profileBuilder.getProfiles();
+			this._designDay = flightBuilder.getFlights();
+
+		}).bind(this));
 	}
 	app.run = function() {
 		this.clear();
@@ -32,7 +42,7 @@ var app = app || {};
 		this._view.clear();
 		AVIATION.clear();
 	};
-	
+
 	app.init();
 
 })();
