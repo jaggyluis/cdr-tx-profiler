@@ -23,7 +23,7 @@ table {
 }
 td {
 	border: 1px solid grey;
-	width: 250px;
+	width: 300px;
 }
 td+td {
 	width: auto;
@@ -41,8 +41,9 @@ tr:hover {
 	background-color: #ffffcc;
 }
 #nav-bar {
-	margin-left: 1049px;
+	margin-left: 1000px;
 	padding-left: 5px;
+	float: left;
 	position: relative;
 	width: 100px; //remove?
 }

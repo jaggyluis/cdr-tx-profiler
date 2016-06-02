@@ -3,13 +3,12 @@ var app = app || {};
 (function() {
 
 	app.View = function() {
-			this.table = document.getElementById("passenger-timing-table");
-			this.header = document.querySelector("#passenger-timing-header").innerHTML;
-			this.template = document.querySelector("#passenger-timing-template").innerHTML;
-			this.data = null;
+			this.passengers = null;
+			this.flights = null;
 			this.keys = [ 
 				'flightName', 
 				'flightCode',
+				'flightID',
 				'gate',
 				'passengerType',
 				'gender',
@@ -79,10 +78,18 @@ var app = app || {};
 		},
 		showResults : function() {
 			this.clear();
-			this.displayTable();
+			this.buildPassengerTable();
+			this.buildFlightTable();
 		},
 		clear : function() {
-			this.table.innerHTML = this.header;
+			var pTable = document.getElementById("passenger-timing-table"),
+				pHeader = document.querySelector("#passenger-timing-header").innerHTML,
+				fTable = document.getElementById("flight-table"),
+				fHeader = document.querySelector("#flight-table-header").innerHTML;
+			
+			pTable.innerHTML = pHeader;
+			fTable.innerHTML = fHeader;
+
 		},
 		getFlightFilter : function() {
 			return document.getElementById("filter-flights").value;
@@ -112,18 +119,6 @@ var app = app || {};
 				return 1;
 			}
 		},
-		displayTable : function() {
-			var innerString = "";
-			
-			this.data.forEach((function(passenger, idx) {
-				var passengerString = this.template;
-				this.keys.forEach(function(key) {
-					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
-				})
-				innerString+=passengerString;
-			}).bind(this));
-			this.table.innerHTML+=innerString;
-		},
 		save : function () {
 			var type = this.checkboxes.filter(function(box) {
 				return box.checked == true;
@@ -150,7 +145,7 @@ var app = app || {};
 			 * modified from
 			 * http://stackoverflow.com/questions/13405129/javascript-create-and-save-file
 			 */
-			var data = _data || this.data;
+			var data = _data || this.passengers;
 			var a = document.createElement("a");
 			var file = new Blob([JSON.stringify(data)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
@@ -167,7 +162,7 @@ var app = app || {};
 		},
 		downloadCSV : function() {
 			var a = document.createElement("a");
-			var file = new Blob([AVIATION.JSON.serialize(this.data, this.keys)], {type:'text/plain'});
+			var file = new Blob([AVIATION.JSON.serialize(this.passengers, this.keys)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
 			a.download = 'PassengerTimingProfiles.csv';
 			a.click();
@@ -175,16 +170,50 @@ var app = app || {};
 		buildTables : function (typeBuilder) {
 
 			var typeTable = document.getElementById('passenger-profile-table'),
+				typeHeader = document.getElementById('passenger-type-header').innerHTML,
 				profileBox = document.getElementById('aircraft-profile-box'),
 				totalBox = document.getElementById('total-box');
 
 			totalBox.appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
+			typeTable.innerHTML+=typeHeader;
 			typeBuilder.getTypes().forEach((function (type) {
 				typeTable.appendChild(this.buildTypeTableRow(type));
 			}).bind(this));
 			typeBuilder.getProfiles().forEach((function (profile) {
-				profileBox.appendChild(this.buildFlightTable(profile));
+				profileBox.appendChild(this.buildProfileTable(profile));
 			}).bind(this));
+		},
+		buildFlightTable : function () {
+			var table = document.getElementById('flight-table'),
+				template = document.querySelector('#flight-table-template').innerHTML,
+				innerString = '';
+
+			this.flights.forEach(function(flight, idx) {
+				var flightString = template.replace('%name%', flight.getFlightName())
+							.replace('%code%', flight.airline.IATA)
+							.replace('%id%', flight.id)
+							.replace('%loadFactor%', flight.loadFactor)
+							.replace('%seats%', flight.flight.seats)
+							.replace('%count%', flight.passengers.length)
+							.replace('%gate%', flight.gate)
+							.replace('%time%', AVIATION.time.decimalDayToTime(flight.getTime()));
+				innerString+=flightString;
+			});
+			table.innerHTML+=innerString;
+		},
+		buildPassengerTable : function() {
+			var table = document.getElementById('passenger-timing-table'),
+				template = document.querySelector('#passenger-timing-template').innerHTML,
+				innerString = '';
+			
+			this.passengers.forEach((function(passenger, idx) {
+				var passengerString = template;
+				this.keys.forEach(function(key) {
+					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
+				})
+				innerString+=passengerString;
+			}).bind(this));
+			table.innerHTML+=innerString;
 		},
 		buildTypeTable : function (typeObj, parents, weighted) {
 			
@@ -206,6 +235,7 @@ var app = app || {};
 			var sub = [];
 
 			typeObj._getTypes().forEach((function(type) {
+				// NOT GOOD
 				sub.push(this.buildTypeTable(typeObj[type], trace.concat([parent])));
 			}).bind(this));
 
@@ -238,6 +268,7 @@ var app = app || {};
 				}
 			});
 
+			if (parents.length === 0) container.style.marginBottom = "-10px";
 			return container;
 		},
 		buildTypeTableRow : function (typeObj, weighted) {
@@ -255,7 +286,7 @@ var app = app || {};
 								.replace('%weighted%', typeObj._data.weighted);
 			return row;
 		},
-		buildFlightTable : function (flightObj, weighted) {
+		buildProfileTable : function (flightObj, weighted) {
 
 			function insert(s, l, str) {
 				return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');

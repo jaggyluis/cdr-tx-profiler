@@ -7,18 +7,19 @@ var AVIATION = (function (aviation) {
 	aviation.set = set;
 	aviation.clear = clear;
 
-	aviation.class = {
-		Gate : Gate,
-		Flight : Flight,
-		Passenger : Passenger,
-		Interval : Interval
-	}
+	aviation.class = aviation.class || {}
+	aviation.class.Gate = Gate,
+	aviation.class.Flight = Flight,
+	aviation.class.Passenger = Passenger,
+	aviation.class.Interval = Interval
+	
 	aviation.get = {
 		airportByCode : getAirportByCode,
 		airportByString : getAirportByString,
 		airlineByCode : getAirlineByCode,
 		aircraftByCode :  getAircraftByCode,
-		passengers : getPassengers
+		passengers : getPassengers,
+		flights : getFlights
 	}
 	aviation
 	aviation.JSON = {
@@ -54,6 +55,23 @@ var AVIATION = (function (aviation) {
 	}
 	aviation.math = {
 		round : round,
+	}
+	function generateUUID(){
+		/*
+		 * http://stackoverflow.com/questions/
+		 * 105034/create-guid-uuid-in-javascript
+		 *
+		 */
+	    var d = new Date().getTime();
+	    if(window.performance && typeof window.performance.now === "function"){
+	        d += performance.now(); //use high-precision timer if available
+	    }
+	    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	        var r = (d + Math.random()*16)%16 | 0;
+	        d = Math.floor(d/16);
+	        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+	    });
+	    return uuid;
 	}
 	function decimalDayToTime(dday) {
 		dday = dday>=0 ? dday : 1 + dday;
@@ -277,14 +295,12 @@ var AVIATION = (function (aviation) {
 						getAircraftByCode(_flight.aircraft),
 						loadFactor),
 
-					profile = aviation._pax[flight.getCategory()],
-					legend = aviation._pax.legend,
-					time = aviation._pax.time;
+					pax = aviation.Pax(flight.getCategory());
 
 				flight.findGate();
 
-				if (profile !== undefined) {
-					flight.setPassengers(profile, legend, time)	
+				if (pax.profile !== undefined) {
+					flight.setPassengers(pax.profile, pax.legend, pax.time)	
 				}
 				if (flight.passengers.length === 0) {
 					console.error('passengers not assigned: ', 
@@ -311,6 +327,9 @@ var AVIATION = (function (aviation) {
 		});
 		return passengers;
 	};
+	function getFlights() {
+		return aviation._flights;
+	}
 	function serializeStash(data) {
 
 		function serialize(obj, _tabs) {
@@ -552,6 +571,7 @@ var AVIATION = (function (aviation) {
 		this.aircraft = aircraft;
 		this.ival = this.getTurnaroundTime();
 		this.loadFactor = loadFactor;
+		this.id = generateUUID();
 		this.gate = null;
 		this.seats = this.flight.seats !== undefined ?
 			this.flight.seats*this.loadFactor :
@@ -688,7 +708,8 @@ var AVIATION = (function (aviation) {
 					this.airline.IATA,
 					dArray[Math.floor(Math.random()*(dArray.length-1-0+1)+0)],
 					decimalDayToTime(this.flight.time),
-					this.gate));
+					this.gate,
+					this.id));
 			}
 			return pArray;
 		},
@@ -745,9 +766,10 @@ var AVIATION = (function (aviation) {
 			}
 		}
 	}
-	function Passenger(flightName, flightCode, type, departureTime, gate) {
+	function Passenger(flightName, flightCode, type, departureTime, gate, flightID) {
 		this.flightName = flightName;
 		this.flightCode = flightCode;
+		this.flightID = flightID;
 		this.departureTime = departureTime;
 		this.passengerType = type;
 		this.gate = gate;

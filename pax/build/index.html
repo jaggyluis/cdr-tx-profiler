@@ -9,21 +9,12 @@
 <body>
 	<div id="container">
 		<div id="table-box">
-			<div id="total-box" class="pad">
+			<div id="total-box" class="pad box">
 				<div class="title outlined-bottom">TOTAL PASSENGER PROFILES</div>
 			</div>
 			<div id="passenger-profile-box" class="pad box">
 				<div class="title outlined-bottom">UNIQUE PASSENGER PROFILES</div>
 				<table id="passenger-profile-table">
-					<tr class="bold">
-						<td>Name</td>
-						<td class="count">Count</td>
-						<td>% Total Count</td>
-						<td>% Bags</td>
-						<td>% Food</td>
-						<td>% Shop</td>
-						<td>Weighted</td>
-					</tr>
 				</table>
 			</div>
 			<div id="aircraft-profile-box" class="pad box">
@@ -32,86 +23,63 @@
 			<div id="flight-profile-box" class="pad box">
 				<div class="title outlined-bottom">FLIGHTS</div>
 				<table id="flight-table">
-					<tr class="bold">
-						<td>Name</td>
-						<td class="small">Code</td>
-						<td>ID</td>
-						<td>Gate</td>
-						<td>Departure Time</td>
-						<td>Load Factor</td>
-						<td>Seats</td>
-						<td>Passenger Count</td>
-					</tr>
 				</table>
 			</div>
 			<div id="passenger-timing-box" class="pad box">
 				<div class="title outlined-bottom">PASSENGERS</div>
 				<table id="passenger-timing-table">
-					<tr class="bold">
-						<td>Name</td>
-						<td class="small">Code</td>
-						<td class="small">Gate</td>
-						<td class="med">Passenger Type</td>
-						<td class="small">Gender</td>
-						<td>Airport</td>
-						<td>Departure Lounge</td>
-						<td>Boarding Zone</td>
-						<td>Boarding</td>
-						<td>Departure</td>
-					</tr>
 				</table>
-			</div>
-		</div>
-		
-		<div id="nav-bar">
-			<div class="input-box">
-				<input id="loadFactor" class="filter" placeholder="0.9">
-				<div class="input-title">Load Factor</div>
-			</div>
-			<div class="input-box">
-				<input id="timeFrame" class="filter" placeholder="0 to 24">
-				<div class="input-title">Time Frame</div>
-			</div>
-			<div id="input-box">
-				<input id="filter-flights" class="filter" placeholder="American Airlines">
-				<div class="input-title">Filter Flights</div>
-			</div>
-			<div id="input-box">
-				<input id="filter-passengers" class="filter" placeholder="Leisure">
-				<div class="input-title">Filter Passengers</div>
-			</div>	
-			<div class="btn-box">
-				<button id="run" class="btn-toggle" disabled>Run</button>
-				<div id="run-icn" class="hidden loading">
-					<img src="img/loading.gif">
-				</div>
-			</div>
-			<div class="btn-box">
-				<button id="save" class="btn-toggle" disabled>Save</button>
-				<div id="save-icn" class="hidden loading">
-					<img src="img/loading.gif">
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="json" type="checkbox" checked></input>
-					<div class="chk-txt">profiles.json</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="sum" type="checkbox" ></input>
-					<div class="chk-txt">summary.json</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="csv" type="checkbox" ></input>
-					<div class="chk-txt">profiles.csv</div>
-				</div>
-				<div class="chk-box">
-					<input class="chk-toggle" id="txt" type="checkbox" ></input>
-					<div class="chk-txt">summary.txt</div>
-				</div>
-			</div>
-			<div class="btn-box">
-				<button id="showResults" class="btn-toggle" disabled>Show Results</button>
-				<div id="show-icn" class="hidden loading">
-					<img src="img/loading.gif">
+				<div id="nav-bar">
+					<div class="input-box">
+						<input id="loadFactor" class="filter" placeholder="0.9">
+						<div class="input-title">Load Factor</div>
+					</div>
+					<div class="input-box">
+						<input id="timeFrame" class="filter" placeholder="0 to 24">
+						<div class="input-title">Time Frame</div>
+					</div>
+					<div id="input-box">
+						<input id="filter-flights" class="filter" placeholder="American Airlines">
+						<div class="input-title">Filter Flights</div>
+					</div>
+					<div id="input-box">
+						<input id="filter-passengers" class="filter" placeholder="Leisure">
+						<div class="input-title">Filter Passengers</div>
+					</div>	
+					<div class="btn-box">
+						<button id="run" class="btn-toggle" disabled>Run</button>
+						<div id="run-icn" class="hidden loading">
+							<img src="img/loading.gif">
+						</div>
+					</div>
+					<div class="btn-box">
+						<button id="save" class="btn-toggle" disabled>Save</button>
+						<div id="save-icn" class="hidden loading">
+							<img src="img/loading.gif">
+						</div>
+						<div class="chk-box">
+							<input class="chk-toggle" id="json" type="checkbox" checked></input>
+							<div class="chk-txt">profiles.json</div>
+						</div>
+						<div class="chk-box">
+							<input class="chk-toggle" id="sum" type="checkbox" ></input>
+							<div class="chk-txt">summary.json</div>
+						</div>
+						<div class="chk-box">
+							<input class="chk-toggle" id="csv" type="checkbox" ></input>
+							<div class="chk-txt">profiles.csv</div>
+						</div>
+						<div class="chk-box">
+							<input class="chk-toggle" id="txt" type="checkbox" ></input>
+							<div class="chk-txt">summary.txt</div>
+						</div>
+					</div>
+					<div class="btn-box">
+						<button id="showResults" class="btn-toggle" disabled>Show Results</button>
+						<div id="show-icn" class="hidden loading">
+							<img src="img/loading.gif">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -134,6 +102,17 @@
 			<div class="table-container outlined-left collapsed pad"></div>
 		</div>
 	</script>
+	<script type="text/template" id="passenger-type-header">
+		<tr class="bold">
+			<td>Name</td>
+			<td class="count">Count</td>
+			<td>% Total Count</td>
+			<td>% Bags</td>
+			<td>% Food</td>
+			<td>% Shop</td>
+			<td>Weighted</td>
+		</tr>
+	</script>
 	<script type="text/template" id="passenger-type-template">
 		<tr>
 			<td>%name%</td>
@@ -147,16 +126,28 @@
 	</script>
 
 
+	<script type="text/template" id="flight-table-header">
+		<tr class="bold">
+			<td>Name</td>
+			<td class="count">Code</td>
+			<td class="med">Flight ID</td>
+			<td>Load Factor</td>
+			<td>Seats</td>
+			<td>Passenger Count</td>
+			<td>Gate</td>
+			<td>Departure Time</td>
+		</tr>
+	</script>
 	<script type="text/template" id="flight-table-template">
 		<tr>
 			<td>%name%</td>
-			<td class="small">%code%</td>
-			<td>%id%</td>
-			<td>%gate%</td>
-			<td>%time%</td>
+			<td class="count">%code%</td>
+			<td class="med">%id%</td>
 			<td>%loadFactor%</td>
 			<td>%seats%</td>
 			<td>%count%</td>
+			<td>%gate%</td>
+			<td>%time%</td>
 		</tr>
 	</script>
 
@@ -210,10 +201,8 @@
 	<script type="text/template" id="passenger-timing-header">
 		<tr class="bold">
 			<td>Name</td>
-			<td class="small">Code</td>
-			<td class="small">Gate</td>
-			<td class="med">Passenger Type</td>
-			<td class="small">Gender</td>
+			<td class="count">Gender</td>
+			<td class="med">Flight ID</td>
 			<td>Airport</td>
 			<td>Departure Lounge</td>
 			<td>Boarding Zone</td>
@@ -223,11 +212,9 @@
 	</script>
 	<script type="text/template" id="passenger-timing-template">
 		<tr>
-			<td>%flightName%</td>
-			<td class="small">%flightCode%</td>
-			<td class="small">%gate%</td>
-			<td class="med">%passengerType%</td>
-			<td class="small">%gender%</td>
+			<td>%passengerType%</td>
+			<td class="count">%gender%</td>
+			<td class="med">%flightID%</td>
 			<td>%airport%</td>
 			<td>%departureLounge%</td>
 			<td>%boardingZone%</td>
@@ -250,7 +237,7 @@
 	<script src="../../aviation/src/data/airlines.js"></script>
 	<script src="../../aviation/src/data/aircraft.js"></script>
 	<script src="../../aviation/src/data/tt.js"></script>
-	<script src="../../aviation/src/class/_pax.js"></script>
+	<script src="../../aviation/src/class/pax.js"></script>
 	<script src="../../aviation/src/core.js"></script>
 	<!-- Main App -->
 	<script src="js/view.js"></script>

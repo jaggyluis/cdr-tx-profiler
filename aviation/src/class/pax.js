@@ -1,6 +1,7 @@
 var AVIATION = (function (aviation) {
 
-	aviation.class.pax = Pax;
+	aviation.class = aviation.class || {};
+	aviation.class.Pax = Pax;
 
 	function Pax(code) {
 
@@ -15,7 +16,7 @@ var AVIATION = (function (aviation) {
 	}
 	Pax.prototype = {
 
-		get dist() {
+		get profile() {
 			return this._data[this.type];
 		},
 
@@ -59,6 +60,8 @@ var AVIATION = (function (aviation) {
 		}
 
 	}
+
+	console.log(aviation)
 
 	return aviation;
 

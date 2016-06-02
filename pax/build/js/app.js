@@ -9,6 +9,7 @@ var app = app || {};
 		this._gates = gatelayout;
 		this._stash = null;
 		
+		
 		var flightBuilder = new this.FlightBuilder(designDay);
 		var profileBuilder = new this.ProfileBuilder(
 			p12.concat(p13)
@@ -34,7 +35,8 @@ var app = app || {};
 			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());
 
-		this._view.data = AVIATION.get.passengers(this._view.getPassengerFilter());
+		this._view.passengers = AVIATION.get.passengers(this._view.getPassengerFilter());
+		this._view.flights = AVIATION.get.flights();
 		this._stash = AVIATION.stash.parse();
 		this._view.enableDownloads();
 	};
