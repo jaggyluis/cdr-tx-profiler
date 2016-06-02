@@ -295,7 +295,7 @@ var AVIATION = (function (aviation) {
 						getAircraftByCode(_flight.aircraft),
 						loadFactor),
 
-					pax = aviation.Pax(flight.getCategory());
+					pax = aviation.class.Pax(flight.getCategory());
 
 				flight.findGate();
 

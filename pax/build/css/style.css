@@ -33,45 +33,90 @@ td+td {
 td:hover {
 	background-color: yellow;
 }
+tr:hover {
+	background-color: #ffffcc;
+}
 img {
 	width: 100%;
 	height: 100%;
 }
-tr:hover {
-	background-color: #ffffcc;
+
+/*
+ * -----------------------------------------
+ */
+
+
+
+.table-container {
+	clear: both;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border-top: 1px dotted grey;
+	//width: 1200px;
 }
-#nav-bar {
-	margin-left: 1000px;
-	padding-left: 5px;
-	float: left;
-	position: relative;
-	width: 100px; //remove?
+.table-box {
+	max-height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding-right: 3px;
 }
-#table-box {
+.flight-box {
+	padding-bottom: 10px;
+}
+.passenger-timing-table {
+	margin-top: -1px;
+}
+.type-name {
+	padding-top: 5px;
+}
+
+
+
+
+/* Main Container
+ */
+ #run-box {
 	float: left;
 	border-right: 1px dotted grey;
 	min-width: 1254px;
+	margin-top: -100px;
+	margin-bottom: 50px;
+	padding-bottom: 15px;
+	padding-top: 160px;
 }
-#drop-box {
-	margin-left: 50px;
+
+/* IMG Attributes
+ */
+.loading {
+	width: 15px;
+	height: 15px;
 	float: left;
 }
-#clear-box {
+
+/* General Box
+ */
+.box {
+	padding-bottom: 10px;
 	overflow: hidden;
 	clear: both;
 }
-#drop {
-	padding-top: 80px;
-	vertical-align: middle;
-	width: inherit;
-	height: 90px;
-	text-align: center;
-	z-index: 10;
-}
-#drop:hover {
-	background-color: #ddd;
-}
 
+/* Nav Bar
+ */
+ .nav-bar {
+	margin-left: 1050px;
+	padding-left: 5px;
+	float: left;
+	left: 30px;
+	position: relative;
+}
+.input-title {
+	display: inline-block;
+	margin-left: -107px;
+	position: relative;
+	text-align: right;
+	width: 100px;
+}
 .filter {
 	margin-bottom: 1px;
 	width: 200px;
@@ -80,12 +125,50 @@ tr:hover {
 	box-sizing: border-box;
 	padding-left: 1px;
 }
+.run-btn-box {
+	width: 230px;
+	overflow: hidden;
+}
+.run-btn {
+	float: left;
+	margin-right: 4px;
+}
+
+/* Title Box 
+ */
+.title-box {
+	margin-bottom: 5px;
+	overflow: hidden;
+	clear: both;
+}
+.title {
+	width: 200px;
+	float: left;
+	top: 4px;
+	position: relative;
+}
+
+/* Result Box 
+ */
+.show-box {
+	float: right;
+}
+.table-box {
+	float: left;
+}
+.save-box {
+	float: right;
+	width: 200px;
+}
+.save-btn {
+	background-color: #f2f2f2;
+}
 .chk-box {
 	height: 13px;
 	float: left;
 	padding-right: 10px;
 }
-.chk-toggle {
+.chk-btn {
 	height: 10px;
 	float: left;
 	margin: 2px;
@@ -94,60 +177,10 @@ tr:hover {
 	margin-top: 1px;
 	float: left;
 	width: 70px;
+}
 
-}
-.btn-toggle {
-	float: left;
-	margin-right: 4px;
-}
-.loading {
-	width: 15px;
-	height: 15px;
-	float: left;
-}
-.btn-box {
-	width: 230px;
-	overflow: hidden;
-}
-.input-title {
-	display: inline-block;
-}
-#log {
-	margin-left: 1280px;
-	position: fixed;
-	float: left;
-}
-.table-container {
-	clear: both;
-	overflow: hidden;
-	margin-bottom: 10px;
-	border-top: 1px dotted grey;
-	//width: 1200px;
-}
-.count {
-	width: 47px;
-}
-.small {
-	width: 30px;
-}
-.med {
-	width: 200px;
-}
-.flight-box {
-	padding-bottom: 10px;
-}
-.box {
-	padding-bottom: 10px;
-}
-.title {
-	margin-bottom: 5px;
-}
-.type-name {
-	padding-top: 5px;
-}
-.passenger-timing-table {
-	margin-top: -1px;
-}
+/* Expand Button 
+ */
 .expand {
 	width: 10px;
 	height: 10px;
@@ -160,14 +193,20 @@ tr:hover {
 .expand:hover {
 	background-color: yellow;
 }
-.bold {
-	font-weight: bold;
-}
+
+/* General Display 
+ */
+
 .hidden {
 	visibility: hidden;
 }
 .collapsed  {
 	display: none;
+}
+
+
+.top {
+	border-top: none;
 }
 .outlined-left {
 	border-left : 1px solid grey;
@@ -175,18 +214,35 @@ tr:hover {
 .outlined-bottom {
 	border-bottom: 1px dotted grey;
 }
+.bounded {
+	border: 1px solid black;
+}
+
+
 .sel {
 	background-color: yellow;
 }
 .pad {
 	padding-left: 50px;
 }
-.top {
-	border-top: none;
+
+
+.small {
+	width: 30px;
+}
+.count {
+	width: 47px;
+}
+.med {
+	width: 200px;
 }
 .dist {
 	width: 500px;
 }
-.bounded {
-	border: 1px solid black;
+
+
+.bold {
+	font-weight: bold;
 }
+
+

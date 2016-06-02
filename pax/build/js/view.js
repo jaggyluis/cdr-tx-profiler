@@ -18,74 +18,85 @@ var app = app || {};
 				'boarding',
 				'departureTime'];
 
-			this.runButton = document.getElementById("run");
-			this.runButton.addEventListener('click', (function() {
-				app.run();
-			}).bind(this));
-			this.runButton.addEventListener('mousedown',function() {
-				var loading = document.getElementById("run-icn");
-				loading.classList.toggle("hidden");
+			var self = this;
+
+			this.runButtons = Array.prototype.slice.call(document.getElementsByClassName('run-btn'));
+			this.runButtons.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+
+					btn.parentNode.children[1].classList.toggle('hidden');
+
+					setTimeout(function() {
+						if (btn.id == 'timing-btn') {
+							app.run();
+							self.buildResults();
+							self.enableDownloads('#timing-box')
+						}
+						else if (btn.id == 'profile-btn') {
+							app.compute();
+							self.enableDownloads('#profile-box')
+						}
+						btn.parentNode.children[1].classList.toggle('hidden');
+					},10);
+
+				})
 			});
-			this.runButton.addEventListener('mouseup',function() {
-				var loading = document.getElementById("run-icn");
-				loading.classList.toggle("hidden");
+
+			this.saveButtons = Array.prototype.slice.call(document.getElementsByClassName('save-btn'));
+			this.saveButtons.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					//this.save();
+				})
 			});
-			this.saveButton = document.getElementById("save");
-			this.saveButton.addEventListener('click', (function() {
-				this.save();
-			}).bind(this));
-			this.saveButton.addEventListener('mousedown',function() {
-				var loading = document.getElementById("save-icn");
-				loading.classList.toggle("hidden");
-			});
-			this.saveButton.addEventListener('mouseup',function() {
-				var loading = document.getElementById("save-icn");
-				loading.classList.toggle("hidden");
-			});
-			this.showResultsButton = document.getElementById("showResults");
-			this.showResultsButton.addEventListener('click', (function() {
-				this.showResults();
-			}).bind(this));
-			this.showResultsButton.addEventListener('mousedown',function() {
-				var loading = document.getElementById("show-icn");
-				loading.classList.toggle("hidden");
-			});
-			this.showResultsButton.addEventListener('mouseup',function() {
-				var loading = document.getElementById("show-icn");
-				loading.classList.toggle("hidden");
-			});
-			this.checkboxes = Array.prototype.
-				slice.call(document.getElementsByClassName("chk-toggle"));
-			this.checkboxes.forEach((function(box) {
-				box.addEventListener('click', (function() {
-					this.checkboxes.forEach(function(other) {
-						other.checked = false;
-						box.checked = true;
+
+			this.checkButtons = Array.prototype.slice.call(document.getElementsByClassName('chk-btn'));
+			this.checkButtons.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					var cls ='#'+btn.parentNode.parentNode.parentNode.parentNode
+						.id+' .chk-toggle';
+					Array.prototype.slice.call(document.querySelectorAll(cls)).forEach(function(b){
+						b.checked = false;
 					})
-				}).bind(this));
-			}).bind(this));
+					btn.checked = true;
+				});
+			});
+
+			this.showButtons = Array.prototype.slice.call(document.getElementsByClassName('show-btn'));
+			this.showButtons.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					btn.innerText = btn.innerText === 'Hide Results' ? 
+						'Show Results' : 'Hide Results';
+					btn.parentNode.parentNode.parentNode
+						.children[1].classList.toggle('collapsed');
+				});
+				btn.addEventListener('mousedown', function(){
+				});
+				btn.addEventListener('mousedown', function(){
+				});
+			});
 	};
 	app.View.prototype = {
 		init : function() {
 			this.clear();
 		},
-		enableDownloads : function() {
-			document.getElementById("save").disabled = false;
-			document.getElementById("showResults").disabled = false;
+		enableDownloads : function(id) {
+			Array.prototype.slice.call(document.querySelectorAll(id+' .show-btn')).forEach(function(b){
+				b.disabled = false;
+			});
 		},
-		enableRunButton : function() {
-			document.getElementById("run").disabled = false;
+		enableProfileRunButton : function() {
+			document.querySelectorAll("#timing-box .run-btn")[0].disabled = false;
 		},
-		showResults : function() {
+		buildResults : function() {
 			this.clear();
 			this.buildPassengerTable();
 			this.buildFlightTable();
 		},
 		clear : function() {
 			var pTable = document.getElementById("passenger-timing-table"),
-				pHeader = document.querySelector("#passenger-timing-header").innerHTML,
+				pHeader = document.getElementById("passenger-timing-header").innerHTML,
 				fTable = document.getElementById("flight-table"),
-				fHeader = document.querySelector("#flight-table-header").innerHTML;
+				fHeader = document.getElementById("flight-table-header").innerHTML;
 			
 			pTable.innerHTML = pHeader;
 			fTable.innerHTML = fHeader;
@@ -174,13 +185,13 @@ var app = app || {};
 				profileBox = document.getElementById('aircraft-profile-box'),
 				totalBox = document.getElementById('total-box');
 
-			totalBox.appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
+			totalBox.children[1].appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
 			typeTable.innerHTML+=typeHeader;
 			typeBuilder.getTypes().forEach((function (type) {
 				typeTable.appendChild(this.buildTypeTableRow(type));
 			}).bind(this));
 			typeBuilder.getProfiles().forEach((function (profile) {
-				profileBox.appendChild(this.buildProfileTable(profile));
+				profileBox.children[1].appendChild(this.buildProfileTable(profile));
 			}).bind(this));
 		},
 		buildFlightTable : function () {
@@ -203,7 +214,7 @@ var app = app || {};
 		},
 		buildPassengerTable : function() {
 			var table = document.getElementById('passenger-timing-table'),
-				template = document.querySelector('#passenger-timing-template').innerHTML,
+				template = document.getElementById('passenger-timing-template').innerHTML,
 				innerString = '';
 			
 			this.passengers.forEach((function(passenger, idx) {

@@ -8,28 +8,71 @@
 </head>
 <body>
 	<div id="container">
-		<div id="table-box">
-			<div id="total-box" class="pad box">
-				<div class="title outlined-bottom">TOTAL PASSENGER PROFILES</div>
+		<div id="run-box">
+			<div id="profile-box">
+				<div class="nav-bar">
+					<div>>> PASSENGER PROFILE SIMULATION</div>
+					<br>
+					<div class="input-box">
+						<input id="terminal" class="filter" placeholder="All">
+						<div class="input-title">Terminal</div>
+					</div>
+					<div class="run-btn-box">
+						<button class="run-btn" id="profile-btn">Run</button>
+						<div class="hidden loading">
+							<img src="img/loading.gif">
+						</div>
+					</div>
+				</div>
+
+				<div id="total-box" class="pad box">
+					<div class="title-box outlined-bottom">
+						<div class="title">TOTAL PASSENGER PROFILES</div>
+						<div class="show-box">
+							<button class="show-btn" disabled>Show Results</button>
+						</div>
+					</div>
+					<div class="result-box collapsed"></div>
+				</div>
+				<div id="passenger-profile-box" class="pad box">
+					<div class="title-box outlined-bottom">
+						<div class="title">UNIQUE PASSENGER PROFILES</div>
+						<div class="show-box">
+							<button class="show-btn" disabled>Show Results</button>
+						</div>
+					</div>
+					<div class="result-box collapsed">
+						<div class="table-box">
+							<table id="passenger-profile-table">
+							</table>
+						</div>
+						<div class="save-box">
+							<button class=save-btn>Save</button>
+							<div class="chk-box">
+								<input class="chk-btn csv" type="checkbox" checked></input>
+								<div class="chk-txt">profiles.csv</div>
+							</div>
+							<div class="chk-box">
+								<input class="chk-btn json" type="checkbox"></input>
+								<div class="chk-txt">profiles.json</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="aircraft-profile-box" class="pad box">
+					<div class="title-box outlined-bottom">
+						<div class="title">AIRCRAFT PROFILES</div>
+						<div class="show-box">
+							<button class="show-btn" disabled>Show Results</button>
+						</div>
+					</div>
+					<div class="result-box collapsed"></div>
+				</div>
 			</div>
-			<div id="passenger-profile-box" class="pad box">
-				<div class="title outlined-bottom">UNIQUE PASSENGER PROFILES</div>
-				<table id="passenger-profile-table">
-				</table>
-			</div>
-			<div id="aircraft-profile-box" class="pad box">
-				<div class="title outlined-bottom">AIRCRAFT PROFILES</div>
-			</div>
-			<div id="flight-profile-box" class="pad box">
-				<div class="title outlined-bottom">FLIGHTS</div>
-				<table id="flight-table">
-				</table>
-			</div>
-			<div id="passenger-timing-box" class="pad box">
-				<div class="title outlined-bottom">PASSENGERS</div>
-				<table id="passenger-timing-table">
-				</table>
-				<div id="nav-bar">
+			<div id="timing-box">
+				<div class="nav-bar">
+					<div>>> PASSENGER TIMING SIMULATION</div>
+					<br>
 					<div class="input-box">
 						<input id="loadFactor" class="filter" placeholder="0.9">
 						<div class="input-title">Load Factor</div>
@@ -43,47 +86,76 @@
 						<div class="input-title">Filter Flights</div>
 					</div>
 					<div id="input-box">
-						<input id="filter-passengers" class="filter" placeholder="Leisure">
+						<input id="filter-passengers" class="filter" placeholder="leisure.departing">
 						<div class="input-title">Filter Passengers</div>
 					</div>	
-					<div class="btn-box">
-						<button id="run" class="btn-toggle" disabled>Run</button>
+					<div class="run-btn-box">
+						<button class="run-btn" id="timing-btn" disabled>Run</button>
 						<div id="run-icn" class="hidden loading">
 							<img src="img/loading.gif">
 						</div>
 					</div>
-					<div class="btn-box">
-						<button id="save" class="btn-toggle" disabled>Save</button>
-						<div id="save-icn" class="hidden loading">
-							<img src="img/loading.gif">
-						</div>
-						<div class="chk-box">
-							<input class="chk-toggle" id="json" type="checkbox" checked></input>
-							<div class="chk-txt">profiles.json</div>
-						</div>
-						<div class="chk-box">
-							<input class="chk-toggle" id="sum" type="checkbox" ></input>
-							<div class="chk-txt">summary.json</div>
-						</div>
-						<div class="chk-box">
-							<input class="chk-toggle" id="csv" type="checkbox" ></input>
-							<div class="chk-txt">profiles.csv</div>
-						</div>
-						<div class="chk-box">
-							<input class="chk-toggle" id="txt" type="checkbox" ></input>
-							<div class="chk-txt">summary.txt</div>
+				</div>
+
+
+				<div id="flight-profile-box" class="pad box">
+					<div class="title-box outlined-bottom">
+						<div class="title">FLIGHTS</div>
+						<div class="show-box">
+							<button class="show-btn" disabled>Show Results</button>
 						</div>
 					</div>
-					<div class="btn-box">
-						<button id="showResults" class="btn-toggle" disabled>Show Results</button>
-						<div id="show-icn" class="hidden loading">
-							<img src="img/loading.gif">
+					<div class="result-box collapsed">
+						<div class="table-box">
+							<table id="flight-table">
+							</table>
+						</div>
+						<div class="save-box">
+							<button class=save-btn>Save</button>
+							<div class="chk-box">
+								<input class="chk-btn csv" type="checkbox" checked></input>
+								<div class="chk-txt">flights.csv</div>
+							</div>
+							<div class="chk-box">
+								<input class="chk-btn json" type="checkbox"></input>
+								<div class="chk-txt">flights.json</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="passenger-timing-box" class="pad box">
+					<div class="title-box outlined-bottom">
+						<div class="title">PASSENGERS</div>
+						<div class="show-box">
+							<button class="show-btn" disabled>Show Results</button>
+						</div>
+					</div>
+					<div class="result-box collapsed">
+						<div class="table-box">
+							<table id="passenger-timing-table">
+							</table>
+						</div>
+						<div class="save-box">
+							<button class=save-btn>Save</button>
+							<div class="chk-box">
+								<input class="chk-btn csv" type="checkbox" checked></input>
+								<div class="chk-txt">passengers.csv</div>
+							</div>
+							<div class="chk-box">
+								<input class="chk-btn json" type="checkbox"></input>
+								<div class="chk-txt">passengers.json</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+	<!-- TEMPLATES 
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
 
 	<script type="text/template" id="passenger-box-template">
 		<div class="passenger-box">
@@ -223,6 +295,9 @@
 		</tr>
 	</script>
 
+	<!-- APP 
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
 
 	<!-- Scheme variables -->
 	<script src="../../aviation/lib/sfo/passengers/p12.js"></script>

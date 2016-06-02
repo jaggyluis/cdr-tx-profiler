@@ -1,10 +1,13 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Pax = Pax;
+	aviation.class.Pax = function(code) {
+		return new Pax(code);
+	}
 
 	function Pax(code) {
 
+		this.type = code;
 		this.time = [180,0,5];
 		this.legend = [
 			'airport',
@@ -60,8 +63,6 @@ var AVIATION = (function (aviation) {
 		}
 
 	}
-
-	console.log(aviation)
 
 	return aviation;
 
