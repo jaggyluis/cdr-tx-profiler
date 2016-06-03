@@ -116,56 +116,6 @@ var AVIATION = (function (aviation) {
 				return f.ival.padded(this.padding)
 					.intersects(flight.ival.padded(this.padding));
 			}).bind(this));
-		},
-		getMARS : function() {
-			var mars = [];
-			for (var i=0; i<this.flights[this.name+'a'].length; i++) {
-				for (var j=0; j<this.flights[this.name+'b'].length; j++) {
-					var fi = this.flights[this.name+'a'][i],
-						fj = this.flights[this.name+'b'][j]
-					if (fi !== fj) {
-						if (fi.ival.intersects(fj.ival)) {
-							mars.push([fi.gate+' '+fi.getFlightName()+' '+aviation.time.decimalDayToTime(fi.getTime()),
-								fj.gate+' '+fj.getFlightName()+' '+aviation.time.decimalDayToTime(fj.getTime())]);
-						}
-					}
-				}
-			}
-			return mars;
-		},
-		getXS : function() {
-			var xs = [];
-			for (var sub in this.flights) {
-				for (var i=0; i<this.flights[sub].length; i++) {
-					for (var j=0; j<this.flights[sub].length; j++) {
-						if (j !== i) {
-							var fi = this.flights[sub][i],
-								fj = this.flights[sub][j];
-							if (fi.ival.intersects(fj.ival)) {
-								mars.push([fi.getFlightName()+' '+aviation.time.decimalDayToTime(fi.getTime()),
-									fj.getFlightName()+' '+aviation.time.decimalDayToTime(fj.getTime())]);
-							}
-						}
-					}
-				}
-			}
-			return xs;
-		},
-		parseStash : function() {
-			return {
-				name : this.name,
-				info : {
-					isMARS : this.isMARS,
-					seats : this.seats,
-					sf : this.sf,
-					group : this.group,
-					mars : this.getMARS(),
-					intersections : this.getXS()
-				},
-				flights : this.getFlights().map(function(f) {
-					return f.parseStash();
-				})
-			};	
 		}
 	}
 

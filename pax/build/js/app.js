@@ -39,9 +39,6 @@ var app = app || {};
 
 		this._view.passengers = AVIATION.get.passengers(this._view.getPassengerFilter());
 		this._view.flights = AVIATION.get.flights();
-
-		this._stash = AVIATION.stash.parse();
-		this._view.enableDownloads();
 	};
 	app.clear = function() {
 		this._view.clear();

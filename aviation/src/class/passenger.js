@@ -26,20 +26,6 @@ var AVIATION = (function (aviation) {
 		this.gender = ['M', 'F'][Math.round(Math.random())];
 	};
 	Passenger.prototype = {
-		parseStash : function() {
-			return {
-				info : {
-					type : this.passengerType,
-					gender : this.gender
-				},
-				profile : {
-					airport : this['airport'],
-					lounge : this['departureLounge'],
-					boardingZone : this['boardingZone'],
-					boarding: this['boarding']
-				}
-			};
-		}
 	}
 
 	return aviation;

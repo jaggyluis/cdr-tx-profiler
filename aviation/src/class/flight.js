@@ -187,33 +187,6 @@ var AVIATION = (function (aviation) {
 		},
 		getPassengers : function () {
 			return this.passengers;
-		},
-		parseStash : function () {
-			return {
-				name : this.getFlightName(),
-				info : {
-					gate: this.gate,
-					time : aviation.time.decimalDayToTime(this.getTime()),
-					loadFactor : this.loadFactor,
-					seats : {
-						filled : this.seats,
-						total : this.flight.seats
-					}
-				},
-				// turn this on for full list
-				//
-				//passengers : this.passengers.map(function(p) {
-				//	return p.parseStash();
-				//})
-				passengers : this.passengers.reduce(function(obj , p) {
-						if (Object.keys(obj).includes(p.passengerType)) {
-							obj[p.passengerType]++;
-						} else {
-							obj[p.passengerType] = 1;
-						}
-						return obj;
-					}, {})
-			}
 		}
 	}
 

@@ -26,8 +26,12 @@ var AVIATION = (function (aviation) {
 		includes : function(num) {
 			return num >= this.start && num <= this.end;
 		},
-		padded : function(val) {
-			return new Interval(this.start-val, this.end+val);
+		padded : function(val1, val2) {
+			if(val1 && val2) {
+				return new Interval(this.start-val1, this.end+val2);
+			} else if(val1) {
+				return new Interval(this.start-val1, this.end+val1);
+			}
 		}
 	};
 

@@ -50,10 +50,6 @@ var AVIATION = (function (aviation) {
 	aviation.generate = {
 		guid : generateUUID
 	};
-	aviation.stash = {
-		serialize: serializeStash,
-		parse : parseStash
-	};
 	function generateUUID(){
 		/*
 		 * http://stackoverflow.com/questions/
@@ -88,17 +84,17 @@ var AVIATION = (function (aviation) {
 		dday = dday>=0 ? dday : 1 + dday;
 		return Number((dday*24*60).toString().split('.')[0]);
 	};
-	function minutesToDecimalDay(minutes) {
-		var hours = minutes/60;
-		var dday = hours/24;
-		return dday;
-	};
 	function timeToDecimalDay(time) {
 		var splitStr = time.split(':');
 		var hours = Number(splitStr[0]);
 		var minutes = Number(splitStr[1]);
 		var seconds = null // not needed in current simulation
 		return minutesToDecimalDay(hours*60+minutes);
+	};
+	function minutesToDecimalDay(minutes) {
+		var hours = minutes/60;
+		var dday = hours/24;
+		return dday;
 	};
 	function isapTime(str) {
 		return ['AM', 'PM']
@@ -146,8 +142,8 @@ var AVIATION = (function (aviation) {
 	function getAirportByString(str) {
 		var airports = filterStrict(aviation._airports, str);
 		if (airports == undefined || airports.length === 0) {
-			//console.warn('filterLoose:', str)
 			airports = filterLoose(aviation._airports, str);
+			//console.warn('filterLoose:', str)
 			//console.warn('\tfound: ', filterBest(airports, str).name);
 		}
 		return filterBest(airports, str);
@@ -328,7 +324,7 @@ var AVIATION = (function (aviation) {
 	function getFlights() {
 		return aviation._flights;
 	}
-	function serializeStash(data) {
+	function serializeObj(data) {
 
 		function serialize(obj, _tabs) {
 			var tabs = _tabs+"\t";
@@ -349,16 +345,6 @@ var AVIATION = (function (aviation) {
 		}
 		var serialized = serialize(data, "");
 		return serialized;
-	};
-	function parseStash() {
-		return {
-			info : {
-				totalFlights: aviation._flights.length
-			},
-			gates : aviation._gates.map(function(g) {
-				return g.parseStash();
-			})
-		}
 	};
 	function parseCSV(fileStr) {
 
