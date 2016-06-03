@@ -245,7 +245,7 @@ var app = app || {};
 		buildTypeTable : function (typeObj, parents, weighted) {
 			
 			var template = document.getElementById('passenger-box-template').innerHTML,
-				div = document.createElement('div');
+				div = document.createElement('div'),
 				trace = parents.slice();
 
 			div.innerHTML = template;
@@ -262,7 +262,6 @@ var app = app || {};
 			var sub = [];
 
 			typeObj._getTypes().forEach((function(type) {
-				// NOT GOOD
 				sub.push(this.buildTypeTable(typeObj[type], trace.concat([parent])));
 			}).bind(this));
 
