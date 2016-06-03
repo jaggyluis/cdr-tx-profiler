@@ -21,6 +21,7 @@ var app = app || {};
 			this._designDay = flightBuilder.getFlights();
 
 			this._view.enableProfileRunButton();
+			this._view.clearTables();
 			this._view.buildTables(profileBuilder);
 			this._view.profiles = this._profiles;
 

@@ -39,6 +39,7 @@ X allow for profile saves
 X swap flights to be their own table
 X finish separating the module into a legible format
 X fix padding on gate assignment 
+X fix double table bug
 - update passenger profiles to include browsing
 - implement fit curve
 - output statistics in a visual manner in order to baseline/verify

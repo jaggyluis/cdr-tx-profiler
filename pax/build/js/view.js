@@ -95,21 +95,6 @@ var app = app || {};
 		enableProfileRunButton : function() {
 			document.querySelectorAll("#timing-box .run-btn")[0].disabled = false;
 		},
-		buildResults : function() {
-			this.clear();
-			this.buildPassengerTable();
-			this.buildFlightTable();
-		},
-		clear : function() {
-			var pTable = document.getElementById("passenger-timing-table"),
-				pHeader = document.getElementById("passenger-timing-header").innerHTML,
-				fTable = document.getElementById("flight-table"),
-				fHeader = document.getElementById("flight-table-header").innerHTML;
-			
-			pTable.innerHTML = pHeader;
-			fTable.innerHTML = fHeader;
-
-		},
 		getFlightFilter : function() {
 			return document.getElementById("filter-flights").value;
 		},
@@ -175,6 +160,33 @@ var app = app || {};
 			a.href = URL.createObjectURL(file);
 			a.download = name+'.csv';
 			a.click();
+		},
+		buildResults : function() {
+			this.clear();
+			this.buildPassengerTable();
+			this.buildFlightTable();
+		},
+		clear : function() {
+
+			var pTable = document.getElementById("passenger-timing-table"),
+				pHeader = document.getElementById("passenger-timing-header").innerHTML,
+				fTable = document.getElementById("flight-table"),
+				fHeader = document.getElementById("flight-table-header").innerHTML;
+			
+			pTable.innerHTML = pHeader;
+			fTable.innerHTML = fHeader;
+
+		},
+		clearTables : function() {
+
+			var t = document.querySelector('#passenger-profile-table'),
+				p = document.querySelector('#aircraft-profile-box .result-box'),
+				b = document.querySelector('#total-box .result-box');
+
+			t.innerHTML = "";
+			p.innerHTML = "";
+			b.innerHTML = "";
+
 		},
 		buildTables : function (typeBuilder) {
 
