@@ -277,9 +277,11 @@ var AVIATION = (function (aviation) {
 	};
 	function setFlights(data, loadFactor, filter, timeFrame) {
 
-		var flights = [];
+		var flights = [],
+			sorted = [],
+			filtered = [];
 
-		data.forEach(function(_flight) {
+		data.forEach(function(_flight, index) {
 			if (decimalDayToTime(_flight.time).split(':')[0] > timeFrame[0] &&
 				decimalDayToTime(_flight.time).split(':')[0] < timeFrame[1]) {
 
@@ -291,8 +293,6 @@ var AVIATION = (function (aviation) {
 
 					pax = aviation.class.Pax(flight.getCategory());
 
-				flight.findGate();
-
 				if (pax.profile !== undefined) {
 					flight.setPassengers(pax.profile, pax.legend, pax.time)	
 				}
@@ -302,13 +302,33 @@ var AVIATION = (function (aviation) {
 						flight.getFlightName(), 
 						decimalDayToTime(flight.getTime()));
 				}
-				if (JSON.stringify(flight).match(filter)) {
-					flights.push(flight);
+				if (JSON.stringify(flight).match(filter)){
+					filtered.push(flight);
+				} 
+				if (sorted.length === 0) {
+					sorted.push(flight);
+				} else {
+					var a = flight.ival.getLength(),
+						a_bis = flight.getDesignGroup();
+
+					for (var i=0, len=sorted.length; i<len; i++) {
+						var b = sorted[i].ival.getLength(),
+							b_bis = sorted[i].getDesignGroup();
+						if ( a+a_bis >= b+b_bis ) {
+							break;
+						}
+					}
+					sorted.splice(i,0,flight);
 				}
+				flights.push(flight);
 			}
 		});
 
-		return flights;
+		sorted.forEach(function(flight) {
+			flight.findGate();
+		});
+
+		return filtered;
 	};
 	function getPassengers(filter) {
 		var passengers = [];

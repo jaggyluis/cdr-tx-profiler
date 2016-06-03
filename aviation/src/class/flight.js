@@ -73,9 +73,9 @@ var AVIATION = (function (aviation) {
 						this, 
 						this.getFlightName(), 
 						decimalDayToTime(this.getTime()));
-					tt = 0.125;
 				}
 			}
+			tt = tt === 0 || tt === Infinity ? 0.125 : tt;
 			return aviation.class.Interval(this.getTime()-tt, this.getTime())
 		},
 		getDesignGroup : function() {

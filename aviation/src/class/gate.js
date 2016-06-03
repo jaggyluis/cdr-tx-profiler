@@ -10,7 +10,10 @@ var AVIATION = (function (aviation) {
 		this.name = name;
 		this.isMARS = isMARS;
 		this.seats = null;
-		this.padding = aviation.time.timeToDecimalDay('00:15:00');
+		this.padding = [
+			-aviation.time.timeToDecimalDay('00:15:00'),
+			aviation.time.timeToDecimalDay('00:15:00')
+			];
 		this.sf = {}
 		this.group = {
 			mars : null,
@@ -113,8 +116,8 @@ var AVIATION = (function (aviation) {
 		},
 		tap : function(flight, fArr) {
 			return !fArr.some((function(f) {
-				return f.ival.padded(this.padding)
-					.intersects(flight.ival.padded(this.padding));
+				return f.ival.padded(this.padding[0], this.padding[1])
+					.intersects(flight.ival.padded(this.padding[0], this.padding[1]));
 			}).bind(this));
 		}
 	}
