@@ -23,24 +23,22 @@ X add padding to tt
 	- fix null
 
 - track down richard to confirm aircraft codes:
-	*-* - what is what
+	*-* - what is that
 	X design reference code
 	X arc
 
 X fix aircraft stats
-
-- output statistics in a visual manner in order to baseline/verify
 X implement module pattern
 X number of passengers output
-- handle flights with missing/broken data instead of skipping?
 X implement domestic/international?
 X research better passenger profiles?
-
 X fix Summary.txt
 X implement combined tests
-- update passenger profiles to include browsing
+X fix broken trace
 X allow for profile saves
 X swap flights to be their own table
+X finish separating the module into a legible format
+- update passenger profiles to include browsing
 - implement fit curve
-- finish separating the module into a legible format
-- implement npm for build
+- output statistics in a visual manner in order to baseline/verify
+- implement npm for build - major refactor

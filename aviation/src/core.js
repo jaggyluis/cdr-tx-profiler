@@ -6,33 +6,24 @@ var AVIATION = (function (aviation) {
 	
 	aviation.set = set;
 	aviation.clear = clear;
-
-	aviation.class = aviation.class || {}
-	aviation.class.Gate = Gate,
-	aviation.class.Flight = Flight,
-	aviation.class.Passenger = Passenger,
-	aviation.class.Interval = Interval
+	aviation.class = aviation.class || {};
 	
 	aviation.get = {
 		airportByCode : getAirportByCode,
 		airportByString : getAirportByString,
 		airlineByCode : getAirlineByCode,
 		aircraftByCode :  getAircraftByCode,
+		profileByAircraftType : getProfileByAircraftType,
 		passengers : getPassengers,
 		flights : getFlights
-	}
-	aviation
+	};
 	aviation.JSON = {
 		serialize : serializeJSON,
 		parse : parseJSON
-	}
+	};
 	aviation.CSV = {
 		parse : parseCSV
-	}
-	aviation.stash = {
-		serialize: serializeStash,
-		parse : parseStash
-	}
+	};
 	aviation.array = {
 		filter : {
 			strict : filterStrict,
@@ -43,7 +34,7 @@ var AVIATION = (function (aviation) {
 		dist : dist,
 		matchAll : matchAll,
 		buildLib : buildLib
-	}
+	};
 	aviation.time = {
 		decimalDayToTime : decimalDayToTime,
 		decimalDayToMinutes : decimalDayToMinutes,
@@ -52,10 +43,17 @@ var AVIATION = (function (aviation) {
 		romanToNumber : romanToNumber,
 		aptimeToDecimalDay : aptimeToDecimalDay,
 		isapTime : isapTime
-	}
+	};
 	aviation.math = {
 		round : round,
-	}
+	};
+	aviation.generate = {
+		guid : generateUUID
+	};
+	aviation.stash = {
+		serialize: serializeStash,
+		parse : parseStash
+	};
 	function generateUUID(){
 		/*
 		 * http://stackoverflow.com/questions/
@@ -268,7 +266,7 @@ var AVIATION = (function (aviation) {
 
 		data.forEach(function(_gate) {
 
-			var gate = new Gate(_gate[0], _gate[1]);
+			var gate = aviation.class.Gate(_gate[0], _gate[1]);
 			gate.setSeats(_gate[2]);
 			gate.setArea('waiting', _gate[3]);
 			gate.setArea('boarding', _gate[4]);
@@ -289,7 +287,7 @@ var AVIATION = (function (aviation) {
 			if (decimalDayToTime(_flight.time).split(':')[0] > timeFrame[0] &&
 				decimalDayToTime(_flight.time).split(':')[0] < timeFrame[1]) {
 
-				var flight = new Flight(_flight,
+				var flight = aviation.class.Flight(_flight,
 						getAirportByCode(_flight.destination),
 						getAirlineByCode(_flight.airline),
 						getAircraftByCode(_flight.aircraft),
@@ -398,422 +396,6 @@ var AVIATION = (function (aviation) {
 			return JSON.parse(fileStr);
 		} catch (e) {
 			return null;
-		}
-	};
-
-
-	function Gate(name, isMARS) {
-		this.name = name;
-		this.isMARS = isMARS;
-		this.seats = null;
-		this.padding = timeToDecimalDay('00:15:00');
-		this.sf = {}
-		this.group = {
-			mars : null,
-			default : null,
-		}
-		this.flights = {
-			[this.name+'a'] : [],
-			[this.name+'b'] : []
-		};
-	};
-	Gate.prototype = {
-		setArea : function(key, val) {
-			this.sf[key] = val;
-		},
-		getArea : function(key){
-			if (key === undefined ) {
-				return Object.keys(this.sf).map((function(a) {
-					return this.sf[a];
-				}).bind(this)).reduce(function(a,b) {
-					return a+b;
-				})
-			} else if (Object.keys(this.sf).includes(key)) {
-				return this.sf[key];
-			} else {
-				return 0;
-			}
-		},
-		setSeats : function(val) {
-			this.seats = val;
-		},
-
-		getSeats : function(val) {
-			return this.seats;
-		},
-		setDesignGroup : function(group, mars) {
-			if (mars && this.isMARS) {
-				this.group.mars = group;
-			} else {
-				this.group.default = group;
-			}
-		},
-		getDesignGroup : function(mars) {
-			if (mars && this.isMARS) {
-				return this.group.mars;
-			} else {
-				return this.group.default;
-			}
-		},
-		matchDesignGroup : function (flight, mars) {
-			return this.getDesignGroup(mars) >= flight.getDesignGroup();
-		},
-		setFlight : function (flight, sub) {
-			if (sub && sub !== this.name  && this.isMARS) { // blehhhh
-				this.flights[sub].push(flight);
-			} else {
-				for (var key in this.flights) {
-					this.flights[key].push(flight);
-				}
-			}
-		},
-		getFlights : function(sub) {
-			if (sub && this.isMARS) {
-				return this.flights[sub];
-			} else {
-				var uniq= [];
-				Object.keys(this.flights).map((function(key) {
-					return this.flights[key]
-				}).bind(this)).reduce(function(a, b) {
-					return a.concat(b);
-				}, []).forEach(function(flight) {
-					if (!uniq.includes(flight)) {
-						uniq.push(flight);
-					}
-				});
-				return uniq;
-			}
-		},
-		fit : function(flight, cb) {
-			var data = {
-				response : null,
-				gate : null
-			}
-			if (this.matchDesignGroup(flight)) {
-				if (this.isMARS && this.matchDesignGroup(flight, this.isMARS)) {
-					for (var sub in this.flights) {
-						if (this.tap(flight, this.getFlights(sub))) {
-							data.response = true;
-							data.gate = sub;
-							break;
-						}
-					}
-				} else {
-					if (this.tap(flight, this.getFlights())) {
-						data.response = true;
-						data.gate = this.name;
-					}
-				}
-			}
-			return cb(data, flight);
-		},
-		tap : function(flight, fArr) {
-			return !fArr.some((function(f) {
-				return f.ival.padded(this.padding)
-					.intersects(flight.ival.padded(this.padding));
-			}).bind(this));
-		},
-		getMARS : function() {
-			var mars = [];
-			for (var i=0; i<this.flights[this.name+'a'].length; i++) {
-				for (var j=0; j<this.flights[this.name+'b'].length; j++) {
-					var fi = this.flights[this.name+'a'][i],
-						fj = this.flights[this.name+'b'][j]
-					if (fi !== fj) {
-						if (fi.ival.intersects(fj.ival)) {
-							mars.push([fi.gate+' '+fi.getFlightName()+' '+decimalDayToTime(fi.getTime()),
-								fj.gate+' '+fj.getFlightName()+' '+decimalDayToTime(fj.getTime())]);
-						}
-					}
-				}
-			}
-			return mars;
-		},
-		getXS : function() {
-			var xs = [];
-			for (var sub in this.flights) {
-				for (var i=0; i<this.flights[sub].length; i++) {
-					for (var j=0; j<this.flights[sub].length; j++) {
-						if (j !== i) {
-							var fi = this.flights[sub][i],
-								fj = this.flights[sub][j];
-							if (fi.ival.intersects(fj.ival)) {
-								mars.push([fi.getFlightName()+' '+decimalDayToTime(fi.getTime()),
-									fj.getFlightName()+' '+decimalDayToTime(fj.getTime())]);
-							}
-						}
-					}
-				}
-			}
-			return xs;
-		},
-		parseStash : function() {
-			return {
-				name : this.name,
-				info : {
-					isMARS : this.isMARS,
-					seats : this.seats,
-					sf : this.sf,
-					group : this.group,
-					mars : this.getMARS(),
-					intersections : this.getXS()
-				},
-				flights : this.getFlights().map(function(f) {
-					return f.parseStash();
-				})
-			};	
-		}
-
-	}
-	function Flight(flight, destination, airline, aircraft, loadFactor) {
-		this.flight = flight;
-		this.destination = destination;
-		this.airline = airline;
-		this.aircraft = aircraft;
-		this.ival = this.getTurnaroundTime();
-		this.loadFactor = loadFactor;
-		this.id = generateUUID();
-		this.gate = null;
-		this.seats = this.flight.seats !== undefined ?
-			this.flight.seats*this.loadFactor :
-			this.aircraft.seats !== null ?
-			this.aircraft.seats*this.loadFactor :
-			0;
-		this.seats = Math.round(this.seats);
-		this.passengers = [];
-		if (this.seats === 0) console.warn('seats not available: ', this);
-		if (this.aircraft.RFLW == null || this.aircraft.ARC == null){
-			console.warn('null reference needed', this.aircraft);
-		}
-
-	};	
-	Flight.prototype = {
-		getTime : function() {
-			return this.flight.time;
-		},
-		getTurnaroundTime : function() {
-			
-			var tt = 0;
-			var t1 = this.aircraft.IATA;
-			var t2 = this.airline.IATA;
-
-			if (this.flight.tt !== 0) {
-				tt = this.flight.tt;
-			} else {
-				if (t1 in aviation._tt) {
-					if (t2 in aviation._tt[t1]) {
-						var length = aviation._tt[t1][t2].length;
-						var sum = aviation._tt[t1][t2].reduce(function(a,b) {
-							return a+b;
-						})
-						tt = sum/length;
-					} else {
-						var length = 0;
-						var sum = Object.keys(aviation._tt[t1]).map((function(a){
-							return aviation._tt[t1][a];
-						}).bind(this)).reduce(function(a,b) {
-							return a.concat(b)
-						},[]).reduce(function(a,b) {
-							length++;
-							return a+b;
-						});
-						tt = sum/length;
-					}
-				} else {
-					console.error('tt not assigned: ', 
-						this, 
-						this.getFlightName(), 
-						decimalDayToTime(this.getTime()));
-					tt = 0.125;
-				}
-			}
-			return new Interval(this.getTime()-tt, this.getTime())
-		},
-		getDesignGroup : function() {
-			//console.log(this);
-			return romanToNumber(this.aircraft.ARC.split('-')[1]);
-		},
-		getCategory : function() {
-			return this.aircraft.RFLW;
-		},
-		setGate : function(gate) {
-			this.gate = gate;
-		},
-		getGate : function() {
-			return this.gate;
-		},
-		findGate : function() {
-			if (this.ival.getLength() === 0) {
-				this.setGate('*');
-				return;
-			}
-			for (var i=0; i<aviation._gates.length; i++) {
-				var gate = aviation._gates[i];
-				if (aviation._gates[i].fit(this, (function(data, flight) {
-					if (data.response) {
-						this.setGate(data.gate);
-						gate.setFlight(this, data.gate);
-						return true;
-					} else {
-						return false;
-					}
-				}).bind(this))) {
-					return;
-				}
-			}
-			console.error('gate not assigned: ', 
-				this, 
-				this.getFlightName(), 
-				decimalDayToTime(this.getTime()));
-		},
-		getFlightName : function() {
-			return '%airline% to %municipality%, %plane%'
-				.replace('%municipality%', this.destination.municipality)
-				.replace('%airline%', this.airline.name)
-				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
-		},
-		getArrivalTimes : function(arr) {
-			var arrTimes = []
-			for (var i=arr[0]; i>=arr[1]; i-=arr[2]) {
-				arrTimes.push(minutesToDecimalDay(i));
-			}
-			return arrTimes;
-		},
-		getMovementMatrix : function(profile) {
-			var matrix = [];
-			profile.forEach((function(arr, index) {
-				var seats = this.seats;
-				var mArray = [];
-				arr.forEach((function(num) {
-					var count = 0;
-					for (var i=0; i< Math.ceil(this.seats*num/100); i++) {
-						if (seats >0 ) {
-							seats--;
-							count++;
-						} else break;
-					}
-					mArray.push(count);
-				}).bind(this));
-				matrix.push(mArray);
-			}).bind(this));
-			return matrix;
-		},
-		getPassengerArray : function() {
-			var pArray = [],
-				profile = getProfileByAircraftType(this.aircraft.RFLW),
-				percs = profile._getPerc()[this.flight.di],
-				dArray = profile._getPercArray(percs);
-
-			for (var i=0; i<this.seats; i++) {
-				pArray.push(new Passenger(this.getFlightName(), 
-					this.airline.IATA,
-					dArray[Math.floor(Math.random()*(dArray.length-1-0+1)+0)],
-					decimalDayToTime(this.flight.time),
-					this.gate,
-					this.id));
-			}
-			return pArray;
-		},
-		setPassengers : function(profile, legend, time) {
-			if (this.destination && this.airline && this.aircraft) {
-				var passengers = this.getPassengerArray();
-				var passengerArrivalTimes = this.getArrivalTimes(time);
-				this.getMovementMatrix(profile).forEach((function(paxTimes, lindex) {
-					var count = 0;
-					paxTimes.forEach((function(numPeople, index) {
-						for (var i=0; i<numPeople; i++) {
-							var interp = decimalDayToTime(this.flight.time -
-								passengerArrivalTimes[index] +
-								i * minutesToDecimalDay(time[2] / numPeople));
-
-							passengers[count][legend[lindex]] = interp;
-							count++;
-						}
-					}).bind(this));
-				}).bind(this));
-				this.passengers = passengers;
-			} else {
-				this.passengers = [];
-			}
-		},
-		getPassengers : function () {
-			return this.passengers;
-		},
-		parseStash : function () {
-			return {
-				name : this.getFlightName(),
-				info : {
-					gate: this.gate,
-					time : decimalDayToTime(this.getTime()),
-					loadFactor : this.loadFactor,
-					seats : {
-						filled : this.seats,
-						total : this.flight.seats
-					}
-				},
-				// turn this on for full list
-				//
-				//passengers : this.passengers.map(function(p) {
-				//	return p.parseStash();
-				//})
-				passengers : this.passengers.reduce(function(obj , p) {
-						if (Object.keys(obj).includes(p.passengerType)) {
-							obj[p.passengerType]++;
-						} else {
-							obj[p.passengerType] = 1;
-						}
-						return obj;
-					}, {})
-			}
-		}
-	}
-	function Passenger(flightName, flightCode, type, departureTime, gate, flightID) {
-		this.flightName = flightName;
-		this.flightCode = flightCode;
-		this.flightID = flightID;
-		this.departureTime = departureTime;
-		this.passengerType = type;
-		this.gate = gate;
-		this.gender = ['M', 'F'][Math.round(Math.random())];
-	};
-	Passenger.prototype = {
-		parseStash : function() {
-			return {
-				info : {
-					type : this.passengerType,
-					gender : this.gender
-				},
-				profile : {
-					airport : this['airport'],
-					lounge : this['departureLounge'],
-					boardingZone : this['boardingZone'],
-					boarding: this['boarding']
-				}
-			};
-		}
-	}
-	function Interval(start, end) {
-		this.start = start;
-		this.end = end;
-	};
-	Interval.prototype = {
-		intersects : function(other) {
-			return this.includes(other.start) ||
-				this.includes(other.end) ||
-				other.includes(this.start) ||
-				other.includes(this.end);
-		},
-		getLength : function() {
-			return this.end-this.start;
-		},
-		contains : function(other) {
-			return this.includes(other.start) && this.includes(other.end);
-		},
-		includes : function(num) {
-			return num >= this.start && num <= this.end;
-		},
-		padded : function(val) {
-			return new Interval(this.start-val, this.end+val);
 		}
 	};
 
