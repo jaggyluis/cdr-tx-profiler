@@ -5,11 +5,9 @@ var app = app || {};
 	app.View = function() {
 			this.passengers = null;
 			this.flights = null;
+			this.profiles = null;
 			this.keys = [ 
-				'flightName', 
-				'flightCode',
 				'flightID',
-				'gate',
 				'passengerType',
 				'gender',
 				'airport',
@@ -17,6 +15,10 @@ var app = app || {};
 				'boardingZone',
 				'boarding',
 				'departureTime'];
+
+			this._passengers=[];
+			this._flights = [];
+			this._profiles = [];
 
 			var self = this;
 
@@ -42,23 +44,29 @@ var app = app || {};
 				})
 			});
 
-			this.saveButtons = Array.prototype.slice.call(document.getElementsByClassName('save-btn'));
-			this.saveButtons.forEach(function(btn) {
-				btn.addEventListener('click', function() {
-					//this.save();
-				})
-			});
-
 			this.checkButtons = Array.prototype.slice.call(document.getElementsByClassName('chk-btn'));
 			this.checkButtons.forEach(function(btn) {
 				btn.addEventListener('click', function() {
 					var cls ='#'+btn.parentNode.parentNode.parentNode.parentNode
-						.id+' .chk-toggle';
+						.id+' .chk-btn';
 					Array.prototype.slice.call(document.querySelectorAll(cls)).forEach(function(b){
 						b.checked = false;
 					})
 					btn.checked = true;
 				});
+			});
+
+			this.saveButtons = Array.prototype.slice.call(document.getElementsByClassName('save-btn'));
+			this.saveButtons.forEach(function(btn) {
+				btn.addEventListener('click', function() {
+					//this.save();
+					var checked = Array.prototype.slice.call(this.parentNode.children)
+						.filter(function(elem) {
+							return elem.children.length !== 0 &&
+								elem.children[0].checked == true;
+						})[0].children[0];
+					self.save(btn.id, checked.classList[1]);
+				})
 			});
 
 			this.showButtons = Array.prototype.slice.call(document.getElementsByClassName('show-btn'));
@@ -130,52 +138,42 @@ var app = app || {};
 				return 1;
 			}
 		},
-		save : function () {
-			var type = this.checkboxes.filter(function(box) {
-				return box.checked == true;
-			})[0].id;
+		save : function (id, type) {
+						
 			switch (type) {
 				case "json":
-					this.downloadJSON();
+					this.downloadJSON(this['_'+id], id);
 					break;
 				case "csv":
-					this.downloadCSV();
-					break;
-				case "sum":
-					this.downloadJSON(app._stash, 'logFile.json');
-					break;
-				case "txt":
-					this.downloadTXT(AVIATION.stash.serialize(app._stash));
-					break;
+					var keys = Object.keys(this['_'+id][0])  
+					this.downloadCSV(AVIATION.JSON.serialize(this['_'+id], keys), id);
 				default :
 					break;
 			};
 		},
-		downloadJSON : function(_data, _str) {
+		downloadJSON : function(data, name) {
 			/*
 			 * modified from
 			 * http://stackoverflow.com/questions/13405129/javascript-create-and-save-file
 			 */
-			var data = _data || this.passengers;
 			var a = document.createElement("a");
 			var file = new Blob([JSON.stringify(data)], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
-			a.download = _str || 'PassengerTimingProfiles.json';
+			a.download = name+'.json';
 			a.click();
 		},
-		downloadTXT : function(_data, _str) {
-			var data = _data || 'hello world';
+		downloadTXT : function(data, name) {
 			var a = document.createElement("a");
 			var file = new Blob([data], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
-			a.download = _str || 'summary.txt';
+			a.download = name+'.txt';
 			a.click();
 		},
-		downloadCSV : function() {
+		downloadCSV : function(data, name) {
 			var a = document.createElement("a");
-			var file = new Blob([AVIATION.JSON.serialize(this.passengers, this.keys)], {type:'text/plain'});
+			var file = new Blob([data], {type:'text/plain'});
 			a.href = URL.createObjectURL(file);
-			a.download = 'PassengerTimingProfiles.csv';
+			a.download = name+'.csv';
 			a.click();
 		},
 		buildTables : function (typeBuilder) {
@@ -188,7 +186,7 @@ var app = app || {};
 			totalBox.children[1].appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
 			typeTable.innerHTML+=typeHeader;
 			typeBuilder.getTypes().forEach((function (type) {
-				typeTable.appendChild(this.buildTypeTableRow(type));
+				typeTable.appendChild(this.buildTypeTableRow(type, true));
 			}).bind(this));
 			typeBuilder.getProfiles().forEach((function (profile) {
 				profileBox.children[1].appendChild(this.buildProfileTable(profile));
@@ -197,9 +195,22 @@ var app = app || {};
 		buildFlightTable : function () {
 			var table = document.getElementById('flight-table'),
 				template = document.querySelector('#flight-table-template').innerHTML,
-				innerString = '';
+				innerString = '',
+				self = this;
 
 			this.flights.forEach(function(flight, idx) {
+
+				self._flights.push({
+					name : flight.getFlightName(),
+					code : flight.airline.IATA,
+					id : flight.id,
+					loadFactor : flight.loadFactor,
+					seats : flight.flight.seats,
+					count : flight.passengers.length,
+					gate : flight.gate,
+					time : AVIATION.time.decimalDayToTime(flight.getTime())
+				});
+
 				var flightString = template.replace('%name%', flight.getFlightName())
 							.replace('%code%', flight.airline.IATA)
 							.replace('%id%', flight.id)
@@ -218,10 +229,15 @@ var app = app || {};
 				innerString = '';
 			
 			this.passengers.forEach((function(passenger, idx) {
+
+				var _ret = {};
+
 				var passengerString = template;
 				this.keys.forEach(function(key) {
+					_ret[key] = passenger[key];
 					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
 				})
+				this._passengers.push(_ret);
 				innerString+=passengerString;
 			}).bind(this));
 			table.innerHTML+=innerString;
@@ -282,13 +298,24 @@ var app = app || {};
 			if (parents.length === 0) container.style.marginBottom = "-10px";
 			return container;
 		},
-		buildTypeTableRow : function (typeObj, weighted) {
+		buildTypeTableRow : function (typeObj, push, weighted) {
 
 			var template = document.getElementById("passenger-type-template").innerHTML,
 				row = document.createElement('tr');
 
+			if (push === true) {
+				this._profiles.push({
+					name : typeObj._name,
+					count : typeObj._data.count,
+					percentage : typeObj._data.percentage,
+					food : typeObj._data.food,
+					bags : typeObj._data.bags,
+					shop : typeObj._data.shop,
+					weighted : typeObj._data.weighted
+				});
+			}
+
 			row.innerHTML += template.replace('%name%', typeObj._name)
-								.replace('%name%', typeObj._name)
 								.replace('%count%', typeObj._data.count)
 								.replace('%percent%', typeObj._data.percentage)
 								.replace('%food%', typeObj._data.food)

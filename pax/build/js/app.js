@@ -16,11 +16,13 @@ var app = app || {};
 			.concat(p14)
 			.concat(p15));
 		profileBuilder.run(undefined, (function() {
-			this._view.enableProfileRunButton();
-			this._view.buildTables(profileBuilder);
 
 			this._profiles = profileBuilder.getProfiles();
 			this._designDay = flightBuilder.getFlights();
+
+			this._view.enableProfileRunButton();
+			this._view.buildTables(profileBuilder);
+			this._view.profiles = this._profiles;
 
 		}).bind(this));
 	};
@@ -37,6 +39,7 @@ var app = app || {};
 
 		this._view.passengers = AVIATION.get.passengers(this._view.getPassengerFilter());
 		this._view.flights = AVIATION.get.flights();
+
 		this._stash = AVIATION.stash.parse();
 		this._view.enableDownloads();
 	};

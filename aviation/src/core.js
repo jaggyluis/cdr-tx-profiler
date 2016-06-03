@@ -386,6 +386,7 @@ var AVIATION = (function (aviation) {
 		});
 	};
 	function serializeJSON(json, keys) {
+
 		return json.reduce(function(a,b) {
 			return a+(keys.map(function(key) {
 				return '"'+b[key]+'"';

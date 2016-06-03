@@ -39,7 +39,7 @@ X research better passenger profiles?
 X fix Summary.txt
 X implement combined tests
 - update passenger profiles to include browsing
-- allow for profile saves
+X allow for profile saves
 X swap flights to be their own table
 - implement fit curve
 - finish separating the module into a legible format
