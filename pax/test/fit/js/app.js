@@ -1,7 +1,7 @@
 
 var xArr = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180]
-//var yArr = [6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-var yArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,3,4,3,2,1,1,1,1,6,45,26,2,0,0,0]
+var yArr = [6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+//var yArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,3,4,3,2,1,1,1,1,6,45,26,2,0,0,0]
 //var yArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 
 /*
@@ -85,35 +85,55 @@ var makeFitFn = function(pts, order) {
   return fn;
 }
 
-var pts = xArr.map(function(x,i) {
-  return {x:x, y:yArr[i]};
+//var pts = xArr.map(function(x,i) {
+//  return {x:x, y:yArr[i]};
+//})
+
+var p1 = Object.keys(t1).map(function(x) {
+  return {x:x, y:t1[x]};
+})
+var p2 = Object.keys(t2).map(function(x) {
+  return {x:x, y:t2[x]};
+})
+var p3 = Object.keys(t3).map(function(x) {
+  return {x:x, y:t3[x]};
+})
+var p4 = Object.keys(t4).map(function(x) {
+  return {x:x, y:t4[x]};
 })
 
-var fit = makeFitFn(pts, 3);
+//var fit = makeFitFn(pts, 3);
 
 var svgContainer = d3.select("body").append("svg")
                                     .attr("width", 1000)
                                     .attr("height", 1000);
+
  
-//Draw the Circle
-for (var i=0; i<xArr.length; i++) {
-  var c1 = svgContainer.append("circle")
-                         .attr("cx", xArr[i]*2+10)
-                         .attr("cy", yArr[i]*2+10)
-                         .attr("r", 2);
+var lineFunction = d3.svg.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y*10; })
+                         .interpolate("linear");
 
-  var c2 = svgContainer.append("circle")
-                       .attr("cx", xArr[i]*2+10)
-                       .attr("cy", fit(xArr[i])*2+10)
-                       .attr("r", 2)
-                       .attr("fill", "red");
-}
+var l1 = svgContainer.append("path")
+        .attr("d", lineFunction(p1))
+        .attr("stroke", "blue")
+        .attr("stroke-width", 1)
+        .attr("fill", "none");
 
-for(var i=0; i<180; i++) {
+var l2 = svgContainer.append("path")
+        .attr("d", lineFunction(p2))
+        .attr("stroke", "red")
+        .attr("stroke-width", 1)
+        .attr("fill", "none");
 
-    var c3 = svgContainer.append("circle")
-                       .attr("cx", i*2+10)
-                       .attr("cy", fit(i)*2+10)
-                       .attr("r", 2)
-                       .attr("fill", "blue");
-}
+var l3 = svgContainer.append("path")
+        .attr("d", lineFunction(p3))
+        .attr("stroke", "green")
+        .attr("stroke-width", 1)
+        .attr("fill", "none");
+
+var l4 = svgContainer.append("path")
+        .attr("d", lineFunction(p4))
+        .attr("stroke", "orange")
+        .attr("stroke-width", 1)
+        .attr("fill", "none");

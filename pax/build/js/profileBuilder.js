@@ -81,11 +81,12 @@ var app = app || {};
 				});
 				dist = AVIATION.array.dist(delta, true);
 
-				//console.log('percent sum: ', Object.keys(dist).map(function(o) {
-				//	return dist[o];
-				//}).reduce(function(a,b) {
-				//	return a+b;
-				//}));
+				console.log(dist);
+				console.log('percent sum: ', Object.keys(dist).map(function(o) {
+					return dist[o];
+				}).reduce(function(a,b) {
+					return a+b;
+				}, 0));
 
 				return dist;
 			},
@@ -375,11 +376,11 @@ var app = app || {};
 		this.typeClass = null;
 		this.run = function (filter, cb) {
 
-			passengers = passengers.filter(function(p) {
-				return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
+			//passengers = passengers.filter(function(p) {
+			//	return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
 					//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
 					//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-			});	
+			//});	
 			this.typeClass = new TypeClass('total', 
 					passengers, 
 					passengers.length, 

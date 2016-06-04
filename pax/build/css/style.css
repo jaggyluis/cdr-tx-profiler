@@ -56,7 +56,8 @@ img {
 }
 .table-box {
 	max-height: 500px;
-	overflow-x: hidden;
+	//overflow-x: hidden;
+	overflow-x: scroll;
 	overflow-y: scroll;
 	padding-right: 3px;
 }
