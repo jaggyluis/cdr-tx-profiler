@@ -20,6 +20,8 @@ var app = app || {};
 			this._flights = [];
 			this._profiles = [];
 
+			this.TEMP = {}
+
 			var self = this;
 
 			this.runButtons = Array.prototype.slice.call(document.getElementsByClassName('run-btn'));
@@ -203,6 +205,9 @@ var app = app || {};
 			typeBuilder.getProfiles().forEach((function (profile) {
 				profileBox.children[1].appendChild(this.buildProfileTable(profile));
 			}).bind(this));
+
+			console.log(JSON.stringify(this.TEMP));
+
 		},
 		buildFlightTable : function () {
 			var table = document.getElementById('flight-table'),
@@ -363,6 +368,7 @@ var app = app || {};
 				weighted = weighted === undefined ? false : weighted,
 				top = boxTemplate.replace(/%name%/g, flightObj._name),
 				percs = flightObj._getPerc();
+				this.TEMP[flightObj._name] = percs;
 
 			for (var type in percs) {
 				var rep = typeTemplate.replace(/%type%/g, flightObj._name+'.'+type)
@@ -376,7 +382,7 @@ var app = app || {};
 					var f = percs[type][p],
 						st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
 						flight = flightTemplate.replace(/%name%/g, [flightObj._name, 
-													p.split('.').slice(1)].join('.'))
+													p.split('.').slice(1).join('.')].join('.'))
 										.replace(/%count%/g, f.count)
 										.replace(/%percent%/g, f.percentage)
 										.replace(/%weighted%/g, weighted)

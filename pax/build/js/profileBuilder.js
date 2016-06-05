@@ -81,12 +81,12 @@ var app = app || {};
 				});
 				dist = AVIATION.array.dist(delta, true);
 
-				console.log(dist);
-				console.log('percent sum: ', Object.keys(dist).map(function(o) {
-					return dist[o];
-				}).reduce(function(a,b) {
-					return a+b;
-				}, 0));
+				//console.log(dist);
+				//console.log('percent sum: ', Object.keys(dist).map(function(o) {
+				//	return dist[o];
+				//}).reduce(function(a,b) {
+				//	return a+b;
+				//}, 0));
 
 				return dist;
 			},
