@@ -6,7 +6,7 @@ var gatelayout = [
 	['B3',		false,	190,	2532,		594,		3,			null],
 	['B4',		false,	190,	2532,		594,		3,			null],
 	['B5',		false,	190,	2532,		594,		3,			null],
-	['B6',		true,	190,	2532,		594,		5,			3],
+	['B6',		true,	190,	2532,		594,		6,			3],
 	['B7',		true,	190,	2532,		594,		5,			3],
 	['B8',		false,	190,	2532,		594,		3,			null],
 	['B9',		false,	190,	2532,		594,		3,			null],
@@ -28,3 +28,4 @@ var gatelayout = [
 	['B25',		false,	190,	2532,		594,		3,			null]
 ];
 
+// b4 does not exist when b6 is group6
