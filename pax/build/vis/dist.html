@@ -4,11 +4,12 @@
 	<title>Passenger Arrival Distribution</title>
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
+	<script src="numeric-1.2.6.js"></script>
 	<script src="data.js"></script>
 	<style type="text/css">
 	
 		svg {
-			padding: 50px;
+			padding: 50px 0px 50px 50px;
 		}
 
 		body {
@@ -79,6 +80,49 @@
 				.shapeHeight(15)
 				.labelOffset(10)
 
+		function makeFitFn(pts, order) {
+		  
+		  pts = pts.filter(function(pt) {
+		    return pt.y > 0;
+		  })
+		  console.log(pts);
+		  var  xArr = pts.map(function(pt) {
+		    return pt.x;
+		  })
+		  var yArr = pts.map(function(pt) {
+		    return pt.y;
+		  })
+		  var xMatrix = [];
+		  var xTemp = [];
+		  var yMatrix = numeric.transpose([yArr]);
+
+		  for (j=0;j<xArr.length;j++)
+		  {
+		      xTemp = [];
+		      for(i=0;i<=order;i++)
+		      {
+		          xTemp.push(1*Math.pow(xArr[j],i));
+		      }
+		      xMatrix.push(xTemp);
+		  }
+		  var xMatrixT = numeric.transpose(xMatrix);
+		  var dot1 = numeric.dot(xMatrixT,xMatrix);
+		  var dotInv = numeric.inv(dot1);
+		  var dot2 = numeric.dot(xMatrixT,yMatrix);
+		  var solution = numeric.dot(dotInv,dot2);
+
+		  var fn = function(x) {
+		    var y = 0;
+		    for (var i=0; i<solution.length; i++) {
+		      y+= solution[i] * Math.pow(x, i);
+		    }
+		    return y > 0 ? y : 0;
+		    
+		  }
+		  return fn;
+		}
+
+
 		function render(data) {
 
 			var nested = Object.keys(data).map(function(k) {
@@ -88,10 +132,96 @@
 						return {
 							"di": nk,
 							"values": Object.keys(data[k][nk]).map(function(nnk) {
-								var profile = data[k][nk][nnk];
-									spl = nnk.split('.')
-								//profile.type = [spl[1], spl[3]].join('.');
+
+
+								function median(arr) {
+									return arr.length % 2 !== 0 ?
+										arr[Math.ceil(arr.length / 2)] : 
+										( arr[arr.length / 2] + arr[(arr.length / 2) + 1] ) / 2 ;
+								}
+								function iqr(arr) {
+									if (arr.length !== 0) {
+										var m = Math.ceil(arr.length / 2);
+									}
+									else {
+										var m = arr.length / 2;
+									}
+									var s1 = arr.slice(0,m);
+									var s2 = arr.slice(m)
+									return [median(s1), median(s2)]
+								}
+								function gaussian(mean, stdev) {
+									/*
+									 * http://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
+									 */
+								    var y2;
+								    var use_last = false;
+								    return function() {
+								        var y1;
+								        if(use_last) {
+								           y1 = y2;
+								           use_last = false;
+								        }
+								        else {
+								            var x1, x2, w;
+								            do {
+								                 x1 = 2.0 * Math.random() - 1.0;
+								                 x2 = 2.0 * Math.random() - 1.0;
+								                 w  = x1 * x1 + x2 * x2;               
+								            } while( w >= 1.0);
+								            w = Math.sqrt((-2.0 * Math.log(w))/w);
+								            y1 = x1 * w;
+								            y2 = x2 * w;
+								            use_last = true;
+								       }
+
+								       var retval = mean + stdev * y1;
+								       if(retval > 0) 
+								           return retval;
+								       return -retval;
+								   }
+								}
+
+								
+								var profile = data[k][nk][nnk],
+									spl = nnk.split('.'),
+									_v = [];
+
 								profile.type = [k,spl.slice(1).join('.')].join('.');
+								profile.values = Object.keys(profile.dist).map(function(d) {
+									return { 
+										x : +d, 
+										y : +profile.dist[d] 
+									}; 
+								});
+
+								if (profile.values.length === 0) return [];
+
+								profile.count = 0
+								profile.mode = profile.values[0];
+								profile.sum = profile.values.reduce(function(a,b) {
+									profile.count+= b.y;
+									if (b.y > profile.mode.y) profile.mode = b;
+									for (var i=0;i<b.y;i++) _v.push(b.x);
+									return a + (b.x * b.y);
+								},0);
+								profile.mean = profile.sum / profile.count;
+								profile.mode = profile.mode.x;
+
+								_v = _v.sort(function(a,b) { return a-b; });
+
+								profile.median = median(_v);
+								profile.varience = _v.reduce(function(total,n) {
+									return total + Math.pow(n-profile.mean, 2);
+								},0) / profile.count;
+								profile.sd = Math.pow(profile.varience, 0.5);
+
+								profile.func = gaussian(profile.mean, profile.sd)
+
+
+								var test = 100;
+
+								//console.log( test, "-------> ", profile.func(test))
 								return profile;
 							})
 						}
@@ -129,12 +259,14 @@
 			lines.append("path")
 				.attr("class", "line")
 				.attr("d", function(d) {
-					return line(Object.keys(d.dist).map(function(k) {
-						return { 
-							x : +k, 
-							y : +d.dist[k] 
-						}; 
+					var func = makeFitFn(d.values, 10);
+					return line(d.values.map(function(d) {
+						return {
+							x:d[xColumn],
+							y:func(d[xColumn])
+						}
 					}))
+					//return line(d.values)
 				})
 				.style("stroke", function(d) { return colorScale(d[colorColumn])})
 
