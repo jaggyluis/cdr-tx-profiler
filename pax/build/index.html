@@ -9,6 +9,8 @@
 <body>
 	<div id="container">
 		<div id="run-box">
+
+		
 			<div id="profile-box">
 				<div class="nav-bar">
 					<div>>> PASSENGER PROFILE SIMULATION</div>
@@ -24,7 +26,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div id="total-box" class="pad box">
 					<div class="title-box outlined-bottom">
 						<div class="title">TOTAL PASSENGER PROFILES</div>
@@ -34,7 +35,6 @@
 					</div>
 					<div class="result-box collapsed"></div>
 				</div>
-
 				<div id="passenger-profile-box" class="pad box">
 					<div class="title-box outlined-bottom">
 						<div class="title">UNIQUE PASSENGER PROFILES</div>
@@ -60,7 +60,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div id="aircraft-profile-box" class="pad box">
 					<div class="title-box outlined-bottom">
 						<div class="title">AIRCRAFT PROFILES</div>
@@ -68,9 +67,26 @@
 							<button class="show-btn" disabled>Show Results</button>
 						</div>
 					</div>
-					<div class="result-box collapsed"></div>
+					<div class="result-box collapsed">
+						<div class="content-box">
+						</div>
+						<div class="save-box">
+							<button class="save-btn" id="aircraft">Save</button>
+							<div class="chk-box">
+								<input class="chk-btn csv" type="checkbox" disabled></input>
+								<div class="chk-txt disabled">aircraft.csv</div>
+							</div>
+							<div class="chk-box">
+								<input class="chk-btn json" type="checkbox" checked></input>
+								<div class="chk-txt">aircraft.json</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+
+
+
 			<div id="timing-box">
 				<div class="nav-bar">
 					<div>>> PASSENGER TIMING SIMULATION</div>
@@ -98,8 +114,6 @@
 						</div>
 					</div>
 				</div>
-
-
 				<div id="flight-profile-box" class="pad box">
 					<div class="title-box outlined-bottom">
 						<div class="title">FLIGHTS</div>
@@ -241,7 +255,7 @@
 	</script>
 	<script type="text/template" id="flight-type-template">
 		<div>		
-			<table>
+			<table class="table-sm">
 				<tr class="bold">
 					<td class="top">Name</td>
 					<td class="top count">Count</td>
@@ -254,7 +268,7 @@
 			</table>
 			<div id="%name%-%type%-hook" class="expand"><img src="img/expand.png"></div>
 			<div class="pad outlined-left table-container collapsed">
-				<table>
+				<table class="table-sm">
 					<tr class="bold">
 						<td class="top">Name</td>
 						<td class="top count">Count</td>

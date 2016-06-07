@@ -15,6 +15,7 @@ var app = app || {};
 			p12.concat(p13)
 			.concat(p14)
 			.concat(p15));
+		
 		profileBuilder.run(undefined, (function() {
 
 			this._profiles = profileBuilder.getProfiles();

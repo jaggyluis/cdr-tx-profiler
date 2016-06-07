@@ -40,6 +40,11 @@ X swap flights to be their own table
 X finish separating the module into a legible format
 X fix padding on gate assignment 
 X fix double table bug
+X save json objects from flight data
+- localstorage
+- filter passengers
+- weighting
+
 - update passenger profiles to include browsing
 - implement fit curve
 

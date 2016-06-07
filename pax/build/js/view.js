@@ -19,8 +19,7 @@ var app = app || {};
 			this._passengers=[];
 			this._flights = [];
 			this._profiles = [];
-
-			this.TEMP = {}
+			this._aircraft = {};
 
 			var self = this;
 
@@ -182,7 +181,7 @@ var app = app || {};
 		clearTables : function() {
 
 			var t = document.querySelector('#passenger-profile-table'),
-				p = document.querySelector('#aircraft-profile-box .result-box'),
+				p = document.querySelector('#aircraft-profile-box .content-box'),
 				b = document.querySelector('#total-box .result-box');
 
 			t.innerHTML = "";
@@ -194,7 +193,7 @@ var app = app || {};
 
 			var typeTable = document.getElementById('passenger-profile-table'),
 				typeHeader = document.getElementById('passenger-type-header').innerHTML,
-				profileBox = document.getElementById('aircraft-profile-box'),
+				profileBox = document.querySelector('#aircraft-profile-box .content-box'),
 				totalBox = document.getElementById('total-box');
 
 			totalBox.children[1].appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
@@ -203,11 +202,8 @@ var app = app || {};
 				typeTable.appendChild(this.buildTypeTableRow(type, true));
 			}).bind(this));
 			typeBuilder.getProfiles().forEach((function (profile) {
-				profileBox.children[1].appendChild(this.buildProfileTable(profile));
+				profileBox.appendChild(this.buildProfileTable(profile));
 			}).bind(this));
-
-			console.log(JSON.stringify(this.TEMP));
-
 		},
 		buildFlightTable : function () {
 			var table = document.getElementById('flight-table'),
@@ -368,7 +364,7 @@ var app = app || {};
 				weighted = weighted === undefined ? false : weighted,
 				top = boxTemplate.replace(/%name%/g, flightObj._name),
 				percs = flightObj._getPerc();
-				this.TEMP[flightObj._name] = percs;
+				this._aircraft[flightObj._name] = percs;
 
 			for (var type in percs) {
 				var rep = typeTemplate.replace(/%type%/g, flightObj._name+'.'+type)
