@@ -7,16 +7,16 @@ var app = app || {};
 		this._view = new this.View();
 		this._view.init();
 		this._gates = gatelayout;
-		this._stash = null;
 	}
 	app.compute = function() {
-		var flightBuilder = new this.FlightBuilder(designDay);
-		var profileBuilder = new this.ProfileBuilder(
-			p12.concat(p13)
-			.concat(p14)
-			.concat(p15));
-		
-		profileBuilder.run(undefined, (function() {
+		var terminalFilter = this._view.getTerminalFilter(),
+			flightBuilder = new this.FlightBuilder(designDay, terminalFilter),
+			profileBuilder = new this.ProfileBuilder(
+				p12.concat(p13)
+				.concat(p14)
+				.concat(p15));
+
+		profileBuilder.run(terminalFilter, true, (function() {
 
 			this._profiles = profileBuilder.getProfiles();
 			this._designDay = flightBuilder.getFlights();

@@ -2,7 +2,124 @@ var app = app || {};
 
 (function() {
 
+	app.FlightBuilder = function(designDay, filter) {
+
+
+		this.designDay = designDay;
+		this.flights = this.filterFlightsByTerminal(this.designDay, filter);
+		this.flights = this.filterFlightsByDeparture(this.flights);
+		this.flights = this.formatFlights(this.flights);
+	}
+	app.FlightBuilder.prototype = {
+
+		filterFlightsByTerminal : function(flights, terminal) {
+
+			if (terminal.toLowerCase().match(/int/)) terminal = 4
+
+			return flights.filter(function(flight) {
+
+				var t = flight['Analysis Boarding Area'];
+
+				switch(1) {
+
+					case 1 :
+
+						return t === 1;
+
+					case 2 : 
+
+						return t === 2;
+
+					case 2 : 
+
+						return t === 3;
+
+					case 4 : 
+
+						return t === 'A' || 'G' ;
+
+					default :
+
+						return t !== undefined && 
+							t !== null && 
+							t !== 'MARS' && 
+							t !== 'SWING';				
+				}
+			});
+		},
+		filterFlightsByDeparture : function(flights){
+			return flights.filter(function(flight) {
+				return flight['DEP'] === 1;
+			});
+		},
+		formatFlights : function (flights)  {
+			return flights.map((function(flight) {
+				return this.formatFlight(flight);
+			}).bind(this));
+		},
+		formatFlight : function (flight) {
+
+			return {
+				airline : flight['OPERATOR'],
+				aircraft : flight['AIRCRAFT'],
+				seats : flight['SEAT CONFIG.'],
+				tt : flight['TT'],
+				time : flight['D TIME'],
+				di : flight['D D/I'] === 'D' ? 'domestic' : 'international',
+				flight : flight['D FLIGHT #'],
+				destination : flight['DEST.']
+			}
+		},
+		getFlights : function() {
+			return this.flights;
+		}
+	}
+
 	app.ProfileBuilder = function(passengers) {
+
+		function makeFitFn(pts, order) {
+			  
+			var xArr = pts.map(function(pt) {
+			    return pt.x;
+			})
+			var yArr = pts.map(function(pt) {
+			    return pt.y;
+			})
+			var xMatrix = [];
+			var xTemp = [];
+			var yMatrix = numeric.transpose([yArr]);
+
+			for (j=0;j<xArr.length;j++) {
+			    xTemp = [];
+			    for(i=0;i<=order;i++)
+			    {
+			        xTemp.push(1*Math.pow(xArr[j],i));
+			    }
+			    xMatrix.push(xTemp);
+			}
+			var xMatrixT = numeric.transpose(xMatrix);
+			var dot1 = numeric.dot(xMatrixT,xMatrix);
+			var dotInv = numeric.inv(dot1);
+			var dot2 = numeric.dot(xMatrixT,yMatrix);
+			var solution = numeric.dot(dotInv,dot2);
+
+			var fn = function(x) {
+			    var y = 0;
+			    for (var i=0; i<solution.length; i++) {
+			      y+= solution[i] * Math.pow(x, i);
+			    }
+			    return y > 0 ? y : 0;
+			    
+			}
+			return fn;
+		}
+
+		var func = makeFitFn(propensities.map(function(p) {
+			return {
+				x : p.buy,
+				y : p.browse
+			}
+		}), 1);
 
 		function TypeClass(name, pArr, length, trace) {
 
@@ -40,7 +157,7 @@ var app = app || {};
 
 			_getPaxProfile : function() {
 
-				var pax = this._getPaxData(this._pax),
+				var pax = this._getPaxData(this._pax, lexicon),
 					data = this._data;
 					dist = {};
 
@@ -234,7 +351,9 @@ var app = app || {};
 					weighted = weighted === undefined ? false : weighted,
 					filtered = {
 					bags : 0,
+					brshop : null,
 					shop : 0,
+					brfood : null,
 					food : 0,
 				};
 				pArr.forEach(function(p) {
@@ -245,6 +364,7 @@ var app = app || {};
 					if(p.Q4FOOD === 1) filtered.food+=weight;
 				});
 				return Object.keys(filtered).reduce(function(a,b) {
+					if ('br'+b.toString() in filtered) a['br'+b.toString()] = Math.round(func(filtered[b]/count)*100);
 					a[b] = Math.round((filtered[b]/count)*100);
 					return a;
 				},{
@@ -253,7 +373,7 @@ var app = app || {};
 					percentage: Math.round(count/total*100)
 				});
 			},
-			_getPaxData : function (pArr) {
+			_getPaxData : function (pArr, lexicon) {
 
 				var flights = [];
 				var passengers = pArr;
@@ -267,8 +387,8 @@ var app = app || {};
 						flights.push({
 							passengers : aLib[airline],
 							flight : aLib[airline][0].FLIGHT,
-							destination : key.DESTINATION[dest],
-							airline : key.AIRLINE[airline],
+							destination : lexicon.DESTINATION[dest],
+							airline : lexicon.AIRLINE[airline],
 							aircraft : null,
 						})
 					}
@@ -374,22 +494,64 @@ var app = app || {};
 		this.flights = [];
 		this.types = [];
 		this.typeClass = null;
-		this.run = function (filter, cb) {
+		this.run = function (filter, checkStash, cb) {
 
-			//passengers = passengers.filter(function(p) {
-			//	return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE < 13); //||
-					//p.BAREA == 'B' || (p.GATE >= 20 && p.GATE < 40) ||
-					//p.BAREA == 'C' || (p.GATE >= 40 && p.GATE < 49);
-			//});	
-			this.typeClass = new TypeClass('total', 
+			function filterKey(key) {
+
+				switch (+key) {
+
+					case 1 : 
+
+						// 32 gates
+						return function(p) {
+							return p.BAREA == 'B' || (p.GATE >= 20 && p.GATE <= 39) ||
+							p.BAREA == 'C' || (p.GATE >= 40 && p.GATE <= 48);
+						}
+
+					case 2 :
+
+						// 14 gates
+						return function(p) {
+							return p.BAREA == 'D' || (p.GATE >= 50 && p.GATE <= 59);
+						}
+
+					case 3 : 
+
+						// 36 gates
+						return function(p) {
+							return p.BAREA == 'E' || (p.GATE >= 60 && p.GATE <= 69) ||
+							p.BAREA == 'F' || (p.GATE >= 70 && p.GATE <= 90);
+						}
+
+					case 4 :
+
+						// 28 gates
+						return function(p) {
+							return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE <= 12) ||
+								p.BAREA == 'G' || (p.GATE >= 91 && p.GATE <= 102);
+						}
+
+					default :
+
+						return function(p) {
+							return true;
+						}
+				}
+			};
+
+			if (filter.toLowerCase().match(/int/)) filter = 4
+			passengers = passengers.filter(filterKey(filter));
+			filter = ['all', 't1','t2','t3','ti'][+filter];
+
+			this.typeClass = new TypeClass( filter , 
 					passengers, 
 					passengers.length, 
 					[]);
 
 			for (var type in this.typeClass._types) {
 
-				var obj = this.typeClass._types[type],
-					profile = obj._getPaxProfile();
+				var obj = this.typeClass._types[type];
+				var profile = obj._getPaxProfile();
 
 				this.types.push(obj);
 

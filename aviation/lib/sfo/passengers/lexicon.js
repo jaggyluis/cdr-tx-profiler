@@ -1,4 +1,4 @@
-var key = {
+var lexicon = {
 	"AIRLINE" : {
 		"1": "AM",
 		"2": "AC",

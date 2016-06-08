@@ -96,6 +96,9 @@ var app = app || {};
 		enableProfileRunButton : function() {
 			document.querySelectorAll("#timing-box .run-btn")[0].disabled = false;
 		},
+		getTerminalFilter : function() {
+			return document.getElementById("filter-terminal").value;
+		},
 		getFlightFilter : function() {
 			return document.getElementById("filter-flights").value;
 		},
@@ -320,8 +323,10 @@ var app = app || {};
 					name : typeObj._name,
 					count : typeObj._data.count,
 					percentage : typeObj._data.percentage,
+					brfood: typeObj._data.brfood,
 					food : typeObj._data.food,
 					bags : typeObj._data.bags,
+					brshop : typeObj._data.brshop,
 					shop : typeObj._data.shop,
 					weighted : typeObj._data.weighted
 				});
@@ -330,8 +335,10 @@ var app = app || {};
 			row.innerHTML += template.replace('%name%', typeObj._name)
 								.replace('%count%', typeObj._data.count)
 								.replace('%percent%', typeObj._data.percentage)
+								.replace('%brfood%', typeObj._data.brfood)
 								.replace('%food%', typeObj._data.food)
 								.replace('%bags%', typeObj._data.bags)
+								.replace('%brshop%', typeObj._data.brshop)
 								.replace('%shop%', typeObj._data.shop)
 								.replace('%weighted%', typeObj._data.weighted);
 			return row;

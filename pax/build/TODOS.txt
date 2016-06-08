@@ -41,13 +41,18 @@ X finish separating the module into a legible format
 X fix padding on gate assignment 
 X fix double table bug
 X save json objects from flight data
-- localstorage
-- filter passengers
-- weighting
+X filter passengers
+X update passenger profiles to include browsing
+- apply arrival times
 
-- update passenger profiles to include browsing
+- modify passenger distribution times
+- weighting
 - implement fit curve
 
+- complete airline list for full airport
+- gate distributions for full airport
+- add terminal to flight output
 - output statistics in a visual manner in order to baseline/verify
 
+- localstorage
 - implement npm for build - major refactor

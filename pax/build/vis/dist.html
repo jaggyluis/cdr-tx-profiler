@@ -4,7 +4,7 @@
 	<title>Passenger Arrival Distribution</title>
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
-	<script src="numeric-1.2.6.js"></script>
+	<script src="../js/lib/numeric-1.2.6.js"></script>
 	<script src="data.js"></script>
 	<style type="text/css">
 	
@@ -150,38 +150,28 @@
 									var s2 = arr.slice(m)
 									return [median(s1), median(s2)]
 								}
-								function gaussian(mean, stdev) {
-									/*
-									 * http://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
-									 */
-								    var y2;
-								    var use_last = false;
-								    return function() {
-								        var y1;
-								        if(use_last) {
-								           y1 = y2;
-								           use_last = false;
-								        }
-								        else {
-								            var x1, x2, w;
-								            do {
-								                 x1 = 2.0 * Math.random() - 1.0;
-								                 x2 = 2.0 * Math.random() - 1.0;
-								                 w  = x1 * x1 + x2 * x2;               
-								            } while( w >= 1.0);
-								            w = Math.sqrt((-2.0 * Math.log(w))/w);
-								            y1 = x1 * w;
-								            y2 = x2 * w;
-								            use_last = true;
-								       }
+								function normalPdf(mean, sd) {
 
-								       var retval = mean + stdev * y1;
-								       if(retval > 0) 
-								           return retval;
-								       return -retval;
-								   }
+									return function(x) {
+										
+										var r = 1 / (sd * Math.sqrt(2 * Math.PI) )
+										var num = Math.pow( ( x - mean ), 2 )
+										var denom = ( 2 * Math.pow(sd, 2) )
+										return r * Math.exp( - num / denom );
+
+									}
 								}
+								function logNormalPdf(mean, sd) {
+									
+									return function(x) {
+										
+										var r = 1 / (x * sd * Math.sqrt(2 * Math.PI) )
+										var num = Math.pow( ( Math.log(x) - mean ), 2 )
+										var denom = ( 2 * Math.pow(sd, 2) )
+										return r * Math.exp( - num / denom );
 
+									}
+								}
 								
 								var profile = data[k][nk][nnk],
 									spl = nnk.split('.'),
@@ -216,12 +206,12 @@
 								},0) / profile.count;
 								profile.sd = Math.pow(profile.varience, 0.5);
 
-								profile.func = gaussian(profile.mean, profile.sd)
+								profile.func = normalPdf(profile.mean, profile.sd)
 
 
 								var test = 100;
 
-								//console.log( test, "-------> ", profile.func(test))
+								console.log( test, "-------> ", profile.func(test))
 								return profile;
 							})
 						}
@@ -247,7 +237,7 @@
 			},[])
 
 			xScale.domain( d3.extent([0,360]));
-			yScale.domain( d3.extent(yDom));
+			yScale.domain( d3.extent([0,.01]));
 			colorScale.domain( flattened.map( function(d) {	return d[colorColumn]; }));
 
 			var lines = g.selectAll(".type")
@@ -259,11 +249,10 @@
 			lines.append("path")
 				.attr("class", "line")
 				.attr("d", function(d) {
-					var func = makeFitFn(d.values, 10);
-					return line(d.values.map(function(d) {
+					return line(d.values.map(function(di) {
 						return {
-							x:d[xColumn],
-							y:func(d[xColumn])
+							x:di[xColumn],
+							y:d.func(di[xColumn])
 						}
 					}))
 					//return line(d.values)
