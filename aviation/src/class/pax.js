@@ -27,16 +27,16 @@ var AVIATION = (function (aviation) {
 
 			return this._data[this.flightClass._name];
 		},
-		get percs() {
+		get passengerTypeDistributionPercentages() {
 
 			return this.flightClass._getPerc()[this.flight.getDI()];
 		},
-		get percArray() {
+		get passengerTypeDistributionArray() {
 
-			return this.flightClass._getPercArray(this.percs);
+			return this.flightClass._getPercArray(this.passengerTypeDistributionPercentages);
 		},
 
-		_data : {
+		_data : { // ! superceded
 
 			'C': [	// Low Cost
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -76,30 +76,39 @@ var AVIATION = (function (aviation) {
 			]
 		},
 
-		setPassengers : function() {
+		getArrivalDistributionMatrix : function() {
+			//
+			//	This needs to be replaced with a fit function and statistical model that
+			//	estimates the arrival probability distribution (Weibull?)
+			//
+			function getRandomBinaryWithProbablity(p) {
+				if ( Math.random() >= 1-p) return 1;
+				return 0;
+			}
 
-			var passengerPercsTotal = this.percs,
-				passengerPercsMapped = {},
-				passengerSeats = this.flight.seats,
-				count = 0;
+			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
+				passengerArrivalDistributionTimes = {},
+				passengerSeats = this.flight.seats;
 
-			Object.keys(passengerPercsTotal).map(function(type) {
+			Object.keys(passengerPercentagesTotal).map(function(type) {
 
-				var typePercTotal = Math.round((passengerPercsTotal[type].percentage / 100) * passengerSeats);
-				passengerPercsMapped[type] = {};
+				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats);
+				passengerArrivalDistributionTimes[type] = {};
 
-				Object.keys(passengerPercsTotal[type].dist).map(function(arrivalTime) {
+				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
 
-					var typePercArrivalTime = passengerPercsTotal[type].dist[arrivalTime];
-						typePercMapped = Math.round(typePercArrivalTime / 100 * typePercTotal)
+					var arrivalTimePercentageTotal = passengerPercentagesTotal[type].dist[arrivalTime];
+						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal
 
-					passengerPercsMapped[type][arrivalTime] = typePercMapped
-					count+= typePercMapped ;
+					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
+						getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
+						Math.round(arrivalTimePercentageMapped);
+				
+					passengerArrivalDistributionTimes[type][arrivalTime] = arrivalTimePercentageMapped;
 				});
 			});
 
-			console.log(passengerSeats, count);
-			console.log(passengerPercsMapped);
+			console.log(passengerArrivalDistributionTimes);
 
 
 

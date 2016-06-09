@@ -367,20 +367,8 @@ var AVIATION = (function (aviation) {
 						getAirportByCode(flightObj.destination),
 						getAirlineByCode(flightObj.airline),
 						getAircraftByCode(flightObj.aircraft),
-						loadFactor),
+						loadFactor);
 
-					pax = aviation.class.Pax(
-						getProfileByAircraftType(flight.getCategory()),
-						flight);
-
-				pax.setPassengers();	
-
-				if (flight.passengers.length === 0) {
-					console.error('passengers not assigned: ', 
-						flight, 
-						flight.getFlightName(), 
-						decimalDayToTime(flight.getTime()));
-				}
 				if (JSON.stringify(flight).match(filter)){
 					filtered.push(flight);
 				} 
@@ -407,7 +395,14 @@ var AVIATION = (function (aviation) {
 		});
 
 		sorted.forEach(function(flight) {
+
+			var pax = aviation.class.Pax(
+					getProfileByAircraftType(flight.getCategory()),
+					flight);
+
 			flight.findGate();
+			pax.getArrivalDistributionMatrix();	
+
 		});
 
 		return filtered;

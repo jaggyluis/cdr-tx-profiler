@@ -84,7 +84,7 @@ var AVIATION = (function (aviation) {
 					console.error('tt not assigned: ', 
 						this, 
 						this.getFlightName(), 
-						decimalDayToTime(this.getTime()));
+						aviation.time.decimalDayToTime(this.getTime()));
 				}
 			}
 			tt = tt === 0 || tt === Infinity ? 0.125 : tt;
@@ -206,7 +206,7 @@ var AVIATION = (function (aviation) {
 			//
 			if (this.destination && this.airline && this.aircraft) {
 
-				var passengers = this.getPassengerArray(pax.percArray),
+				var passengers = this.getPassengerArray(pax.passengerTypeDistributionArray),
 					passengerArrivalTimes = this.getArrivalTimes(pax.time),
 					movementMatrix = this.getMovementMatrix(pax.profile);
 				
@@ -233,6 +233,10 @@ var AVIATION = (function (aviation) {
 
 			} else {
 				this.passengers = [];
+				console.error('passengers not assigned: ', 
+					this, 
+					this.getFlightName(), 
+					aviation.time.decimalDayToTime(this.getTime()));
 			}
 		},
 		getPassengers : function () {
