@@ -162,7 +162,7 @@ var app = app || {};
 					dist = {};
 
 				for (var t in pax) {
-					dist[t] = this._getArrivalDistribution(pax[t], 10);
+					dist[t] = this._getArrivalDistribution(pax[t], 5);
 				}
 				return {
 					_name: this._name,

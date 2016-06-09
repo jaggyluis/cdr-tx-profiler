@@ -5,6 +5,7 @@
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
 	<script src="../js/lib/numeric-1.2.6.js"></script>
+	<script src="jstat.js"></script>
 	<script src="data.js"></script>
 	<style type="text/css">
 	
@@ -69,7 +70,7 @@
 				.outerTickSize(0);
 
 		var line = d3.svg.line()
-			.interpolate("basis") //monotone // step-before
+			//.interpolate("basis") //monotone // step-before
 			.x(function(d) { return xScale(d[xColumn]); })
 			.y(function(d) { return yScale(d[yColumn]); })
 
@@ -150,6 +151,26 @@
 									var s2 = arr.slice(m)
 									return [median(s1), median(s2)]
 								}
+								function wblfit(mean, sd) {
+
+									/*
+									var a = mean,
+										b = sd;
+
+									return function(x) {
+										return (a/b) * Math.pow((x/a),(b-1)) * Math.exp(-Math.pow((x/a), b));
+									}*/
+
+									var a = mean * 10,
+										c = sd;
+
+									return function(x) {
+										return a * c * Math.pow(1-Math.exp(-Math.pow(x,c)), (a-1)) * 
+											Math.exp(-Math.pow(x,c)) * Math.pow(x, (c-1));
+									}
+
+
+								}
 								function normalPdf(mean, sd) {
 
 									return function(x) {
@@ -158,19 +179,59 @@
 										var num = Math.pow( ( x - mean ), 2 )
 										var denom = ( 2 * Math.pow(sd, 2) )
 										return r * Math.exp( - num / denom );
-
 									}
 								}
 								function logNormalPdf(mean, sd) {
-									
+
 									return function(x) {
-										
-										var r = 1 / (x * sd * Math.sqrt(2 * Math.PI) )
+
+										var r = 1 / ( x * sd * Math.sqrt(2 * Math.PI) )
 										var num = Math.pow( ( Math.log(x) - mean ), 2 )
 										var denom = ( 2 * Math.pow(sd, 2) )
-										return r * Math.exp( - num / denom );
-
+										y =  r * Math.exp( - num / denom );
+										return isNaN(y) ? 0 : y;
 									}
+								}
+								function fit(pts) {
+
+									function makeFitFn(pts, order) {
+  
+										  var  xArr = pts.map(function(pt) {
+										    return pt.x;
+										  })
+										  var yArr = pts.map(function(pt) {
+										    return pt.y;
+										  })
+										  var xMatrix = [];
+										  var xTemp = [];
+										  var yMatrix = numeric.transpose([yArr]);
+
+										  for (j=0;j<xArr.length;j++)
+										  {
+										      xTemp = [];
+										      for(i=0;i<=order;i++)
+										      {
+										          xTemp.push(1*Math.pow(xArr[j],i));
+										      }
+										      xMatrix.push(xTemp);
+										  }
+										  var xMatrixT = numeric.transpose(xMatrix);
+										  var dot1 = numeric.dot(xMatrixT,xMatrix);
+										  var dotInv = numeric.inv(dot1);
+										  var dot2 = numeric.dot(xMatrixT,yMatrix);
+										  var solution = numeric.dot(dotInv,dot2);
+
+										  var fn = function(x) {
+										    var y = 0;
+										    for (var i=0; i<solution.length; i++) {
+										      y+= solution[i] * Math.pow(x, i);
+										    }
+										    return y > 0 ? y : 0;
+										    
+										  }
+										  return fn;
+										}
+									return makeFitFn(pts, 4);
 								}
 								
 								var profile = data[k][nk][nnk],
@@ -185,7 +246,7 @@
 									}; 
 								});
 
-								if (profile.values.length === 0) return [];
+								if (profile.values.length < 2) return [];
 
 								profile.count = 0
 								profile.mode = profile.values[0];
@@ -206,12 +267,13 @@
 								},0) / profile.count;
 								profile.sd = Math.pow(profile.varience, 0.5);
 
-								profile.func = normalPdf(profile.mean, profile.sd)
+								
+								profile.func = fit(profile.values);
+								//profile.func = normalPdf(profile.mean, profile.sd)
+								//profile.func = wblfit(profile.mean, profile.sd);
 
-
-								var test = 100;
-
-								console.log( test, "-------> ", profile.func(test))
+								//var test = 100;
+								//console.log( test, "-------> ", profile.func(test))
 								return profile;
 							})
 						}
@@ -237,7 +299,7 @@
 			},[])
 
 			xScale.domain( d3.extent([0,360]));
-			yScale.domain( d3.extent([0,.01]));
+			yScale.domain( d3.extent([0,20]));
 			colorScale.domain( flattened.map( function(d) {	return d[colorColumn]; }));
 
 			var lines = g.selectAll(".type")
@@ -249,16 +311,21 @@
 			lines.append("path")
 				.attr("class", "line")
 				.attr("d", function(d) {
-					return line(d.values.map(function(di) {
-						return {
-							x:di[xColumn],
-							y:d.func(di[xColumn])
-						}
-					}))
-					//return line(d.values)
+
+					var vals = [];
+					for (var i=0; i<360; i+=0.01) {
+						vals.push({x:i, y: d.func(i)})
+					}
+
+					//return line(d.values.map(function(di) {
+					//	return {
+					//		x:di[xColumn],
+					//		y:d.func(di[xColumn])
+					//	}
+					//}))
+					return line(vals)
 				})
 				.style("stroke", function(d) { return colorScale(d[colorColumn])})
-
 
 			xAxisG.call(xAxis);
 			yAxisG.call(yAxis);

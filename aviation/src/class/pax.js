@@ -1,29 +1,42 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Pax = function(code) {
-		return new Pax(code);
+	aviation.class.Pax = function(flightClass, di) {
+		return new Pax(flightClass, di);
 	}
 
-	function Pax(code) {
+	function Pax(flightClass, di) {
 
-		this.type = code;
 		this.time = [180,0,5];
+		this.di = di;
+		this.flightClass = flightClass;
 		this.legend = [
 			'airport',
 			'departureLounge',
 			'boardingZone',
 			'boarding'
 		];
-
 	}
 	Pax.prototype = {
 
-		get profile() {
-			return this._data[this.type];
-		},
+		get type() {
 
+			return this.flightClass.type;
+		},
+		get profile() {
+
+			return this._data[this.flightClass._name];
+		},
+		get percs() {
+
+			return this.flightClass._getPerc()[this.di];
+		},
+		get percArray() {
+
+			return this.flightClass._getPercArray(this.percs);
+		},
 		_data : {
+
 			'C': [	// Low Cost
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,1,2,2,3,4,5,6,7,8,9,10,10,9,7,3,3,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0],
@@ -61,7 +74,6 @@ var AVIATION = (function (aviation) {
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
 			]
 		}
-
 	}
 
 	return aviation;

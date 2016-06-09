@@ -41,6 +41,7 @@ var AVIATION = (function (aviation) {
 		minutesToDecimalDay : minutesToDecimalDay,
 		timeToDecimalDay : timeToDecimalDay,
 		romanToNumber : romanToNumber,
+		romanToLetter : romanToLetter,
 		aptimeToDecimalDay : aptimeToDecimalDay,
 		isapTime : isapTime
 	};
@@ -122,6 +123,22 @@ var AVIATION = (function (aviation) {
 		} else {
 			//console.warn('number not in dict: ', str);
 			return 3; // for now
+		}
+	};
+	function romanToLetter(str) {
+		var dict = {
+			"I" : 'A',
+			"II" : 'B',
+			"III" : 'C',
+			"IV" : 'D',
+			"V" : 'E',
+			"VI" : 'F',
+		};
+		if (dict[str] !== undefined) {
+			return dict[str];
+		} else {
+			//console.warn('number not in dict: ', str);
+			return 'C'; // for now
 		}
 	};
 	function getAirportByCode(code) {
@@ -291,10 +308,12 @@ var AVIATION = (function (aviation) {
 						getAircraftByCode(_flight.aircraft),
 						loadFactor),
 
-					pax = aviation.class.Pax(flight.getCategory());
+					pax = aviation.class.Pax(
+						getProfileByAircraftType(flight.getCategory()),
+						flight.getDI());
 
 				if (pax.profile !== undefined) {
-					flight.setPassengers(pax.profile, pax.legend, pax.time)	
+					flight.setPassengers(pax);	
 				}
 				if (flight.passengers.length === 0) {
 					console.error('passengers not assigned: ', 
@@ -366,6 +385,21 @@ var AVIATION = (function (aviation) {
 		var serialized = serialize(data, "");
 		return serialized;
 	};
+	function serializeJSON(json, keys) {
+
+		return json.reduce(function(a,b) {
+			return a+(keys.map(function(key) {
+				return '"'+b[key]+'"';
+			}).join(',')+'\n');
+		}, keys.join(',')+'\n');
+	};
+	function parseJSON(fileStr) {
+		try {
+			return JSON.parse(fileStr);
+		} catch (e) {
+			return null;
+		}
+	};
 	function parseCSV(fileStr) {
 
 		var parsed = fileStr.split('\n');
@@ -388,21 +422,6 @@ var AVIATION = (function (aviation) {
 			});
 			return flight;
 		});
-	};
-	function serializeJSON(json, keys) {
-
-		return json.reduce(function(a,b) {
-			return a+(keys.map(function(key) {
-				return '"'+b[key]+'"';
-			}).join(',')+'\n');
-		}, keys.join(',')+'\n');
-	};
-	function parseJSON(fileStr) {
-		try {
-			return JSON.parse(fileStr);
-		} catch (e) {
-			return null;
-		}
 	};
 
 	return aviation;
