@@ -1,14 +1,14 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Pax = function(flightClass, di) {
-		return new Pax(flightClass, di);
+	aviation.class.Pax = function(flightClass, flight) {
+		return new Pax(flightClass, flight);
 	}
 
-	function Pax(flightClass, di) {
+	function Pax(flightClass, flight) {
 
 		this.time = [180,0,5];
-		this.di = di;
+		this.flight = flight;
 		this.flightClass = flightClass;
 		this.legend = [
 			'airport',
@@ -24,12 +24,18 @@ var AVIATION = (function (aviation) {
 			return this.flightClass.type;
 		},
 		get profile() {
+			//
+			// currently swap the first row until I can update the dist functions
+			//
+			console.log(this.flightClass)
+			var matrix = this._data[this.flightClass._name];
+			//matrix[0] = 
 
-			return this._data[this.flightClass._name];
+			return matrix;
 		},
 		get percs() {
 
-			return this.flightClass._getPerc()[this.di];
+			return this.flightClass._getPerc()[this.flight.getDI()];
 		},
 		get percArray() {
 
@@ -73,6 +79,9 @@ var AVIATION = (function (aviation) {
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
 			]
+		},
+		setPassengers : function() {
+			this.flight.setPassengers(this);
 		}
 	}
 

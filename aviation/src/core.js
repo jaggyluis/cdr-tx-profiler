@@ -1,5 +1,6 @@
 var AVIATION = (function (aviation) {
 
+
 	aviation._flights = [];
 	aviation._gates = [];
 	aviation._profiles = [];
@@ -51,6 +52,8 @@ var AVIATION = (function (aviation) {
 	aviation.generate = {
 		guid : generateUUID
 	};
+
+
 	function generateUUID(){
 		/*
 		 * http://stackoverflow.com/questions/
@@ -58,58 +61,75 @@ var AVIATION = (function (aviation) {
 		 *
 		 */
 	    var d = new Date().getTime();
+
 	    if(window.performance && typeof window.performance.now === "function"){
 	        d += performance.now(); //use high-precision timer if available
 	    }
+
 	    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 	        var r = (d + Math.random()*16)%16 | 0;
 	        d = Math.floor(d/16);
 	        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
 	    });
+
 	    return uuid;
 	}
 	function decimalDayToTime(dday) {
+
 		dday = dday>=0 ? dday : 1 + dday;
+
 		var hours = Number((dday*24).toString().split('.')[0]);
 		var minutes = Number((dday*24*60 - hours*60).toString().split('.')[0]);
 		var seconds = Number((dday*24*60*60 - hours*60*60 - minutes*60).toString().split('.')[0]);
+
 		hours = hours > 0 ? hours.toString() : '00';
 		minutes = minutes > 0 ? minutes.toString() : '00';
 		seconds = seconds > 0 ? seconds.toString() : '00';
 		hours = hours.length > 1 ? hours : "0"+hours;
 		minutes = minutes.length > 1 ? minutes: "0"+minutes;
 		seconds = seconds.length > 1 ? seconds: "0"+seconds;
+
 		return hours+':'+minutes+':'+seconds;
 	};
 	function decimalDayToMinutes(dday) {
+
 		dday = dday>=0 ? dday : 1 + dday;
+
 		return Number((dday*24*60).toString().split('.')[0]);
 	};
 	function timeToDecimalDay(time) {
+
 		var splitStr = time.split(':');
 		var hours = Number(splitStr[0]);
 		var minutes = Number(splitStr[1]);
 		var seconds = null // not needed in current simulation
+
 		return minutesToDecimalDay(hours*60+minutes);
 	};
 	function minutesToDecimalDay(minutes) {
+
 		var hours = minutes/60;
 		var dday = hours/24;
+
 		return dday;
 	};
 	function isapTime(str) {
+
 		return ['AM', 'PM']
 			.includes(str.toString().split(/ /).reverse()[0]);
 	};
 	function aptimeToDecimalDay(str) {
+
 		var time = str.split(/[: ]/);
 		var hours = time[2] === 'AM' ? time[0] : 
 					time[2] === 'PM' ? (Number(time[0]) + 12).toString() :
 					time[2];
 		var minutes = time[1];
+
 		return timeToDecimalDay(hours+':'+minutes);
 	};
 	function romanToNumber(str) {
+
 		var dict = {
 			"I" : 1,
 			"II" : 2,
@@ -118,6 +138,7 @@ var AVIATION = (function (aviation) {
 			"V" : 5,
 			"VI" : 6,
 		};
+
 		if (dict[str] !== undefined) {
 			return dict[str];
 		} else {
@@ -126,6 +147,7 @@ var AVIATION = (function (aviation) {
 		}
 	};
 	function romanToLetter(str) {
+
 		var dict = {
 			"I" : 'A',
 			"II" : 'B',
@@ -134,6 +156,7 @@ var AVIATION = (function (aviation) {
 			"V" : 'E',
 			"VI" : 'F',
 		};
+
 		if (dict[str] !== undefined) {
 			return dict[str];
 		} else {
@@ -147,64 +170,90 @@ var AVIATION = (function (aviation) {
 		})[0];
 	};
 	function getAirlineByCode(code) {
+
 		return aviation._airlines.filter(function(obj) {
+
 			return obj.IATA == code;
 		})[0];
 	};
 	function getAircraftByCode(code) {
+
 		return aviation._aircraft.filter(function(obj) {
+
 			return obj.IATA == code;
 		})[0];
 	};
 	function getAirportByString(str) {
+
 		var airports = filterStrict(aviation._airports, str);
+
 		if (airports == undefined || airports.length === 0) {
 			airports = filterLoose(aviation._airports, str);
 			//console.warn('filterLoose:', str)
 			//console.warn('\tfound: ', filterBest(airports, str).name);
 		}
+
 		return filterBest(airports, str);
 	};
 	function getProfileByAircraftType(type) {
+
 		return aviation._profiles.filter(function(p) {
+
 			return p._name === type;
 		})[0];
 	}
 	function filterStrict(Arr, str) {
+
 		var spl = str.split(/[^\w\.]/);
+
 		return Arr.filter(function(obj) {
+
 			return spl.every(function(s) {
+
 				return JSON.stringify(obj).match(s);
 			});
 		});
 	};
 	function filterLoose(Arr, str) {
+
 		var spl = str.split(/[^\w\.]/);
+
 		return Arr.filter(function(obj) {
+
 			return spl.some(function(s) {
+
 				return JSON.stringify(obj).match(s);
 			});
 		});
 	};
 	function filterBest(Arr, str) {
+
 		var spl = str.split(/[^\w\.]/);
+
 		if (!Arr) return Arr;
 		return Arr.sort(function(a,b) {
+
 			var ac = 0, 
 				bc = 0;
+
 			spl.forEach(function(s) {
 				if (JSON.stringify(a).match(s)) ac++;
 				if (JSON.stringify(b).match(s)) bc++;
 			})
+
 			return bc-ac;
+
 		})[0];
 	};
 	function round (num, mod) {
+
 		return Math.round(num/mod)*mod;
 	}
 	function dist(Arr, clean) {
+
 		var len = Arr.length;
 		var perc = {};
+
 		for (var i=0; i<Arr.length; i++) {
 			if (perc[Arr[i]]) {
 				perc[Arr[i]]++;
@@ -216,11 +265,14 @@ var AVIATION = (function (aviation) {
 			perc[p] = Math.round((perc[p]/len)*100);
 			if (perc[p] === 0 && clean) delete perc[p];
 		}
+
 		return perc;
 	}
 	function mode(Arr) {
+
 		var max = Arr[0];
 		var hold = {};
+
 		for (var i=0; i<Arr.length; i++) {
 			if (hold[Arr[i]]) {
 				hold[Arr[i]]++;
@@ -231,10 +283,13 @@ var AVIATION = (function (aviation) {
 				max = Arr[i];
 			}
 		}
+
 		return max;
 	};
 	function buildLib(Arr, k) {
+
 		var lib = {};
+
 		Arr.forEach(function(p) {
 			if (p[k] !== null && p[k] !== undefined) {
 				if (p[k] in lib) {
@@ -244,9 +299,11 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		})
+
 		return lib
 	};
 	function matchAll(Arr, k, l) {
+
 		Arr.forEach(function(p,i) {
 			pArr.forEach(function(q,j) {
 				if (i!==j) {
@@ -257,64 +314,67 @@ var AVIATION = (function (aviation) {
 				}
 			})
 		})
+
 		return true;
 	};
 
-	function set(gates, flights, profiles, loadFactor, filter, timeFrame) {
-		aviation._gates = setGates(gates);
-		aviation._profiles = profiles;
+	function set(gateSchemeObjArr, designDayFlightObjArr, flightProfiles, loadFactor, filter, timeFrame) {
+
+		aviation._gates = setGates(gateSchemeObjArr);
+		aviation._profiles = flightProfiles;
 		aviation._flights = setFlights(
-			flights, 
+			designDayFlightObjArr, 
 			loadFactor, 
 			filter, 
 			timeFrame);
 	}
 	function clear() {
+
 		aviation._gates = [];
 		aviation._flights = [];	
 	};
-	function setGates(data) {
+	function setGates(gateSchemeObjArr) {
 
 		var gates = [];
 
-		data.forEach(function(_gate) {
+		gateSchemeObjArr.forEach(function(gateObj) {
 
-			var gate = aviation.class.Gate(_gate[0], _gate[1]);
-			gate.setSeats(_gate[2]);
-			gate.setArea('waiting', _gate[3]);
-			gate.setArea('boarding', _gate[4]);
-			gate.setDesignGroup(_gate[5]);
-			if (_gate[6] !== null) {
-				gate.setDesignGroup(_gate[6], true);
+			var gate = aviation.class.Gate(gateObj[0], gateObj[1]);
+
+			gate.setSeats(gateObj[2]);
+			gate.setArea('waiting', gateObj[3]);
+			gate.setArea('boarding', gateObj[4]);
+			gate.setDesignGroup(gateObj[5]);
+			if (gateObj[6] !== null) {
+				gate.setDesignGroup(gateObj[6], true);
 			}
 			gates.push(gate);
 		});
 
 		return gates;
 	};
-	function setFlights(data, loadFactor, filter, timeFrame) {
+	function setFlights(designDayFlightObjArr, loadFactor, filter, timeFrame) {
 
 		var flights = [],
 			sorted = [],
 			filtered = [];
 
-		data.forEach(function(_flight, index) {
-			if (decimalDayToTime(_flight.time).split(':')[0] > timeFrame[0] &&
-				decimalDayToTime(_flight.time).split(':')[0] < timeFrame[1]) {
+		designDayFlightObjArr.forEach(function(flightObj, index) {
+			if (decimalDayToTime(flightObj.time).split(':')[0] > timeFrame[0] &&
+				decimalDayToTime(flightObj.time).split(':')[0] < timeFrame[1]) {
 
-				var flight = aviation.class.Flight(_flight,
-						getAirportByCode(_flight.destination),
-						getAirlineByCode(_flight.airline),
-						getAircraftByCode(_flight.aircraft),
+				var flight = aviation.class.Flight(flightObj,
+						getAirportByCode(flightObj.destination),
+						getAirlineByCode(flightObj.airline),
+						getAircraftByCode(flightObj.aircraft),
 						loadFactor),
 
 					pax = aviation.class.Pax(
 						getProfileByAircraftType(flight.getCategory()),
-						flight.getDI());
+						flight);
 
-				if (pax.profile !== undefined) {
-					flight.setPassengers(pax);	
-				}
+				pax.setPassengers();	
+
 				if (flight.passengers.length === 0) {
 					console.error('passengers not assigned: ', 
 						flight, 
@@ -327,12 +387,15 @@ var AVIATION = (function (aviation) {
 				if (sorted.length === 0) {
 					sorted.push(flight);
 				} else {
+
 					var a = flight.ival.getLength(),
 						a_bis = flight.getDesignGroup();
 
 					for (var i=0, len=sorted.length; i<len; i++) {
+
 						var b = sorted[i].ival.getLength(),
 							b_bis = sorted[i].getDesignGroup();
+
 						if ( a+a_bis >= b+b_bis ) {
 							break;
 						}
@@ -350,7 +413,9 @@ var AVIATION = (function (aviation) {
 		return filtered;
 	};
 	function getPassengers(filter) {
+
 		var passengers = [];
+
 		aviation._flights.forEach(function(flight) {
 			flight.getPassengers().forEach(function(passenger) {
 				if (JSON.stringify(passenger).match(filter)) {
@@ -358,16 +423,20 @@ var AVIATION = (function (aviation) {
 				}
 			});
 		});
+
 		return passengers;
 	};
 	function getFlights() {
+
 		return aviation._flights;
 	}
-	function serializeObj(data) {
+	function serializeObj(obj) {
 
 		function serialize(obj, _tabs) {
+
 			var tabs = _tabs+"\t";
 			var str = "";
+
 			if (obj instanceof Array) {
 				obj.forEach((function(i) {
 					str+="\r\n"+tabs+serialize(i, tabs);
@@ -382,7 +451,9 @@ var AVIATION = (function (aviation) {
 			}
 			return str;
 		}
-		var serialized = serialize(data, "");
+
+		var serialized = serialize(obj, "");
+
 		return serialized;
 	};
 	function serializeJSON(json, keys) {
@@ -394,6 +465,7 @@ var AVIATION = (function (aviation) {
 		}, keys.join(',')+'\n');
 	};
 	function parseJSON(fileStr) {
+
 		try {
 			return JSON.parse(fileStr);
 		} catch (e) {
@@ -407,8 +479,11 @@ var AVIATION = (function (aviation) {
 		var keys = parsed[0].split(',').map(function(str) {
 			return str.replace(re, "");
 		});
+
 		return parsed.slice(1).map(function(csvArray) {
+
 			var flight = {};
+
 			csvArray.split(',').map(function(str) {
 				return str.replace(re, "");
 			}).forEach(function(value, idx) {
@@ -420,6 +495,7 @@ var AVIATION = (function (aviation) {
 					flight[keys[idx]] = value;
 				}
 			});
+
 			return flight;
 		});
 	};

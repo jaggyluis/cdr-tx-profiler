@@ -1,22 +1,22 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Flight = function(flight, 
+	aviation.class.Flight = function(flightObj, 
 			destination, 
 			airline, 
 			aircraft, 
 			loadFactor) {
 		
-		return new Flight(flight, 
+		return new Flight(flightObj, 
 			destination, 
 			airline, 
 			aircraft, 
 			loadFactor);
 	}
 
-	function Flight(flight, destination, airline, aircraft, loadFactor) {
+	function Flight(flightObj, destination, airline, aircraft, loadFactor) {
 
-		this.flight = flight;
+		this.flight = flightObj;
 		this.destination = destination;
 		this.airline = airline;
 		this.aircraft = aircraft;
@@ -39,6 +39,7 @@ var AVIATION = (function (aviation) {
 
 	};	
 	Flight.prototype = {
+		
 		getTime : function() {
 
 			return this.flight.time;
