@@ -24,14 +24,8 @@ var AVIATION = (function (aviation) {
 			return this.flightClass.type;
 		},
 		get profile() {
-			//
-			// currently swap the first row until I can update the dist functions
-			//
-			console.log(this.flightClass)
-			var matrix = this._data[this.flightClass._name];
-			//matrix[0] = 
 
-			return matrix;
+			return this._data[this.flightClass._name];
 		},
 		get percs() {
 
@@ -41,6 +35,7 @@ var AVIATION = (function (aviation) {
 
 			return this.flightClass._getPercArray(this.percs);
 		},
+
 		_data : {
 
 			'C': [	// Low Cost
@@ -80,7 +75,40 @@ var AVIATION = (function (aviation) {
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
 			]
 		},
+
 		setPassengers : function() {
+
+			var passengerPercsTotal = this.percs,
+				passengerPercsMapped = {},
+				passengerSeats = this.flight.seats,
+				count = 0;
+
+			Object.keys(passengerPercsTotal).map(function(type) {
+
+				var typePercTotal = Math.round((passengerPercsTotal[type].percentage / 100) * passengerSeats);
+				passengerPercsMapped[type] = {};
+
+				Object.keys(passengerPercsTotal[type].dist).map(function(arrivalTime) {
+
+					var typePercArrivalTime = passengerPercsTotal[type].dist[arrivalTime];
+						typePercMapped = Math.round(typePercArrivalTime / 100 * typePercTotal)
+
+					passengerPercsMapped[type][arrivalTime] = typePercMapped
+					count+= typePercMapped ;
+				});
+			});
+
+			console.log(passengerSeats, count);
+			console.log(passengerPercsMapped);
+
+
+
+
+
+
+
+
+			// keep doing the old version for now
 			this.flight.setPassengers(this);
 		}
 	}

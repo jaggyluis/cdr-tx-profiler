@@ -53,6 +53,7 @@ X update passenger profiles to include browsing
 - gate distributions for full airport
 - add terminal to flight output
 - output statistics in a visual manner in order to baseline/verify
+- RFLW on aircraft is obsolete
 
 - localstorage
 - implement npm for build - major refactor
