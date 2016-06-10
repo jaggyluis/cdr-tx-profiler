@@ -88,6 +88,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 			tt = tt === 0 || tt === Infinity ? 0.125 : tt;
+
 			return aviation.class.Interval(this.getTime()-tt, this.getTime())
 		},
 		getDesignGroup : function() {
@@ -122,11 +123,15 @@ var AVIATION = (function (aviation) {
 					if (data.response) {
 						this.setGate(data.gate);
 						gate.setFlight(this, data.gate);
+
 						return true;
+
 					} else {
+
 						return false;
 					}
 				}).bind(this))) {
+					
 					return;
 				}
 			}

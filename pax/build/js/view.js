@@ -10,7 +10,7 @@ var app = app || {};
 				'flightID',
 				'passengerType',
 				'gender',
-				'airport',
+				'arrivalTime',
 				'departureLounge',
 				'boardingZone',
 				'boarding',

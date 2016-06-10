@@ -82,8 +82,8 @@ var AVIATION = (function (aviation) {
 			//	estimates the arrival probability distribution (Weibull?)
 			//
 			function getRandomBinaryWithProbablity(p) {
-				if ( Math.random() >= 1-p) return 1;
-				return 0;
+
+				return Math.random() >= 1-p ? 1 : 0;
 			}
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
@@ -108,9 +108,9 @@ var AVIATION = (function (aviation) {
 				});
 			});
 
-			console.log(passengerArrivalDistributionTimes);
-
-
+			//console.log(passengerArrivalDistributionTimes);
+			
+			console.log(Object.keys(passengerArrivalDistributionTimes)[0])
 
 
 

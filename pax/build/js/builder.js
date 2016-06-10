@@ -182,12 +182,12 @@ var app = app || {};
 						depTime;
 
 					if (AVIATION.time.isapTime(p.ARRTIME)) {
-						arrTime = AVIATION.time.aptimeToDecimalDay(p.ARRTIME);
+						arrTime = AVIATION.time.apTimeToDecimalDay(p.ARRTIME);
 					} else if (!isNaN(p.ARRTIME)) {
 						arrTime = p.ARRTIME;
 					}
 					if (AVIATION.time.isapTime(p.DEPTIME)) {
-						depTime = AVIATION.time.aptimeToDecimalDay(p.DEPTIME);
+						depTime = AVIATION.time.apTimeToDecimalDay(p.DEPTIME);
 					} else if (!isNaN(p.DEPTIME)) {
 						depTime = p.DEPTIME;
 					}
@@ -196,7 +196,7 @@ var app = app || {};
 						delta.push(near);
 					}
 				});
-				dist = AVIATION.array.dist(delta, true);
+				dist = AVIATION.array.mapElementsToObjByPercentile(delta, true);
 
 				//console.log(dist);
 				//console.log('percent sum: ', Object.keys(dist).map(function(o) {
@@ -380,9 +380,9 @@ var app = app || {};
 				var typeData = {};
 				//console.log('total passengers: ', passengers.length);
 
-				var destinations = AVIATION.array.buildLib(passengers, 'DEST');
+				var destinations = AVIATION.array.mapElementsToObjByKey(passengers, 'DEST');
 				Object.keys(destinations).map(function(dest) {
-					var aLib = AVIATION.array.buildLib(destinations[dest], 'AIRLINE');
+					var aLib = AVIATION.array.mapElementsToObjByKey(destinations[dest], 'AIRLINE');
 					for (var airline in aLib) {
 						flights.push({
 							passengers : aLib[airline],

@@ -17,15 +17,58 @@ var AVIATION = (function (aviation) {
 	}
 
 	function Passenger(flightName, flightCode, type, departureTime, gate, flightID) {
+		
 		this.flightName = flightName;
 		this.flightCode = flightCode;
 		this.flightID = flightID;
-		this.departureTime = departureTime;
+		
 		this.passengerType = type;
 		this.gate = gate;
 		this.gender = ['M', 'F'][Math.round(Math.random())];
+
 	};
 	Passenger.prototype = {
+
+		_events : [
+			{
+				name : 'arrivalTime',
+				value : null
+			},
+			{
+				name : 'departureLounge',
+				value : null
+			},
+			{
+				name : 'boardingZone',
+				value : null
+			},
+			{
+				name : 'boarding',
+				value : null
+			},
+			{
+				name : 'arrivalTime',
+				value : departureTime
+			}
+		],
+
+		get events() {
+			return this._events;
+		}
+
+		setEvent : function(event, value) {
+			this.events
+		},
+		getTotalTimeInAirport : function() {
+
+			return aviation.class.Interval(this.arrivalTime, this.departureTime);
+		},
+		getActivityAtTime : function(dday) {
+
+			return 
+
+		},
+
 	}
 
 	return aviation;
