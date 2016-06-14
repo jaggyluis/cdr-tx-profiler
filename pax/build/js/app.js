@@ -9,6 +9,7 @@ var app = app || {};
 		this._gates = gatelayout;
 	}
 	app.compute = function() {
+
 		var terminalFilter = this._view.getTerminalFilter(),
 			flightBuilder = new this.FlightBuilder(designDay, terminalFilter),
 			profileBuilder = new this.ProfileBuilder(
@@ -16,7 +17,7 @@ var app = app || {};
 				.concat(p14)
 				.concat(p15));
 
-		profileBuilder.run(terminalFilter, true, (function() {
+		profileBuilder.run(terminalFilter, (function() {
 
 			this._profiles = profileBuilder.getProfiles();
 			this._designDay = flightBuilder.getFlights();
@@ -29,6 +30,7 @@ var app = app || {};
 		}).bind(this));
 	};
 	app.run = function() {
+
 		this.clear();
 
 		AVIATION.set(
@@ -43,6 +45,7 @@ var app = app || {};
 		this._view.flights = AVIATION.get.flights();
 	};
 	app.clear = function() {
+		
 		this._view.clear();
 		AVIATION.clear();
 	};

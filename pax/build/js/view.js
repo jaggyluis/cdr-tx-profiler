@@ -3,6 +3,7 @@ var app = app || {};
 (function() {
 
 	app.View = function() {
+
 			this.passengers = null;
 			this.flights = null;
 			this.profiles = null;
@@ -63,9 +64,11 @@ var app = app || {};
 					//this.save();
 					var checked = Array.prototype.slice.call(this.parentNode.children)
 						.filter(function(elem) {
+
 							return elem.children.length !== 0 &&
 								elem.children[0].checked == true;
 						})[0].children[0];
+
 					self.save(btn.id, checked.classList[1]);
 				})
 			});
@@ -86,44 +89,58 @@ var app = app || {};
 	};
 	app.View.prototype = {
 		init : function() {
+
 			this.clear();
 		},
 		enableDownloads : function(id) {
+
 			Array.prototype.slice.call(document.querySelectorAll(id+' .show-btn')).forEach(function(b){
 				b.disabled = false;
 			});
 		},
 		enableProfileRunButton : function() {
+
 			document.querySelectorAll("#timing-box .run-btn")[0].disabled = false;
 		},
 		getTerminalFilter : function() {
+
 			return document.getElementById("filter-terminal").value;
 		},
 		getFlightFilter : function() {
+
 			return document.getElementById("filter-flights").value;
 		},
 		getPassengerFilter : function() {
+
 			return document.getElementById("filter-passengers").value;
 		},
 		getTimeFrame : function() {
+
 			var timeFrame = document.getElementById('timeFrame')
 				.value.split(" to ")
 				.map(function (str) {
+
 				return Number(str);
 			});
 			if (timeFrame.length == 2 && 
 				!isNaN(timeFrame[0] &&
 				!isNaN(timeFrame[1]))) {
+
 				return timeFrame;
+
 			} else {
+
 				return [0, 24];
 			}
 		},
 		getLoadFactor : function () {
 			var loadFactor = document.getElementById("loadFactor").value;
+
 			if (loadFactor>0 && loadFactor<=1) {
+
 				return loadFactor;
 			} else {
+
 				return 1;
 			}
 		},
@@ -147,20 +164,25 @@ var app = app || {};
 			 */
 			var a = document.createElement("a");
 			var file = new Blob([JSON.stringify(data)], {type:'text/plain'});
+
 			a.href = URL.createObjectURL(file);
 			a.download = name+'.json';
 			a.click();
 		},
 		downloadTXT : function(data, name) {
+
 			var a = document.createElement("a");
 			var file = new Blob([data], {type:'text/plain'});
+
 			a.href = URL.createObjectURL(file);
 			a.download = name+'.txt';
 			a.click();
 		},
 		downloadCSV : function(data, name) {
+
 			var a = document.createElement("a");
 			var file = new Blob([data], {type:'text/plain'});
+
 			a.href = URL.createObjectURL(file);
 			a.download = name+'.csv';
 			a.click();
@@ -209,6 +231,7 @@ var app = app || {};
 			}).bind(this));
 		},
 		buildFlightTable : function () {
+
 			var table = document.getElementById('flight-table'),
 				template = document.querySelector('#flight-table-template').innerHTML,
 				innerString = '',
@@ -240,6 +263,7 @@ var app = app || {};
 			table.innerHTML+=innerString;
 		},
 		buildPassengerTable : function() {
+
 			var table = document.getElementById('passenger-timing-table'),
 				template = document.getElementById('passenger-timing-template').innerHTML,
 				innerString = '';
@@ -247,11 +271,29 @@ var app = app || {};
 			this.passengers.forEach((function(passenger, idx) {
 
 				var _ret = {};
-
 				var passengerString = template;
+
 				this.keys.forEach(function(key) {
-					_ret[key] = passenger[key];
-					passengerString = passengerString.replace('%'+key+'%', passenger[key]);
+
+					var event = passenger.getEvent(key);
+
+					if (event) {
+						_ret[key] = event.value;
+						passengerString = passengerString.replace('%'+key+'%', 
+							AVIATION.time.decimalDayToTime(_ret[key]));
+					} else {
+						//
+						//	This should be improved - not clean
+						//
+						try {
+							_ret[key] = passenger[key];
+							passengerString = passengerString.replace('%'+key+'%', _ret[key]);
+						} catch (e) {
+
+							console.warn(key);
+						}
+
+					}
 				})
 				this._passengers.push(_ret);
 				innerString+=passengerString;
@@ -311,6 +353,7 @@ var app = app || {};
 			});
 
 			if (parents.length === 0) container.style.marginBottom = "-10px";
+
 			return container;
 		},
 		buildTypeTableRow : function (typeObj, push, weighted) {
@@ -346,6 +389,7 @@ var app = app || {};
 		buildProfileTable : function (flightObj, weighted) {
 
 			function insert(s, l, str) {
+
 				return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');
 			};
 			function addClickEvent(nodeArray) {
@@ -374,12 +418,17 @@ var app = app || {};
 				this._aircraft[flightObj._name] = percs;
 
 			for (var type in percs) {
+
 				var rep = typeTemplate.replace(/%type%/g, flightObj._name+'.'+type)
 									.replace(/%name%/g, flightObj._name)
 									.replace(/%count%/, Object.keys(percs[type]).map(function(k) {
+
 										return percs[type][k].count
+
 									}).reduce(function(a,b) {
+
 										return a+b;
+
 									}, 0));
 				for (var p in percs[type]) {
 					var f = percs[type][p],

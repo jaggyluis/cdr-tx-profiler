@@ -43,9 +43,16 @@ X fix double table bug
 X save json objects from flight data
 X filter passengers
 X update passenger profiles to include browsing
-- apply arrival times
+X apply arrival times
+
+- terminal filter is broken
+- passenger profiles should iclude pre 9am arrival distribution
+- assign global variable to determine distribution modelo
 
 - modify passenger distribution times
+
+- web worker for simulation
+- optimize profilte run for speed
 - weighting
 - implement fit curve
 

@@ -16,6 +16,8 @@ var AVIATION = (function (aviation) {
 		aircraftByCode :  getAircraftByCode,
 		profileByAircraftType : getProfileByAircraftType,
 		passengers : getPassengers,
+		passengersWithinTimeFrame : getPassengersWithinTimeFrame,
+		passengersAtTimePadded : getPassengersAtTimePadded,
 		flights : getFlights
 	};
 	aviation.JSON = {
@@ -40,6 +42,7 @@ var AVIATION = (function (aviation) {
 		decimalDayToTime : decimalDayToTime,
 		decimalDayToMinutes : decimalDayToMinutes,
 		minutesToDecimalDay : minutesToDecimalDay,
+		secondsToDecimalDay : secondsToDecimalDay,
 		timeToDecimalDay : timeToDecimalDay,
 		romanToNumber : romanToNumber,
 		romanToLetter : romanToLetter,
@@ -112,6 +115,10 @@ var AVIATION = (function (aviation) {
 		var dday = hours/24;
 
 		return dday;
+	};
+	function secondsToDecimalDay(seconds) {
+
+		return minutesToDecimalDay(seconds / 60);
 	};
 	function isapTime(str) {
 
@@ -317,7 +324,6 @@ var AVIATION = (function (aviation) {
 
 		return Math.round(num/mod)*mod;
 	};
-
 	function set(gateSchemeObjArr, designDayFlightObjArr, flightProfiles, loadFactor, filter, timeFrame) {
 
 		aviation._gates = setGates(gateSchemeObjArr);
@@ -358,6 +364,7 @@ var AVIATION = (function (aviation) {
 		var flights = [],
 			sorted = [],
 			filtered = [];
+			matrix = {};
 
 		designDayFlightObjArr.forEach(function(flightObj, index) {
 			if (decimalDayToTime(flightObj.time).split(':')[0] > timeFrame[0] &&
@@ -401,9 +408,16 @@ var AVIATION = (function (aviation) {
 					flight);
 
 			flight.findGate();
-			pax.getArrivalDistributionMatrix();	
-
+			matrix = pax.getFlowDistributionMatrix(matrix);				
 		});
+
+		console.log(Object.keys(matrix).reduce(function(obj, key) {
+
+			obj[decimalDayToTime(key)] = matrix[key];
+
+			return obj;
+
+		}, {}));
 
 		return filtered;
 	};
@@ -424,17 +438,22 @@ var AVIATION = (function (aviation) {
 	function getPassengersWithinTimeFrame(from, to) {
 
 		var passengers = getPassengers(),
-			timeFrame = aviation.class.Ival(from, to);
+			timeFrame = aviation.class.Interval(from, to);
 
 		return passengers.filter(function(passenger) {
 
 			return timeFrame.intersects(passenger.totalTimeInAirport);
 		});
 	};
+	function getPassengersAtTimePadded(time, pad) {
+
+		return getPassengersWithinTimeFrame(time - minutesToDecimalDay(pad),
+			time + minutesToDecimalDay(pad));
+	};
 	function getFlights() {
 
 		return aviation._flights;
-	}
+	};
 	function serializeObj(obj) {
 
 		function serialize(obj, _tabs) {

@@ -44,6 +44,10 @@ var AVIATION = (function (aviation) {
 			}
 		}
 	};
+	Interval.interpolateRandom = function(start, end) {
+
+		return Math.floor(Math.random() * (end - start + 1)) + start;
+	}
 
 	return aviation;
 

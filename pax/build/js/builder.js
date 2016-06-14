@@ -494,7 +494,7 @@ var app = app || {};
 		this.flights = [];
 		this.types = [];
 		this.typeClass = null;
-		this.run = function (filter, checkStash, cb) {
+		this.run = function (filter, cb) {
 
 			function filterKey(key) {
 

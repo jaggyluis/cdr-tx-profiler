@@ -147,92 +147,31 @@ var AVIATION = (function (aviation) {
 				.replace('%airline%', this.airline.name)
 				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
 		},
-		getArrivalTimes : function(arr) {
-
-			var arrTimes = []
-
-			for (var i=arr[0]; i>=arr[1]; i-=arr[2]) {
-				arrTimes.push(aviation.time.minutesToDecimalDay(i));
-			}
-
-			return arrTimes;
-		},
-		getMovementMatrix : function(profile) {
-
-			var matrix = [];
-
-			profile.forEach((function(arr, index) {
-
-				var seats = this.seats;
-				var mArray = [];
-
-				arr.forEach((function(num) {
-
-					var count = 0;
-
-					for (var i=0; i< Math.ceil(this.seats*num/100); i++) {
-						if (seats >0 ) {
-							seats--;
-							count++;
-						} else break;
-					}
-
-					mArray.push(count);
-
-				}).bind(this));
-
-				matrix.push(mArray);
-
-			}).bind(this));
-
-			return matrix;
-		},
-		getPassengerArray : function(percs) {
-			//
-			// Assign passengers to a given type based on flight data
-			//
-			var pArray = [];
-
-			for (var i=0; i<this.seats; i++) {
-
-				pArray.push(aviation.class.Passenger(this.getFlightName(), 
-					this.airline.IATA,
-					percs[Math.floor(Math.random()*(percs.length-1-0+1)+0)],
-					aviation.time.decimalDayToTime(this.flight.time),
-					this.gate,
-					this.id));
-			}
-
-			return pArray;
-		},
-		setPassengers : function(pax) {
+		setPassengers : function(matrix) {
 			//
 			// Assign each passenger a time distribution
 			//
 			if (this.destination && this.airline && this.aircraft) {
 
-				var passengers = this.getPassengerArray(pax.passengerTypeDistributionArray),
-					passengerArrivalTimes = this.getArrivalTimes(pax.time),
-					movementMatrix = this.getMovementMatrix(pax.profile);
-				
-				movementMatrix.forEach((function(paxTimes, lindex) {
-					
-					var count = 0;
+				var passengers = [];
 
-					paxTimes.forEach((function(numPeople, index) {
+				for (var type in matrix) {
+					for (var arrivalTime in matrix[type]) {
+						for (var i=0; i<matrix[type][arrivalTime]; i++) {
 
-						for (var i=0; i<numPeople; i++) {
+							//var xint = aviation.time.minutesToDecimalDay(i * (5 / matrix[type][arrivalTime]));
 
-							var interp = aviation.time.decimalDayToTime(this.flight.time -
-								passengerArrivalTimes[index] +
-								i * aviation.time.minutesToDecimalDay(pax.time[2] / numPeople));
-
-							passengers[count][pax.legend[lindex]] = interp;
-
-							count++;
+							passengers.unshift(aviation.class.Passenger(
+								this.getFlightName(), 
+								this.airline.IATA,
+								type,
+								arrivalTime,
+								this.flight.time,
+								this.gate,
+								this.id));
 						}
-					}).bind(this));
-				}).bind(this));
+					}
+				}
 
 				this.passengers = passengers;
 

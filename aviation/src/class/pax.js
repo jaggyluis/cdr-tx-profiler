@@ -7,15 +7,8 @@ var AVIATION = (function (aviation) {
 
 	function Pax(flightClass, flight) {
 
-		this.time = [180,0,5];
 		this.flight = flight;
 		this.flightClass = flightClass;
-		this.legend = [
-			'airport',
-			'departureLounge',
-			'boardingZone',
-			'boarding'
-		];
 	}
 	Pax.prototype = {
 
@@ -25,7 +18,7 @@ var AVIATION = (function (aviation) {
 		},
 		get profile() {
 
-			return this._data[this.flightClass._name];
+			return this._dist[this.flightClass._name];
 		},
 		get passengerTypeDistributionPercentages() {
 
@@ -36,7 +29,7 @@ var AVIATION = (function (aviation) {
 			return this.flightClass._getPercArray(this.passengerTypeDistributionPercentages);
 		},
 
-		_data : { // ! superceded
+		_dist : { // ! superceded
 
 			'C': [	// Low Cost
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -76,10 +69,45 @@ var AVIATION = (function (aviation) {
 			]
 		},
 
-		getArrivalDistributionMatrix : function() {
+		_data : {
+
+			'legend': [
+				'arrivalTime',
+				'departureLounge',
+				'boardingZone',
+				'boarding'
+			],
+
+			'time' : [180,0,5],
+
+			'globals' : {
+
+				'checkIn' : 		[1020, 	1200, 	22],
+				'security' : 		[420, 	1140, 	71],
+				'customs' : 		[420, 	1140, 	71],
+				'departureGate' : 	[420, 	1140, 	71],
+			}
+		},
+
+		get data() {
+
+			return this._data;
+		},
+
+		getTimeActual(minutes) {
+
+			var departureTime = this.flight.getTime(),
+				arrivalTime = aviation.time.minutesToDecimalDay(minutes);
+
+			return  departureTime > arrivalTime ? 
+				departureTime - arrivalTime :
+				1 + departureTime - arrivalTime;
+
+		},
+		getFlowDistributionMatrix : function(matrix) {
 			//
 			//	This needs to be replaced with a fit function and statistical model that
-			//	estimates the arrival probability distribution (Weibull?)
+			//	estimates the arrival probability distribution (Weibull/Poisson?)
 			//
 			function getRandomBinaryWithProbablity(p) {
 
@@ -88,7 +116,9 @@ var AVIATION = (function (aviation) {
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerArrivalDistributionTimes = {},
-				passengerSeats = this.flight.seats;
+				passengerSeats = this.flight.seats,
+				modulo = aviation.time.minutesToDecimalDay(5);
+				self = this;
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
@@ -98,27 +128,26 @@ var AVIATION = (function (aviation) {
 				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
 
 					var arrivalTimePercentageTotal = passengerPercentagesTotal[type].dist[arrivalTime];
-						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal
+						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal,
+						arrivalTimeActual = self.getTimeActual(arrivalTime),
+						arrivalTimeRounded = aviation.math.round(arrivalTimeActual, modulo)
+						passengersAtArrivalTime = matrix[arrivalTimeRounded];
 
 					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
 						getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
 						Math.round(arrivalTimePercentageMapped);
-				
-					passengerArrivalDistributionTimes[type][arrivalTime] = arrivalTimePercentageMapped;
+
+					passengerArrivalDistributionTimes[type][arrivalTimeRounded] = arrivalTimePercentageMapped;
+					
+					matrix[arrivalTimeRounded] = matrix[arrivalTimeRounded] ? 
+						matrix[arrivalTimeRounded] + arrivalTimePercentageMapped :
+						arrivalTimePercentageMapped;
 				});
 			});
 
-			//console.log(passengerArrivalDistributionTimes);
+			this.flight.setPassengers(passengerArrivalDistributionTimes);
 			
-			console.log(Object.keys(passengerArrivalDistributionTimes)[0])
-
-
-
-
-
-
-			// keep doing the old version for now
-			this.flight.setPassengers(this);
+			return matrix;
 		}
 	}
 
