@@ -2,30 +2,29 @@ var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
 	aviation.class.Passenger = function(flightName, 
-			flightCode, 
+			flightCode,
+			flightID,
 			type,
 			arrivalTime,
-			departureTime, 
-			gate, 
-			flightID) {
+			departureTime) {
 		
 		return new Passenger(flightName, 
-			flightCode, 
+			flightCode,
+			flightID, 
 			type,
 			arrivalTime,
-			departureTime, 
-			gate, 
-			flightID);
+			departureTime);
 	}
 
-	function Passenger(flightName, flightCode, type, arrivalTime, departureTime, gate, flightID) {
+	function Passenger(flightName, flightCode, flightID, type, arrivalTime, departureTime) {
 		
 		this.flightName = flightName;
 		this.flightCode = flightCode;
 		this.flightID = flightID;
 		
 		this.passengerType = type;
-		this.gate = gate;
+		this.passengerID = aviation.generate.guid()
+
 		this.gender = ['M', 'F'][Math.round(Math.random())];
 
 		this._events = [
@@ -56,6 +55,10 @@ var AVIATION = (function (aviation) {
 	};
 	Passenger.prototype = {
 
+		get id() {
+
+			return this.passengerID;
+		},
 		get events() {
 
 			return this._events;

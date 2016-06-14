@@ -112,13 +112,16 @@ var AVIATION = (function (aviation) {
 			function getRandomBinaryWithProbablity(p) {
 
 				return Math.random() >= 1-p ? 1 : 0;
-			}
+			}			
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerArrivalDistributionTimes = {},
 				passengerSeats = this.flight.seats,
 				modulo = aviation.time.minutesToDecimalDay(5);
+				m = new Matrix3d(6, 1440/5, 5);
 				self = this;
+
+			//console.log(m)
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
@@ -133,6 +136,8 @@ var AVIATION = (function (aviation) {
 						arrivalTimeRounded = aviation.math.round(arrivalTimeActual, modulo)
 						passengersAtArrivalTime = matrix[arrivalTimeRounded];
 
+					console.log(passengersAtArrivalTime);
+
 					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
 						getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
 						Math.round(arrivalTimePercentageMapped);
@@ -145,9 +150,47 @@ var AVIATION = (function (aviation) {
 				});
 			});
 
-			this.flight.setPassengers(passengerArrivalDistributionTimes);
+			var ids = this.flight.setPassengers(passengerArrivalDistributionTimes);
+			//console.log(ids);
 			
 			return matrix;
+		}
+	}
+
+	function Matrix3d(numRow, numCol, mod) {
+
+		this.d = [];
+		this.m = mod;
+		this.r = numRow;
+		this.c = numCol;
+
+		for (var i=0; i<numRow; i++) {
+
+			var x = [];
+
+			for (var j=0; j<numCol; j++) {
+
+				var y = [];
+
+				x.push(y);
+			}
+
+			this.d.push(x);
+		}
+	}
+	Matrix3d.prototype = {
+
+		getItem : function(r,c,i) {
+
+			return this.d[r][c][i] || null;
+		},
+		getCol : function(r,c) {
+
+			return this.d[r][c] || null;
+		},
+		getRow : function(r) {
+
+			return this.d[r] || null;
 		}
 	}
 

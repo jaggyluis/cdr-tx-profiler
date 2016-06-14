@@ -148,27 +148,29 @@ var AVIATION = (function (aviation) {
 				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
 		},
 		setPassengers : function(matrix) {
-			//
-			// Assign each passenger a time distribution
-			//
+
+			var passengers = [],
+				ids = [];
+
 			if (this.destination && this.airline && this.aircraft) {
 
-				var passengers = [];
 
 				for (var type in matrix) {
 					for (var arrivalTime in matrix[type]) {
 						for (var i=0; i<matrix[type][arrivalTime]; i++) {
 
 							//var xint = aviation.time.minutesToDecimalDay(i * (5 / matrix[type][arrivalTime]));
-
-							passengers.unshift(aviation.class.Passenger(
+							var passenger = aviation.class.Passenger(
 								this.getFlightName(), 
 								this.airline.IATA,
+								this.id,
 								type,
 								arrivalTime,
 								this.flight.time,
-								this.gate,
-								this.id));
+								this.gate);
+
+							passengers.unshift(passenger);
+							ids.unshift(passenger.id)
 						}
 					}
 				}
@@ -176,16 +178,24 @@ var AVIATION = (function (aviation) {
 				this.passengers = passengers;
 
 			} else {
-				this.passengers = [];
 				console.error('passengers not assigned: ', 
 					this, 
 					this.getFlightName(), 
 					aviation.time.decimalDayToTime(this.getTime()));
 			}
+
+			return ids;
 		},
 		getPassengers : function () {
 
 			return this.passengers;
+		},
+		getPassengerIDs : function() {
+
+			return this.passengers.map(function(passenger) {
+				
+				return passenger.id;
+			})
 		}
 	}
 

@@ -411,14 +411,6 @@ var AVIATION = (function (aviation) {
 			matrix = pax.getFlowDistributionMatrix(matrix);				
 		});
 
-		console.log(Object.keys(matrix).reduce(function(obj, key) {
-
-			obj[decimalDayToTime(key)] = matrix[key];
-
-			return obj;
-
-		}, {}));
-
 		return filtered;
 	};
 	function getPassengers(filter) {
