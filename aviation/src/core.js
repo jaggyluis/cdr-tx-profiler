@@ -51,6 +51,7 @@ var AVIATION = (function (aviation) {
 	};
 	aviation.math = {
 		round : round,
+		floor : floor,
 	};
 	aviation.generate = {
 		guid : generateUUID
@@ -324,6 +325,10 @@ var AVIATION = (function (aviation) {
 
 		return Math.round(num/mod)*mod;
 	};
+	function floor (num, mod) {
+
+		return Math.floor(num/mod)*mod;
+	}
 	function set(gateSchemeObjArr, designDayFlightObjArr, flightProfiles, loadFactor, filter, timeFrame) {
 
 		aviation._gates = setGates(gateSchemeObjArr);
@@ -363,8 +368,8 @@ var AVIATION = (function (aviation) {
 
 		var flights = [],
 			sorted = [],
-			filtered = [];
-			matrix = {};
+			filtered = [],
+			matrix = aviation.class.Matrix3d();
 
 		designDayFlightObjArr.forEach(function(flightObj, index) {
 			if (decimalDayToTime(flightObj.time).split(':')[0] > timeFrame[0] &&
@@ -408,7 +413,10 @@ var AVIATION = (function (aviation) {
 					flight);
 
 			flight.findGate();
-			matrix = pax.getFlowDistributionMatrix(matrix);				
+
+			console.log(flight.getFlightName())
+			//matrix = pax.getFlowDistributionMatrix(matrix);
+			pax.getFlowDistributionMatrix(matrix);				
 		});
 
 		return filtered;
@@ -419,7 +427,7 @@ var AVIATION = (function (aviation) {
 
 		aviation._flights.forEach(function(flight) {
 			flight.getPassengers().forEach(function(passenger) {
-				if ( filter === undefined || JSON.stringify(passenger).match(filter)) {
+				if ( filter === undefined || JSON.stringify(passenger.passengerType).match(filter)) {
 					passengers.push(passenger);
 				}
 			});

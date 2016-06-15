@@ -2,6 +2,7 @@ var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
 	aviation.class.Pax = function(flightClass, flight) {
+		
 		return new Pax(flightClass, flight);
 	}
 
@@ -71,21 +72,14 @@ var AVIATION = (function (aviation) {
 
 		_data : {
 
-			'legend': [
-				'arrivalTime',
-				'departureLounge',
-				'boardingZone',
-				'boarding'
-			],
-
-			'time' : [180,0,5],
-
 			'globals' : {
 
-				'checkIn' : 		[1020, 	1200, 	22],
-				'security' : 		[420, 	1140, 	71],
-				'customs' : 		[420, 	1140, 	71],
-				'departureGate' : 	[420, 	1140, 	71],
+				'arrivalTime' : 		[],
+				'checkIn' : 			[2, 5],
+				'security' : 			[1, 2],
+				'departureLounge' : 	[],
+				'boardingZone': 		[],
+				'boarding': 			[]
 			}
 		},
 
@@ -104,7 +98,7 @@ var AVIATION = (function (aviation) {
 				1 + departureTime - arrivalTime;
 
 		},
-		getFlowDistributionMatrix : function(matrix) {
+		getFlowDistributionMatrix : function(m) {
 			//
 			//	This needs to be replaced with a fit function and statistical model that
 			//	estimates the arrival probability distribution (Weibull/Poisson?)
@@ -112,85 +106,64 @@ var AVIATION = (function (aviation) {
 			function getRandomBinaryWithProbablity(p) {
 
 				return Math.random() >= 1-p ? 1 : 0;
-			}			
+			};
+			function interpolateRandom(range) {
+				
+				return Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+			};	
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
-				passengerArrivalDistributionTimes = {},
 				passengerSeats = this.flight.seats,
-				modulo = aviation.time.minutesToDecimalDay(5);
-				m = new Matrix3d(6, 1440/5, 5);
+				passengers = [],
+				modulo = 5,
+				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo);
 				self = this;
-
-			//console.log(m)
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
 				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats);
-				passengerArrivalDistributionTimes[type] = {};
 
 				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
 
 					var arrivalTimePercentageTotal = passengerPercentagesTotal[type].dist[arrivalTime];
 						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal,
 						arrivalTimeActual = self.getTimeActual(arrivalTime),
-						arrivalTimeRounded = aviation.math.round(arrivalTimeActual, modulo)
-						passengersAtArrivalTime = matrix[arrivalTimeRounded];
-
-					console.log(passengersAtArrivalTime);
+						arrivalTimeRounded = aviation.math.floor(
+							aviation.time.decimalDayToMinutes(arrivalTimeActual), 
+							modulo),
+						departureTimeRounded = aviation.math.floor(
+							aviation.time.decimalDayToMinutes(self.flight.getTime()),
+							modulo);
 
 					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
 						getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
 						Math.round(arrivalTimePercentageMapped);
 
-					passengerArrivalDistributionTimes[type][arrivalTimeRounded] = arrivalTimePercentageMapped;
-					
-					matrix[arrivalTimeRounded] = matrix[arrivalTimeRounded] ? 
-						matrix[arrivalTimeRounded] + arrivalTimePercentageMapped :
-						arrivalTimePercentageMapped;
+					for (var i=0; i<arrivalTimePercentageMapped; i++) {
+
+						var passenger = aviation.class.Passenger(self.flight, type);
+						
+						matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
+						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
+
+						passengers.push(passenger);
+					}
+
 				});
 			});
 
-			var ids = this.flight.setPassengers(passengerArrivalDistributionTimes);
-			//console.log(ids);
+			this.flight.setPassengers(passengers);
+
+			//
+			//	New passenger distribution functionality
+			// matrix.applyRow(1,2, ( matrix.m * checkinCounters ) / checkInTime );
 			
-			return matrix;
-		}
-	}
+			matrix.applyRow( 0, 1, ( modulo * 5 ) / 5 );
 
-	function Matrix3d(numRow, numCol, mod) {
 
-		this.d = [];
-		this.m = mod;
-		this.r = numRow;
-		this.c = numCol;
-
-		for (var i=0; i<numRow; i++) {
-
-			var x = [];
-
-			for (var j=0; j<numCol; j++) {
-
-				var y = [];
-
-				x.push(y);
-			}
-
-			this.d.push(x);
-		}
-	}
-	Matrix3d.prototype = {
-
-		getItem : function(r,c,i) {
-
-			return this.d[r][c][i] || null;
-		},
-		getCol : function(r,c) {
-
-			return this.d[r][c] || null;
-		},
-		getRow : function(r) {
-
-			return this.d[r] || null;
+			console.log(matrix)
+			
+			return m.merge(matrix);
 		}
 	}
 

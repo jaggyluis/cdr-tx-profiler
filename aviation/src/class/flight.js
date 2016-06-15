@@ -147,55 +147,13 @@ var AVIATION = (function (aviation) {
 				.replace('%airline%', this.airline.name)
 				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
 		},
-		setPassengers : function(matrix) {
+		setPassengers : function(passengers) {
 
-			var passengers = [],
-				ids = [];
-
-			if (this.destination && this.airline && this.aircraft) {
-
-
-				for (var type in matrix) {
-					for (var arrivalTime in matrix[type]) {
-						for (var i=0; i<matrix[type][arrivalTime]; i++) {
-
-							//var xint = aviation.time.minutesToDecimalDay(i * (5 / matrix[type][arrivalTime]));
-							var passenger = aviation.class.Passenger(
-								this.getFlightName(), 
-								this.airline.IATA,
-								this.id,
-								type,
-								arrivalTime,
-								this.flight.time,
-								this.gate);
-
-							passengers.unshift(passenger);
-							ids.unshift(passenger.id)
-						}
-					}
-				}
-
-				this.passengers = passengers;
-
-			} else {
-				console.error('passengers not assigned: ', 
-					this, 
-					this.getFlightName(), 
-					aviation.time.decimalDayToTime(this.getTime()));
-			}
-
-			return ids;
+			this.passengers = passengers;
 		},
 		getPassengers : function () {
 
 			return this.passengers;
-		},
-		getPassengerIDs : function() {
-
-			return this.passengers.map(function(passenger) {
-				
-				return passenger.id;
-			})
 		}
 	}
 

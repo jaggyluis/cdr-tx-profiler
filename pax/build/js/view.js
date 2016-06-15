@@ -88,6 +88,7 @@ var app = app || {};
 			});
 	};
 	app.View.prototype = {
+		
 		init : function() {
 
 			this.clear();
@@ -290,7 +291,7 @@ var app = app || {};
 							passengerString = passengerString.replace('%'+key+'%', _ret[key]);
 						} catch (e) {
 
-							console.warn(key);
+							console.warn(e, key);
 						}
 
 					}
