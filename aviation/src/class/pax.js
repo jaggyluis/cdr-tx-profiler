@@ -75,8 +75,8 @@ var AVIATION = (function (aviation) {
 			'globals' : {
 
 				'arrivalTime' : 		[],
-				'checkIn' : 			[2, 5],
-				'security' : 			[1, 2],
+				'checkIn' : 			[1.0, 5.0],
+				'security' : 			[1.0, 2.0],
 				'departureLounge' : 	[],
 				'boardingZone': 		[],
 				'boarding': 			[]
@@ -107,9 +107,9 @@ var AVIATION = (function (aviation) {
 
 				return Math.random() >= 1-p ? 1 : 0;
 			};
-			function interpolateRandom(range) {
+			function getRandomArbitrary(range) {
 				
-				return Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+				return Math.random() * (range[1] - range[0]) + range[0];
 			};	
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
@@ -121,7 +121,10 @@ var AVIATION = (function (aviation) {
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
-				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats);
+				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats),
+					passengerProfile = aviation._passengerProfiles.find(function(profile) {
+								return profile._name === type;
+							});
 
 				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
 
@@ -142,6 +145,9 @@ var AVIATION = (function (aviation) {
 					for (var i=0; i<arrivalTimePercentageMapped; i++) {
 
 						var passenger = aviation.class.Passenger(self.flight, type);
+							
+						passenger.setAttribute('checkIn', getRandomArbitrary(self._data.globals.checkIn));
+						passenger.setAttribute('bags', getRandomBinaryWithProbablity(passengerProfile._data.bags / 100));
 						
 						matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
 						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
@@ -154,12 +160,20 @@ var AVIATION = (function (aviation) {
 
 			this.flight.setPassengers(passengers);
 
-			//
-			//	New passenger distribution functionality
-			// matrix.applyRow(1,2, ( matrix.m * checkinCounters ) / checkInTime );
-			
-			matrix.applyRow( 0, 1, ( modulo * 5 ) / 5 );
+			matrix.distributeRowByCallBack(0, 1, function(arr) {
 
+				var numCheckinCounters = 5;
+				var sum = arr.reduce(function(val, passenger) {
+
+					var checkInTime = passenger.attributes.bags ? 
+						passenger.attributes.checkIn : 0; 
+
+					return val + checkInTime;
+
+				}, 0);
+
+				return sum / numCheckinCounters;
+			})
 
 			console.log(matrix)
 			

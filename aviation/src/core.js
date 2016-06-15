@@ -3,7 +3,8 @@ var AVIATION = (function (aviation) {
 
 	aviation._flights = [];
 	aviation._gates = [];
-	aviation._profiles = [];
+	aviation._flightProfiles = [];
+	aviation._passengerProfiles = [];
 	
 	aviation.set = set;
 	aviation.clear = clear;
@@ -205,7 +206,7 @@ var AVIATION = (function (aviation) {
 	};
 	function getProfileByAircraftType(type) {
 
-		return aviation._profiles.filter(function(p) {
+		return aviation._flightProfiles.filter(function(p) {
 
 			return p._name === type;
 		})[0];
@@ -329,10 +330,17 @@ var AVIATION = (function (aviation) {
 
 		return Math.floor(num/mod)*mod;
 	}
-	function set(gateSchemeObjArr, designDayFlightObjArr, flightProfiles, loadFactor, filter, timeFrame) {
+	function set(gateSchemeObjArr, 
+					designDayFlightObjArr, 
+					flightProfiles, 
+					passengerProfiles, 
+					loadFactor, 
+					filter, 
+					timeFrame) {
 
 		aviation._gates = setGates(gateSchemeObjArr);
-		aviation._profiles = flightProfiles;
+		aviation._flightProfiles = flightProfiles;
+		aviation._passengerProfiles = passengerProfiles;
 		aviation._flights = setFlights(
 			designDayFlightObjArr, 
 			loadFactor, 
@@ -364,7 +372,10 @@ var AVIATION = (function (aviation) {
 
 		return gates;
 	};
-	function setFlights(designDayFlightObjArr, loadFactor, filter, timeFrame) {
+	function setFlights(designDayFlightObjArr, 
+						loadFactor, 
+						filter, 
+						timeFrame) {
 
 		var flights = [],
 			sorted = [],

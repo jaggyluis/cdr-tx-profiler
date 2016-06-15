@@ -569,9 +569,11 @@ var app = app || {};
 			return cb();
 		};
 		this.getProfiles = function () {
+			
 			return this.flights;
 		};
 		this.getTypes = function () {
+
 			return this.types;
 		};
 	}	

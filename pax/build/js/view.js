@@ -222,11 +222,20 @@ var app = app || {};
 				profileBox = document.querySelector('#aircraft-profile-box .content-box'),
 				totalBox = document.getElementById('total-box');
 
+			//
+			//	Build the total passenger profile table
+			//
 			totalBox.children[1].appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
 			typeTable.innerHTML+=typeHeader;
+			//
+			//	Build all of the unique passenger profile tables
+			//
 			typeBuilder.getTypes().forEach((function (type) {
 				typeTable.appendChild(this.buildTypeTableRow(type, true));
 			}).bind(this));
+			//
+			//	Build all of the flight profile tables
+			//
 			typeBuilder.getProfiles().forEach((function (profile) {
 				profileBox.appendChild(this.buildProfileTable(profile));
 			}).bind(this));

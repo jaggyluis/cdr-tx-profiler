@@ -20,6 +20,7 @@ var app = app || {};
 		profileBuilder.run(terminalFilter, (function() {
 
 			this._profiles = profileBuilder.getProfiles();
+			this._types = profileBuilder.getTypes();
 			this._designDay = flightBuilder.getFlights();
 
 			this._view.enableProfileRunButton();
@@ -37,6 +38,7 @@ var app = app || {};
 			this._gates,
 			this._designDay,
 			this._profiles,
+			this._types,
 			this._view.getLoadFactor(), 
 			this._view.getFlightFilter(), 
 			this._view.getTimeFrame());

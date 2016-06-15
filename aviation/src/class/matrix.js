@@ -61,9 +61,7 @@ var AVIATION = (function (aviation) {
 
 			this.d.splice(t, 0, row.slice());
 		},
-		applyRow : function(f, t, cap) {
-
-			var cap = cap || Infinity;
+		applyRow : function(f, t) {
 
 			for (var c=0; c<this.c; c++) {
 
@@ -75,6 +73,13 @@ var AVIATION = (function (aviation) {
 					tcol.push(fcol[i]);
 				}
 			}
+		},
+		distributeRowByCap : function(f, t, cap) {
+
+			var cap = cap || Infinity;
+
+			this.applyRow(f,t);
+
 			for (var c=0; c<this.c; c++) {
 				if (this.d[t][c].length > cap) {
 
@@ -87,6 +92,22 @@ var AVIATION = (function (aviation) {
 
 					this.d[t][c] = this.d[t][c].slice(0,len-delta);
 				}
+			}
+		},
+		distributeRowByCallBack : function(f, t, cb) {
+			
+			this.applyRow(f,t);
+
+			//	cb (arr) --> val > this.m ?
+
+			for (var c=0; c<this.c; c++) {
+
+				var nxt = [];
+
+				while(cb(this.d[t][c])>this.m) {
+					nxt.push(this.d[t][c].pop());
+				}
+				this.d[t][c+1] = nxt.concat(this.d[t][c+1]);
 			}
 		},
 		shiftRow : function(r, shift) {
@@ -114,7 +135,6 @@ var AVIATION = (function (aviation) {
 			}
 		},
 		merge : function(other) {
-
 
 		}
 	}

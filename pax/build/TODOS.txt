@@ -51,6 +51,8 @@ X apply arrival times
 
 - modify passenger distribution times
 
+- remove aviation._GLOBALS from flight and pax
+
 - web worker for simulation
 - optimize profilte run for speed
 - weighting

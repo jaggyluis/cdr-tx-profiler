@@ -14,7 +14,7 @@ var AVIATION = (function (aviation) {
 		this.passengerID = aviation.generate.guid()
 
 		this.gender = ['M', 'F'][Math.round(Math.random())];
-
+		this._attributes = {};
 		this._events = [
 			{
 				name : 'arrivalTime',
@@ -52,6 +52,14 @@ var AVIATION = (function (aviation) {
 
 			return this.passengerID;
 		},
+		get attributes() {
+
+			return this._attributes;
+		},
+		setAttribute : function(name, value) {
+
+			this._attributes[name] = value;
+		},
 		get events() {
 
 			return this._events;
@@ -82,6 +90,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
+
 	}
 
 	return aviation;
