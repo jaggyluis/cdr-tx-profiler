@@ -11,8 +11,10 @@ var app = app || {};
 				'flightID',
 				'passengerType',
 				'gender',
+				'bags',
 				'arrivalTime',
-				'departureLounge',
+				'security',
+				'concourse',
 				'boardingZone',
 				'boarding',
 				'departureTime'];
@@ -292,16 +294,8 @@ var app = app || {};
 						passengerString = passengerString.replace('%'+key+'%', 
 							AVIATION.time.decimalDayToTime(_ret[key]));
 					} else {
-						//
-						//	This should be improved - not clean
-						//
-						try {
-							_ret[key] = passenger[key];
-							passengerString = passengerString.replace('%'+key+'%', _ret[key]);
-						} catch (e) {
-
-							console.warn(e, key);
-						}
+						_ret[key] = passenger.attributes[key];
+						passengerString = passengerString.replace('%'+key+'%', _ret[key]);
 
 					}
 				})

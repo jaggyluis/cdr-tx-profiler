@@ -93,12 +93,14 @@ var AVIATION = (function (aviation) {
 		},
 		getDesignGroup : function() {
 
-			//console.log(this);
 			return aviation.time.romanToNumber(this.aircraft.ARC.split('-')[1]);
 		},
 		getCategory : function() {
 
-			//return this.aircraft.RFLW;
+			//
+			//	Used to return this.aircraft.RFLW
+			//
+			
 			return aviation.time.romanToLetter(this.aircraft.ARC.split('-')[1]);
 		},
 		setGate : function(gate) {

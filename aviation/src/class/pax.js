@@ -72,14 +72,15 @@ var AVIATION = (function (aviation) {
 
 		_data : {
 
-			'globals' : {
+			'globals' : { // in minutes
 
 				'arrivalTime' : 		[],
 				'checkIn' : 			[1.0, 5.0],
 				'security' : 			[1.0, 2.0],
-				'departureLounge' : 	[],
+				'concourse' : 			[],
 				'boardingZone': 		[],
-				'boarding': 			[]
+				'boarding': 			[],
+				'departureTime' : 		[]
 			}
 		},
 
@@ -99,18 +100,11 @@ var AVIATION = (function (aviation) {
 
 		},
 		getFlowDistributionMatrix : function(m) {
+
 			//
 			//	This needs to be replaced with a fit function and statistical model that
 			//	estimates the arrival probability distribution (Weibull/Poisson?)
 			//
-			function getRandomBinaryWithProbablity(p) {
-
-				return Math.random() >= 1-p ? 1 : 0;
-			};
-			function getRandomArbitrary(range) {
-				
-				return Math.random() * (range[1] - range[0]) + range[0];
-			};	
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerSeats = this.flight.seats,
@@ -139,43 +133,47 @@ var AVIATION = (function (aviation) {
 							modulo);
 
 					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
-						getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
+						aviation.math.getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
 						Math.round(arrivalTimePercentageMapped);
 
 					for (var i=0; i<arrivalTimePercentageMapped; i++) {
 
-						var passenger = aviation.class.Passenger(self.flight, type);
+						var passenger = aviation.class.Passenger(self.flight, passengerProfile);
 							
-						passenger.setAttribute('checkIn', getRandomArbitrary(self._data.globals.checkIn));
-						passenger.setAttribute('bags', getRandomBinaryWithProbablity(passengerProfile._data.bags / 100));
+						passenger.setAttribute('checkInTime', aviation.math.getRandomArbitrary(self._data.globals.checkIn));
+						passenger.setAttribute('securityTime', aviation.math.getRandomArbitrary(self._data.globals.security));
+						passengers.push(passenger);
 						
 						matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
 						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
-
-						passengers.push(passenger);
 					}
-
 				});
 			});
 
 			this.flight.setPassengers(passengers);
 
-			matrix.distributeRowByCallBack(0, 1, function(arr) {
+			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray) {
 
 				var numCheckinCounters = 5;
-				var sum = arr.reduce(function(val, passenger) {
+				var sum = passengerArray.reduce(function(val, passenger) {
 
-					var checkInTime = passenger.attributes.bags ? 
-						passenger.attributes.checkIn : 0; 
+					var checkInTime =  !passenger.attributes.isTransfer && passenger.attributes.bags ? 
+						passenger.attributes.checkInTime : 0; 
 
 					return val + checkInTime;
-
 				}, 0);
 
 				return sum / numCheckinCounters;
 			})
+			matrix.copyRowApply(1, 2, true, function(passenger, count, index, column) {
 
-			console.log(matrix)
+				var walkTimeToSecurity = aviation.math.getRandomArbitrary([2,10]),
+					indexTimeSlot = modulo * (index / count),
+					deltaTimeSlot = aviation.math.round(walkTimeToSecurity + indexTimeSlot, modulo),
+					deltaTimeSlotMapped = deltaTimeSlot / modulo;
+
+				return column + deltaTimeSlotMapped;
+			});
 			
 			return m.merge(matrix);
 		}

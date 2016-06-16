@@ -1,27 +1,45 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Passenger = function(flight, type) {
+	aviation.class.Passenger = function(flight, passengerProfile) {
 		
-		return new Passenger(flight, type);
+		return new Passenger(flight, passengerProfile);
 	}
 
-	function Passenger(flight, type) {
+	function Passenger(flight, passengerProfile) {
 
 		this.flight = flight;
-			
-		this.passengerType = type;
-		this.passengerID = aviation.generate.guid()
+		this.profile = passengerProfile;
 
-		this.gender = ['M', 'F'][Math.round(Math.random())];
-		this._attributes = {};
+		this._attributes = {
+
+			'gender' : ['M', 'F'][Math.round(Math.random())],
+
+			'bags' : [false,true][aviation.math.getRandomBinaryWithProbablity(this.profile._data.bags / 100)],
+
+			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)],
+
+			'isTransfer' : this.profile._name.match(/transfer/),
+
+			'passengerID' : aviation.generate.guid(),
+
+			'passengerType' : this.profile._name,
+
+			'flightID' : this.flight.id,
+
+			'flightName' : this.flight.getFlightName()
+		};
 		this._events = [
 			{
 				name : 'arrivalTime',
 				value : null
 			},
 			{
-				name : 'departureLounge',
+				name : 'security',
+				value : null
+			},
+			{
+				name : 'concourse',
 				value : null
 			},
 			{
@@ -40,18 +58,6 @@ var AVIATION = (function (aviation) {
 	};
 	Passenger.prototype = {
 
-		get flightName() {
-
-			return this.flight.getFlightName();
-		},
-		get flightID() {
-
-			return this.flight.id
-		},
-		get id() {
-
-			return this.passengerID;
-		},
 		get attributes() {
 
 			return this._attributes;

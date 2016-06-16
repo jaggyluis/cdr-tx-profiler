@@ -53,6 +53,8 @@ var AVIATION = (function (aviation) {
 	aviation.math = {
 		round : round,
 		floor : floor,
+		getRandomBinaryWithProbablity : getRandomBinaryWithProbablity,
+		getRandomArbitrary : getRandomArbitrary
 	};
 	aviation.generate = {
 		guid : generateUUID
@@ -329,7 +331,15 @@ var AVIATION = (function (aviation) {
 	function floor (num, mod) {
 
 		return Math.floor(num/mod)*mod;
-	}
+	};
+	function getRandomBinaryWithProbablity(p) {
+
+		return Math.random() >= 1-p ? 1 : 0;
+	};
+	function getRandomArbitrary(range) {
+		
+		return Math.random() * (range[1] - range[0]) + range[0];
+	};
 	function set(gateSchemeObjArr, 
 					designDayFlightObjArr, 
 					flightProfiles, 
@@ -346,7 +356,7 @@ var AVIATION = (function (aviation) {
 			loadFactor, 
 			filter, 
 			timeFrame);
-	}
+	};
 	function clear() {
 
 		aviation._gates = [];
@@ -425,10 +435,10 @@ var AVIATION = (function (aviation) {
 
 			flight.findGate();
 
-			console.log(flight.getFlightName())
-			//matrix = pax.getFlowDistributionMatrix(matrix);
-			pax.getFlowDistributionMatrix(matrix);				
+			matrix = pax.getFlowDistributionMatrix(matrix);				
 		});
+
+		console.log(matrix);
 
 		return filtered;
 	};
@@ -438,7 +448,7 @@ var AVIATION = (function (aviation) {
 
 		aviation._flights.forEach(function(flight) {
 			flight.getPassengers().forEach(function(passenger) {
-				if ( filter === undefined || JSON.stringify(passenger.passengerType).match(filter)) {
+				if ( filter === undefined || JSON.stringify(passenger.attributes).match(filter)) {
 					passengers.push(passenger);
 				}
 			});
