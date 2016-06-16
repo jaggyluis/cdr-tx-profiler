@@ -26,8 +26,9 @@ var AVIATION = (function (aviation) {
 	};
 	Matrix3d.prototype = {
 
-		setItem : function(r, c, i) {
+		setItem : function(item, r, c, i) {
 
+			this.d[r][c][i] = item;
 		},
 		getItem : function(r, c, i) {
 
@@ -38,6 +39,12 @@ var AVIATION = (function (aviation) {
 			if ( r === -1 || undefined ) r = this.d.length-1;
 			if ( c === -1 || undefined ) c = this.d[r].length-1;
 			this.d[r][c].push(item);
+		},
+		unShiftItem : function(item, r, c) {
+
+			if ( r === -1 || undefined ) r = this.d.length-1;
+			if ( c === -1 || undefined ) c = this.d[r].length-1;
+			this.d[r][c].unshift(item);
 		},
 		getCol : function(r, c) {
 
@@ -74,6 +81,34 @@ var AVIATION = (function (aviation) {
 				this.d[t] = this.d[f].slice();
 			}
 		},
+		shiftRow : function(r, shift) {
+
+			if (shift > 0) {
+				for (var i=0; i<shift; i++) {
+					this.d[r].push(this.d[r].shift());
+					this._rs[r].push(-shift);
+				}
+			} else if (shift < 0) {
+				for (var i=0; i<-shift; i++) {
+					this.d[r].unshift(this.d[r].pop())
+					this._rs[r].push(-shift);
+				}
+			}
+		},
+		sortRow : function (r, cb) {
+
+			this.d[r].sort(cb);
+		},
+		sortRowCols : function(r, cb) {
+
+			for (var c=0; c<this.d[r].length; c++) {
+				this.sortRowCol(r, c, cb);
+			}
+		},
+		sortRowCol : function(r, c, cb) {
+
+			this.d[r][c].sort(cb);
+		},
 		copyRowApply : function(f, t, insert, cb) {
 
 			var row = this.getRowBlank();
@@ -108,72 +143,85 @@ var AVIATION = (function (aviation) {
 			this._rs.push([]);
 			this.r++;
 		},
-		applyRow : function(f, t) {
+		distributeRowByCount : function(f, t, count) {
+
+			var count = count || Infinity;
+
+			this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
+				if (this.d[t][c].length > count) {
 
-				var fcol = this.d[f][c],
-					tcol = this.d[t][c],
-					delta = fcol.length - tcol.length;
+					var len = this.d[t][c].length,
+						delta = len - count;
 
-				for (var i=fcol.length-delta; i<fcol.length; i++) {
-					tcol.push(fcol[i]);
+					if(this.d[t][c+1] !== undefined) {
+						this.d[t][c+1] = this.d[t][c]
+							.slice(len-delta, len)
+							.concat(nxt);
+					} else {
+						this.d[t][c+1-this.c] = this.d[t][c]
+							.slice(len-delta, len)
+							.concat(nxt);
+					}
+					this.d[t][c] = this.d[t][c]
+						.slice(0,len-delta);
 				}
 			}
 		},
-		distributeRowByCap : function(f, t, cap) {
+		distributeRowByCounter : function(f,t, insert, cb) {
 
-			var cap = cap || Infinity;
-
-			this.applyRow(f,t);
+			this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
-				if (this.d[t][c].length > cap) {
 
-					var len = this.d[t][c].length,
-						delta = len - cap;
-						nxt = this.d[t][c+1] ? 
-							this.d[t][c+1] : 
-							this.d[t][c+1-this.c];
+				var total = this.d[t][c].reduce((function(val, item) {
+						return val + cb(item, this.m);
+					}).bind(this), 0);
+				
+				if (total > this.m) {
 
-					nxt = this.d[t][c]
-						.slice(len-delta, len)
-						.concat(nxt);
+					var count = 0,
+						index = 0,
+						len = this.d[t][c].length;
 
-					this.d[t][c] = this.d[t][c].slice(0,len-delta);
+					for (var i=0; i<this.d[t][c].length; i++) {
+						count += cb(this.d[t][c][i], this.m);
+						index ++ ;
+						if (count >= this.m) break;
+					}
+					if(this.d[t][c+1] !== undefined) {
+						this.d[t][c+1] = this.d[t][c]
+							.slice(index)
+							.concat(this.d[t][c+1]);
+					} else {
+						this.d[t][c+1-this.c] = this.d[t][c]
+							.slice(index)
+							.concat(this.d[t][c+1-this.c]);
+					}
+					this.d[t][c] = this.d[t][c]
+						.slice(0,index-1);
+
+					console.log('push ', len - index);
 				}
 			}
 		},
 		distributeRowByCallBack : function(f, t, insert, cb) {
 			
-			this.applyRow(f,t);
+			this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 
 				var add = [];
 
-				while(cb(this.d[t][c])>this.m) {
+				while(cb(this.d[t][c], this.m)) {
 					add.push(this.d[t][c].pop());
 				}
 				if(this.d[t][c+1] !== undefined) {
 					this.d[t][c+1] = add.concat(this.d[t][c+1]);
 				} else {
-					this.d[t][this.c-c+1] = 
-						add.concat(this.d[t][this.c-c+1]);
-				}
-			}
-		},
-		shiftRow : function(r, shift) {
-
-			if (shift > 0) {
-				for (var i=0; i<shift; i++) {
-					this.d[r].push(this.d[r].shift());
-					this._rs[r].push(-shift);
-				}
-			} else if (shift < 0) {
-				for (var i=0; i<-shift; i++) {
-					this.d[r].unshift(this.d[r].pop())
-					this._rs[r].push(-shift);
+					this.d[t][c+1-this.c] = 
+						add.concat(this.d[t][c+1-this.c]);
 				}
 			}
 		},
@@ -185,6 +233,19 @@ var AVIATION = (function (aviation) {
 				 return a+b;
 
 				}));
+			}
+		},
+		mergeRows : function(f, t) {
+
+			for (var c=0; c<this.c; c++) {
+
+				var fcol = this.d[f][c],
+					tcol = this.d[t][c],
+					delta = fcol.length - tcol.length;
+
+				for (var i=fcol.length-delta; i<fcol.length; i++) {
+					tcol.push(fcol[i]);
+				}
 			}
 		},
 		merge : function(other) {
@@ -213,6 +274,7 @@ var AVIATION = (function (aviation) {
 					}
 				}
 			}
+
 			return m1;
 		}
 	}

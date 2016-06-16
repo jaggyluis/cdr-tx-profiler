@@ -390,6 +390,7 @@ var AVIATION = (function (aviation) {
 		var flights = [],
 			sorted = [],
 			filtered = [],
+			securityCounters = 10, 
 			matrix = aviation.class.Matrix3d();
 
 		designDayFlightObjArr.forEach(function(flightObj, index) {
@@ -434,10 +435,15 @@ var AVIATION = (function (aviation) {
 					flight);
 
 			flight.findGate();
-
 			matrix = pax.getFlowDistributionMatrix(matrix);				
+		});	
+		matrix.sortRowCols(2, function(pa, pb){
+			return pa.attributes.securityTime - pb.attributes.securityTime;
 		});
-
+		matrix.insertRowBlank(3);
+		matrix.distributeRowByCounter(2, 3, false, function(passenger, mod) {
+			return passenger.attributes.securityTime / securityCounters;
+		})
 		console.log(matrix);
 
 		return filtered;

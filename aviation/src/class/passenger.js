@@ -19,7 +19,7 @@ var AVIATION = (function (aviation) {
 
 			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)],
 
-			'isTransfer' : this.profile._name.match(/transfer/),
+			'isTransfer' : this.profile._name.match(/transfer/) ? true : false,
 
 			'passengerID' : aviation.generate.guid(),
 

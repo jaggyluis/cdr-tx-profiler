@@ -30,39 +30,39 @@ var AVIATION = (function (aviation) {
 			return this.flightClass._getPercArray(this.passengerTypeDistributionPercentages);
 		},
 
-		_dist : { // ! superceded
+		_dist : { 										// ! superceded
 
-			'C': [	// Low Cost
+			'C': [										// Low Cost
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,1,2,2,3,4,5,6,7,8,9,10,10,9,7,3,3,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,3,4,3,2,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'_C': [	// Full Service - swap if needed
+			'_C': [										// Full Service - swap if needed
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,2,3,3,4,5,6,7,8,9,10,10,9,7,3,3,2,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,3,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'D': [	// Assuming same as Full Service C
+			'D': [										// Assuming same as Full Service C
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,2,3,3,4,5,6,7,8,9,10,10,9,7,3,3,2,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,3,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'E': [  // Full service
+			'E': [  									// Full service
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
 			],
-			'_E': [ // Low Cost - swap if needed
+			'_E': [ 									// Low Cost - swap if needed
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,25,25,25,15,2,0,0]
 			],
-			'F': [ 	// same as E
+			'F': [ 										// same as E
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
@@ -72,15 +72,19 @@ var AVIATION = (function (aviation) {
 
 		_data : {
 
-			'globals' : { // in minutes
+			'globals' : { 								// minutes
 
 				'arrivalTime' : 		[],
-				'checkIn' : 			[1.0, 5.0],
-				'security' : 			[1.0, 2.0],
+				'checkIn' : 			[1.0, 5.0],		// (ACRP)
+				'security' : 			[0.3, 0.7], 	// verify this rate 140/hr ~ 0.43 (ACRP)
 				'concourse' : 			[],
 				'boardingZone': 		[],
 				'boarding': 			[],
 				'departureTime' : 		[]
+			},
+			'walkTimes' : {
+
+				'security' : 			[2.0, 5.0]
 			}
 		},
 
@@ -105,13 +109,18 @@ var AVIATION = (function (aviation) {
 			//	This needs to be replaced with a fit function and statistical model that
 			//	estimates the arrival probability distribution (Weibull/Poisson?)
 			//
+			//
+			//	checkinCounters can be replaced with a function of capacity (ACRP)
+			//
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerSeats = this.flight.seats,
+				checkinCounters = Math.ceil(passengerSeats / 100)
 				passengers = [],
 				modulo = 5,
 				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo);
 				self = this;
+
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
@@ -121,6 +130,11 @@ var AVIATION = (function (aviation) {
 							});
 
 				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
+
+					//
+					//	Convert the passenger type distribution percentages from the flightProfile
+					//	into a mapped number for this particular flight
+					//
 
 					var arrivalTimePercentageTotal = passengerPercentagesTotal[type].dist[arrivalTime];
 						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal,
@@ -138,10 +152,22 @@ var AVIATION = (function (aviation) {
 
 					for (var i=0; i<arrivalTimePercentageMapped; i++) {
 
-						var passenger = aviation.class.Passenger(self.flight, passengerProfile);
-							
-						passenger.setAttribute('checkInTime', aviation.math.getRandomArbitrary(self._data.globals.checkIn));
-						passenger.setAttribute('securityTime', aviation.math.getRandomArbitrary(self._data.globals.security));
+						//
+						//	Create passengers for each mapped flight percentage.
+						// 	This is also assigning default arrival times and departure times to the 
+						//	passenger matrix
+						//
+
+						var passenger = aviation.class.Passenger(self.flight, passengerProfile),
+							checkInTime = passenger.attributes.isTransfer ?
+								0 : !passenger.attributes.bags ?
+								0 : aviation.math.getRandomArbitrary(self._data.globals.checkIn),
+							securityTime = passenger.attributes.isTransfer ?
+								0 : passenger.attributes.isPreCheck ?
+								0 : aviation.math.getRandomArbitrary(self._data.globals.security);
+						
+						passenger.setAttribute('checkInTime', checkInTime);
+						passenger.setAttribute('securityTime', securityTime);
 						passengers.push(passenger);
 						
 						matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
@@ -150,24 +176,33 @@ var AVIATION = (function (aviation) {
 				});
 			});
 
-			this.flight.setPassengers(passengers);
+			self.flight.setPassengers(passengers);
 
-			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray) {
+			//
+			//	Assign passenger check in queing times
+			//
 
-				var numCheckinCounters = 5;
-				var sum = passengerArray.reduce(function(val, passenger) {
+			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray, mod) {
 
-					var checkInTime =  !passenger.attributes.isTransfer && passenger.attributes.bags ? 
-						passenger.attributes.checkInTime : 0; 
+				var sum = passengerArray.reduce(function(val, passenger, i) {
 
-					return val + checkInTime;
+					if (passenger.attributes.checkInTime === 0) {
+						passengerArray.splice(0,0,passengerArray.splice(i,1)[0])
+					}
+
+					return val + passenger.attributes.checkInTime;
 				}, 0);
 
-				return sum / numCheckinCounters;
+				return sum / checkinCounters > mod;
 			})
+
+			//
+			//	Assign passenger walk to security times
+			//
+
 			matrix.copyRowApply(1, 2, true, function(passenger, count, index, column) {
 
-				var walkTimeToSecurity = aviation.math.getRandomArbitrary([2,10]),
+				var walkTimeToSecurity = aviation.math.getRandomArbitrary(self.data.walkTimes.security),
 					indexTimeSlot = modulo * (index / count),
 					deltaTimeSlot = aviation.math.round(walkTimeToSecurity + indexTimeSlot, modulo),
 					deltaTimeSlotMapped = deltaTimeSlot / modulo;
