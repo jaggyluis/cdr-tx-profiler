@@ -295,10 +295,11 @@
 
 	<script type="text/template" id="passenger-timing-header">
 		<tr class="bold">
-			<td>Name</td>
+			<td class="med">Name</td>
 			<td class="count">Gender</td>
-			<td class="med">Flight ID</td>
 			<td class="count">Bags</td>
+			<td class="count">Pre Check</td>
+			<td class="med">Flight ID</td>
 			<td>Arrival</td>
 			<td>Security</td>
 			<td>Concourse</td>
@@ -309,10 +310,11 @@
 	</script>
 	<script type="text/template" id="passenger-timing-template">
 		<tr>
-			<td>%passengerType%</td>
+			<td class="med">%passengerType%</td>
 			<td class="count">%gender%</td>
-			<td class="med">%flightID%</td>
 			<td class="count">%bags%</td>
+			<td class="count">%isPreCheck%</td>
+			<td class="med">%flightID%</td>
 			<td>%arrival%</td>
 			<td>%security%</td>
 			<td>%concourse%</td>

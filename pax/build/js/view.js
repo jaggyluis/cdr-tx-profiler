@@ -12,6 +12,7 @@ var app = app || {};
 				'passengerType',
 				'gender',
 				'bags',
+				'isPreCheck',
 				'arrival',
 				'security',
 				'concourse',
@@ -290,7 +291,7 @@ var app = app || {};
 					console.error('broken', passenger);
 				}
 				if (passenger.getEvent('departure').value < passenger.getEvent('concourse').value) {
-					console.warn('missed flight', passenger)
+					//console.warn('missed flight', passenger)
 				}
 
 				this.keys.forEach(function(key) {

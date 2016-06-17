@@ -95,6 +95,11 @@ var AVIATION = (function (aviation) {
 
 		getTimeActual(minutes) {
 
+			//
+			//	This method returns the decimal day time for
+			//	the current flight object associated with this pax object.
+			//
+
 			var departureTime = this.flight.getTime(),
 				arrivalTime = aviation.time.minutesToDecimalDay(minutes);
 
@@ -115,10 +120,10 @@ var AVIATION = (function (aviation) {
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerSeats = this.flight.seats,
-				checkinCounters = Math.ceil(passengerSeats / 100)
+				checkinCounters = Math.ceil(passengerSeats / 100),
 				passengers = [],
 				modulo = 5,
-				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo);
+				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo),
 				self = this;
 
 
@@ -169,22 +174,67 @@ var AVIATION = (function (aviation) {
 						passenger.setAttribute('checkInTime', checkInTime);
 						passenger.setAttribute('securityTime', securityTime);
 						passengers.push(passenger);
-						
-						matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
+
+						//
+						//	In order to handle transfer passengers - they are not included in the
+						//	matrix simulation up until the concourse level. 
+						//
+
+						if (passenger.attributes.isTransfer) {
+							passenger.setEvent('arrival', arrivalTimeActual);
+							passenger.setEvent('security', arrivalTimeActual);
+							passenger.setEvent('concourse', arrivalTimeActual);
+						} else {
+							matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
+						}
 						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
 					}
 				});
 			});
+			
+			//
+			//	Add all the passengers to this flight's passenger array
+			//	for later usage. 
+			//
 
 			self.flight.setPassengers(passengers);
 
 			//
+			//	Sort passengers by their checkin time - making sure that the tansfer and 
+			//	bag-less passengers remain at the bottom prior to distribution.
+			//
+
+			matrix.sortRowCols(2, function(pa, pb){
+			
+				if (pa.attributes.checkInTime && !pb.attributes.checkInTime) {
+
+					return 1;
+
+				} else if (!pa.attributes.checkInTime && pb.attributes.checkInTime) {
+
+					return -1;
+
+				} else {
+
+					return 0;
+				}
+			});
+
+			//
 			//	Assign passenger check in queing times
+			//	Uses the callback method to pop off the end of the list if the sum of all
+			//	passenger times is over the given timeslot.
 			//
 
 			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray, mod) {
 
 				var sum = passengerArray.reduce(function(val, passenger, i) {
+
+					//
+					//	This makes sure that all transfer and passengers with no
+					//	bags are maintained at the front of the list when the new list is inserted
+					//	in front. It also makes sure they stay in the correct sorted order.
+					//
 
 					if (passenger.attributes.checkInTime === 0) {
 						passengerArray.splice(0,0,passengerArray.splice(i,1)[0])
@@ -198,8 +248,11 @@ var AVIATION = (function (aviation) {
 
 			//
 			//	Assign passenger walk to security times
+			//	this is an optional row that distributes walk times from the check in counter to
+			//	security. removed for now, as it invalidates the simulation with regards to
+			//	industry standard. It might be worth implementing this with the design scheme.
 			//
-
+			/*
 			matrix.copyRowApply(1, 2, true, function(passenger, count, index, column) {
 
 				var walkTimeToSecurity = aviation.math.getRandomArbitrary(self.data.walkTimes.security),
@@ -209,6 +262,7 @@ var AVIATION = (function (aviation) {
 
 				return column + deltaTimeSlotMapped;
 			});
+			*/
 			
 			return m.merge(matrix);
 		}

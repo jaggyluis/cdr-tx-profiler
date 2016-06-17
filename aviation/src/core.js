@@ -390,7 +390,7 @@ var AVIATION = (function (aviation) {
 		var flights = [],
 			sorted = [],
 			filtered = [],
-			securityCounters = 10, 
+			securityCounters = [10, 16], 
 			matrix = aviation.class.Matrix3d();
 
 		designDayFlightObjArr.forEach(function(flightObj, index) {
@@ -437,18 +437,39 @@ var AVIATION = (function (aviation) {
 			flight.findGate();
 			matrix = pax.getFlowDistributionMatrix(matrix);				
 		});	
-		matrix.sortRowCols(2, function(pa, pb){
+		matrix.sortRowCols(1, function(pa, pb){
 			
-			return pa.attributes.securityTime - pb.attributes.securityTime;
+			if (pa.attributes.securityTime && !pb.attributes.securityTime) {
+
+				return 1;
+
+			} else if (!pa.attributes.securityTime && pb.attributes.securityTime) {
+
+				return -1;
+
+			} else {
+
+				return 0;
+			}
 		});
-		matrix.insertRowBlank(3);
-		matrix.distributeRowByCounter(2, 3, false, function(passenger, mod) {
+		matrix.insertRowBlank(2);
+		matrix.distributeRowByCounter(1, 2, false, function(passenger, mod) {
+
+			var securityTime = passenger.attributes.securityTime,
+				securityLines = passenger.attributes.bags ?
+					securityCounters[0] : securityCounters[1];
 			
-			return passenger.attributes.securityTime / securityCounters;
+			return securityTime / securityLines;
 		})
 		matrix.forEachItem(function(passenger, count, i, c, r) {
 
-			var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
+			//
+			//	Simulation toggle for more accurate number output - not functioning
+			//	completely yet.
+			//
+			//var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
+			
+			var val = aviation.time.minutesToDecimalDay(c * matrix.m );
 
 			switch (r) {
 
@@ -456,15 +477,15 @@ var AVIATION = (function (aviation) {
 					passenger.setEvent('arrival', val);
 					break;
 
-				case 2 : 
+				case 1 : 
 					passenger.setEvent('security', val);
 					break;
 
-				case 3 :
+				case 2 :
 					passenger.setEvent('concourse', val);
 					break;
 
-				case 4 :
+				case 3 :
 					passenger.setEvent('departure', val);
 					break;
 
