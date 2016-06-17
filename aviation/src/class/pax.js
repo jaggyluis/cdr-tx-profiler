@@ -74,13 +74,13 @@ var AVIATION = (function (aviation) {
 
 			'globals' : { 								// minutes
 
-				'arrivalTime' : 		[],
+				'arrival' : 			[],
 				'checkIn' : 			[1.0, 5.0],		// (ACRP)
 				'security' : 			[0.3, 0.7], 	// verify this rate 140/hr ~ 0.43 (ACRP)
 				'concourse' : 			[],
-				'boardingZone': 		[],
+				'gate': 				[],
 				'boarding': 			[],
-				'departureTime' : 		[]
+				'departure' : 		[]
 			},
 			'walkTimes' : {
 

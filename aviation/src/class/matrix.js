@@ -26,6 +26,16 @@ var AVIATION = (function (aviation) {
 	};
 	Matrix3d.prototype = {
 
+		forEachItem : function(cb) {
+
+			for (var r=0; r<this.d.length; r++) {
+				for (var c=0; c<this.c; c++) {
+					for (var i=0, len = this.d[r][c].length; i<len; i++) {
+						cb(this.d[r][c][i], len, i, c,r);
+					}
+				}
+			}
+		},
 		setItem : function(item, r, c, i) {
 
 			this.d[r][c][i] = item;
@@ -182,8 +192,7 @@ var AVIATION = (function (aviation) {
 				if (total > this.m) {
 
 					var count = 0,
-						index = 0,
-						len = this.d[t][c].length;
+						index = 0;
 
 					for (var i=0; i<this.d[t][c].length; i++) {
 						count += cb(this.d[t][c][i], this.m);
@@ -201,8 +210,6 @@ var AVIATION = (function (aviation) {
 					}
 					this.d[t][c] = this.d[t][c]
 						.slice(0,index-1);
-
-					console.log('push ', len - index);
 				}
 			}
 		},

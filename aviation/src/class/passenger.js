@@ -31,7 +31,7 @@ var AVIATION = (function (aviation) {
 		};
 		this._events = [
 			{
-				name : 'arrivalTime',
+				name : 'arrival',
 				value : null
 			},
 			{
@@ -43,7 +43,7 @@ var AVIATION = (function (aviation) {
 				value : null
 			},
 			{
-				name : 'boardingZone',
+				name : 'gate',
 				value : null
 			},
 			{
@@ -51,7 +51,7 @@ var AVIATION = (function (aviation) {
 				value : null
 			},
 			{
-				name : 'departureTime',
+				name : 'departure',
 				value : null
 			}
 		];
@@ -84,8 +84,8 @@ var AVIATION = (function (aviation) {
 		},
 		getTotalTimeInAirport : function() {
 
-			return aviation.class.Interval(this.getEvent('arrivalTime'), 
-				this.getEvent('departureTime'));
+			return aviation.class.Interval(this.getEvent('arrival'), 
+				this.getEvent('departure'));
 		},
 		getActivityAtTime : function(dday) {
 

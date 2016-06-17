@@ -438,12 +438,41 @@ var AVIATION = (function (aviation) {
 			matrix = pax.getFlowDistributionMatrix(matrix);				
 		});	
 		matrix.sortRowCols(2, function(pa, pb){
+			
 			return pa.attributes.securityTime - pb.attributes.securityTime;
 		});
 		matrix.insertRowBlank(3);
 		matrix.distributeRowByCounter(2, 3, false, function(passenger, mod) {
+			
 			return passenger.attributes.securityTime / securityCounters;
 		})
+		matrix.forEachItem(function(passenger, count, i, c, r) {
+
+			var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
+
+			switch (r) {
+
+				case 0 :
+					passenger.setEvent('arrival', val);
+					break;
+
+				case 2 : 
+					passenger.setEvent('security', val);
+					break;
+
+				case 3 :
+					passenger.setEvent('concourse', val);
+					break;
+
+				case 4 :
+					passenger.setEvent('departure', val);
+					break;
+
+				default:
+					break;
+			};
+		})
+
 		console.log(matrix);
 
 		return filtered;

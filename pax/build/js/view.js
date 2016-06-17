@@ -12,12 +12,12 @@ var app = app || {};
 				'passengerType',
 				'gender',
 				'bags',
-				'arrivalTime',
+				'arrival',
 				'security',
 				'concourse',
-				'boardingZone',
+				'gate',
 				'boarding',
-				'departureTime'];
+				'departure'];
 
 			this._passengers=[];
 			this._flights = [];
@@ -284,6 +284,14 @@ var app = app || {};
 
 				var _ret = {};
 				var passengerString = template;
+
+				if (passenger.getEvent('security').value < passenger.getEvent('arrival').value || 
+					passenger.getEvent('concourse').value < passenger.getEvent('security').value) {
+					console.error('broken', passenger);
+				}
+				if (passenger.getEvent('departure').value < passenger.getEvent('concourse').value) {
+					console.warn('missed flight', passenger)
+				}
 
 				this.keys.forEach(function(key) {
 
