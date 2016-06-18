@@ -120,7 +120,7 @@ var AVIATION = (function (aviation) {
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerSeats = this.flight.seats,
-				checkinCounters = Math.ceil(passengerSeats / 100),
+				checkinCounters = Math.floor(passengerSeats / 100),
 				passengers = [],
 				modulo = 5,
 				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo),
@@ -204,7 +204,7 @@ var AVIATION = (function (aviation) {
 			//	bag-less passengers remain at the bottom prior to distribution.
 			//
 
-			matrix.sortRowCols(2, function(pa, pb){
+			matrix.sortRowCols(0, function(pa, pb){
 			
 				if (pa.attributes.checkInTime && !pb.attributes.checkInTime) {
 
@@ -263,7 +263,9 @@ var AVIATION = (function (aviation) {
 				return column + deltaTimeSlotMapped;
 			});
 			*/
-			
+
+			matrix.shiftRow(1,-1);
+
 			return m.merge(matrix);
 		}
 	}

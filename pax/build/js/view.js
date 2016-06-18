@@ -279,7 +279,8 @@ var app = app || {};
 
 			var table = document.getElementById('passenger-timing-table'),
 				template = document.getElementById('passenger-timing-template').innerHTML,
-				innerString = '';
+				innerString = '',
+				count = 0;
 			
 			this.passengers.forEach((function(passenger, idx) {
 
@@ -288,7 +289,8 @@ var app = app || {};
 
 				if (passenger.getEvent('security').value < passenger.getEvent('arrival').value || 
 					passenger.getEvent('concourse').value < passenger.getEvent('security').value) {
-					console.error('broken', passenger);
+					console.error(count, 'broken', passenger);
+					count++
 				}
 				if (passenger.getEvent('departure').value < passenger.getEvent('concourse').value) {
 					//console.warn('missed flight', passenger)

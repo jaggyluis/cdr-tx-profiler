@@ -390,7 +390,7 @@ var AVIATION = (function (aviation) {
 		var flights = [],
 			sorted = [],
 			filtered = [],
-			securityCounters = [10, 16], 
+			securityCounters = [10, 10], 
 			matrix = aviation.class.Matrix3d();
 
 		designDayFlightObjArr.forEach(function(flightObj, index) {
@@ -436,7 +436,7 @@ var AVIATION = (function (aviation) {
 
 			flight.findGate();
 			matrix = pax.getFlowDistributionMatrix(matrix);				
-		});	
+		});
 		matrix.sortRowCols(1, function(pa, pb){
 			
 			if (pa.attributes.securityTime && !pb.attributes.securityTime) {
@@ -463,14 +463,8 @@ var AVIATION = (function (aviation) {
 		})
 		matrix.forEachItem(function(passenger, count, i, c, r) {
 
-			//
-			//	Simulation toggle for more accurate number output - not functioning
-			//	completely yet.
-			//
-			//var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
+			var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
 			
-			var val = aviation.time.minutesToDecimalDay(c * matrix.m );
-
 			switch (r) {
 
 				case 0 :
@@ -486,7 +480,7 @@ var AVIATION = (function (aviation) {
 					break;
 
 				case 3 :
-					passenger.setEvent('departure', val);
+					passenger.setEvent('departure', passenger.flight.getTime());
 					break;
 
 				default:
