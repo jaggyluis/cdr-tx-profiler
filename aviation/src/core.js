@@ -218,6 +218,7 @@ var AVIATION = (function (aviation) {
 		var spl = str.split(/[^\w\.]/);
 
 		if (!Arr) return Arr;
+
 		return Arr.sort(function(a,b) {
 
 			var ac = 0, 
@@ -316,6 +317,7 @@ var AVIATION = (function (aviation) {
 				if (i!==j) {
 					if (p[k]!==q[k] || 
 						p[l]!==q[l]) {
+
 						return false;
 					}
 				}
@@ -419,6 +421,7 @@ var AVIATION = (function (aviation) {
 							b_bis = sorted[i].getDesignGroup();
 
 						if ( a+a_bis >= b+b_bis ) {
+
 							break;
 						}
 					}
@@ -453,40 +456,59 @@ var AVIATION = (function (aviation) {
 			}
 		});
 		matrix.insertRowBlank(2);
-		matrix.distributeRowByCounter(1, 2, false, function(passenger, mod) {
+		matrix.distributeRowByCounter(1, 2, false, function(passenger, matrix, i, c, r, sort) {
 
 			var securityTime = passenger.attributes.securityTime,
 				securityLines = passenger.attributes.bags ?
 					securityCounters[0] : securityCounters[1];
+
+			if (sort && securityTime === 0) {
+				matrix.d[r][c].splice(0,0,matrix.d[r][c].splice(i,1)[0])
+			}
 			
 			return securityTime / securityLines;
-		})
+		});
 		matrix.forEachItem(function(passenger, count, i, c, r) {
 
-			var val = aviation.time.minutesToDecimalDay((c + (i / count) ) * matrix.m );
+			var rounded = aviation.time.minutesToDecimalDay(matrix.m * c);
 			
 			switch (r) {
 
-				case 0 :
-					passenger.setEvent('arrival', val);
-					break;
-
-				case 1 : 
-					passenger.setEvent('security', val);
-					break;
-
 				case 2 :
-					passenger.setEvent('concourse', val);
-					break;
 
-				case 3 :
-					passenger.setEvent('departure', passenger.flight.getTime());
+					/*
+					var val = (c * matrix.m ) + passenger.attributes.securityTime,
+						tt = 0;
+
+					if (passenger.attributes.securityTime !== 0) {
+						for (var j=0; j<i; j++) {
+
+							var st = matrix.d[r][c][j].attributes.securityTime;
+
+							if (st !== 0) tt+=st;
+						}
+					} else {
+						passenger.setEvent('concourse', passenger.getEvent('security').value);
+
+						break;
+					}
+					passenger.setEvent('concourse', 
+						aviation.time.minutesToDecimalDay(val + (tt / securityCounters[0])));
+					*/
+
+					passenger.setEvent('concourse', rounded);
+
 					break;
 
 				default:
+
 					break;
 			};
 		})
+
+		//matrix.forEachItem(function(passenger) {
+		//	console.log(passenger.getEvent('concourse').value == null)
+		//})
 
 		console.log(matrix);
 
@@ -544,6 +566,7 @@ var AVIATION = (function (aviation) {
 			} else {
 				str+= "\t"+obj;
 			}
+
 			return str;
 		}
 
@@ -554,16 +577,22 @@ var AVIATION = (function (aviation) {
 	function serializeJSON(json, keys) {
 
 		return json.reduce(function(a,b) {
+
 			return a+(keys.map(function(key) {
+
 				return '"'+b[key]+'"';
+
 			}).join(',')+'\n');
 		}, keys.join(',')+'\n');
 	};
 	function parseJSON(fileStr) {
 
 		try {
+
 			return JSON.parse(fileStr);
+
 		} catch (e) {
+
 			return null;
 		}
 	};
@@ -572,7 +601,9 @@ var AVIATION = (function (aviation) {
 		var parsed = fileStr.split('\n');
 		var re = /[^\w\:\-]/gi;
 		var keys = parsed[0].split(',').map(function(str) {
+
 			return str.replace(re, "");
+
 		});
 
 		return parsed.slice(1).map(function(csvArray) {
@@ -580,7 +611,9 @@ var AVIATION = (function (aviation) {
 			var flight = {};
 
 			csvArray.split(',').map(function(str) {
+
 				return str.replace(re, "");
+
 			}).forEach(function(value, idx) {
 				if (!isNaN(Number(value))) {
 					flight[keys[idx]] =  Number(value);

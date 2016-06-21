@@ -17,12 +17,12 @@ X implement actual gates if available
 X convert all to code refactor// major overhaul
 X add padding to tt
 
--reevaluate efficient padding based on:
+X reevaluate efficient padding based on:
 	- % of time landed
 	- size of plane
 	- fix null
 
-- track down richard to confirm aircraft codes:
+X track down richard to confirm aircraft codes:
 	*-* - what is that
 	X design reference code
 	X arc
@@ -49,18 +49,18 @@ X apply arrival times
 - passenger profiles should iclude pre 9am arrival distribution
 - assign global variable to determine distribution modelo
 
-- modify passenger distribution times
+X modify passenger distribution times
 
 - remove aviation._GLOBALS from flight and pax
 
 - web worker for simulation
-- optimize profilte run for speed
+- optimize profile to run for speed
 - weighting
 - implement fit curve
 
 - complete airline list for full airport
 - gate distributions for full airport
-- add terminal to flight output
+X add terminal to flight output
 - output statistics in a visual manner in order to baseline/verify
 - RFLW on aircraft is obsolete
 

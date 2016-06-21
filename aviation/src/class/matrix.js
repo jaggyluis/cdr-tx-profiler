@@ -185,9 +185,11 @@ var AVIATION = (function (aviation) {
 
 			for (var c=0; c<this.c; c++) {
 
-				var total = this.d[t][c].reduce((function(val, item) {
-						return val + cb(item, this.m);
-					}).bind(this), 0);
+				var total = 0;
+
+				for (var i=0; i<this.d[t][c].length; i++) {
+					total += cb(this.d[t][c][i], this, i, c, t, true);
+				}
 				
 				if (total > this.m) {
 
@@ -195,7 +197,7 @@ var AVIATION = (function (aviation) {
 						index = 0;
 
 					for (var i=0; i<this.d[t][c].length; i++) {
-						count += cb(this.d[t][c][i], this.m);
+						count += cb(this.d[t][c][i], this, i, c, t, false);
 						index ++ ;
 						if (count >= this.m) break;
 					}

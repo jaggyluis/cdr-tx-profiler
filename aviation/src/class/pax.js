@@ -30,39 +30,51 @@ var AVIATION = (function (aviation) {
 			return this.flightClass._getPercArray(this.passengerTypeDistributionPercentages);
 		},
 
-		_dist : { 										// ! superceded
+		_dist : { 										
 
-			'C': [										// Low Cost
+			//
+			// 	! superceded
+			//	These numbers are distributions for passengers from arrival to boarding
+			//	for the Perth airport.
+			//	Derived from Perth vy Richard Spencer - assumptions.
+			//
+
+			'C': [		// Low Cost
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,1,2,2,3,4,5,6,7,8,9,10,10,9,7,3,3,2,2,2,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,3,4,3,2,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'_C': [										// Full Service - swap if needed
+
+			'_C': [		// Full Service - swap if needed
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,2,3,3,4,5,6,7,8,9,10,10,9,7,3,3,2,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,3,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'D': [										// Assuming same as Full Service C
+
+			'D': [		// Assuming same as Full Service C
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,2,3,3,4,5,6,7,8,9,10,10,9,7,3,3,2,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,4,3,1,1,1,1,6,45,26,2,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,40,40,2,0,0]
 			],
-			'E': [  									// Full service
+
+			'E': [  	// Full service
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,20,25,30,15,2,0,0]
 			],
-			'_E': [ 									// Low Cost - swap if needed
+
+			'_E': [ 	// Low Cost - swap if needed
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,25,25,25,15,2,0,0]
 			],
-			'F': [ 										// same as E
+
+			'F': [ 		// same as E
 					[6,4,4,6,9,12,12,12,10,7,4,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,1,2,3,4,5,6,6,7,7,8,9,10,9,7,5,3,1,1,1,1,1,1,2,0,0,0,0,0,0,0,0,0],
 					[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,3,3,3,4,4,4,35,25,8,2,1,0,0,0],
@@ -72,19 +84,46 @@ var AVIATION = (function (aviation) {
 
 		_data : {
 
-			'globals' : { 								// minutes
+			'designGrouBoardingDistribution' : { 
+
+				//
+				//	These numbers are start and end times for boarding call
+				//	Derived from Perth vy Richard Spencer - assumptions.
+				//	17% go straight to gate.
+				//	29 - 50% are at gate prior to boarding.
+				//
+
+				'C' : 					[25,	20,		10],
+				'D' : 					[30,	25,		10],
+				'E' : 					[40,	35,		10],
+				'F' : 					[50,	45,		15],
+			},
+
+			'globals' : {  
+
+				// 
+				//	Global Simulation variables in minutes, Derived from the
+				//	ARCP manual fon airport planning.
+				//
 
 				'arrival' : 			[],
-				'checkIn' : 			[1.0, 5.0],		// (ACRP)
-				'security' : 			[0.3, 0.7], 	// verify this rate 140/hr ~ 0.43 (ACRP)
+				'checkIn' : 			[1.0, 	5.0],	
+				'security' : 			[0.3, 	0.7], 	// verify this rate 140/hr ~ 0.43
 				'concourse' : 			[],
 				'gate': 				[],
 				'boarding': 			[],
-				'departure' : 		[]
+				'departure' : 			[]
 			},
+
 			'walkTimes' : {
 
-				'security' : 			[2.0, 5.0]
+				//
+				//	Intervals for assumed walktimes from one point in the airport to another.
+				// 	These are not being used, and have not been validated or set to 
+				//	match the current scheme.
+				//
+
+				'security' : 			[2.0, 	5.0]
 			}
 		},
 
@@ -115,12 +154,12 @@ var AVIATION = (function (aviation) {
 			//	estimates the arrival probability distribution (Weibull/Poisson?)
 			//
 			//
-			//	checkinCounters can be replaced with a function of capacity (ACRP)
+			//	checkInCounters can be replaced with a function of capacity (ACRP)
 			//
 
 			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
 				passengerSeats = this.flight.seats,
-				checkinCounters = Math.floor(passengerSeats / 100),
+				checkInCounters = Math.ceil(passengerSeats / 100),
 				passengers = [],
 				modulo = 5,
 				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo),
@@ -243,7 +282,7 @@ var AVIATION = (function (aviation) {
 					return val + passenger.attributes.checkInTime;
 				}, 0);
 
-				return sum / checkinCounters > mod;
+				return sum / checkInCounters > mod;
 			})
 
 			//
@@ -264,7 +303,75 @@ var AVIATION = (function (aviation) {
 			});
 			*/
 
-			matrix.shiftRow(1,-1);
+			//matrix.shiftRow(1,-1);
+
+			//
+			//	Assign the passenger  wait time at security to the profile.
+			//	It might be worth looking into how to move this elsewhere?
+			//
+
+			matrix.forEachItem(function(passenger, count, i, c, r) {
+
+				var rounded = aviation.time.minutesToDecimalDay(matrix.m * c);
+							
+				switch (r) {
+
+					case 0 :
+
+						/*
+						var val = (c + (i / count) ) * matrix.m;
+
+						passenger.setEvent('arrival', aviation.time.minutesToDecimalDay(val));
+						*/
+
+						passenger.setEvent('arrival', rounded);
+
+						break;
+
+					case 1 :
+
+						/*
+						var val = (c * matrix.m ) + passenger.attributes.checkInTime,
+							tt = 0;
+
+						//
+						//	Tracking check in times for alll other passengers in this
+						//	time slot / the number of check in counters availablke for this flight.
+						//
+
+						if (passenger.attributes.checkInTime !== 0) {
+							for (var j=0; j<i; j++) {
+								tt+=matrix.d[r][c][j].attributes.checkInTime;
+							}
+						} else {
+							passenger.setEvent('security', passenger.getEvent('arrival').value);
+
+							break;
+						}
+
+						passenger.setEvent('security', aviation.time.minutesToDecimalDay(val + (tt / checkInCounters)));
+						*/
+
+						passenger.setEvent('security', rounded);
+
+						break;
+
+					case 2 :
+
+						/*
+						passenger.setEvent('departure', passenger.flight.getTime());
+						*/
+
+						passenger.setEvent('departure', rounded);
+
+						break;
+
+					default:
+
+						break;
+				};
+				
+			})
 
 			return m.merge(matrix);
 		}

@@ -17,9 +17,11 @@ var AVIATION = (function (aviation) {
 
 			'bags' : [false,true][aviation.math.getRandomBinaryWithProbablity(this.profile._data.bags / 100)],
 
-			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)],
+			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)], //verify
 
 			'isTransfer' : this.profile._name.match(/transfer/) ? true : false,
+
+			'isBusiness' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.1)], // verify
 
 			'passengerID' : aviation.generate.guid(),
 

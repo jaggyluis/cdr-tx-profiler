@@ -64,7 +64,6 @@ var app = app || {};
 			this.saveButtons = Array.prototype.slice.call(document.getElementsByClassName('save-btn'));
 			this.saveButtons.forEach(function(btn) {
 				btn.addEventListener('click', function() {
-					//this.save();
 					var checked = Array.prototype.slice.call(this.parentNode.children)
 						.filter(function(elem) {
 
@@ -151,13 +150,22 @@ var app = app || {};
 		save : function (id, type) {
 						
 			switch (type) {
+
 				case "json":
 					this.downloadJSON(this['_'+id], id);
+
 					break;
+
 				case "csv":
-					var keys = Object.keys(this['_'+id][0])  
+
+					var keys = Object.keys(this['_'+id][0]) 
+
 					this.downloadCSV(AVIATION.JSON.serialize(this['_'+id], keys), id);
+
+					break;
+
 				default :
+
 					break;
 			};
 		},
@@ -205,6 +213,9 @@ var app = app || {};
 			
 			pTable.innerHTML = pHeader;
 			fTable.innerHTML = fHeader;
+
+			this._passengers=[];
+			this._flights = [];
 
 		},
 		clearTables : function() {
@@ -291,9 +302,6 @@ var app = app || {};
 					passenger.getEvent('concourse').value < passenger.getEvent('security').value) {
 					console.error(count, 'broken', passenger);
 					count++
-				}
-				if (passenger.getEvent('departure').value < passenger.getEvent('concourse').value) {
-					//console.warn('missed flight', passenger)
 				}
 
 				this.keys.forEach(function(key) {
