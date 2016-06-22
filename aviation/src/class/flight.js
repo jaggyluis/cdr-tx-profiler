@@ -1,20 +1,12 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Flight = function(flightObj, 
-			destination, 
-			airline, 
-			aircraft, 
-			loadFactor) {
+	aviation.class.Flight = function (flightObj,	destination, airline, aircraft,	loadFactor) {
 		
-		return new Flight(flightObj, 
-			destination, 
-			airline, 
-			aircraft, 
-			loadFactor);
+		return new Flight(flightObj, destination, airline, aircraft, loadFactor);
 	}
 
-	function Flight(flightObj, destination, airline, aircraft, loadFactor) {
+	function Flight (flightObj, destination, airline, aircraft, loadFactor) {
 
 		this.flight = flightObj;
 		this.destination = destination;
@@ -40,15 +32,15 @@ var AVIATION = (function (aviation) {
 	};	
 	Flight.prototype = {
 		
-		getTime : function() {
+		getTime : function () {
 
 			return this.flight.time;
 		},
-		getDI : function() {
+		getDI : function () {
 			
 			return this.flight.di;
 		},
-		getTurnaroundTime : function() {
+		getTurnaroundTime : function () {
 			
 			var tt = 0;
 			var t1 = this.aircraft.IATA;
@@ -91,11 +83,11 @@ var AVIATION = (function (aviation) {
 
 			return aviation.class.Interval(this.getTime()-tt, this.getTime())
 		},
-		getDesignGroup : function() {
+		getDesignGroup : function () {
 
 			return aviation.time.romanToNumber(this.aircraft.ARC.split('-')[1]);
 		},
-		getCategory : function() {
+		getCategory : function () {
 
 			//
 			//	Used to return this.aircraft.RFLW
@@ -103,15 +95,15 @@ var AVIATION = (function (aviation) {
 			
 			return aviation.time.romanToLetter(this.aircraft.ARC.split('-')[1]);
 		},
-		setGate : function(gate) {
+		setGate : function (gate) {
 
 			this.gate = gate;
 		},
-		getGate : function() {
+		getGate : function () {
 
 			return this.gate;
 		},
-		findGate : function() {
+		findGate : function () {
 
 			if (this.ival.getLength() === 0) {
 				this.setGate('*');
@@ -142,14 +134,14 @@ var AVIATION = (function (aviation) {
 				this.getFlightName(), 
 				aviation.time.decimalDayToTime(this.getTime()));
 		},
-		getFlightName : function() {
+		getFlightName : function () {
 
 			return '%airline% to %municipality%, %plane%'
 				.replace('%municipality%', this.destination.municipality)
 				.replace('%airline%', this.airline.name)
 				.replace('%plane%', this.aircraft.manufacturer+' '+this.aircraft.name);
 		},
-		setPassengers : function(passengers) {
+		setPassengers : function (passengers) {
 
 			this.passengers = passengers;
 		},

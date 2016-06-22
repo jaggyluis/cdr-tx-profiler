@@ -6,7 +6,7 @@ var AVIATION = (function (aviation) {
 		return new Matrix3d(numRow, numCol, mod);
 	}
 
-	function Matrix3d(numRow, numCol, mod) {
+	function Matrix3d (numRow, numCol, mod) {
 
 		this.d = [];
 		this.m = mod;
@@ -26,7 +26,7 @@ var AVIATION = (function (aviation) {
 	};
 	Matrix3d.prototype = {
 
-		forEachItem : function(cb) {
+		forEachItem : function (cb) {
 
 			for (var r=0; r<this.d.length; r++) {
 				for (var c=0; c<this.c; c++) {
@@ -36,44 +36,44 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		setItem : function(item, r, c, i) {
+		setItem : function (item, r, c, i) {
 
 			this.d[r][c][i] = item;
 		},
-		getItem : function(r, c, i) {
+		getItem : function (r, c, i) {
 
 			return this.d[r][c][i] || null;
 		},
-		pushItem : function(item, r, c) {
+		pushItem : function (item, r, c) {
 
 			if ( r === -1 || undefined ) r = this.d.length-1;
 			if ( c === -1 || undefined ) c = this.d[r].length-1;
 			this.d[r][c].push(item);
 		},
-		unShiftItem : function(item, r, c) {
+		unShiftItem : function (item, r, c) {
 
 			if ( r === -1 || undefined ) r = this.d.length-1;
 			if ( c === -1 || undefined ) c = this.d[r].length-1;
 			this.d[r][c].unshift(item);
 		},
-		getCol : function(r, c) {
+		getCol : function (r, c) {
 
 			return this.d[r][c] || null;
 		},
-		getRow : function(r) {
+		getRow : function (r) {
 
 			if (r === -1) r = this.d.length-1;
 
 			return this.d[r] || null;
 		},
-		getRowItemCount(r) {
+		getRowItemCount : function(r) {
 
 			return this.d[r].reduce(function(a,b) {
 
 				return a + b.length;
 			},0);
 		},
-		getRowBlank : function() {
+		getRowBlank : function () {
 
 			var row = [];
 
@@ -83,7 +83,7 @@ var AVIATION = (function (aviation) {
 
 			return row;
 		},
-		copyRow : function(f, t, insert) {
+		copyRow : function (f, t, insert) {
 
 			if (insert === true) {
 				this.insertRow(t, this.d[f]);
@@ -91,7 +91,7 @@ var AVIATION = (function (aviation) {
 				this.d[t] = this.d[f].slice();
 			}
 		},
-		shiftRow : function(r, shift) {
+		shiftRow : function (r, shift) {
 
 			if (shift > 0) {
 				for (var i=0; i<shift; i++) {
@@ -109,17 +109,17 @@ var AVIATION = (function (aviation) {
 
 			this.d[r].sort(cb);
 		},
-		sortRowCols : function(r, cb) {
+		sortRowCols : function (r, cb) {
 
 			for (var c=0; c<this.d[r].length; c++) {
 				this.sortRowCol(r, c, cb);
 			}
 		},
-		sortRowCol : function(r, c, cb) {
+		sortRowCol : function (r, c, cb) {
 
 			this.d[r][c].sort(cb);
 		},
-		copyRowApply : function(f, t, insert, cb) {
+		copyRowApply : function (f, t, insert, cb) {
 
 			var row = this.getRowBlank();
 
@@ -143,17 +143,17 @@ var AVIATION = (function (aviation) {
 			}
 
 		},
-		insertRowBlank : function(t) {
+		insertRowBlank : function (t) {
 			
 			this.insertRow(t, this.getRowBlank());
 		},
-		insertRow : function(t, row) {
+		insertRow : function (t, row) {
 
 			this.d.splice(t, 0, row.slice());
 			this._rs.push([]);
 			this.r++;
 		},
-		distributeRowByCount : function(f, t, count) {
+		distributeRowByCount : function (f, t, count) {
 
 			var count = count || Infinity;
 
@@ -179,7 +179,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		distributeRowByCounter : function(f,t, insert, cb) {
+		distributeRowByCounter : function (f,t, insert, cb) {
 
 			this.mergeRows(f,t);
 
@@ -215,7 +215,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		distributeRowByCallBack : function(f, t, insert, cb) {
+		distributeRowByCallBack : function (f, t, insert, cb) {
 			
 			this.mergeRows(f,t);
 
@@ -234,7 +234,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		restore : function() {
+		restore : function () {
 
 			for (var r=0; r<this.r; r++) {
 				this.shiftRow(r, this._rs.reduce(function(a,b) {
@@ -244,7 +244,7 @@ var AVIATION = (function (aviation) {
 				}));
 			}
 		},
-		mergeRows : function(f, t) {
+		mergeRows : function (f, t) {
 
 			for (var c=0; c<this.c; c++) {
 
@@ -257,7 +257,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		merge : function(other) {
+		merge : function (other) {
 
 			this.m = this.m ? this.m : other.m ? other.m : this.m;
 			this.r = this.r ? this.r : other.r ? other.r : this.r;

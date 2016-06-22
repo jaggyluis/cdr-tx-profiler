@@ -1,35 +1,36 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Pax = function(flightClass, flight) {
+	aviation.class.Pax = function(flightClass, flight, timeSlice) {
 		
-		return new Pax(flightClass, flight);
+		return new Pax(flightClass, flight, timeSlice);
 	}
 
-	function Pax(flightClass, flight) {
+	function Pax(flightClass, flight, timeSlice) {
 
 		this.flight = flight;
 		this.flightClass = flightClass;
+		this.timeSlice = timeSlice;
 	}
 	Pax.prototype = {
 
-		get type() {
+		get type () {
 
 			return this.flightClass.type;
 		},
-		get data() {
+		get data () {
 
 			return this._data;
 		},
-		get profile() {
+		get profile () {
 
 			return this._dist[this.flightClass._name];
 		},
-		get passengerTypeDistributionPercentages() {
+		get passengerTypeDistributionPercentages () {
 
 			return this.flightClass._getPerc()[this.flight.getDI()];
 		},
-		get passengerTypeDistributionArray() {
+		get passengerTypeDistributionArray () {
 
 			return this.flightClass._getPercArray(this.passengerTypeDistributionPercentages);
 		},
@@ -135,7 +136,7 @@ var AVIATION = (function (aviation) {
 			}
 		},
 
-		getTimeActual : function(minutes) {
+		getTimeActual : function (minutes) {
 
 			//
 			//	Returns the decimal day time for
@@ -150,7 +151,7 @@ var AVIATION = (function (aviation) {
 				1 + departureTime - arrivalTime;
 
 		},
-		getFlowDistributionMatrix : function(m) {
+		getFlowDistributionMatrix : function (m) {
 
 			//
 			//	Needs to be replaced with a fit function and statistical model that
@@ -159,14 +160,14 @@ var AVIATION = (function (aviation) {
 			//
 			//	checkInCounters can be replaced with a function of capacity (ACRP)
 			//
+			var self = this;
 
-			var passengerPercentagesTotal = this.passengerTypeDistributionPercentages,
-				passengerSeats = this.flight.seats,
-				checkInCounters = Math.ceil(passengerSeats / 100),
+			var passengerPercentagesTotal = self.passengerTypeDistributionPercentages,
+				passengerSeats = self.flight.seats,
+				checkInCounters = Math.ceil(passengerSeats / 100) + 1,
 				passengers = [],
-				modulo = 5,
-				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo),
-				self = this;
+				matrix = aviation.class.Matrix3d(3, 1440 / self.timeSlice, self.timeSlice);
+				
 
 			//
 			//	Weibull shape parameters for gate and boarding probability
@@ -198,10 +199,10 @@ var AVIATION = (function (aviation) {
 						arrivalTimeActual = self.getTimeActual(arrivalTime),
 						arrivalTimeRounded = aviation.math.floor(
 							aviation.time.decimalDayToMinutes(arrivalTimeActual), 
-							modulo),
+							self.timeSlice),
 						departureTimeRounded = aviation.math.floor(
 							aviation.time.decimalDayToMinutes(self.flight.getTime()),
-							modulo);
+							self.timeSlice);
 
 					arrivalTimePercentageMapped = arrivalTimePercentageMapped > 0 && arrivalTimePercentageMapped < 1 ?
 						aviation.math.getRandomBinaryWithProbablity(arrivalTimePercentageMapped) : 
@@ -238,10 +239,10 @@ var AVIATION = (function (aviation) {
 							passenger.setEvent('security', arrivalTimeActual);
 							passenger.setEvent('concourse', arrivalTimeActual);
 						} else {
-							matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
+							matrix.pushItem(passenger, 0, arrivalTimeRounded / self.timeSlice);
 						}
 
-						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
+						matrix.pushItem(passenger, -1, departureTimeRounded / self.timeSlice);
 					}
 				});
 			});
@@ -275,7 +276,7 @@ var AVIATION = (function (aviation) {
 			});
 
 			//
-			//	Assign passenger check in queing times
+			//	Assign passenger check in queuing times
 			//	Uses the callback method to pop off the end of the list if the sum of all
 			//	passenger times is over the given timeslot.
 			//
@@ -310,9 +311,9 @@ var AVIATION = (function (aviation) {
 			matrix.copyRowApply(1, 2, true, function(passenger, matrix, count, index, column) {
 
 				var walkTimeToSecurity = aviation.math.getRandomArbitrary(self.data.walkTimes.security),
-					indexTimeSlot = modulo * (index / count),
-					deltaTimeSlot = aviation.math.round(walkTimeToSecurity + indexTimeSlot, modulo),
-					deltaTimeSlotMapped = deltaTimeSlot / modulo;
+					indexTimeSlot = self.timeSlice * (index / count),
+					deltaTimeSlot = aviation.math.round(walkTimeToSecurity + indexTimeSlot, self.timeSlice),
+					deltaTimeSlotMapped = deltaTimeSlot / self.timeSlice;
 
 				return column + deltaTimeSlotMapped;
 			});

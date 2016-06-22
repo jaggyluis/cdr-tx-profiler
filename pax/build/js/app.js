@@ -7,6 +7,7 @@ var app = app || {};
 		this._view = new this.View();
 		this._view.init();
 		this._gates = gatelayout;
+		this._timeSlice = 5;
 	}
 	app.compute = function() {
 
@@ -17,7 +18,7 @@ var app = app || {};
 				.concat(p14)
 				.concat(p15));
 
-		profileBuilder.run(terminalFilter, (function() {
+		profileBuilder.run(terminalFilter, this._timeSlice, (function() {
 
 			this._profiles = profileBuilder.getProfiles();
 			this._types = profileBuilder.getTypes();
@@ -41,7 +42,8 @@ var app = app || {};
 			this._types,
 			this._view.getLoadFactor(), 
 			this._view.getFlightFilter(), 
-			this._view.getTimeFrame());
+			this._view.getTimeFrame(),
+			this._timeSlice);
 
 		this._view.passengers = AVIATION.get.passengers(this._view.getPassengerFilter());
 		this._view.flights = AVIATION.get.flights();

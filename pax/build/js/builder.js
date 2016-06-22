@@ -2,7 +2,7 @@ var app = app || {};
 
 (function() {
 
-	app.FlightBuilder = function(designDay, filter) {
+	app.FlightBuilder = function (designDay, filter) {
 
 
 		this.designDay = designDay;
@@ -12,7 +12,7 @@ var app = app || {};
 	}
 	app.FlightBuilder.prototype = {
 
-		filterFlightsByTerminal : function(flights, terminal) {
+		filterFlightsByTerminal : function (flights, terminal) {
 
 			if (terminal.toLowerCase().match(/int/)) terminal = 4
 
@@ -47,14 +47,20 @@ var app = app || {};
 				}
 			});
 		},
-		filterFlightsByDeparture : function(flights){
+		filterFlightsByDeparture : function (flights){
+
 			return flights.filter(function(flight) {
+
 				return flight['DEP'] === 1;
+
 			});
 		},
 		formatFlights : function (flights)  {
+
 			return flights.map((function(flight) {
+
 				return this.formatFlight(flight);
+
 			}).bind(this));
 		},
 		formatFlight : function (flight) {
@@ -71,18 +77,21 @@ var app = app || {};
 			}
 		},
 		getFlights : function() {
+
 			return this.flights;
 		}
 	}
 
-	app.ProfileBuilder = function(passengers) {
+	app.ProfileBuilder = function (passengers) {
 
-		function makeFitFn(pts, order) {
+		function makeFitFn (pts, order) {
 			  
 			var xArr = pts.map(function(pt) {
+
 			    return pt.x;
 			})
 			var yArr = pts.map(function(pt) {
+
 			    return pt.y;
 			})
 			var xMatrix = [];
@@ -104,24 +113,30 @@ var app = app || {};
 			var solution = numeric.dot(dotInv,dot2);
 
 			var fn = function(x) {
+
 			    var y = 0;
+
 			    for (var i=0; i<solution.length; i++) {
 			      y+= solution[i] * Math.pow(x, i);
 			    }
+
 			    return y > 0 ? y : 0;
 			    
 			}
+
 			return fn;
 		}
 
 		var func = makeFitFn(propensities.map(function(p) {
+
 			return {
 				x : p.buy,
 				y : p.browse
 			}
+
 		}), 1);
 
-		function TypeClass(name, pArr, length, trace) {
+		function TypeClass (name, pArr, length, trace) {
 
 			var type = this._getPassengersByType(pArr);
 			var dt = this._getPassengersByDT(pArr);
@@ -132,20 +147,26 @@ var app = app || {};
 			this._pax = pArr;
 
 			if (!trace.includes('type')) {
+
 				var ty = trace.slice();
+
 				ty.push('type');
 				this.business = new TypeClass(this._name+'.'+'business', type.business, length, ty);
 				this.leisure = new TypeClass(this._name+'.'+'leisure', type.leisure, length, ty);
 				this.other = new TypeClass(this._name+'.'+'other', type.other, length, ty);
 			}
 			if (!trace.includes('di')) {
+
 				var ti = trace.slice();
+
 				ti.push('di');
 				this.domestic = new TypeClass(this._name+'.'+'domestic', di.domestic, length, ti);
 				this.international = new TypeClass(this._name+'.'+'international', di.international, length, ti);
 			}
 			if (!trace.includes('dt')) {
+
 				var tt = trace.slice();
+
 				tt.push('dt');
 				this.departing = new TypeClass(this._name+'.'+'departing', dt.departing, length, tt);
 				this.transfer = new TypeClass(this._name+'.'+'transfer', dt.transfer, length, tt);
@@ -155,21 +176,23 @@ var app = app || {};
 		};
 		TypeClass.prototype = {
 
-			_getPaxProfile : function() {
+			_getPaxProfile : function (timeSlice) {
 
 				var pax = this._getPaxData(this._pax, lexicon),
 					data = this._data;
 					dist = {};
 
 				for (var t in pax) {
-					dist[t] = this._getArrivalDistribution(pax[t], 5);
+					dist[t] = this._getArrivalDistribution(pax[t], timeSlice);
 				}
+
 				return {
 					_name: this._name,
 					pax : pax,
 					data : data,
 					dist : dist
 				};
+
 			},
 			_getArrivalDistribution : function (pArr, mod) {
 
@@ -207,16 +230,19 @@ var app = app || {};
 
 				return dist;
 			},
-			_getTypes() {
+			_getTypes () {
+
 				var types = [];
+
 				for (var type in this) {
 					if (!type.match(/_/)){
 						types.push(type);
 					} 
 				};
+
 				return types;
 			},
-			_uniq : function() {
+			_uniq : function () {
 
 				function _permutator(inputArr) {
 					/*
@@ -226,8 +252,11 @@ var app = app || {};
 					 *
 					 */
 				    var results = [];
+
 				    function permute(arr, memo) {
+
 				    	var cur, memo = memo || [];
+
 				    	for (var i = 0; i < arr.length; i++) {
 				      		cur = arr.splice(i, 1);
 				      		if (arr.length === 0) {
@@ -246,11 +275,15 @@ var app = app || {};
 					self = this;
 
 				this._getTypes().forEach(function(type) {
+
 					var u = self[type]._uniq();
+
 					perm+=' '+u[1];
 					u[0].forEach(function(uArr) {
+
 						var l = [type].concat(uArr),
 							t = l.join('.');
+
 						if (!perm.match(t)) {
 							uniq.push(l);
 							perm+=' '+_permutator(l);
@@ -258,25 +291,34 @@ var app = app || {};
 					})
 				})
 				if (uniq.length) {
+
 					return [uniq, perm];
+
 				} else {
+
 					return [[[]], ''];
 				}
 			},
 			_filterTypes : function() {
+
 				var u = this._uniq(),
 					types = {};
+
 				for(var type in u[0]){
+
 					var keys = u[0][type].slice(),
 						curr = this; 
+
 					for (var i=0; i<keys.length; i++){
 						curr = curr[keys[i]];
 					}
 					types[curr._name] = curr;
 				}
+
 				return types;
 			},
 			_getPassengersByDI : function (pArr) {
+
 				var filtered = {
 					domestic : [],
 					international : [],
@@ -284,23 +326,33 @@ var app = app || {};
 				pArr.forEach(function(p) {
 
 					switch (p['DESTGEO'] >= 4) {
+
 						case false:
+
 							filtered.domestic.push(p);
+
 							break;
+
 						case true :
+
 							filtered.international.push(p);
+
 							break;
+
 						default:
+
 							break;
 					}
 				});
 				return filtered;
 			},
 			_getPassengersByDT : function (pArr) {
+
 				var filtered = {
 					departing : [],
 					transfer : []
 				}
+
 				pArr.forEach(function(p) {
 
 					for (var i=1; i<=6; i++) {
@@ -310,33 +362,46 @@ var app = app || {};
 
 						if (dt === 3 || arrTime === 'N') {
 							filtered.transfer.push(p);
+
 							return;
 						}
 					}
 					filtered.departing.push(p);
+
 					return;
 				});
+
 				return filtered;
 			},
 			_getPassengersByType : function (pArr) {
+
 				var filtered = {
 					leisure : [],
 					business : [],
 					other : []
 				};
+
 				pArr.forEach(function(p) {
 					for (var i=1; i<=3; i++) {
 
 						var type = p['Q2PURP'+i.toString()]
 
 						switch ( type ) {
+
 							case 1 :
+
 								filtered.business.push(p);
+
 								return;
+
 							case 2 || 3 || 4 || 5 || 6: 
+
 								filtered.leisure.push(p);
+
 								return;
+
 							default :
+
 								break;
 						}
 					}
@@ -357,7 +422,9 @@ var app = app || {};
 					food : 0,
 				};
 				pArr.forEach(function(p) {
+
 					var weight = p.WEIGHT && weighted ? p.WEIGHT : 1;
+
 					count++;
 					if(p.Q4BAGS === 1) filtered.bags+=weight;
 					if(p.Q4STORE === 1) filtered.shop+=weight;
@@ -366,7 +433,9 @@ var app = app || {};
 				return Object.keys(filtered).reduce(function(a,b) {
 					if ('br'+b.toString() in filtered) a['br'+b.toString()] = Math.round(func(filtered[b]/count)*100);
 					a[b] = Math.round((filtered[b]/count)*100);
+
 					return a;
+
 				},{
 					count:count, 
 					weighted:weighted, 
@@ -381,8 +450,11 @@ var app = app || {};
 				//console.log('total passengers: ', passengers.length);
 
 				var destinations = AVIATION.array.mapElementsToObjByKey(passengers, 'DEST');
+
 				Object.keys(destinations).map(function(dest) {
+
 					var aLib = AVIATION.array.mapElementsToObjByKey(destinations[dest], 'AIRLINE');
+
 					for (var airline in aLib) {
 						flights.push({
 							passengers : aLib[airline],
@@ -395,6 +467,7 @@ var app = app || {};
 				})
 				//console.log('total flight types: ', flights.length)
 				var sorted = flights.sort(function(a,b) {
+
 					return b.passengers.length - a.passengers.length
 				});
 				sorted.forEach((function(f) {
@@ -405,21 +478,29 @@ var app = app || {};
 					if (airport !== undefined && airline !== undefined) {
 
 						var matchedFlights = designDay.filter(function(flight) {
+
 							return flight.OPERATOR == airline.IATA && 
 								flight["DEST."] == airport.IATA
+
 						});
 						if (matchedFlights.length !== 0) {
 							//console.log(airport.IATA, airline.IATA);
 							//console.log(matchedFlights);
 							var types = matchedFlights.map(function(m) {
+
 								try {
+
 									return AVIATION.get.aircraftByCode(m.AIRCRAFT).RFLW;
+
 								} catch (e) {
+
 									//console.warn('not in library: ', m.AIRCRAFT)
 									return '_';
 								}
 							});
+
 							var type = AVIATION.array.mode(types);
+
 							if (type in typeData) {
 								f.passengers.forEach(function(p) {
 									typeData[type].push(p);
@@ -440,6 +521,7 @@ var app = app || {};
 
 
 		function FlightClass (name, types) {
+
 			this._name = name;
 			this._types = types;
 			this._di = this._getDIDist();
@@ -447,10 +529,12 @@ var app = app || {};
 		FlightClass.prototype = {
 
 			_getDIDist : function() {
+
 				var dist = {
 					domestic : {},
 					international : {}
 				};
+
 				for (var type in this._types) {
 					if (type.split('.').includes('domestic')) {
 						dist.domestic[type] = this._types[type];
@@ -458,21 +542,29 @@ var app = app || {};
 						dist.international[type] = this._types[type];
 					}
 				}
+
 				return dist;
 			},
 			_getPercArray : function (dist) {
+
 				var arr = [];
+
 				for (var d in dist) {
 					for (var i=0; i<dist[d].percentage; i++) {
 						arr.push(d);
 					}
 				}
+
 				return arr;
 			},
 			_getPerc : function() {
+
 				var perc = {};
+
 				for (var d in this._di) {
+
 					var count = 0
+
 					perc[d] = {}
 					for (var t in this._di[d]) {
 						perc[d][t] = this._di[d][t].pax.length
@@ -494,7 +586,7 @@ var app = app || {};
 		this.flights = [];
 		this.types = [];
 		this.typeClass = null;
-		this.run = function (filter, cb) {
+		this.run = function (filter, timeSlice, cb) {
 
 			function filterKey(key) {
 
@@ -504,6 +596,7 @@ var app = app || {};
 
 						// 32 gates
 						return function(p) {
+
 							return p.BAREA == 'B' || (p.GATE >= 20 && p.GATE <= 39) ||
 							p.BAREA == 'C' || (p.GATE >= 40 && p.GATE <= 48);
 						}
@@ -512,6 +605,7 @@ var app = app || {};
 
 						// 14 gates
 						return function(p) {
+
 							return p.BAREA == 'D' || (p.GATE >= 50 && p.GATE <= 59);
 						}
 
@@ -519,6 +613,7 @@ var app = app || {};
 
 						// 36 gates
 						return function(p) {
+
 							return p.BAREA == 'E' || (p.GATE >= 60 && p.GATE <= 69) ||
 							p.BAREA == 'F' || (p.GATE >= 70 && p.GATE <= 90);
 						}
@@ -527,6 +622,7 @@ var app = app || {};
 
 						// 28 gates
 						return function(p) {
+
 							return p.BAREA == 'A' || (p.GATE >= 1 && p.GATE <= 12) ||
 								p.BAREA == 'G' || (p.GATE >= 91 && p.GATE <= 102);
 						}
@@ -534,6 +630,7 @@ var app = app || {};
 					default :
 
 						return function(p) {
+
 							return true;
 						}
 				}
@@ -551,7 +648,7 @@ var app = app || {};
 			for (var type in this.typeClass._types) {
 
 				var obj = this.typeClass._types[type];
-				var profile = obj._getPaxProfile();
+				var profile = obj._getPaxProfile(timeSlice);
 
 				this.types.push(obj);
 
@@ -566,6 +663,7 @@ var app = app || {};
 			for (var flightType in this.flightProfiles) {
 	    		this.flights.push(new FlightClass(flightType, this.flightProfiles[flightType]));
 			}
+
 			return cb();
 		};
 		this.getProfiles = function () {

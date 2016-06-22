@@ -6,7 +6,7 @@ var AVIATION = (function (aviation) {
 		return new Gate(name, isMARS);
 	}
 	
-	function Gate(name, isMARS) {
+	function Gate (name, isMARS) {
 
 		this.name = name;
 		this.isMARS = isMARS;
@@ -27,11 +27,11 @@ var AVIATION = (function (aviation) {
 	};
 	Gate.prototype = {
 
-		setArea : function(key, val) {
+		setArea : function (key, val) {
 
 			this.sf[key] = val;
 		},
-		getArea : function(key){
+		getArea : function (key){
 
 			if (key === undefined ) {
 				return Object.keys(this.sf).map((function(a) {
@@ -41,10 +41,12 @@ var AVIATION = (function (aviation) {
 				}).bind(this)).reduce(function(a,b) {
 
 					return a+b;
+
 				})
 			} else if (Object.keys(this.sf).includes(key)) {
 
 				return this.sf[key];
+
 			} else {
 
 				return 0;
@@ -55,11 +57,11 @@ var AVIATION = (function (aviation) {
 			this.seats = val;
 		},
 
-		getSeats : function(val) {
+		getSeats : function (val) {
 
 			return this.seats;
 		},
-		setDesignGroup : function(group, mars) {
+		setDesignGroup : function (group, mars) {
 
 			if (mars && this.isMARS) {
 				this.group.mars = group;
@@ -67,11 +69,12 @@ var AVIATION = (function (aviation) {
 				this.group.default = group;
 			}
 		},
-		getDesignGroup : function(mars) {
+		getDesignGroup : function (mars) {
 
 			if (mars && this.isMARS) {
 
 				return this.group.mars;
+				
 			} else {
 
 				return this.group.default;
@@ -91,7 +94,7 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		getFlights : function(sub) {
+		getFlights : function (sub) {
 
 			if (sub && this.isMARS) {
 
@@ -117,7 +120,7 @@ var AVIATION = (function (aviation) {
 				return uniq;
 			}
 		},
-		fit : function(flight, cb) {
+		fit : function (flight, cb) {
 
 			var data = {
 				response : null,
@@ -130,6 +133,7 @@ var AVIATION = (function (aviation) {
 						if (this.tap(flight, this.getFlights(sub))) {
 							data.response = true;
 							data.gate = sub;
+
 							break;
 						}
 					}
@@ -142,7 +146,7 @@ var AVIATION = (function (aviation) {
 			}
 			return cb(data, flight);
 		},
-		tap : function(flight, fArr) {
+		tap : function (flight, fArr) {
 
 			return !fArr.some((function(f) {
 

@@ -47,7 +47,7 @@ X apply arrival times
 
 - terminal filter is broken
 - passenger profiles should iclude pre 9am arrival distribution
-- assign global variable to determine distribution modelo
+X assign global variable to determine distribution modulo
 
 X modify passenger distribution times
 

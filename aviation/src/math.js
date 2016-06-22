@@ -19,6 +19,7 @@ var AVIATION = (function (aviation) {
 			} else {
 
 				var ret = (((num - fIval.min) * tIval.getRange()) / fIval.getRange()) + tIval.min;
+				
 				if (bounded) {
 
 					return ret > tIval.max ? 

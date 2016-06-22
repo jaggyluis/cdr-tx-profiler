@@ -14,7 +14,7 @@ var AVIATION = (function (aviation) {
 		//	along with the profileBuilder
 		//
 
-		passengers : function(filter) {
+		passengers : function (filter) {
 
 			var passengers = [];
 
@@ -63,7 +63,7 @@ var AVIATION = (function (aviation) {
 
 			return aviation.array.getBestMatch(airports, str);
 		},
-		profileByAircraftType : function(type) {
+		profileByAircraftType : function (type) {
 
 			return aviation._flightProfiles.find(function(p) {
 
@@ -80,12 +80,13 @@ var AVIATION = (function (aviation) {
 	aviation.set = function(gateSchemeObjArr,
 					designDayFlightObjArr, 
 					flightProfiles, 
-					passengerProfiles, 
+					passengerProfiles,
 					loadFactor, 
 					filter, 
-					timeFrame) {
+					timeFrame,
+					timeSlice) {
 
-		function setGates(gateSchemeObjArr) {
+		function setGates (gateSchemeObjArr) {
 
 			var gates = [];
 
@@ -106,13 +107,13 @@ var AVIATION = (function (aviation) {
 			return gates;
 		};
 
-		function setFlights(designDayFlightObjArr, loadFactor, filter, timeFrame) {
+		function setFlights (designDayFlightObjArr, loadFactor, filter, timeFrame) {
 
 			var flights = [],
 				sorted = [],
 				filtered = [],
-				securityCounters = [10, 10], 
-				matrix = aviation.class.Matrix3d();
+				securityCounters = [10, 16], 
+				matrix = aviation.class.Matrix3d(undefined,undefined,timeSlice);
 
 			designDayFlightObjArr.forEach(function(flightObj, index) {
 
@@ -163,7 +164,7 @@ var AVIATION = (function (aviation) {
 
 			sorted.forEach(function(flight) {
 
-				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight);
+				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight, timeSlice);
 
 				flight.findGate();
 				matrix = pax.getFlowDistributionMatrix(matrix);				
@@ -228,18 +229,19 @@ var AVIATION = (function (aviation) {
 					flightTime = aviation.time.decimalDayToMinutes(passenger.flight.getTime());
 
 				//
-				//	This is the gate parameters - 
+				//	These are the gate parameters - 
 				//	scaleParam : the time in minutes from the 5 minutes to boading call,
 				//		set so that the median passenger show up is more or less 50 %
 				//		around that time, with a skew to later
+				// 	shapeParam : skew the function towards 0
 				//	Is is represented as a function of the middle of the boarding timeline,
 				//	so that there is some overlap between arrival and boarding.
 				//
 
 				var scaleParam = (gateInfo[0] - gateInfo[2]) - ((gateInfo[1] - gateInfo[2]) / 2),
 					shapeParam = 1.5,
-					randomWeibull = aviation.math.getRandomWeibull(scaleParam, shapeParam);
-					delta = (randomWeibull + ((gateInfo[1] - gateInfo[2]) / 2) + gateInfo[2]);
+					weibull = aviation.math.getRandomWeibull(scaleParam, shapeParam);
+					delta = (weibull + ((gateInfo[1] - gateInfo[2]) / 2) + gateInfo[2]);
 
 				var	gateTime = aviation.math.round(flightTime - delta, matrix.m) / matrix.m;
 
@@ -259,7 +261,24 @@ var AVIATION = (function (aviation) {
 
 			matrix.copyRowApply(3, 4, true, function(passenger, matrix, count, i, c, r) {
 
-				return c + 1;
+				var gateInfo = passenger.attributes.gateInfo, 
+					gateTime = matrix.m * c,
+					flightTime = aviation.time.decimalDayToMinutes(passenger.flight.getTime()),
+					deltaFlightTime = flightTime - gateTime;
+
+				var boardingStart = gateInfo[1] < deltaFlightTime ? gateInfo[1] : deltaFlightTime,
+					boardingEnd = gateInfo[2],
+					boardingTime = boardingStart - boardingEnd;
+
+				var scaleParam = boardingTime / 2,
+					shapeParam = 2,
+					weibull = aviation.math.getRandomWeibull(scaleParam, shapeParam),
+					deltaBoarding = weibull + boardingEnd;
+
+				var boardingMapped = aviation.math.round(flightTime - deltaBoarding, matrix.m) / matrix.m,
+					boardingStartMapped = aviation.math.round(flightTime - boardingStart, matrix.m) / matrix.m;
+
+				return passenger.attributes.isBusiness ? boardingStartMapped : boardingMapped ;
 			})
 
 			//

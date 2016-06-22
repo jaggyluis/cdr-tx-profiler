@@ -6,7 +6,7 @@ var AVIATION = (function (aviation) {
 		return new Interval(start, end);
 	}
 
-	function Interval(start, end) {
+	function Interval (start, end) {
 		
 		this.start = start;
 		this.end = end;
@@ -26,7 +26,7 @@ var AVIATION = (function (aviation) {
 				other.includes(this.start) ||
 				other.includes(this.end);
 		},
-		getLength : function() {
+		getLength : function () {
 
 			return this.end-this.start;
 		},
@@ -38,7 +38,7 @@ var AVIATION = (function (aviation) {
 
 			return num >= this.start && num <= this.end;
 		},
-		padded : function(val1, val2) {
+		padded : function (val1, val2) {
 
 			if(val1 && val2) {
 

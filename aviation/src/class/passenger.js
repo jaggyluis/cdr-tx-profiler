@@ -6,7 +6,7 @@ var AVIATION = (function (aviation) {
 		return new Passenger(flight, passengerProfile);
 	}
 
-	function Passenger(flight, passengerProfile) {
+	function Passenger (flight, passengerProfile) {
 
 		this.flight = flight;
 		this.profile = passengerProfile;
