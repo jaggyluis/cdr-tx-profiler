@@ -13,7 +13,13 @@ var AVIATION = (function (aviation) {
 	};
 	Interval.prototype = {
 
-		intersects : function(other) {
+		get min () {
+			return this.start < this.end ? this.start : this.end;
+		},
+		get max () {
+			return this.start > this.end ? this.start : this.end;
+		},
+		intersects : function (other) {
 
 			return this.includes(other.start) ||
 				this.includes(other.end) ||
@@ -24,11 +30,11 @@ var AVIATION = (function (aviation) {
 
 			return this.end-this.start;
 		},
-		contains : function(other) {
+		contains : function (other) {
 
 			return this.includes(other.start) && this.includes(other.end);
 		},
-		includes : function(num) {
+		includes : function (num) {
 
 			return num >= this.start && num <= this.end;
 		},
@@ -44,7 +50,7 @@ var AVIATION = (function (aviation) {
 			}
 		}
 	};
-	Interval.interpolateRandom = function(start, end) {
+	Interval.interpolateRandom = function (start, end) {
 
 		return Math.floor(Math.random() * (end - start + 1)) + start;
 	}

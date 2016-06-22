@@ -22,7 +22,7 @@ var AVIATION = (function (aviation) {
 		this.aircraft = aircraft;
 		this.ival = this.getTurnaroundTime();
 		this.loadFactor = loadFactor;
-		this.id = aviation.generate.guid();
+		this.id = aviation.string.generateUUID();
 		this.gate = null;
 		this.seats = this.flight.seats !== undefined ?
 			this.flight.seats*this.loadFactor :

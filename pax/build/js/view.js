@@ -160,7 +160,7 @@ var app = app || {};
 
 					var keys = Object.keys(this['_'+id][0]) 
 
-					this.downloadCSV(AVIATION.JSON.serialize(this['_'+id], keys), id);
+					this.downloadCSV(AVIATION.string.serializeJSON(this['_'+id], keys), id);
 
 					break;
 

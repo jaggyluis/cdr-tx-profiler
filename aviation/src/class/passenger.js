@@ -23,7 +23,9 @@ var AVIATION = (function (aviation) {
 
 			'isBusiness' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.1)], // verify
 
-			'passengerID' : aviation.generate.guid(),
+			'isGateHog' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.17)], // verify
+
+			'passengerID' : aviation.string.generateUUID(),
 
 			'passengerType' : this.profile._name,
 
@@ -60,36 +62,36 @@ var AVIATION = (function (aviation) {
 	};
 	Passenger.prototype = {
 
-		get attributes() {
+		get attributes () {
 
 			return this._attributes;
 		},
-		setAttribute : function(name, value) {
+		setAttribute : function (name, value) {
 
 			this._attributes[name] = value;
 		},
-		get events() {
+		get events () {
 
 			return this._events;
 		},
-		getEvent : function(name) {
+		getEvent : function (name) {
 
 			return this.events.find(function(event) {
 
 				return event.name === name;
 			});
 		},
-		setEvent : function(name, value) {
+		setEvent : function (name, value) {
 
 			this.getEvent(name).value = value;
 
 		},
-		getTotalTimeInAirport : function() {
+		getTotalTimeInAirport : function () {
 
 			return aviation.class.Interval(this.getEvent('arrival'), 
 				this.getEvent('departure'));
 		},
-		getActivityAtTime : function(dday) {
+		getActivityAtTime : function (dday) {
 
 			for (var i=0, events=this.events; i<events.length; i++) {
 				if (events[i].value < dday && events[i+1].value > dday){

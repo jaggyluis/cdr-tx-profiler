@@ -17,6 +17,10 @@ var AVIATION = (function (aviation) {
 
 			return this.flightClass.type;
 		},
+		get data() {
+
+			return this._data;
+		},
 		get profile() {
 
 			return this._dist[this.flightClass._name];
@@ -34,9 +38,8 @@ var AVIATION = (function (aviation) {
 
 			//
 			// 	! superceded
-			//	These numbers are distributions for passengers from arrival to boarding
-			//	for the Perth airport.
-			//	Derived from Perth vy Richard Spencer - assumptions.
+			//	Distributions for passengers from arrival to boarding for the Perth airport.
+			//	Derived from Perth by Richard Spencer - assumptions.
 			//
 
 			'C': [		// Low Cost
@@ -84,12 +87,18 @@ var AVIATION = (function (aviation) {
 
 		_data : {
 
-			'designGrouBoardingDistribution' : { 
+			'globals' : {
+				
+				//
+				//	global variables for Pax object
+				//
+			},
+
+			'designGroupBoardingDistribution' : { 
 
 				//
-				//	These numbers are start and end times for boarding call
-				//	Derived from Perth vy Richard Spencer - assumptions.
-				//	17% go straight to gate.
+				//	Start and end times for boarding call
+				//	Derived from Perth by Richard Spencer - assumptions.
 				//	29 - 50% are at gate prior to boarding.
 				//
 
@@ -99,7 +108,7 @@ var AVIATION = (function (aviation) {
 				'F' : 					[50,	45,		15],
 			},
 
-			'globals' : {  
+			'timing' : {  
 
 				// 
 				//	Global Simulation variables in minutes, Derived from the
@@ -119,23 +128,17 @@ var AVIATION = (function (aviation) {
 
 				//
 				//	Intervals for assumed walktimes from one point in the airport to another.
-				// 	These are not being used, and have not been validated or set to 
-				//	match the current scheme.
+				// 	Not being used, and have not been validated or set to match the current scheme.
 				//
 
 				'security' : 			[2.0, 	5.0]
 			}
 		},
 
-		get data() {
-
-			return this._data;
-		},
-
-		getTimeActual(minutes) {
+		getTimeActual : function(minutes) {
 
 			//
-			//	This method returns the decimal day time for
+			//	Returns the decimal day time for
 			//	the current flight object associated with this pax object.
 			//
 
@@ -150,7 +153,7 @@ var AVIATION = (function (aviation) {
 		getFlowDistributionMatrix : function(m) {
 
 			//
-			//	This needs to be replaced with a fit function and statistical model that
+			//	Needs to be replaced with a fit function and statistical model that
 			//	estimates the arrival probability distribution (Weibull/Poisson?)
 			//
 			//
@@ -165,6 +168,16 @@ var AVIATION = (function (aviation) {
 				matrix = aviation.class.Matrix3d(3, 1440 / modulo, modulo),
 				self = this;
 
+			//
+			//	Weibull shape parameters for gate and boarding probability
+			//	distribution.
+			//
+
+			var gateTimingInfo = self.data.designGroupBoardingDistribution[self.flight.getCategory()];
+
+			//
+			//	Apply all data to passenger matrix
+			//
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
@@ -205,13 +218,14 @@ var AVIATION = (function (aviation) {
 						var passenger = aviation.class.Passenger(self.flight, passengerProfile),
 							checkInTime = passenger.attributes.isTransfer ?
 								0 : !passenger.attributes.bags ?
-								0 : aviation.math.getRandomArbitrary(self._data.globals.checkIn),
+								0 : aviation.math.getRandomArbitrary(self._data.timing.checkIn),
 							securityTime = passenger.attributes.isTransfer ?
 								0 : passenger.attributes.isPreCheck ?
-								0 : aviation.math.getRandomArbitrary(self._data.globals.security);
+								0 : aviation.math.getRandomArbitrary(self._data.timing.security);
 						
 						passenger.setAttribute('checkInTime', checkInTime);
 						passenger.setAttribute('securityTime', securityTime);
+						passenger.setAttribute('gateInfo', gateTimingInfo);
 						passengers.push(passenger);
 
 						//
@@ -226,6 +240,7 @@ var AVIATION = (function (aviation) {
 						} else {
 							matrix.pushItem(passenger, 0, arrivalTimeRounded / modulo);
 						}
+
 						matrix.pushItem(passenger, -1, departureTimeRounded / modulo);
 					}
 				});
@@ -239,7 +254,7 @@ var AVIATION = (function (aviation) {
 			self.flight.setPassengers(passengers);
 
 			//
-			//	Sort passengers by their checkin time - making sure that the tansfer and 
+			//	Sort passengers by their checkInTime - making sure that the tansfer and 
 			//	bag-less passengers remain at the bottom prior to distribution.
 			//
 
@@ -292,7 +307,7 @@ var AVIATION = (function (aviation) {
 			//	industry standard. It might be worth implementing this with the design scheme.
 			//
 			/*
-			matrix.copyRowApply(1, 2, true, function(passenger, count, index, column) {
+			matrix.copyRowApply(1, 2, true, function(passenger, matrix, count, index, column) {
 
 				var walkTimeToSecurity = aviation.math.getRandomArbitrary(self.data.walkTimes.security),
 					indexTimeSlot = modulo * (index / count),
@@ -307,7 +322,7 @@ var AVIATION = (function (aviation) {
 
 			//
 			//	Assign the passenger  wait time at security to the profile.
-			//	It might be worth looking into how to move this elsewhere?
+			//	look into how to move this elsewhere?
 			//
 
 			matrix.forEachItem(function(passenger, count, i, c, r) {

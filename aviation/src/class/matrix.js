@@ -128,7 +128,7 @@ var AVIATION = (function (aviation) {
 
 					var item = this.d[f][c][i],
 						count = this.d[f][c].length,
-						index = cb(item, count, i, c, f),
+						index = cb(item, this, count, i, c, f),
 						col = index < this.c ? 
 							row[index] : 
 							row[index-this.c];
