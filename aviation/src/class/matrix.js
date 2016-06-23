@@ -157,7 +157,7 @@ var AVIATION = (function (aviation) {
 
 			var count = count || Infinity;
 
-			this.mergeRows(f,t);
+			if (f !== t) this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 				if (this.d[t][c].length > count) {
@@ -179,9 +179,38 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
-		distributeRowByCounter : function (f,t, insert, cb) {
+		distributeRowByIndex : function(f, t, insert, cb) {
 
-			this.mergeRows(f,t);
+			if (f !== t) this.mergeRows(f,t);
+
+			for (var c=0; c<this.c; c++) { 
+
+				var index = cb(this.d[t][c], this, c, t);
+
+				if (index >= this.d[t][c].length) {
+					continue;
+				} else if (index < 0 && -index>this.d[t][c].length) {
+					continue;
+				} else if (index < 0 && -index<this.d[t][c].length) {
+					index = this.d[t][c].length-index;
+				}
+
+				if(this.d[t][c+1] !== undefined) {
+					this.d[t][c+1] = this.d[t][c]
+						.slice(index-1)
+						.concat(this.d[t][c+1]);
+				} else {
+					this.d[t][c+1-this.c] = this.d[t][c]
+						.slice(index-1)
+						.concat(this.d[t][c+1-this.c]);
+				}
+				this.d[t][c] = this.d[t][c]
+					.slice(0,index-1);
+			}
+		},
+		distributeRowByCounter : function (f, t, insert, cb) {
+
+			if (f !== t) this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 
@@ -196,18 +225,19 @@ var AVIATION = (function (aviation) {
 					var count = 0,
 						index = 0;
 
-					for (var i=0; i<this.d[t][c].length; i++) {
-						count += cb(this.d[t][c][i], this, i, c, t, false);
+					for (var i=0; i<this.d[t][c].length; i++) {		
+						count += cb(this.d[t][c][i], this, index, c, t, false);
 						index ++ ;
 						if (count >= this.m) break;
+						
 					}
 					if(this.d[t][c+1] !== undefined) {
 						this.d[t][c+1] = this.d[t][c]
-							.slice(index)
+							.slice(index-1)
 							.concat(this.d[t][c+1]);
 					} else {
 						this.d[t][c+1-this.c] = this.d[t][c]
-							.slice(index)
+							.slice(index-1)
 							.concat(this.d[t][c+1-this.c]);
 					}
 					this.d[t][c] = this.d[t][c]
@@ -217,13 +247,13 @@ var AVIATION = (function (aviation) {
 		},
 		distributeRowByCallBack : function (f, t, insert, cb) {
 			
-			this.mergeRows(f,t);
+			if (f !== t) this.mergeRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 
 				var add = [];
 
-				while(cb(this.d[t][c], this.m)) {
+				while(cb(this.d[t][c], this, c, t)) {
 					add.push(this.d[t][c].pop());
 				}
 				if(this.d[t][c+1] !== undefined) {

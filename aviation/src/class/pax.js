@@ -164,7 +164,7 @@ var AVIATION = (function (aviation) {
 
 			var passengerPercentagesTotal = self.passengerTypeDistributionPercentages,
 				passengerSeats = self.flight.seats,
-				checkInCounters = Math.ceil(passengerSeats / 100) + 1,
+				checkInCounters = Math.ceil(passengerSeats / 100),
 				passengers = [],
 				matrix = aviation.class.Matrix3d(3, 1440 / self.timeSlice, self.timeSlice);
 				
@@ -281,7 +281,10 @@ var AVIATION = (function (aviation) {
 			//	passenger times is over the given timeslot.
 			//
 
-			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray, mod) {
+
+			// ! superceded distribution
+			/*
+			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray, matrix) {
 
 				var sum = passengerArray.reduce(function(val, passenger, i) {
 
@@ -298,7 +301,52 @@ var AVIATION = (function (aviation) {
 					return val + passenger.attributes.checkInTime;
 				}, 0);
 
-				return sum / checkInCounters > mod;
+				return sum / checkInCounters > matrix.m;
+			})
+			*/
+
+			matrix.distributeRowByIndex(0, 1, false, function(passengerArray, matrix, c, r) {
+
+				if (passengerArray.length !== 0) {
+
+					var sub = aviation.class.Matrix3d(1, checkInCounters, matrix.m),
+						count = 0;
+
+					for (var i = 0; i<passengerArray.length; i++) {
+						sub.pushItem(passengerArray[i], 0, 0)
+					}
+
+					//
+					//	Calculate  the index by packing passengers within the counters
+					//
+
+					sub.distributeRowByCallBack(0, 0, false, function(passengerArray, m, c, r) {
+
+							var sum = passengerArray.reduce(function(val, passenger, i) {
+
+								return val+passenger.attributes.checkInTime;
+
+							}, 0);
+
+							if (passengerArray.length > 1 && sum > matrix.m) {
+
+								if (c === m.d[r].length - 1) {
+									count ++ ;
+								}
+
+								return true;
+
+							} else {
+
+								return false;
+							}
+
+					})
+
+					return passengerArray.length - count;
+				}
+
+				return 0;
 			})
 
 			//
