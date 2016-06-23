@@ -112,7 +112,7 @@ var AVIATION = (function (aviation) {
 			var flights = [],
 				sorted = [],
 				filtered = [],
-				securityCounters = [10, 16], 
+				securityCounters = [10, 10], 
 				matrix = aviation.class.Matrix3d(undefined,undefined,timeSlice);
 
 			designDayFlightObjArr.forEach(function(flightObj, index) {

@@ -7,7 +7,7 @@ var app = app || {};
 		this._view = new this.View();
 		this._view.init();
 		this._gates = gatelayout;
-		this._timeSlice = 5;
+		this._timeSlice = 1;
 	}
 	app.compute = function() {
 

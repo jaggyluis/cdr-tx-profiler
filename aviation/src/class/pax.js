@@ -389,6 +389,8 @@ var AVIATION = (function (aviation) {
 				
 			})
 
+			console.log(matrix);
+
 			return m.merge(matrix);
 		}
 	}
