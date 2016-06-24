@@ -184,7 +184,9 @@ var AVIATION = (function (aviation) {
 
 				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats),
 					passengerProfile = aviation._passengerProfiles.find(function(profile) {
+								
 								return profile._name === type;
+
 							});
 
 				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
@@ -281,38 +283,25 @@ var AVIATION = (function (aviation) {
 			//	passenger times is over the given timeslot.
 			//
 
-
-			// ! superceded distribution
-			/*
-			matrix.distributeRowByCallBack(0, 1, false, function(passengerArray, matrix) {
-
-				var sum = passengerArray.reduce(function(val, passenger, i) {
-
-					//
-					//	This makes sure that all transfer and passengers with no
-					//	bags are maintained at the front of the list when the new list is inserted
-					//	in front. It also makes sure they stay in the correct sorted order.
-					//
-
-					if (passenger.attributes.checkInTime === 0) {
-						passengerArray.splice(0,0,passengerArray.splice(i,1)[0])
-					}
-
-					return val + passenger.attributes.checkInTime;
-				}, 0);
-
-				return sum / checkInCounters > matrix.m;
-			})
-			*/
-
 			matrix.distributeRowByIndex(0, 1, false, function(passengerArray, matrix, c, r) {
 
 				if (passengerArray.length !== 0) {
 
 					var sub = aviation.class.Matrix3d(1, checkInCounters, matrix.m),
-						count = 0;
+						count = 0,
+						overflow = [];
 
 					for (var i = 0; i<passengerArray.length; i++) {
+
+						//
+						//	This makes sure that all transfer and passengers with no
+						//	bags are maintained at the front of the list when the new list is inserted
+						//	in front. It also makes sure they stay in the correct sorted order.
+						//
+
+						if (passengerArray[i].attributes.checkInTime === 0) {
+							passengerArray.splice(0,0,passengerArray.splice(i,1)[0])
+						}
 						sub.pushItem(passengerArray[i], 0, 0)
 					}
 
@@ -329,7 +318,6 @@ var AVIATION = (function (aviation) {
 							}, 0);
 
 							if (passengerArray.length > 1 && sum > matrix.m) {
-
 								if (c === m.d[r].length - 1) {
 									count ++ ;
 								}
@@ -337,17 +325,26 @@ var AVIATION = (function (aviation) {
 								return true;
 
 							} else {
+								if (sum > matrix.m) {
+									
+									var nullPassenger = aviation.class.Passenger.null(),
+										deltaTime = sum - matrix.m;
+
+									nullPassenger.setAttribute('checkInTime', deltaTime);
+									overflow.push(nullPassenger);
+								}
 
 								return false;
 							}
 
 					})
+					for (var i=0; i<overflow.length; i++) {
+						matrix.spliceItem(overflow[i], 0, r, c+1);
+					}
 
 					return passengerArray.length - count;
 				}
-
-				return 0;
-			})
+			});
 
 			//
 			//	Assign passenger walk to security times
@@ -369,6 +366,11 @@ var AVIATION = (function (aviation) {
 
 			//matrix.shiftRow(1,-1);
 
+			matrix.copyRowApply(1, 1, false, function(passenger, matrix, count, i, c) {
+
+				if (!passenger.attributes.isNull) return c;
+			});
+
 			//
 			//	Assign the passenger  wait time at security to the profile.
 			//	look into how to move this elsewhere?
@@ -377,16 +379,10 @@ var AVIATION = (function (aviation) {
 			matrix.forEachItem(function(passenger, count, i, c, r) {
 
 				var rounded = aviation.time.minutesToDecimalDay(matrix.m * c);
-							
+
 				switch (r) {
 
 					case 0 :
-
-						/*
-						var val = (c + (i / count) ) * matrix.m;
-
-						passenger.setEvent('arrival', aviation.time.minutesToDecimalDay(val));
-						*/
 
 						passenger.setEvent('arrival', rounded);
 
@@ -394,37 +390,11 @@ var AVIATION = (function (aviation) {
 
 					case 1 :
 
-						/*
-						var val = (c * matrix.m ) + passenger.attributes.checkInTime,
-							tt = 0;
-
-						//
-						//	Tracking check in times for alll other passengers in this
-						//	time slot / the number of check in counters availablke for this flight.
-						//
-
-						if (passenger.attributes.checkInTime !== 0) {
-							for (var j=0; j<i; j++) {
-								tt+=matrix.d[r][c][j].attributes.checkInTime;
-							}
-						} else {
-							passenger.setEvent('security', passenger.getEvent('arrival').value);
-
-							break;
-						}
-
-						passenger.setEvent('security', aviation.time.minutesToDecimalDay(val + (tt / checkInCounters)));
-						*/
-
 						passenger.setEvent('security', rounded);
 
 						break;
 
 					case 2 :
-
-						/*
-						passenger.setEvent('departure', passenger.flight.getTime());
-						*/
 
 						passenger.setEvent('departure', rounded);
 
@@ -435,7 +405,18 @@ var AVIATION = (function (aviation) {
 						break;
 				};
 				
+			});
+
+			matrix.forEachItem(function(passenger) {
+				console.log(passenger);
+				if (passenger.getEvent('security').value !== null) {
+					var val = passenger.getEvent('security').value - passenger.getEvent('arrival').value
+					console.log(aviation.time.decimalDayToMinutes(val));
+				} else {
+					console.warn(passenger);
+				}
 			})
+			console.log(thing);
 
 			console.log(matrix);
 

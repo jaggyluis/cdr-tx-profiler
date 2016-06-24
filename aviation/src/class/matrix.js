@@ -31,7 +31,7 @@ var AVIATION = (function (aviation) {
 			for (var r=0; r<this.d.length; r++) {
 				for (var c=0; c<this.c; c++) {
 					for (var i=0, len = this.d[r][c].length; i<len; i++) {
-						cb(this.d[r][c][i], len, i, c,r);
+						cb(this.d[r][c][i], len, i, c, r);
 					}
 				}
 			}
@@ -49,6 +49,13 @@ var AVIATION = (function (aviation) {
 			if ( r === -1 || undefined ) r = this.d.length-1;
 			if ( c === -1 || undefined ) c = this.d[r].length-1;
 			this.d[r][c].push(item);
+		},
+		spliceItem : function (item, index, r, c) {
+
+			if ( this.d[r] === undefined) return null;
+			if ( this.d[r][c] === undefined) return null;
+			this.d[r][c].splice(index, 1, item);
+
 		},
 		unShiftItem : function (item, r, c) {
 
@@ -128,12 +135,16 @@ var AVIATION = (function (aviation) {
 
 					var item = this.d[f][c][i],
 						count = this.d[f][c].length,
-						index = cb(item, this, count, i, c, f),
-						col = index < this.c ? 
+						index = cb(item, this, count, i, c, f);
+
+					if (index !== undefined) {
+
+						var col = index < this.c ? 
 							row[index] : 
 							row[index-this.c];
-
-					col.push(item);
+						
+						col.push(item);
+					}					
 				}
 			}
 			if (insert) {
@@ -187,14 +198,18 @@ var AVIATION = (function (aviation) {
 
 				var index = cb(this.d[t][c], this, c, t);
 
-				if (index >= this.d[t][c].length) {
+				if (index >= this.d[t][c].length ||
+					index === undefined || index === null ) {
+
 					continue;
+
 				} else if (index < 0 && -index>this.d[t][c].length) {
+
 					continue;
+
 				} else if (index < 0 && -index<this.d[t][c].length) {
 					index = this.d[t][c].length-index;
 				}
-
 				if(this.d[t][c+1] !== undefined) {
 					this.d[t][c+1] = this.d[t][c]
 						.slice(index-1)

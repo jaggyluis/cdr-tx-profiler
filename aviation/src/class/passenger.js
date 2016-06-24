@@ -99,9 +99,15 @@ var AVIATION = (function (aviation) {
 					return events[i].name;
 				}
 			}
-		},
+		}
+	};
 
-	}
+
+	aviation.class.Passenger.null = function() {
+
+		return Object.create(Passenger.prototype, { _attributes : { value : { 'isNull' : true } } });
+
+	};
 
 	return aviation;
 
