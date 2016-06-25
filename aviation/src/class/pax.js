@@ -325,6 +325,7 @@ var AVIATION = (function (aviation) {
 								return true;
 
 							} else {
+								/*
 								if (sum > matrix.m) {
 									
 									var nullPassenger = aviation.class.Passenger.null(),
@@ -333,6 +334,7 @@ var AVIATION = (function (aviation) {
 									nullPassenger.setAttribute('checkInTime', deltaTime);
 									overflow.push(nullPassenger);
 								}
+								*/
 
 								return false;
 							}
@@ -407,6 +409,7 @@ var AVIATION = (function (aviation) {
 				
 			});
 
+			/*
 			matrix.forEachItem(function(passenger) {
 				console.log(passenger);
 				if (passenger.getEvent('security').value !== null) {
@@ -419,6 +422,7 @@ var AVIATION = (function (aviation) {
 			console.log(thing);
 
 			console.log(matrix);
+			*/
 
 			return m.merge(matrix);
 		}
