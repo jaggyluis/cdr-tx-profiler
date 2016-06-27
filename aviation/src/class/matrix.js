@@ -54,7 +54,7 @@ var AVIATION = (function (aviation) {
 
 			if ( this.d[r] === undefined) return null;
 			if ( this.d[r][c] === undefined) return null;
-			this.d[r][c].splice(index, 1, item);
+			this.d[r][c].splice(index, 0, item);
 
 		},
 		unShiftItem : function (item, r, c) {

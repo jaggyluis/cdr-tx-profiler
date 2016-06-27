@@ -45,24 +45,21 @@ X filter passengers
 X update passenger profiles to include browsing
 X apply arrival times
 
-- terminal filter is broken
-- passenger profiles should iclude pre 9am arrival distribution
 X assign global variable to determine distribution modulo
 
 X modify passenger distribution times
+X add terminal to flight output
 
+- terminal filter is broken
+- passenger profiles should iclude pre 9am arrival distribution
 - remove aviation._GLOBALS from flight and pax
 
 - web worker for simulation
-- optimize profile to run for speed
-- weighting
-- implement fit curve
+- passenger survey data weighting
+- implement fit curve on arrival distributions
 
 - complete airline list for full airport
 - gate distributions for full airport
-X add terminal to flight output
-- output statistics in a visual manner in order to baseline/verify
-- RFLW on aircraft is obsolete
 
-- localstorage
+
 - implement npm for build - major refactor

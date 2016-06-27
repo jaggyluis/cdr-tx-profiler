@@ -166,7 +166,8 @@ var AVIATION = (function (aviation) {
 				passengerSeats = self.flight.seats,
 				checkInCounters = Math.ceil(passengerSeats / 100),
 				passengers = [],
-				matrix = aviation.class.Matrix3d(3, 1440 / self.timeSlice, self.timeSlice);
+				arrivalMatrix = aviation.class.Matrix3d(3, 1440 / self.timeSlice, self.timeSlice),
+				transferMatrix = aviation.class.Matrix3d(3, 1440 / self.timeSlice, self.timeSlice);
 				
 
 			//
@@ -177,7 +178,7 @@ var AVIATION = (function (aviation) {
 			var gateTimingInfo = self.data.designGroupBoardingDistribution[self.flight.getCategory()];
 
 			//
-			//	Apply all data to passenger matrix
+			//	Apply all data to passenger arrivalMatrix
 			//
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
@@ -215,7 +216,7 @@ var AVIATION = (function (aviation) {
 						//
 						//	Create passengers for each mapped flight percentage.
 						// 	This is also assigning default arrival times and departure times to the 
-						//	passenger matrix
+						//	passenger arrivalMatrix
 						//
 
 						var passenger = aviation.class.Passenger(self.flight, passengerProfile),
@@ -233,18 +234,19 @@ var AVIATION = (function (aviation) {
 
 						//
 						//	In order to handle transfer passengers - they are not included in the
-						//	matrix simulation up until the concourse level. 
+						//	arrivalMatrix simulation up until the concourse level. 
 						//
 
 						if (passenger.attributes.isTransfer) {
 							passenger.setEvent('arrival', arrivalTimeActual);
 							passenger.setEvent('security', arrivalTimeActual);
 							passenger.setEvent('concourse', arrivalTimeActual);
+							transferMatrix.pushItem(passenger, 1, arrivalTimeRounded / self.timeSlice);
 						} else {
-							matrix.pushItem(passenger, 0, arrivalTimeRounded / self.timeSlice);
+							arrivalMatrix.pushItem(passenger, 0, arrivalTimeRounded / self.timeSlice);
 						}
 
-						matrix.pushItem(passenger, -1, departureTimeRounded / self.timeSlice);
+						arrivalMatrix.pushItem(passenger, -1, departureTimeRounded / self.timeSlice);
 					}
 				});
 			});
@@ -261,7 +263,7 @@ var AVIATION = (function (aviation) {
 			//	bag-less passengers remain at the bottom prior to distribution.
 			//
 
-			matrix.sortRowCols(0, function(pa, pb){
+			arrivalMatrix.sortRowCols(0, function(pa, pb){
 			
 				if (pa.attributes.checkInTime && !pb.attributes.checkInTime) {
 
@@ -283,7 +285,7 @@ var AVIATION = (function (aviation) {
 			//	passenger times is over the given timeslot.
 			//
 
-			matrix.distributeRowByIndex(0, 1, false, function(passengerArray, matrix, c, r) {
+			arrivalMatrix.distributeRowByIndex(0, 1, false, function(passengerArray, matrix, c, r) {
 
 				if (passengerArray.length !== 0) {
 
@@ -358,6 +360,7 @@ var AVIATION = (function (aviation) {
 										deltaTime = sum - matrix.m;
 
 									nullPassenger.setAttribute('checkInTime', deltaTime);
+									nullPassenger.setAttribute('passengerID', aviation.string.generateUUID());
 									overflow.push(nullPassenger);
 								}
 								
@@ -365,10 +368,12 @@ var AVIATION = (function (aviation) {
 							}
 
 					})
+					/*
 					for (var i=0; i<overflow.length; i++) {
+						console.log(overflow[i])
 						matrix.spliceItem(overflow[i], 0, r, c+1);
 					}
-
+					*/
 					return passengerArray.length - count;
 				}
 			});
@@ -380,7 +385,7 @@ var AVIATION = (function (aviation) {
 			//	industry standard. It might be worth implementing this with the design scheme.
 			//
 			/*
-			matrix.copyRowApply(1, 2, true, function(passenger, matrix, count, index, column) {
+			arrivalMatrix.copyRowApply(1, 2, true, function(passenger, matrix, count, index, column) {
 
 				var walkTimeToSecurity = aviation.math.getRandomArbitrary(self.data.walkTimes.security),
 					indexTimeSlot = self.timeSlice * (index / count),
@@ -391,14 +396,11 @@ var AVIATION = (function (aviation) {
 			});
 			*/
 
-			//matrix.shiftRow(1,-1);
+			arrivalMatrix.copyRowApply(1, 1, false, function(passenger, matrix, count, i, c) {
 
-			console.log(matrix);
-			console.log(thing);
+				var val = aviation.math.round(passenger.attributes.checkInTime, matrix.m ) / matrix.m;
 
-			matrix.copyRowApply(1, 1, false, function(passenger, matrix, count, i, c) {
-
-				if (!passenger.attributes.isNull) return c;
+				if (!passenger.attributes.isNull) return c + val;
 			});
 
 			//
@@ -406,9 +408,9 @@ var AVIATION = (function (aviation) {
 			//	look into how to move this elsewhere?
 			//
 
-			matrix.forEachItem(function(passenger, count, i, c, r) {
+			arrivalMatrix.forEachItem(function(passenger, count, i, c, r) {
 
-				var rounded = aviation.time.minutesToDecimalDay(matrix.m * c);
+				var rounded = aviation.time.minutesToDecimalDay(arrivalMatrix.m * c);
 
 				switch (r) {
 
@@ -438,7 +440,7 @@ var AVIATION = (function (aviation) {
 			});
 
 			/*
-			matrix.forEachItem(function(passenger) {
+			arrivalMatrix.forEachItem(function(passenger) {
 				console.log(passenger);
 				if (passenger.getEvent('security').value !== null) {
 					var val = passenger.getEvent('security').value - passenger.getEvent('arrival').value
@@ -447,12 +449,12 @@ var AVIATION = (function (aviation) {
 					console.warn(passenger);
 				}
 			})
-			console.log(thing);
-
-			console.log(matrix);
 			*/
 
-			return m.merge(matrix);
+			//console.log(arrivalMatrix);
+			//arrivalMatrix.merge(transferMatrix);
+
+			return m.merge(arrivalMatrix);
 		}
 	}
 

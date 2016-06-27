@@ -219,6 +219,17 @@ var AVIATION = (function (aviation) {
 			});
 
 			//
+			//	Apply passenger timing to the security times
+			//
+
+			matrix.copyRowApply(2, 2, false, function(passenger, matrix, count, i, c) {
+
+				var val = aviation.math.round(passenger.attributes.securityTime, matrix.m ) / matrix.m;
+
+				if (!passenger.attributes.isNull) return c + val;
+			});
+
+			//
 			//	Calculate the passenger timing for arrival at the gate, as a function of the 
 			//	weibull distribution and the gate info derived from the flight Pax object
 			//
