@@ -291,7 +291,7 @@ var AVIATION = (function (aviation) {
 						count = 0,
 						overflow = [];
 
-					for (var i = 0; i<passengerArray.length; i++) {
+					passengerArray.sort(function(pa,pb) {
 
 						//
 						//	This makes sure that all transfer and passengers with no
@@ -299,9 +299,36 @@ var AVIATION = (function (aviation) {
 						//	in front. It also makes sure they stay in the correct sorted order.
 						//
 
-						if (passengerArray[i].attributes.checkInTime === 0) {
-							passengerArray.splice(0,0,passengerArray.splice(i,1)[0])
+						if (pa.attributes.isNull && pb.attributes.isNull) {
+
+							return 0;
+						
+						} else if (pa.attributes.isNull && !pb.attributes.isNull) {
+
+							return -1;
+						
+						} else if (!pa.attributes.isNull && pb.attributes.isNull) {
+
+							return 1;
+						
+						} else {
+
+							if (pa.attributes.checkInTime && !pb.attributes.checkInTime) {
+
+								return 1;
+
+							} else if (!pa.attributes.checkInTime && pb.attributes.checkInTime) {
+
+								return -1;
+
+							} else {
+
+								return 0;
+							}
 						}
+					});
+
+					for (var i = 0; i<passengerArray.length; i++) {
 						sub.pushItem(passengerArray[i], 0, 0)
 					}
 
@@ -325,7 +352,6 @@ var AVIATION = (function (aviation) {
 								return true;
 
 							} else {
-								/*
 								if (sum > matrix.m) {
 									
 									var nullPassenger = aviation.class.Passenger.null(),
@@ -334,8 +360,7 @@ var AVIATION = (function (aviation) {
 									nullPassenger.setAttribute('checkInTime', deltaTime);
 									overflow.push(nullPassenger);
 								}
-								*/
-
+								
 								return false;
 							}
 
@@ -367,6 +392,9 @@ var AVIATION = (function (aviation) {
 			*/
 
 			//matrix.shiftRow(1,-1);
+
+			console.log(matrix);
+			console.log(thing);
 
 			matrix.copyRowApply(1, 1, false, function(passenger, matrix, count, i, c) {
 

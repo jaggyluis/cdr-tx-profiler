@@ -1,0 +1,13 @@
+name,count,percentage,brfood,food,bags,brshop,shop,weighted
+"all.business.domestic.departing","2840","22","73","51","41","49","19","false"
+"all.business.domestic.transfer","445","3","76","56","29","50","20","false"
+"all.business.international.departing","425","3","72","50","73","42","9","false"
+"all.business.international.transfer","213","2","76","56","32","43","11","false"
+"all.leisure.domestic.departing","2899","23","71","49","66","50","21","false"
+"all.leisure.domestic.transfer","716","6","77","57","31","48","18","false"
+"all.leisure.international.departing","999","8","72","50","87","42","10","false"
+"all.leisure.international.transfer","455","4","75","55","30","41","8","false"
+"all.other.domestic.departing","2302","18","68","45","56","49","19","false"
+"all.other.domestic.transfer","620","5","71","49","31","51","21","false"
+"all.other.international.departing","553","4","67","44","85","42","9","false"
+"all.other.international.transfer","365","3","75","55","36","43","10","false"
