@@ -24,6 +24,7 @@ var app = app || {};
 			this._flights = [];
 			this._profiles = [];
 			this._aircraft = {};
+			this._total = null;
 
 			var self = this;
 
@@ -216,13 +217,14 @@ var app = app || {};
 
 			this._passengers=[];
 			this._flights = [];
+			this._total = null;
 
 		},
 		clearTables : function() {
 
 			var t = document.querySelector('#passenger-profile-table'),
 				p = document.querySelector('#aircraft-profile-box .content-box'),
-				b = document.querySelector('#total-box .result-box');
+				b = document.querySelector('#total-box .content-box');
 
 			t.innerHTML = "";
 			p.innerHTML = "";
@@ -234,12 +236,12 @@ var app = app || {};
 			var typeTable = document.getElementById('passenger-profile-table'),
 				typeHeader = document.getElementById('passenger-type-header').innerHTML,
 				profileBox = document.querySelector('#aircraft-profile-box .content-box'),
-				totalBox = document.getElementById('total-box');
+				totalBox = document.querySelector('#total-box .content-box');
 
 			//
 			//	Build the total passenger profile table
 			//
-			totalBox.children[1].appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
+			totalBox.appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
 			typeTable.innerHTML+=typeHeader;
 			//
 			//	Build all of the unique passenger profile tables
@@ -376,6 +378,8 @@ var app = app || {};
 			});
 
 			if (parents.length === 0) container.style.marginBottom = "-10px";
+
+			//this._total = typeObj;
 
 			return container;
 		},

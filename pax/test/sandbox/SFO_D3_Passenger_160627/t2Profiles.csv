@@ -1,0 +1,12 @@
+t2.business.domestic.departing,640,31,76,55,41,49,19,FALSE
+t2.business.domestic.transfer,48,2,78,58,38,54,25,FALSE
+t2.business.international.departing,1,0,35,0,100,35,0,FALSE
+t2.business.international.transfer,0,0,0,NaN,NaN,0,NaN,FALSE
+t2.leisure.domestic.departing,694,33,73,52,59,50,20,FALSE
+t2.leisure.domestic.transfer,87,4,81,63,38,50,21,FALSE
+t2.leisure.international.departing,20,1,79,60,95,35,0,FALSE
+t2.leisure.international.transfer,3,0,84,67,67,35,0,FALSE
+t2.other.domestic.departing,509,24,69,47,51,48,18,FALSE
+t2.other.domestic.transfer,74,4,68,45,30,48,18,FALSE
+t2.other.international.departing,6,0,72,50,67,35,0,FALSE
+t2.other.international.transfer,1,0,108,100,100,35,0,FALSE

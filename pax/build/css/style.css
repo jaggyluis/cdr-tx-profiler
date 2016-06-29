@@ -49,7 +49,7 @@ img {
 
 .table-container {
 	clear: both;
-	overflow: hidden;
+	//overflow: hidden;
 	margin-bottom: 10px;
 	border-top: 1px dotted grey;
 	//width: 1200px;
