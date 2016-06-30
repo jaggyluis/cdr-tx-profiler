@@ -151,7 +151,7 @@ var AVIATION = (function (aviation) {
 				1 + departureTime - arrivalTime;
 
 		},
-		getFlowDistributionMatrix : function (m) {
+		getFlowDistributionMatrix : function (m, passengerProfiles) {
 
 			//
 			//	Needs to be replaced with a fit function and statistical model that
@@ -184,7 +184,7 @@ var AVIATION = (function (aviation) {
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
 				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats),
-					passengerProfile = aviation._passengerProfiles.find(function(profile) {
+					passengerProfile = passengerProfiles.find(function(profile) {
 								
 								return profile._name === type;
 

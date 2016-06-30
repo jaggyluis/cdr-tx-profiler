@@ -1,28 +1,41 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Gate = function(name, isMARS) {
+	aviation.class.Gate = function (gateObj) {
 		
-		return new Gate(name, isMARS);
+		return new Gate(gateObj);
 	}
 	
-	function Gate (name, isMARS) {
+	function Gate (gateObj) {
 
-		this.name = name;
-		this.isMARS = isMARS;
-		this.seats = null;
+		this.name = gateObj[0];
+		this.isMARS = gateObj[1];
+		this.seats = gateObj[2];
 		this.padding = [
 			-aviation.time.timeToDecimalDay('00:15:00'),
 			aviation.time.timeToDecimalDay('00:15:00')
 			];
-		this.sf = {}
+		this.sf = {};
 		this.group = {
 			mars : null,
 			default : null,
-		}
-		this.flights = {
-			[this.name+'a'] : [],
-			[this.name+'b'] : []
+		};
+		this.flights =  this.isMARS ?
+			gateObj[7].reduce(function(obj, sub) {
+
+				obj[sub] = [];
+
+				return obj;
+
+			},{}) : {
+				[this.name+'a'] : [],
+				[this.name+'b'] : []
+			};
+		this.setArea('waiting', gateObj[3]);
+		this.setArea('boarding', gateObj[4]);
+		this.setDesignGroup(gateObj[5]);
+		if (gateObj[6] !== null) {
+			this.setDesignGroup(gateObj[6], true);
 		};
 	};
 	Gate.prototype = {
@@ -34,6 +47,7 @@ var AVIATION = (function (aviation) {
 		getArea : function (key){
 
 			if (key === undefined ) {
+
 				return Object.keys(this.sf).map((function(a) {
 
 					return this.sf[a];
@@ -43,6 +57,7 @@ var AVIATION = (function (aviation) {
 					return a+b;
 
 				})
+
 			} else if (Object.keys(this.sf).includes(key)) {
 
 				return this.sf[key];
@@ -50,7 +65,7 @@ var AVIATION = (function (aviation) {
 			} else {
 
 				return 0;
-			}
+			};
 		},
 		setSeats : function(val) {
 			
@@ -99,6 +114,7 @@ var AVIATION = (function (aviation) {
 			if (sub && this.isMARS) {
 
 				return this.flights[sub];
+
 			} else {
 
 				var uniq= [];
@@ -144,6 +160,7 @@ var AVIATION = (function (aviation) {
 					}
 				}
 			}
+
 			return cb(data, flight);
 		},
 		tap : function (flight, fArr) {

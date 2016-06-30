@@ -217,6 +217,7 @@ var app = app || {};
 
 			this._passengers=[];
 			this._flights = [];
+			this._profiles = [];
 			this._total = null;
 
 		},

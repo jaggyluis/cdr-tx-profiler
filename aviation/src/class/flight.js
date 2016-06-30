@@ -1,7 +1,7 @@
 var AVIATION = (function (aviation) {
 
 	aviation.class = aviation.class || {};
-	aviation.class.Flight = function (flightObj,	destination, airline, aircraft,	loadFactor) {
+	aviation.class.Flight = function (flightObj, destination, airline, aircraft, loadFactor) {
 		
 		return new Flight(flightObj, destination, airline, aircraft, loadFactor);
 	}
@@ -12,10 +12,10 @@ var AVIATION = (function (aviation) {
 		this.destination = destination;
 		this.airline = airline;
 		this.aircraft = aircraft;
-		this.ival = this.getTurnaroundTime();
 		this.loadFactor = loadFactor;
 		this.id = aviation.string.generateUUID();
 		this.gate = null;
+		this.ival = null;
 		this.seats = this.flight.seats !== undefined ?
 			this.flight.seats*this.loadFactor :
 			this.aircraft.seats !== null ?
@@ -26,9 +26,9 @@ var AVIATION = (function (aviation) {
 
 		if (this.seats === 0) console.warn('seats not available: ', this);
 		if (this.aircraft.RFLW == null || this.aircraft.ARC == null){
-			console.warn('null reference needed', this.aircraft);
-		}
-
+			console.error('category not assigned: ', 
+				this.aircraft);
+		};
 	};	
 	Flight.prototype = {
 		
@@ -40,7 +40,7 @@ var AVIATION = (function (aviation) {
 			
 			return this.flight.di;
 		},
-		getTurnaroundTime : function () {
+		setTurnaroundTime : function (turnaroundTimes) {
 			
 			var tt = 0;
 			var t1 = this.aircraft.IATA;
@@ -49,11 +49,12 @@ var AVIATION = (function (aviation) {
 			if (this.flight.tt !== 0) {
 				tt = this.flight.tt;
 			} else {
-				if (t1 in aviation._tt) {
-					if (t2 in aviation._tt[t1]) {
+				if (t1 in turnaroundTimes) {
+					if (t2 in turnaroundTimes[t1]) {
 
-						var length = aviation._tt[t1][t2].length;
-						var sum = aviation._tt[t1][t2].reduce(function(a,b) {
+						var length = turnaroundTimes[t1][t2].length;
+						var sum = turnaroundTimes[t1][t2].reduce(function(a,b) {
+
 							return a+b;
 						})
 
@@ -61,12 +62,17 @@ var AVIATION = (function (aviation) {
 					} else {
 
 						var length = 0;
-						var sum = Object.keys(aviation._tt[t1]).map((function(a){
-							return aviation._tt[t1][a];
+						var sum = Object.keys(turnaroundTimes[t1]).map((function(a){
+
+							return turnaroundTimes[t1][a];
+
 						}).bind(this)).reduce(function(a,b) {
-							return a.concat(b)
+
+							return a.concat(b);
+
 						},[]).reduce(function(a,b) {
 							length++;
+
 							return a+b;
 						});
 
@@ -81,7 +87,7 @@ var AVIATION = (function (aviation) {
 			}
 			tt = tt === 0 || tt === Infinity ? 0.125 : tt;
 
-			return aviation.class.Interval(this.getTime()-tt, this.getTime())
+			this.ival = aviation.class.Interval(this.getTime()-tt, this.getTime())
 		},
 		getDesignGroup : function () {
 
@@ -103,17 +109,18 @@ var AVIATION = (function (aviation) {
 
 			return this.gate;
 		},
-		findGate : function () {
+		findGate : function (gates) {
 
 			if (this.ival.getLength() === 0) {
 				this.setGate('*');
+
 				return;
 			}
-			for (var i=0; i<aviation._gates.length; i++) {
+			for (var i=0; i<gates.length; i++) {
 
-				var gate = aviation._gates[i];
+				var gate = gates[i];
 
-				if (aviation._gates[i].fit(this, (function(data, flight) {
+				if (gates[i].fit(this, (function(data, flight) {
 					if (data.response) {
 						this.setGate(data.gate);
 						gate.setFlight(this, data.gate);

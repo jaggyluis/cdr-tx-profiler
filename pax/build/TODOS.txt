@@ -49,17 +49,17 @@ X assign global variable to determine distribution modulo
 
 X modify passenger distribution times
 X add terminal to flight output
+X remove aviation._GLOBALS from flight and pax
 
-- terminal filter is broken
 - passenger profiles should iclude pre 9am arrival distribution
-- remove aviation._GLOBALS from flight and pax
+- !! airline clustering
 
 - web worker for simulation
 - passenger survey data weighting
+
 - implement fit curve on arrival distributions
 
 - complete airline list for full airport
 - gate distributions for full airport
-
 
 - implement npm for build - major refactor

@@ -32,6 +32,21 @@ var AVIATION = (function (aviation) {
 
 			return aviation._flights;
 		},
+		gates : function () {
+
+			return aviation._gates;
+
+		},
+		turnaroundTimes : function () {
+
+			return aviation._tt;
+
+		},
+		passengerProfiles : function () {
+
+			return aviation._passengerProfiles;
+
+		},
 		airportByCode : function (code) {
 
 			return aviation._airports.find(function(obj) {
@@ -92,15 +107,8 @@ var AVIATION = (function (aviation) {
 
 			gateSchemeObjArr.forEach(function(gateObj) {
 
-				var gate = aviation.class.Gate(gateObj[0], gateObj[1]);
+				var gate = aviation.class.Gate(gateObj);
 
-				gate.setSeats(gateObj[2]);
-				gate.setArea('waiting', gateObj[3]);
-				gate.setArea('boarding', gateObj[4]);
-				gate.setDesignGroup(gateObj[5]);
-				if (gateObj[6] !== null) {
-					gate.setDesignGroup(gateObj[6], true);
-				}
 				gates.push(gate);
 			});
 
@@ -117,43 +125,50 @@ var AVIATION = (function (aviation) {
 
 			designDayFlightObjArr.forEach(function(flightObj, index) {
 
+				var flight = aviation.class.Flight(flightObj,
+						aviation.get.airportByCode(flightObj.destination),
+						aviation.get.airlineByCode(flightObj.airline),
+						aviation.get.aircraftByCode(flightObj.aircraft),
+						loadFactor);
+
+				flight.setTurnaroundTime(aviation.get.turnaroundTimes());
+
+				//
+				//	Filter flights
+				//
+
 				if (aviation.time.decimalDayToTime(flightObj.time).split(':')[0] > timeFrame[0] &&
 					aviation.time.decimalDayToTime(flightObj.time).split(':')[0] < timeFrame[1]) {
-
-					var flight = aviation.class.Flight(flightObj,
-							aviation.get.airportByCode(flightObj.destination),
-							aviation.get.airlineByCode(flightObj.airline),
-							aviation.get.aircraftByCode(flightObj.aircraft),
-							loadFactor);
-
 					if (JSON.stringify(flight).match(filter)){
 						filtered.push(flight);
-					} 
-					if (sorted.length === 0) {
-						sorted.push(flight);
-					} else {
-
-						//
-						//	Bubble sort for flights
-						//
-
-						var a = flight.ival.getLength(),
-							a_bis = flight.getDesignGroup();
-
-						for (var i=0, len=sorted.length; i<len; i++) {
-
-							var b = sorted[i].ival.getLength(),
-								b_bis = sorted[i].getDesignGroup();
-
-							if ( a+a_bis >= b+b_bis ) {
-
-								break;
-							}
-						}
-						sorted.splice(i,0,flight);
 					}
-					flights.push(flight);
 				}
+
+				//
+				//	Sort ALL flights
+				//
+
+				if (sorted.length === 0) {
+					sorted.push(flight);
+				} else {
+
+					var a = flight.ival.getLength(),
+						a_bis = flight.getDesignGroup();
+
+					for (var i=0, len=sorted.length; i<len; i++) {
+
+						var b = sorted[i].ival.getLength(),
+							b_bis = sorted[i].getDesignGroup();
+
+						if ( a+a_bis >= b+b_bis ) {
+
+							break;
+						}
+					}
+					sorted.splice(i,0,flight);
+				}
+				flights.push(flight);
+				
 			});
 
 			//
@@ -166,8 +181,8 @@ var AVIATION = (function (aviation) {
 
 				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight, timeSlice);
 
-				flight.findGate();
-				matrix = pax.getFlowDistributionMatrix(matrix);				
+				flight.findGate(aviation.get.gates());
+				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());				
 			});
 
 			//
@@ -199,7 +214,7 @@ var AVIATION = (function (aviation) {
 			matrix.insertRowBlank(2);
 
 			//
-			//	Calculates the distributed timings for passengers in the security queue, by 
+			//	Calculate the distributed timings for passengers in the security queue, by 
 			//	returning their time spent in the queue as a function of how long they take and 
 			//	how many lines are available to them. Ignored passengers are spliced back into the 
 			//	front of the queue
@@ -304,30 +319,6 @@ var AVIATION = (function (aviation) {
 
 					case 2 :
 
-						// 
-						//	Leave this off for rounding passenger timing  to the modulo
-						//	which is more general but allows the simluation to deal with small
-						//	discrepancies in the queuing
-						/*
-						var val = (c * matrix.m ) + passenger.attributes.securityTime,
-							tt = 0;
-
-						if (passenger.attributes.securityTime !== 0) {
-							for (var j=0; j<i; j++) {
-
-								var st = matrix.d[r][c][j].attributes.securityTime;
-
-								if (st !== 0) tt+=st;
-							}
-						} else {
-							passenger.setEvent('concourse', passenger.getEvent('security').value);
-
-							break;
-						}
-						passenger.setEvent('concourse', 
-							aviation.time.minutesToDecimalDay(val + (tt / securityCounters[0])));
-						*/
-
 						passenger.setEvent('concourse', rounded);
 
 						break;
@@ -354,14 +345,11 @@ var AVIATION = (function (aviation) {
 
 			return filtered;
 		};
+
 		aviation._flightProfiles = flightProfiles;
 		aviation._passengerProfiles = passengerProfiles;
 		aviation._gates = setGates(gateSchemeObjArr);
-		aviation._flights = setFlights(
-			designDayFlightObjArr, 
-			loadFactor, 
-			filter, 
-			timeFrame);
+		aviation._flights = setFlights(designDayFlightObjArr, loadFactor, filter, timeFrame);
 	};
 
 	return aviation;
