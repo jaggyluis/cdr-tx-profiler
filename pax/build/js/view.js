@@ -20,6 +20,22 @@ var app = app || {};
 				'boarding',
 				'departure'];
 
+			this.hexColors = {
+
+				'business.domestic.departing' 		: '#211463',
+				'business.domestic.transfer' 		: '#35277D',
+				'business.international.departing' 	: '#685BA9',
+				'business.international.transfer' 	: '#4B3D92',
+				'leisure.domestic.departing' 		: '#8F600D',
+				'leisure.domestic.transfer' 		: '#B58126',
+				'leisure.international.departing' 	: '#F5C673',
+				'leisure.international.transfer' 	: '#D3A047',
+				'other.domestic.departing' 			: '#2D8677',
+				'other.domestic.transfer' 			: '#085B4D',
+				'other.international.departing' 	: '#187263',
+				'other.international.transfer' 		: '#499B8D',
+			}
+
 			this._passengers=[];
 			this._flights = [];
 			this._profiles = [];
@@ -323,7 +339,12 @@ var app = app || {};
 				})
 
 
+				//
+				//	Additional visualisation variables
+				//
+
 				_ret['category'] = passenger.flight.getCategory();
+				_ret['color'] = this.hexColors[passenger.attributes.passengerType.split('.').slice(1).join('.')]
 
 				var delta = passenger.delta;
 
@@ -410,7 +431,8 @@ var app = app || {};
 					bags : typeObj._data.bags,
 					brshop : typeObj._data.brshop,
 					shop : typeObj._data.shop,
-					weighted : typeObj._data.weighted
+					weighted : typeObj._data.weighted,
+					color : this.hexColors[typeObj._name.split('.').slice(1).join('.')]
 				});
 			}
 

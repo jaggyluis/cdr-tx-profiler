@@ -88,22 +88,15 @@ var AVIATION = (function (aviation) {
 		},
 		get delta () {
 
-			function test (a,b) {
+			return {
 
-				return a - b < 0 ? a - b + 1 : a - b ;
-			}
+				'arrival' : aviation.time.decimalDayDelta(this.getEvent('arrival').value, this.getEvent('departure').value),
 
-			var deltas = {
+				'checkIn': aviation.time.decimalDayDelta(this.getEvent('arrival').value, this.getEvent('security').value),
 
-				'arrival' : test(this.getEvent('departure').value, this.getEvent('arrival').value),
+				'security': aviation.time.decimalDayDelta(this.getEvent('security').value, this.getEvent('concourse').value),
 
-				'checkIn': test(this.getEvent('security').value, this.getEvent('arrival').value),
-
-				'security': test(this.getEvent('concourse').value, this.getEvent('security').value),
-
-			}
-
-			return deltas;
+			};
 		},
 		getTotalTimeInAirport : function () {
 

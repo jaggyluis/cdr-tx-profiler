@@ -4,11 +4,11 @@ var AVIATION = (function (aviation) {
 
 		decimalDayToTime : function (dday) {
 
-			dday = dday>=0 ? dday : 1 + dday;
+			dday = dday >= 0 ? dday : 1 + dday;
 
-			var hours = Number((dday*24).toString().split('.')[0]),
-				minutes = Number((dday*24*60 - hours*60).toString().split('.')[0]),
-				seconds = Number((dday*24*60*60 - hours*60*60 - minutes*60).toString().split('.')[0]);
+			var hours = Number((dday * 24).toString().split('.')[0]),
+				minutes = Number((dday * 24 * 60 - hours * 60).toString().split('.')[0]),
+				seconds = Number((dday * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60).toString().split('.')[0]);
 
 			hours = hours > 0 ? hours.toString() : '00';
 			minutes = minutes > 0 ? minutes.toString() : '00';
@@ -21,9 +21,14 @@ var AVIATION = (function (aviation) {
 		},
 		decimalDayToMinutes : function (dday) {
 
-			dday = dday>=0 ? dday : 1 + dday;
+			dday = dday >= 0 ? dday : 1 + dday;
 
 			return Number((dday*24*60).toString().split('.')[0]);
+		},
+		decimalDayDelta : function (fdday, tdday) {
+
+			return tdday - fdday < 0 ? tdday - fdday + 1 : tdday - fdday;
+
 		},
 		timeToDecimalDay : function (time) {
 

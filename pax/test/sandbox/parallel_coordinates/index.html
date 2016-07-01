@@ -21,11 +21,12 @@
 		// load csv file and create the chart
 		d3.csv('profiles.csv', function(data) {
 
-			var color = function(d) { return colorgen(d.name); };
+			//var color = function(d) { return colorgen(d.name); };
+			var color = function(d) {return d.color};
 
 			var parcoords = d3.parcoords()("#profiles")
 			    .data(data)
-			    .hideAxis(["weighted"])
+			    .hideAxis(["weighted", "color"])
 			    .color(color)
 			    .alpha(1)
 			    .composite("darken")
@@ -43,7 +44,8 @@
 
 		d3.csv('passengers.csv', function(data) {
 
-			var color = function(d) { return colorgen(d.passengerType); };
+			//var color = function(d) { return colorgen(d.passengerType); };
+			var color = function(d) {return d.color};
 
 			var parcoords = d3.parcoords()("#passengers")
 			    .data(data.map(function(dat) {
@@ -60,7 +62,7 @@
 			    	dat['delta.arrival'] = dat['delta.arrival'] * 24 * 60
 			    	return dat;
 			    }))
-			    .hideAxis(["flightID", "gender", "security", "concourse", "gate", "boarding", "departure"])
+			    .hideAxis(["flightID", "gender", "security", "concourse", "gate", "boarding", "departure", "color"])
 			    .color(color)
 			    .alpha(0.05)
 			    .composite("darken")
