@@ -321,8 +321,19 @@ var app = app || {};
 
 					}
 				})
+
+
+				_ret['category'] = passenger.flight.getCategory();
+
+				var delta = passenger.delta;
+
+				Object.keys(delta).forEach(function(key) {
+					_ret['delta.'+key] = delta[key];
+				})	
+
 				this._passengers.push(_ret);
 				innerString+=passengerString;
+				
 			}).bind(this));
 			table.innerHTML+=innerString;
 		},
