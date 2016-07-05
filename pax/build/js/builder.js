@@ -206,19 +206,24 @@ var app = app || {};
 
 					if (AVIATION.time.isapTime(p.ARRTIME)) {
 						arrTime = AVIATION.time.apTimeToDecimalDay(p.ARRTIME);
+					} else if(AVIATION.time.isTime(p.ARRTIME)) {
+						arrTime = AVIATION.time.timeToDecimalDay(p.ARRTIME);
 					} else if (!isNaN(p.ARRTIME)) {
 						arrTime = p.ARRTIME;
 					}
 					if (AVIATION.time.isapTime(p.DEPTIME)) {
 						depTime = AVIATION.time.apTimeToDecimalDay(p.DEPTIME);
+					} else if(AVIATION.time.isTime(p.DEPTIME)) {
+						depTime = AVIATION.time.timeToDecimalDay(p.DEPTIME);
 					} else if (!isNaN(p.DEPTIME)) {
 						depTime = p.DEPTIME;
 					}
 					if (arrTime && depTime) {
-						var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime),mod)
+						var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime), mod)
 						delta.push(near);
 					}
 				});
+
 				dist = AVIATION.array.mapElementsToObjByPercentile(delta, true);
 
 				//console.log(dist);
@@ -637,7 +642,66 @@ var app = app || {};
 			};
 
 			if (filter.toLowerCase().match(/int/)) filter = 4
+		
 			passengers = passengers.filter(filterKey(filter));
+
+			//
+			//	Assumptions - Data cleansing
+			//
+			//	This is filtering all passengers with a time duration of over 6 hours
+			//	in the airport as false data, as well as passengers that either do not 
+			//	have a departure time or an arrival time.
+			//
+			//	Weighting - 
+			//
+			//	Samples sizes per terminal, boarding area, airline, 
+			//	and time of day were weighted to reflect actual customer 
+			//	traffic disbursement (SFO).
+			//
+
+			
+			var culled = [],
+				threshold = 6 //hours
+			
+			passengers = passengers.filter(function(p) {
+
+				var arrTime,
+					depTime;
+
+				if (AVIATION.time.isapTime(p.ARRTIME)) {
+					arrTime = AVIATION.time.apTimeToDecimalDay(p.ARRTIME);
+				} else if(AVIATION.time.isTime(p.ARRTIME)) {
+					arrTime = AVIATION.time.timeToDecimalDay(p.ARRTIME);
+				} else if (!isNaN(p.ARRTIME)) {
+					arrTime = p.ARRTIME;
+				}
+				if (AVIATION.time.isapTime(p.DEPTIME)) {
+					depTime = AVIATION.time.apTimeToDecimalDay(p.DEPTIME);
+				} else if(AVIATION.time.isTime(p.DEPTIME)) {
+					depTime = AVIATION.time.timeToDecimalDay(p.DEPTIME);
+				} else if (!isNaN(p.DEPTIME)) {
+					depTime = p.DEPTIME;
+				}
+				if (arrTime && depTime) {
+					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime), timeSlice)
+					if (near < threshold * 60) {
+
+						return true;
+
+					} else {
+						culled.push(p);
+
+						return false;
+					}
+				} else {
+					culled.push(p);
+
+					return false;
+				}
+			})
+
+			console.warn('passengers culled : ', culled.length)
+			
 			filter = ['all', 't1','t2','t3','ti'][+filter];
 
 			this.typeClass = new TypeClass( filter , 

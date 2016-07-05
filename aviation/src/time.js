@@ -60,6 +60,10 @@ var AVIATION = (function (aviation) {
 
 			return this.timeToDecimalDay(hours+':'+minutes);
 		},
+		isTime : function(str) {
+
+			return str.toString().match(/\d{1,2}:\d{2}(?!\D)/) !== null;
+		},
 		isapTime : function (str) {
 
 			return ['AM', 'PM'].includes(str.toString().split(/ /).reverse()[0]);

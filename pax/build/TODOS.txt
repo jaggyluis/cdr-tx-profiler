@@ -51,20 +51,20 @@ X modify passenger distribution times
 X add terminal to flight output
 X remove aviation._GLOBALS from flight and pax
 
-- implement fit curve on arrival distributions
+X transfer passengers have null values
+X fix checkin distribution null passengers
+X implement airline clustering
+X cull bad departing passenger data
 
+- passenger survey data weighting
+- implement fit curve on arrival distributions
 - passenger profiles should iclude pre 9am arrival distribution
-- transfer passengers have null values
-- fix checkin distribution
-- 
-- !! airline clustering
+___________________________________________
+
+- add fast charts and integrate visualisation to main app
+- multiple visualization for profile type parallel coords
+____________________________________________
 
 - web worker for simulation
-- add fast charts and integrate visualisation to main app
 - move data/profile builder to server side
-- passenger survey data weighting
-- multiple visualization for profile type parallel coords
-
-- complete airline list for full airport
-
 - implement npm for module build - major refactor

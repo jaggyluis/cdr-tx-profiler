@@ -185,6 +185,10 @@ var AVIATION = (function (aviation) {
 				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
 			});
 
+			//
+			//	Gate clustering verification
+			//
+			/*
 			aviation.get.gates().sort(function(ga, gb) {
 				
 				return ga.num - gb.num;
@@ -195,6 +199,7 @@ var AVIATION = (function (aviation) {
 					return flight.airline.name;
 				}))
 			})
+			*/
 
 			//
 			//	Sorts all the passengers in the security arrival timeSlots.
@@ -219,12 +224,8 @@ var AVIATION = (function (aviation) {
 			});
 
 			//
-			//	! superceded
-			//	Prep new row for security timing distribution
-			//	
-			/*
-			matrix.insertRowBlank(2);
-			*/
+			//	 Splice all the transfer passengers for later
+			//
 
 			var transferPassengers = matrix.getRow(2).slice();
 			matrix.setRow(matrix.getRowBlank(), 2);

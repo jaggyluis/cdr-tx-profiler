@@ -233,8 +233,7 @@ var app = app || {};
 
 			this._passengers=[];
 			this._flights = [];
-			this._profiles = [];
-			this._total = null;
+
 
 		},
 		clearTables : function() {
@@ -246,6 +245,9 @@ var app = app || {};
 			t.innerHTML = "";
 			p.innerHTML = "";
 			b.innerHTML = "";
+
+			this._profiles = [];
+			this._total = null;
 
 		},
 		buildTables : function (typeBuilder) {
