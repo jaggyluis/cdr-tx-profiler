@@ -37,9 +37,22 @@ var AVIATION = (function (aviation) {
 		if (gateObj[6] !== null) {
 			this.setDesignGroup(gateObj[6], true);
 		};
+		this.carriers = new Set();
 	};
 	Gate.prototype = {
 
+		get num () {
+
+			var n = parseInt(this.name.split('').reduce(function(numStr, str) {
+
+				if (isNaN(parseInt(str))) return numStr;
+				
+				return numStr+str;
+
+			}, ''));
+
+			return isNaN(n) ? 0 : n;
+		},
 		setArea : function (key, val) {
 
 			this.sf[key] = val;
@@ -54,7 +67,7 @@ var AVIATION = (function (aviation) {
 
 				}).bind(this)).reduce(function(a,b) {
 
-					return a+b;
+					return a + b;
 
 				})
 
@@ -108,6 +121,7 @@ var AVIATION = (function (aviation) {
 					this.flights[key].push(flight);
 				}
 			}
+			this.carriers.add(flight.airline);
 		},
 		getFlights : function (sub) {
 
@@ -135,6 +149,13 @@ var AVIATION = (function (aviation) {
 
 				return uniq;
 			}
+		},
+		getFlightsByCarrier : function (carrier) {
+
+			return this.getFlights().filter(function(flight) {
+
+				return flight.airline === carrier;
+			});
 		},
 		fit : function (flight, cb) {
 
@@ -171,7 +192,12 @@ var AVIATION = (function (aviation) {
 					.intersects(flight.ival.padded(this.padding[0], this.padding[1]));
 
 			}).bind(this));
-		}
+		},
+		hasCarrier : function (airline) {
+
+			return this.carriers.has(airline);
+
+		},
 	}
 
 	return aviation;

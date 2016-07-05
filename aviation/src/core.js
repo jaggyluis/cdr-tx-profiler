@@ -174,7 +174,7 @@ var AVIATION = (function (aviation) {
 			//
 			//	Creates the Pax Objects for passenger arrival simulation,
 			//	and assigns each flight to a gate using the gate packing algorithm
-			//	(bin packing). Should be modified to account for airline preference.
+			//	(bin packing). Now also accounts for airline clustering, but not for initial preference.
 			//
 
 			sorted.forEach(function(flight) {
@@ -182,8 +182,19 @@ var AVIATION = (function (aviation) {
 				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight, timeSlice);
 
 				flight.findGate(aviation.get.gates());
-				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());				
+				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
 			});
+
+			aviation.get.gates().sort(function(ga, gb) {
+				
+				return ga.num - gb.num;
+			})
+			aviation.get.gates().forEach(function(gate) {
+				console.log(gate.name, gate.getFlights().map(function(flight) {
+					
+					return flight.airline.name;
+				}))
+			})
 
 			//
 			//	Sorts all the passengers in the security arrival timeSlots.
@@ -208,10 +219,15 @@ var AVIATION = (function (aviation) {
 			});
 
 			//
+			//	! superceded
 			//	Prep new row for security timing distribution
-			//
-
+			//	
+			/*
 			matrix.insertRowBlank(2);
+			*/
+
+			var transferPassengers = matrix.getRow(2).slice();
+			matrix.setRow(matrix.getRowBlank(), 2);
 
 			//
 			//	Calculate the distributed timings for passengers in the security queue, by 
@@ -245,11 +261,17 @@ var AVIATION = (function (aviation) {
 			});
 
 			//
+			//	Merge Transfer passengers back into the main passenger array
+			//
+
+			matrix.mergeRows(transferPassengers, 2);
+
+			//
 			//	Calculate the passenger timing for arrival at the gate, as a function of the 
 			//	weibull distribution and the gate info derived from the flight Pax object
 			//
 
-			matrix.copyRowApply(2, 3, true, function(passenger, matrix, count, i, c, r) {
+			matrix.copyRowApply(2, 3, false, function(passenger, matrix, count, i, c, r) {
 
 				var gateInfo = passenger.attributes.gateInfo,
 					flightTime = aviation.time.decimalDayToMinutes(passenger.flight.getTime());
@@ -285,7 +307,7 @@ var AVIATION = (function (aviation) {
 			//	Passenger timing for boarding distribution.
 			//
 
-			matrix.copyRowApply(3, 4, true, function(passenger, matrix, count, i, c, r) {
+			matrix.copyRowApply(3, 4, false, function(passenger, matrix, count, i, c, r) {
 
 				var gateInfo = passenger.attributes.gateInfo, 
 					gateTime = matrix.m * c,
@@ -317,6 +339,18 @@ var AVIATION = (function (aviation) {
 				
 				switch (r) {
 
+					case 0 :
+
+						passenger.setEvent('arrival', rounded);
+
+						break;
+
+					case 1 :
+
+						passenger.setEvent('security', rounded);
+
+						break;
+
 					case 2 :
 
 						passenger.setEvent('concourse', rounded);
@@ -332,6 +366,12 @@ var AVIATION = (function (aviation) {
 					case 4 :
 
 						passenger.setEvent('boarding', rounded);
+
+						break;
+
+					case 5 : 
+
+						passenger.setEvent('departure', rounded);
 
 						break;
 

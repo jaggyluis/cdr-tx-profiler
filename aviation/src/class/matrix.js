@@ -90,6 +90,11 @@ var AVIATION = (function (aviation) {
 
 			return row;
 		},
+		setRow : function (row, r) {
+
+			this.d[r] = row;
+
+		},
 		copyRow : function (f, t, insert) {
 
 			if (insert === true) {
@@ -168,7 +173,7 @@ var AVIATION = (function (aviation) {
 
 			var count = count || Infinity;
 
-			if (f !== t) this.mergeRows(f,t);
+			if (f !== t) this.concatRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 				if (this.d[t][c].length > count) {
@@ -192,7 +197,7 @@ var AVIATION = (function (aviation) {
 		},
 		distributeRowByIndex : function(f, t, insert, cb) {
 
-			if (f !== t) this.mergeRows(f,t);
+			if (f !== t) this.concatRows(f,t);
 
 			for (var c=0; c<this.c; c++) { 
 
@@ -225,7 +230,7 @@ var AVIATION = (function (aviation) {
 		},
 		distributeRowByCounter : function (f, t, insert, cb) {
 
-			if (f !== t) this.mergeRows(f,t);
+			if (f !== t) this.concatRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 
@@ -262,7 +267,7 @@ var AVIATION = (function (aviation) {
 		},
 		distributeRowByCallBack : function (f, t, insert, cb) {
 			
-			if (f !== t) this.mergeRows(f,t);
+			if (f !== t) this.concatRows(f,t);
 
 			for (var c=0; c<this.c; c++) {
 
@@ -289,16 +294,30 @@ var AVIATION = (function (aviation) {
 				}));
 			}
 		},
-		mergeRows : function (f, t) {
+		concatRows : function (f, t, isMerge) {
 
 			for (var c=0; c<this.c; c++) {
 
 				var fcol = this.d[f][c],
 					tcol = this.d[t][c],
-					delta = fcol.length - tcol.length;
+					delta = isMerge ? 
+						fcol.length : 
+						fcol.length - tcol.length;
 
 				for (var i=fcol.length-delta; i<fcol.length; i++) {
 					tcol.push(fcol[i]);
+				}
+			}
+		},
+		mergeRows : function (f, t) {
+
+			if (typeof f === 'number') {
+				this.concatRows(f, t, true);
+			} else {
+				for (var c=0; c < this.c; c++) {
+					for (var i=0; i<f[c].length; i++) {
+						this.d[t][c].push(f[c][i]);
+					}
 				}
 			}
 		},
