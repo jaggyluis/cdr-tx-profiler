@@ -646,22 +646,25 @@ var app = app || {};
 			passengers = passengers.filter(filterKey(filter));
 
 			//
-			//	Assumptions - Data cleansing
+			//	Assumptions (Data cleansing) - 
 			//
-			//	This is filtering all passengers with a time duration of over 6 hours
-			//	in the airport as false data, as well as passengers that either do not 
+			//	- max time in airport - 6 hours
+			//	- check-in cutoff (no bags) - 30 min
+			//	- check-in cutoff (bag check) - 90 min
+			//	- passengers that either do not 
 			//	have a departure time or an arrival time.
 			//
 			//	Weighting - 
 			//
 			//	Samples sizes per terminal, boarding area, airline, 
 			//	and time of day were weighted to reflect actual customer 
-			//	traffic disbursement (SFO).
+			//	traffic disbursement (SFO dataset).
 			//
 
 			
 			var culled = [],
-				threshold = 6 //hours
+				maxThreshold = 6
+				minThreshold = 0.5
 			
 			passengers = passengers.filter(function(p) {
 
@@ -683,8 +686,10 @@ var app = app || {};
 					depTime = p.DEPTIME;
 				}
 				if (arrTime && depTime) {
+
 					var near = AVIATION.math.round(AVIATION.time.decimalDayToMinutes(depTime-arrTime), timeSlice)
-					if (near < threshold * 60) {
+					
+					if (near < maxThreshold * 60 && near > minThreshold * 60 ) {
 
 						return true;
 

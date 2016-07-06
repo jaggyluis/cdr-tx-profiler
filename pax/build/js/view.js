@@ -321,8 +321,8 @@ var app = app || {};
 
 				if (passenger.getEvent('security').value < passenger.getEvent('arrival').value || 
 					passenger.getEvent('concourse').value < passenger.getEvent('security').value) {
-					console.error(count, 'broken', passenger);
-					count++
+					count++;
+					return;
 				}
 
 				this.keys.forEach(function(key) {
@@ -358,6 +358,9 @@ var app = app || {};
 				innerString+=passengerString;
 				
 			}).bind(this));
+
+			console.error('passengers broken : ', count);
+			
 			table.innerHTML+=innerString;
 		},
 		buildTypeTable : function (typeObj, parents, weighted) {

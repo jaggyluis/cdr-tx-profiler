@@ -56,9 +56,10 @@ X fix checkin distribution null passengers
 X implement airline clustering
 X cull bad departing passenger data
 
+- more discrete types - pre 9am and correlate arrival times with bags
+
 - passenger survey data weighting
 - implement fit curve on arrival distributions
-- passenger profiles should iclude pre 9am arrival distribution
 ___________________________________________
 
 - add fast charts and integrate visualisation to main app

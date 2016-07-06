@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Passenger Profiles</title>
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
+	<script src="data.js"></script>
+	<style type="text/css">
+	
+		svg {
+			padding: 50px;
+		}
+
+		body {
+			font: 10px sans-serif;
+		}
+
+		path {
+			stroke: #fff;
+			stroke-width: 1px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var outerWidth = 800,
+			outerHeight = 250,
+			margin = { left: 50, top: 50, right: 50, bottom: 50};
+
+		var xColumn = "name",
+			yColumn = "di",
+			colorColumn = "type",
+			slicesSizeColumn = "percentage",
+			outerRadius = 40,
+			innerRadius = outerRadius /2
+
+		var innerWidth = outerWidth - margin.left - margin.right,
+			innerHeight = outerHeight - margin.top - margin.bottom;
+
+		var svg = d3.select("body").append("svg")
+				.attr("width", outerWidth)
+				.attr("height", outerHeight);
+
+		var g = svg.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		var xAxisG = g.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0,"+ innerHeight + ")");
+
+		var yAxisG = g.append("g")
+				.attr("class", "y axis")
+
+		var colorLegendG = g.append("g")
+				.attr("class", "color-legend")
+				.attr("transform", "translate(500,0)");
+
+		var xScale = d3.scale.ordinal().rangePoints([50,innerWidth-300]),
+			yScale = d3.scale.ordinal().rangePoints([0, innerHeight-50]),
+			colorScale = d3.scale.ordinal()
+				.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+		var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
+				.outerTickSize(0);
+
+		var yAxis = d3.svg.axis().scale(yScale).orient("left")
+				.outerTickSize(0);
+
+		var pie = d3.layout.pie(),
+			arc = d3.svg.arc()
+		arc.outerRadius(outerRadius);
+		arc.innerRadius(innerRadius);
+
+		var colorLegend = d3.legend.color()
+				.scale(colorScale)
+				.shapePadding(3)
+				.shapeWidth(15)
+				.shapeHeight(15)
+				.labelOffset(10)
+
+		function render(data) {
+
+			var nested = Object.keys(data).map(function(k) {
+				return {
+					"name" : k,
+					"profiles" : Object.keys(data[k]).map(function(nk) {
+						return {
+							"di": nk,
+							"values": Object.keys(data[k][nk]).map(function(nnk) {
+								var profile = data[k][nk][nnk];
+									spl = nnk.split('.')
+								profile.type = [spl[1], spl[3]].join('.');
+								return profile;
+							})
+						}
+					})
+				}
+			}).reduce(function(l,d) {
+				for (var i=0; i<d.profiles.length; i++) {
+					d.profiles[i].name = d.name;
+					l.push(d.profiles[i]);
+				}
+				return l;
+			},[]);
+
+			xScale.domain( nested.map( function(d) { return d.name; }));
+			yScale.domain( nested.map( function(d) { return d.di; }));
+			colorScale.domain( nested[0].values.map( function(d) {	return d[colorColumn]; }));
+			pie.value(function(d) { return d[slicesSizeColumn]});
+
+			var pies = g.selectAll(".pie").data(nested);
+			pies.enter().append("g").attr("class", "pie");
+			pies.attr("transform", function(d) {
+				var x = xScale(d[xColumn]);
+				var y = yScale(d[yColumn]);
+				return "translate(" + x + "," + y + ")";
+			})
+			pies.exit().remove();
+
+			var slices = pies.selectAll("path").data(function(d) {
+				return pie(d.values)
+			})
+
+			slices.enter().append("path")
+			slices
+				.attr("d", arc)
+				.attr("fill", function(d) { return colorScale(d.data[colorColumn])});
+			slices.exit().remove();
+
+			xAxisG.call(xAxis);
+			yAxisG.call(yAxis);
+			colorLegendG.call(colorLegend);
+
+
+		}
+
+		render(data)
+
+	</script>
+
+</body>
+</html>
