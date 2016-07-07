@@ -181,7 +181,7 @@ var AVIATION = (function (aviation) {
 
 				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight, timeSlice);
 
-				flight.findGate(aviation.get.gates());
+				flight.findGate(aviation.get.gates(), true);
 				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
 			});
 

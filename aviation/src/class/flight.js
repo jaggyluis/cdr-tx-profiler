@@ -109,7 +109,7 @@ var AVIATION = (function (aviation) {
 
 			return this.gate;
 		},
-		findGate : function (gates) {
+		findGate : function (gates, cluster) {
 
 			if (this.ival.getLength() === 0) {
 				this.setGate('*');
@@ -121,62 +121,65 @@ var AVIATION = (function (aviation) {
 				return;
 			}
 
-			var hasCarrier = [],
-				notHasCarrier = [],
-				drift = [];
-				sorted = [];
+			if (cluster === true) {
+				
+				var hasCarrier = [],
+					notHasCarrier = [],
+					drift = [];
+					sorted = [];
 
-			for (var i=0; i<gates.length; i++) {
-				if (gates[i].hasCarrier(this.airline)) {
-					hasCarrier.push(gates[i]);
-				} else {
-					notHasCarrier.push(gates[i]);
+				for (var i=0; i<gates.length; i++) {
+					if (gates[i].hasCarrier(this.airline)) {
+						hasCarrier.push(gates[i]);
+					} else {
+						notHasCarrier.push(gates[i]);
+					}
 				}
-			}
-			for (var i=0; i<notHasCarrier.length; i++) {
+				for (var i=0; i<notHasCarrier.length; i++) {
 
-				var min = Infinity;
+					var min = Infinity;
 
-				if (hasCarrier.length !== 0) {
-					for (var j=0; j<hasCarrier.length; j++) {
+					if (hasCarrier.length !== 0) {
+						for (var j=0; j<hasCarrier.length; j++) {
 
-						var dist = Math.abs(hasCarrier[j].num - notHasCarrier[i].num);
+							var dist = Math.abs(hasCarrier[j].num - notHasCarrier[i].num);
 
-						if (dist < min) min = dist;
-					}
-					for (var k=0; k<drift.length; k++) {
-						if (min < drift[k]) {
-
-							break;
+							if (dist < min) min = dist;
 						}
-					}
-				} else {
-					for (var j=0; j<notHasCarrier.length; j++) {
+						for (var k=0; k<drift.length; k++) {
+							if (min < drift[k]) {
 
-						var dist = Math.abs(notHasCarrier[j].num - notHasCarrier[i].num),
-							count = notHasCarrier[i].getFlights().length;
-
-						if (count && dist < min) min = dist;
-					}
-					for (var k=0; k<drift.length; k++) {
-						if (min > drift[k]) {
-
-							break;
+								break;
+							}
 						}
-					}					
+					} else {
+						for (var j=0; j<notHasCarrier.length; j++) {
+
+							var dist = Math.abs(notHasCarrier[j].num - notHasCarrier[i].num),
+								count = notHasCarrier[i].getFlights().length;
+
+							if (count && dist < min) min = dist;
+						}
+						for (var k=0; k<drift.length; k++) {
+							if (min > drift[k]) {
+
+								break;
+							}
+						}					
+					}
+					sorted.splice(k,0, notHasCarrier[i]);
+					drift.splice(k,0, min);
 				}
-				sorted.splice(k,0, notHasCarrier[i]);
-				drift.splice(k,0, min);
+				hasCarrier.sort(function(ga,gb) {
+
+					var numFlightsGateA = ga.getFlightsByCarrier(this.airline).length,
+						numFlightsGateB = gb.getFlightsByCarrier(this.airline).length;
+
+					return numFlightsGateB - numFlightsGateA;
+				})
+
+				gates = hasCarrier.concat(sorted);
 			}
-			hasCarrier.sort(function(ga,gb) {
-
-				var numFlightsGateA = ga.getFlightsByCarrier(this.airline).length,
-					numFlightsGateB = gb.getFlightsByCarrier(this.airline).length;
-
-				return numFlightsGateB - numFlightsGateA;
-			})
-
-			gates = hasCarrier.concat(sorted);
 
 			for (var i=0; i<gates.length; i++) {
 

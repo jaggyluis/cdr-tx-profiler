@@ -1,206 +1,206 @@
-name,code,id,loadFactor,seats,count,gate,time
-"American Airlines to Phoenix, Airbus Industries A321","AA","a843af35-63f3-4307-b7b8-730069514192","1","183","165","B6a","06:00:00"
-"American Airlines to Charlotte, Airbus Industries A321","AA","3956834b-d063-4b57-9c0e-a5bef388f0fa","1","183","165","B3","10:09:59"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","f882fcd6-1103-4d05-a7e7-948a2195b2f7","1","183","187","B6b","10:59:59"
-"American Airlines to Charlotte, Airbus Industries A321","AA","e8103db0-6d13-4a85-93a6-e6441706cae2","1","183","165","B5","11:15:00"
-"American Airlines to New York, Airbus Industries A321","AA","358b7856-2661-4c94-8b53-8a3c0b8ffbc2","1","102","103","B4","12:24:59"
-"American Airlines to Phoenix, Airbus Industries A321","AA","364ea290-5fb9-4a9a-b4d5-3467fb311612","1","183","172","B6a","12:00:00"
-"American Airlines to Charlotte, Airbus Industries A321","AA","5d230f49-9191-46a3-9248-9bb2d15f662a","1","183","174","B15","13:20:00"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","42aaeebd-21ab-48f9-912f-bdef26345261","1","183","181","B9","13:30:00"
-"American Airlines to Phoenix, Airbus Industries A321","AA","d750dd67-a56a-4eb0-9361-97ba9ed1e2cc","1","183","167","B5","15:40:00"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","d7765392-e80e-45cc-91df-a0f32ad9374c","1","183","166","B4","17:19:59"
-"American Airlines to Phoenix, Airbus Industries A321","AA","33746bc1-e4da-483e-860b-f5f854c75341","1","183","166","B5","17:10:00"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","d676dd32-c508-4b19-a989-c12b415f3192","1","183","173","B6a","22:05:00"
-"American Airlines to Phoenix, Airbus Industries A321","AA","7546d677-ede3-4d29-a5bd-65fe09b0acb5","1","183","169","B7a","20:30:00"
-"American Airlines to Charlotte, Airbus Industries A321","AA","ed178a69-ab48-4454-bd1c-c4770789503e","1","183","164","B5","22:20:00"
-"American Airlines to New York, Airbus Industries A321","AA","f60976ad-094b-4406-b1cc-8782867d6438","1","102","94","B3","22:59:59"
-"American Airlines to Phoenix, Airbus Industries A321","AA","4e3144b4-9137-4f41-9daa-760bb42eed04","1","183","169","B4","09:15:00"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","c6dfb88a-837e-47a3-9669-0ac94b5bf234","1","183","166","B5","06:09:59"
-"American Airlines to Philadelphia, Airbus Industries A321","AA","b4cb6728-cae2-41b0-84d5-42c8b94c832e","1","183","171","B5","08:15:00"
-"American Airlines to Charlotte, Airbus Industries A321","AA","1e76c125-aff4-404d-8dd3-fa0efe4ed2f8","1","183","178","B4","07:20:00"
-"American Airlines to Los Angeles, Boeing 737-800","AA","111284a3-6b4f-4c42-9deb-d98e8fbd0a34","1","149","146","B5","10:04:00"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","66a8f954-4119-4e39-9ca1-49430edc04e8","1","149","147","B4","10:36:59"
-"American Airlines to Chicago, Boeing 737-800","AA","fb4ba29f-c1bd-4e15-9f0b-8c177caeb868","1","149","148","B7a","10:54:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","a9b042a9-2574-4b63-b7b6-d6912287d1e9","1","149","143","B3","11:24:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","e9454593-4b9f-4fa4-a394-1f9da979de76","1","149","144","B5","12:54:59"
-"American Airlines to Miami, Boeing 737-800","AA","5e8f7d26-b1c0-4843-899b-4bc742b29e9e","1","149","142","B3","13:05:00"
-"American Airlines to Los Angeles, Boeing 737-800","AA","e8702801-ca9d-48f5-b71d-cb8810a98c5d","1","149","134","B6b","12:49:59"
-"American Airlines to Chicago, Boeing 737-800","AA","750d6f34-2d1a-4890-88d7-99c8e3241446","1","149","130","B13","13:30:00"
-"American Airlines to Chicago, Boeing 737-800","AA","1044f2bd-23c1-4171-a189-85b9bc1554ef","1","149","121","B4","14:10:00"
-"American Airlines to Los Angeles, Boeing 737-800","AA","3d3b34e2-9f37-4b4c-8e92-cebf36414899","1","149","150","B15","14:19:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","8510de71-2158-4ac5-a1bf-332b8ca0469d","1","149","151","B3","14:39:59"
-"American Airlines to Miami, Boeing 737-800","AA","98be8671-e547-4b48-b66c-e51c2eccf726","1","149","149","B3","16:39:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","d47b1b5a-85f1-46ff-aff4-56e6ed96e677","1","149","146","B9","16:05:00"
-"American Airlines to Miami, Boeing 737-800","AA","a33a6ce9-6cbf-4271-b445-959c61922ef5","1","149","136","B7a","16:39:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","dd7a7636-4fcb-4cb7-a738-4c3617e5832e","1","149","143","B13","16:59:59"
-"American Airlines to Los Angeles, Boeing 737-800","AA","8d3f86e1-0f95-44fc-9dcc-bc286ec56f85","1","149","161","B7b","17:15:00"
-"American Airlines to Chicago, Boeing 737-800","AA","a20ce9e0-c18f-4a91-8e5f-0cb3c0c2b554","1","149","139","B6a","17:50:00"
-"American Airlines to Los Angeles, Boeing 737-800","AA","0f8b6023-1a1a-42d5-bff6-43510ec2ed65","1","149","156","B6b","20:05:00"
-"American Airlines to Miami, Boeing 737-800","AA","1638c151-f13a-46dd-b47b-7ca49e183bc8","1","149","137","B5","20:55:00"
-"American Airlines to Chicago, Boeing 737-800","AA","96ff87f7-daa3-4f6b-8cdc-e8fefe1bced4","1","149","146","B5","23:39:59"
-"American Airlines to Chicago, Boeing 737-800","AA","4b2c7932-51ec-4af7-8cf2-530d5c68f911","1","149","143","B14b","06:15:00"
-"American Airlines to Chicago, Boeing 737-800","AA","f6893fd3-a3db-4218-a38a-1a0cd62c18da","1","149","143","B15","09:20:00"
-"American Airlines to Miami, Boeing 737-800","AA","a0a08e68-495c-4de3-aa5e-bb54a3f4f9b3","1","149","131","B14a","06:00:00"
-"American Airlines to Los Angeles, Boeing 737-800","AA","0035a333-a841-4eb5-b419-2785c70bb42c","1","149","142","B13","06:29:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","8a3dfeb5-3e2f-4904-80ba-84b283e32fff","1","149","146","B6b","06:00:00"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","4257de9f-a1cb-4580-9665-b807dbd63301","1","149","128","B13","07:50:00"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","a176c559-3fbe-49d2-af8f-74c2a55a89ea","1","149","145","B3","08:19:59"
-"American Airlines to Dallas-Fort Worth, Boeing 737-800","AA","5887bde6-6428-4389-9d16-6db904541051","1","149","129","B13","09:45:00"
-"American Airlines to New York, Boeing 777","AA","6af76f18-2d84-475f-abff-1aabd6262e5e","1","247","262","B7","07:09:59"
-"American Airlines to New York, Boeing 777","AA","3c995c76-834e-44ef-a70d-50bffdb02665","1","304","316","B6","09:15:00"
-"American Airlines to Dallas-Fort Worth, Boeing 787-800","AA","4c0ab0dd-b409-4680-a87f-488e1ddc5090","1","219","234","B14","09:04:59"
-"American Airlines to New York, Boeing 787-800","AA","8e88ffd3-40ec-45e2-ac87-d9c77ded023b","1","219","230","B14","15:15:00"
-"Air France to Paris, Airbus A380","AF","739afd37-954b-4aa1-8ece-d3716ac087ac","1","516","517","B10","17:50:00"
-"Air France to Paris, Boeing 777","AF","c4bdba1f-2534-4758-b831-409465ad3fbd","1","310","284","B7","15:40:00"
-"Air France to Paris, Boeing 777","AF","7a7a7b7c-f64e-434e-926d-9a23ae1556ca","1","310","288","B10","21:24:59"
-"Alaska Airlines to Seattle, Boeing 737-800","AS","d737f10c-0bff-41f6-be0b-0d44d8547c06","1","157","166","B2","10:09:59"
-"Alaska Airlines to Portland, Boeing 737-800","AS","eabfa106-9449-4e09-afb7-00c862ed15d7","1","157","139","B2","15:09:59"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","6980f92e-43ec-486e-83e2-75d74840d5f6","1","172","158","B1","09:15:00"
-"Alaska Airlines to Puerto Vallarta, Boeing 737-900","AS","5610710b-4155-4afc-b646-9ed10e45c326","1","172","164","B6a","10:45:00"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","eb07370e-16a8-4be5-b210-1eba935e2adf","1","172","172","B1","19:54:59"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","7a7c249e-38e4-4864-9acb-be26d06d61f8","1","172","154","B6a","13:04:00"
-"Alaska Airlines to Palm Springs, Boeing 737-900","AS","5317d7d8-b474-4841-8d33-965154927c4a","1","172","165","B9","14:50:00"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","64cd12af-5680-4d72-a3a7-cf141b9d83d6","1","172","150","B17","16:54:59"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","ea9bdac3-d7b7-4b72-8de2-4cf99e7a1cf2","1","172","163","B3","19:30:00"
-"Alaska Airlines to Portland, Boeing 737-900","AS","163011d7-6423-45b9-af34-f7481c91017f","1","172","171","B2","20:24:59"
-"Alaska Airlines to Palm Springs, Boeing 737-900","AS","b2ebe8ed-f36c-46e1-97ce-f5260f6f3ea1","1","172","159","B1","20:55:00"
-"Alaska Airlines to Seattle, Boeing 737-900","AS","2bd89d81-ebe1-44a1-a5c3-baccba43c7fb","1","172","151","B2","07:14:59"
-"Alaska Airlines to Portland, Boeing 737-900","AS","89cc9cac-fdb4-47fc-aa47-d80ca510b1d3","1","172","169","B1","07:04:00"
-"Horizon Air to Portland, De Havilland Bombardier Dash 8","QX","a6f7e85f-5ab3-44ee-8ddd-df462e299b25","1","74","67","B25","09:00:00"
-"Horizon Air to Portland, De Havilland Bombardier Dash 8","QX","abbcacbd-a42e-4232-8d00-055046a8ce37","1","74","60","B17","13:20:00"
-"Horizon Air to Portland, De Havilland Bombardier Dash 8","QX","4885c728-954f-4f82-88d0-27017ea9a6d6","1","74","69","B25","17:55:00"
-"JetBlue Airways to Boston, Airbus Industries A321","B6","1c6055c9-38fe-455a-a609-b551788f1079","1","183","172","B3","07:04:00"
-"JetBlue Airways to Long Beach, Airbus Industries A321","B6","3395881a-2a97-485a-abea-31141e2f3528","1","183","164","B9","09:13:59"
-"JetBlue Airways to New York, Airbus Industries A321","B6","16fdc088-8ef2-4bab-9263-f76a36d59d81","1","183","179","B11","10:50:00"
-"JetBlue Airways to Long Beach, Airbus Industries A321","B6","1c09d3f9-5380-432c-9d6b-d8bd42de5ad3","1","183","165","B10a","11:15:00"
-"JetBlue Airways to Long Beach, Airbus Industries A321","B6","43980028-b9ab-4fd2-8ef3-4181ccf1c128","1","183","192","B10a","12:06:00"
-"JetBlue Airways to Boston, Airbus Industries A321","B6","f077607b-0f13-47bf-9501-9f2db5514ec3","1","183","167","B11","13:39:59"
-"JetBlue Airways to , Airbus Industries A321","B6","bc6f1030-17b1-4064-ba93-c5cce7f0d794","1","183","159","B9","16:59:59"
-"JetBlue Airways to Long Beach, Airbus Industries A321","B6","4264b4c8-8d4a-434b-977a-47d67053c162","1","183","171","B11","19:14:59"
-"JetBlue Airways to New York, Airbus Industries A321","B6","fdd28384-ecb8-4816-857c-0142d20d10d7","1","183","168","B3","21:00:00"
-"JetBlue Airways to Boston, Airbus Industries A321","B6","eea765e5-a87e-4d3d-8f53-e1293e9459b5","1","183","176","B9","22:20:00"
-"JetBlue Airways to Fort Lauderdale, Airbus Industries A321","B6","6ea8dd13-4064-4170-9af4-843aec8e852f","1","183","174","B10a","22:20:00"
-"JetBlue Airways to New York, Airbus Industries A321","B6","63823c12-3e57-4755-907b-f9eb95db11fd","1","183","164","B3","23:59:00"
-"JetBlue Airways to New York, Airbus Industries A321","B6","27d940a2-3229-431f-a8e4-075165cc16e9","1","183","172","B9","07:59:59"
-"British Airways to London, Airbus A350-1000","BA","88387d26-59af-4bd7-ad0a-76bff8fef406","1","369","373","B18","14:15:00"
-"British Airways to London, Airbus A350-1000","BA","2076f0bf-6827-4984-bee4-5a15b504f31e","1","369","374","B20","18:54:59"
-"British Airways to London, Airbus A380","BA","cb76132a-abfc-43e2-a162-fbaa5b76c85b","1","469","487","B18","16:54:59"
-"Delta Air Lines to New York, Airbus Industries A319","DL","52810e77-9464-4dea-973b-63b7f0960739","1","126","120","B22","17:19:59"
-"Delta Air Lines to Minneapolis, Airbus Industries A320","DL","e5e965b4-1953-49f0-99bb-2622f3261fcd","1","150","152","B17","12:24:59"
-"Delta Air Lines to Salt Lake City, Airbus Industries A320","DL","97eaf52f-f531-4c78-8642-785e221c3430","1","150","130","B18a","18:24:59"
-"Delta Air Lines to Salt Lake City, Airbus Industries A320","DL","5032e88f-cf75-433c-932a-2b234573b141","1","150","140","B17","06:04:59"
-"Delta Air Lines to Atlanta, Airbus A330-300","DL","635d2711-e446-4d6d-8a93-05579dbdf4a6","1","293","307","B20","11:50:00"
-"Delta Air Lines to Atlanta, Airbus A330-300","DL","ebf60242-b03c-46f1-987d-2f8847dc97e4","1","293","305","B20","07:30:00"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","9eb859bf-fe77-440b-8096-7aee0b752ab6","1","160","142","B19","06:00:00"
-"Delta Air Lines to New York, Boeing 737-800","DL","8db64394-f805-4973-ba40-38171583c289","1","160","141","B18b","07:59:59"
-"Delta Air Lines to Salt Lake City, Boeing 737-800","DL","9e596f61-6f57-4bee-b114-f0cc0f2114a1","1","160","143","B17","09:04:59"
-"Delta Air Lines to New York, Boeing 737-800","DL","161c54b8-25ef-4964-9d70-e6512b803d1f","1","160","140","B18a","11:30:00"
-"Delta Air Lines to Detroit, Boeing 737-800","DL","6f24b2e2-d128-45bd-b150-de3daf6ffe58","1","160","140","B19","13:34:59"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","ce5a6d88-d241-4379-ad04-8387365a0019","1","160","157","B22","14:24:59"
-"Delta Air Lines to New York, Boeing 737-800","DL","10b1fccc-23e0-43d5-a028-56a2a57754cb","1","160","149","B20a","16:04:00"
-"Delta Air Lines to Minneapolis, Boeing 737-800","DL","186321c9-1ec4-4459-955f-2127ce6c2d50","1","160","149","B21","17:55:00"
-"Delta Air Lines to Minneapolis, Boeing 737-800","DL","6b812aa3-1ad3-495f-8f36-a44ae7a4c2cc","1","160","151","B17","15:00:00"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","95df2e09-b298-4aa6-aa29-f0cf2f08eaf4","1","160","164","B19","16:39:59"
-"Delta Air Lines to Honolulu, Boeing 737-800","DL","a846dcce-af45-4b88-aae3-cc421637170a","1","160","145","B17","18:17:00"
-"Delta Air Lines to Cincinnati, Boeing 737-800","DL","cb73e5a2-e54a-4f4f-a015-75eb1b9ddced","1","160","153","B19","22:59:59"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","b2a8099e-d286-4d56-8ed5-dc26fd9b30d2","1","160","149","B21","22:30:00"
-"Delta Air Lines to Los Angeles, Boeing 737-800","DL","cf4bda63-b03b-438f-a196-d0f5f317fa7a","1","160","145","B18b","20:19:59"
-"Delta Air Lines to Detroit, Boeing 737-800","DL","211fddef-1102-4713-862f-f8cced390942","1","160","156","B20b","22:50:00"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","66397762-2bca-4448-b8cc-fa63e3f86e6e","1","160","138","B20a","23:44:59"
-"Delta Air Lines to New York, Boeing 737-800","DL","ab2f4890-3d9c-4c51-bf19-09e9c91c43d4","1","160","166","B18a","21:15:00"
-"Delta Air Lines to New York, Boeing 737-800","DL","0d8b78e4-4f9b-4aaf-9cfe-83683c854d23","1","160","150","B18a","23:15:00"
-"Delta Air Lines to Minneapolis, Boeing 737-800","DL","e901bab6-49de-4a76-b357-1036a33cd908","1","160","154","B18a","06:24:59"
-"Delta Air Lines to New York, Boeing 737-800","DL","d5d95c7d-d7ec-4fb5-99a6-ed1a2d418c68","1","160","148","B21","06:15:00"
-"Delta Air Lines to Detroit, Boeing 737-800","DL","abeebe2a-afd1-4179-a2bc-bca6d7dae9ec","1","160","149","B22","08:05:00"
-"Delta Air Lines to Detroit, Boeing 737-800","DL","1e3589d2-688a-4b3a-86e0-246745e47fcc","1","160","138","B21","09:15:00"
-"Delta Air Lines to Atlanta, Boeing 737-800","DL","7a3326c7-7265-43ed-81ad-8f6f76d06bd7","1","160","147","B19","08:55:00"
-"Delta Air Lines to Minneapolis, Boeing 737-900","DL","25fb15d8-4023-4d95-b3d3-47fa90e3262d","1","180","172","B17","10:04:00"
-"Delta Air Lines to Salt Lake City, Boeing 737-900","DL","589acdce-4871-4e69-b329-84e61ccdd4b4","1","180","158","B20a","13:09:59"
-"Delta Air Lines to Minneapolis, Boeing 737-900","DL","c2c41a61-9934-458f-a9f6-1cd3e7832a40","1","180","171","B18a","07:45:00"
-"Delta Air Lines to Detroit, Boeing 737-900","DL","8b306e8c-1f7b-40f2-bae3-bd74e91ce604","1","180","180","B17","07:05:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","52026d87-95c7-4a60-b222-f9537a7d8c8d","1","126","110","B10a","08:30:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","f94b19c1-97df-4278-a310-60fda4f3696e","1","126","105","B10a","09:29:59"
-"SkyWest Airlines to Salt Lake City, Airbus Industries A319","OO","3944b893-c781-4093-85ce-0ead43b54008","1","126","117","B9","10:23:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","f2a1c30b-5682-4f85-afd4-d40bb30652e2","1","126","99","B10b","10:50:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","5728d66b-c76c-4fe0-97f3-0656003ce5aa","1","126","118","B10a","12:49:59"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","ab05b8cd-769f-48cc-aa93-6c477c79c8e1","1","126","116","B17","13:59:59"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","dc5658f6-d5a9-4c5d-8b81-921a839db244","1","126","120","B13","15:00:00"
-"SkyWest Airlines to Salt Lake City, Airbus Industries A319","OO","0f625846-f031-44ee-bd77-0f9bf24cd715","1","126","113","B11","16:43:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","19ebfb6a-56a6-44a9-85cf-c2c4c948ed47","1","126","125","B9","18:35:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","6a07d9a3-80c4-415c-a4c0-780dcf677861","1","126","132","B9","19:34:59"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","1ea7e342-16bf-482b-9eef-fb9a2e5c9beb","1","126","113","B9","21:09:59"
-"SkyWest Airlines to Los Angeles, Airbus Industries A319","OO","61d936f5-e29f-4ba3-97ce-57e3dd173bf5","1","126","121","B9","06:20:00"
-"SkyWest Airlines to Los Angeles, Airbus Industries A320","OO","e21fe0ce-f509-4f57-b02d-62fb405b19b1","1","150","127","B15","16:59:59"
-"Emirates to Dubai, Airbus A380","EK","dad02bba-f331-46ba-a67a-f7f2ae7bd550","1","526","537","B6","16:45:00"
-"Emirates to Dubai, Airbus A380","EK","ce00701b-9863-4df2-ad95-22d9422b25a7","1","526","537","B14","19:14:59"
-"Frontier Airlines to Denver, Airbus Industries A320","F9","ba5cf7be-b21e-4754-9eca-4a4a45634873","1","162","156","B23","14:35:00"
-"Frontier Airlines to Denver, Airbus Industries A321","F9","a85d4064-3a2c-498f-a5e5-39fc9ee88963","1","180","164","B23","10:30:00"
-"Frontier Airlines to Denver, Airbus Industries A321","F9","d9454ae8-696e-4584-b4ed-15a95cb38581","1","180","179","B23","17:05:00"
-"Frontier Airlines to Denver, Airbus Industries A321","F9","8f584249-cca1-4d69-a4ec-7649de1e71d3","1","180","172","B23","19:05:00"
-"Frontier Airlines to Denver, Airbus Industries A321","F9","89573de1-a537-4644-be80-5e411afb10b2","1","180","168","B23","06:09:59"
-"Hawaiian Airlines to Honolulu, Airbus A330-200","HA","30c05b77-a7bc-4228-b605-ee81db8bef96","1","267","278","B10","14:19:59"
-"Hawaiian Airlines to Honolulu, Airbus A330-200","HA","8c971fc1-84bc-40eb-accd-5b3a53a0750d","1","294","304","B7","08:55:00"
-"KLM Royal Dutch Airlines to Amsterdam, Boeing 777","KL","2de4289a-a916-45b6-820f-d0675412c7f4","1","425","417","B24","13:54:59"
-"MN Airlines (Sun Country) to Minneapolis, Boeing 737","SY","1b91d88f-d4c3-41df-b4e0-7536d746bf57","1","129","120","B11","17:39:59"
-"MN Airlines (Sun Country) to Minneapolis, Boeing 737-800","SY","a802fe15-87af-4104-aec8-5b0f31b5ec32","1","162","157","B11","09:54:59"
-"SkyWest Airlines to Santa Barbara, De Havilland Bombardier Dash 8","OO","00d9d0fa-5579-4fcc-ae82-2920058dc5c5","1","74","80","B9","12:20:00"
-"Southwest Airlines to Milwaukee, Boeing 737","WN","4d8e28d7-6276-4281-979b-e5027cd52816","1","143","139","B10b","07:50:00"
-"Southwest Airlines to Phoenix, Boeing 737","WN","928a2def-da9d-46e0-907a-62248561653b","1","143","130","B11","08:15:00"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","502fc6e0-8eda-4739-9554-58234bd17fa2","1","143","137","B2","08:19:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","50b84d6c-9683-4041-9974-218770911436","1","143","136","B7b","09:35:00"
-"Southwest Airlines to Fort Lauderdale, Boeing 737","WN","ed6de298-45d0-4bde-86ed-b8cb7c204c0a","1","143","129","B7a","10:09:59"
-"Southwest Airlines to Denver, Boeing 737","WN","57fa8fd2-38b1-40ca-ae6c-de99a08fba41","1","143","126","B20a","09:54:59"
-"Southwest Airlines to Chicago, Boeing 737","WN","1d451d52-f48c-4942-992a-2293363f37ab","1","143","118","B20b","09:54:59"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","04a32b45-6bf1-4c88-872c-75f8926b0498","1","143","136","B15","10:20:00"
-"Southwest Airlines to Santa Ana, Boeing 737","WN","30f3859d-8b7f-4db7-9b3a-e2b392a3dc65","1","143","127","B7b","10:39:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","41f39a8b-0f19-4b97-964a-5687fd3f3f3e","1","143","137","B2","11:44:59"
-"Southwest Airlines to Phoenix, Boeing 737","WN","d8e2f1ef-3195-4eb9-8f69-25544981e7c2","1","143","130","B7a","12:49:59"
-"Southwest Airlines to Chicago, Boeing 737","WN","e1f0fdae-c9e2-422c-806e-2a801e195536","1","143","132","B20b","13:20:00"
-"Southwest Airlines to Milwaukee, Boeing 737","WN","397bd74f-085e-4942-9635-652d1a36c238","1","143","139","B21","13:39:59"
-"Southwest Airlines to Phoenix, Boeing 737","WN","e4e0836b-c9ad-473d-813f-c74aff3ae984","1","143","133","null","13:50:00"
-"Southwest Airlines to Denver, Boeing 737","WN","131d7c8b-2445-4749-b835-710d4b1a2e17","1","143","128","B20b","13:59:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","81c59c96-4a53-4155-8e51-c7cca285d7c2","1","143","146","B13","14:19:59"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","ed4b9aa7-6a78-4af7-b015-9a3059f49fb6","1","143","129","B11","14:30:00"
-"Southwest Airlines to Phoenix, Boeing 737","WN","af6b377e-fb97-4ac1-9e12-d152fe547b23","1","143","127","B11","15:24:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","b25353b3-7960-4864-817a-5747c20da944","1","143","127","B15","15:24:59"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","925e7b20-c7fd-4c1f-babe-11757215beab","1","143","125","B13","16:05:00"
-"Southwest Airlines to San Diego, Boeing 737","WN","29e59f23-eb93-4b5d-bb54-a3dff74867d5","1","143","131","B20a","16:34:59"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","b3a26ed3-569c-4329-b868-4764ccea0b94","1","143","135","B2","16:45:00"
-"Southwest Airlines to Las Vegas, Boeing 737","WN","217651a3-f3ff-46a4-99c5-f11e00309cfc","1","143","131","B24","17:24:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","238c8584-3c89-45de-b1be-5cd1a760c51f","1","143","123","B7a","17:35:00"
-"Southwest Airlines to San Diego, Boeing 737","WN","4fbc65aa-ce4b-4615-81df-2d247da6ccd1","1","143","121","B2","18:00:00"
-"Southwest Airlines to Las Vegas, Boeing 737","WN","a6247778-4fa9-4446-bf38-1918dd8a439a","1","143","129","B13","18:09:59"
-"Southwest Airlines to Phoenix, Boeing 737","WN","6692bbc3-3404-4ae8-bef6-7c9d01b3a8af","1","143","111","B7a","18:29:59"
-"Southwest Airlines to Santa Ana, Boeing 737","WN","6c101c91-3f74-4d91-93fd-705190039a36","1","143","126","B13","19:04:00"
-"Southwest Airlines to San Diego, Boeing 737","WN","eec6a66d-cb87-4ba8-afea-a5d8030e611e","1","143","130","B7b","19:09:59"
-"Southwest Airlines to Denver, Boeing 737","WN","dc867e81-1458-48c7-96dd-21ef441ababe","1","143","141","B7a","19:25:00"
-"Southwest Airlines to Denver, Boeing 737","WN","f0907469-3c00-4928-a5fc-54ff5b2291cf","1","143","137","B7b","19:50:00"
-"Southwest Airlines to Atlanta, Boeing 737","WN","d91337f6-26ef-47e1-a399-d80674fdbaec","1","143","143","B4","23:59:00"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","255a9204-2125-4d02-81df-eea4348a536e","1","143","133","B11","20:50:00"
-"Southwest Airlines to Santa Ana, Boeing 737","WN","87f7e571-266b-4d1d-bf91-dc606998de99","1","143","126","B13","20:50:00"
-"Southwest Airlines to San Diego, Boeing 737","WN","b03ecec2-0692-4b00-9336-4daf7f9d016c","1","143","127","B7b","20:55:00"
-"Southwest Airlines to Las Vegas, Boeing 737","WN","7e9c835c-2e2a-431c-b33e-0b5989257803","1","143","127","B7a","21:29:59"
-"Southwest Airlines to St Louis, Boeing 737","WN","011d104d-954d-4bf7-bf9e-74a801303755","1","143","133","B2","22:14:59"
-"Southwest Airlines to Phoenix, Boeing 737","WN","e95efc42-9a83-49d9-8b61-9e6427127e62","1","143","125","B7a","22:04:00"
-"Southwest Airlines to Santa Ana, Boeing 737","WN","1fde95d9-3a15-4fca-8697-0c0e512fb4b3","1","143","132","B15","06:45:00"
-"Southwest Airlines to Santa Ana, Boeing 737","WN","e9e7116a-e0b6-4535-9629-6f9bdcf80b64","1","143","122","B10a","07:34:59"
-"Southwest Airlines to San Diego, Boeing 737","WN","d6e769b2-950e-44b0-bebf-f5e1392a61ce","1","143","139","B11","07:05:00"
-"Southwest Airlines to Chicago, Boeing 737","WN","f5998c7f-24ec-4939-b67c-8f842cd50132","1","143","135","B24","06:24:59"
-"Southwest Airlines to Los Angeles, Boeing 737","WN","e9a0ba69-3dee-4639-a205-75a575418093","1","143","135","B15","06:00:00"
-"Southwest Airlines to Las Vegas, Boeing 737","WN","1689a297-a133-4784-b7a6-309d02ceac65","1","143","121","B11","06:00:00"
-"Southwest Airlines to Las Vegas, Boeing 737","WN","c1c36c62-a7e8-4497-99e8-1abf8ed7799e","1","143","136","B10b","07:05:00"
-"Southwest Airlines to Denver, Boeing 737","WN","d1759aac-e469-4591-a26e-42163d9f898b","1","143","131","B10b","06:04:59"
-"Southwest Airlines to Atlanta, Boeing 737","WN","e51debbe-3a20-484c-a0d1-3fcca0ea19dd","1","143","139","B10a","06:29:59"
-"Southwest Airlines to Denver, Boeing 737-800","WN","3cb02586-f1be-4312-988d-521be1f6471d","1","175","162","B13","08:30:00"
-"Southwest Airlines to Milwaukee, Boeing 737-800","WN","ff11ec46-30f2-4f61-bf13-1b4c1236c9b1","1","175","153","B20a","09:15:00"
-"Southwest Airlines to Los Angeles, Boeing 737-800","WN","0d12ffe2-f5fa-4a84-bec8-d491ba918d10","1","175","163","B10b","09:35:00"
-"Southwest Airlines to Las Vegas, Boeing 737-800","WN","6198682c-5903-4086-8ee1-72ca190f3f04","1","175","168","B13","10:50:00"
-"Southwest Airlines to Los Angeles, Boeing 737-800","WN","47488ab4-d2f6-40a8-ad14-a4a694375bce","1","175","158","B7b","11:30:00"
-"Southwest Airlines to Los Angeles, Boeing 737-800","WN","5530cb9e-8d2f-418e-81e5-4f0b6381df8d","1","175","169","B7a","11:50:00"
-"Southwest Airlines to Atlanta, Boeing 737-800","WN","d4a20e7f-e6e5-43fd-a15c-e341c97d52ea","1","175","168","B2","13:39:59"
-"Southwest Airlines to Santa Ana, Boeing 737-800","WN","20972f99-a021-46d1-8163-83b829a5f933","1","175","156","B23","13:34:59"
-"Southwest Airlines to Las Vegas, Boeing 737-800","WN","47e2cd1a-1881-48cb-bf4c-64628e87ab59","1","175","179","B25","13:45:00"
-"Southwest Airlines to Santa Ana, Boeing 737-800","WN","c524bb10-6797-435a-a68e-9948e58e1842","1","175","155","B2","15:54:59"
-"Southwest Airlines to San Diego, Boeing 737-800","WN","135b2836-e285-4b9e-b8fa-6615b2260cdc","1","175","163","B3","18:09:59"
-"Southwest Airlines to Los Angeles, Boeing 737-800","WN","d64722de-c59f-438b-bd03-a4956fc90be8","1","175","166","B4","18:54:59"
-"Southwest Airlines to Los Angeles, Boeing 737-800","WN","2e8f88fd-1040-498e-810f-50292a0343f9","1","175","155","B13","21:54:59"
+name,code,id,loadFactor,seats,count,gate,time,arrival,delta.arrival
+"American Airlines to Phoenix, Airbus Industries A321",AA,cd20524b-9839-4d3a-a344-d9c3660cc50a,1,183,174,B5,0.25,0.035416667,0.214583333
+"American Airlines to Charlotte, Airbus Industries A321",AA,be4e5159-f764-4696-bbf4-325b48ace2f8,1,183,162,B9,0.423599537,0.368043981,0.055555556
+"American Airlines to Philadelphia, Airbus Industries A321",AA,a71926ec-278f-41df-b4d7-03a17d6699f3,1,183,185,B10a,0.458321759,0.41318287,0.045138889
+"American Airlines to Charlotte, Airbus Industries A321",AA,68597c35-bcb0-4cac-ad31-174ec7126d21,1,183,169,B13,0.46875,0.430555556,0.038194444
+"American Airlines to New York, Airbus Industries A321",AA,e2eadcfb-795b-4e2c-9b90-4d38b9f6b98c,1,102,103,B5,0.517349537,0.454849537,0.0625
+"American Airlines to Phoenix, Airbus Industries A321",AA,a81b8d3d-6e4b-4a0d-acef-2015d9900e57,1,183,171,B11,0.5,0.458321759,0.041666667
+"American Airlines to Charlotte, Airbus Industries A321",AA,b1d6bf5f-9772-47f3-9f9b-92ac1929745c,1,183,166,B17,0.555555556,0.514583333,0.040972222
+"American Airlines to Philadelphia, Airbus Industries A321",AA,aa97c1b1-5dd0-47a4-bf10-4d80e3ebdded,1,183,166,B19,0.5625,0.522210648,0.040277778
+"American Airlines to Phoenix, Airbus Industries A321",AA,d98ad798-8366-4cda-9169-a94ce32d0819,1,183,164,B9,0.652777778,0.549305556,0.103472222
+"American Airlines to Philadelphia, Airbus Industries A321",AA,432335de-9fd9-4257-ac86-3ca5c3a22260,1,183,179,B2,0.722210648,0.63193287,0.090277778
+"American Airlines to Phoenix, Airbus Industries A321",AA,981af265-f97a-4d8a-aa2a-5cbacdbbb8c9,1,183,176,B4,0.715277778,0.65625,0.059027778
+"American Airlines to Philadelphia, Airbus Industries A321",AA,098f42fd-b973-4f03-b591-e3a546c58494,1,183,177,B9,0.920138889,0.7875,0.132638889
+"American Airlines to Phoenix, Airbus Industries A321",AA,77074f10-39fe-48e4-ab43-a3f13747b5bf,1,183,166,B14b,0.854166667,0.818055556,0.036111111
+"American Airlines to Charlotte, Airbus Industries A321",AA,ec4b05b2-d998-4d15-91ac-032aa6f1e34c,1,183,161,B10a,0.930555556,0.881944444,0.048611111
+"American Airlines to New York, Airbus Industries A321",AA,0befaca8-d123-47ba-b383-efbe1fbdf802,1,102,104,B6a,0.958321759,0.902766204,0.055555556
+"American Airlines to Phoenix, Airbus Industries A321",AA,f273a6eb-6ca2-45ec-a976-d44d533a5f0b,1,183,176,B1,0.385416667,0.314444444,0.070972222
+"American Airlines to Philadelphia, Airbus Industries A321",AA,c116cbd1-7c1a-4b9c-a3bf-000b1f89fb78,1,183,170,B11,0.25693287,0.185960648,0.070972222
+"American Airlines to Philadelphia, Airbus Industries A321",AA,cf538749-a585-4357-ba52-424bcef1288c,1,183,181,B14a,0.34375,0.272766204,0.070972222
+"American Airlines to Charlotte, Airbus Industries A321",AA,6f479fcd-500b-4974-be6a-fb81167486c5,1,183,166,B13,0.305555556,0.234583333,0.070972222
+"American Airlines to Los Angeles, Boeing 737-800",AA,b315a65e-9a38-42f1-a8e4-fce1a8ab0947,1,149,148,B4,0.419444444,0.354166667,0.0625
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,5b920b14-6ea7-4b5b-adbb-86bc0c2435e3,1,149,141,B5,0.442349537,0.388888889,0.053472222
+"American Airlines to Chicago, Boeing 737-800",AA,b3b6f586-d6f5-4da4-a7a1-11a6a9c333e0,1,149,145,B14b,0.454849537,0.427071759,0.027777778
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,0e8b9790-36ea-4782-b95d-00a6b8346b3c,1,149,144,B9,0.47568287,0.434016204,0.041666667
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,201cb873-de32-411a-be24-4e274cf61726,1,149,143,B7a,0.53818287,0.493043981,0.045138889
+"American Airlines to Miami, Boeing 737-800",AA,1b79d1c1-3c6e-455d-9622-2051bba7e8cd,1,149,150,B9,0.545138889,0.496527778,0.048611111
+"American Airlines to Los Angeles, Boeing 737-800",AA,6ac675ad-5702-4601-bc6b-f2488058ab22,1,149,145,B6b,0.534710648,0.5,0.034722222
+"American Airlines to Chicago, Boeing 737-800",AA,b80096ba-7675-46d5-b52b-ceb677e0e8f4,1,149,137,B3,0.5625,0.517349537,0.045138889
+"American Airlines to Chicago, Boeing 737-800",AA,e052d53c-e5be-40f9-ac6e-99da835ede9b,1,149,155,B13,0.590277778,0.544444444,0.048611111
+"American Airlines to Los Angeles, Boeing 737-800",AA,e12cf6a3-8618-485e-9e04-6cc98d413233,1,149,137,B17,0.597210648,0.559027778,0.038194444
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,ec336a4c-cc56-4af4-bbab-38baf45e1fbe,1,149,140,B11,0.611099537,0.5625,0.048611111
+"American Airlines to Miami, Boeing 737-800",AA,34cc0916-3c27-43b1-9599-b570ea213c8a,1,149,135,B11,0.69443287,0.638877315,0.055555556
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,80981055-88e9-4abe-bd6b-955fe03acbca,1,149,139,B14a,0.670138889,0.638888889,0.03125
+"American Airlines to Miami, Boeing 737-800",AA,683843b2-5b8b-4de8-b0f0-346b5dffe19e,1,149,155,B7a,0.69443287,0.65625,0.038194444
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,719bd706-f14b-4020-a067-bf06293cc254,1,149,149,B19,0.708321759,0.680543981,0.027777778
+"American Airlines to Los Angeles, Boeing 737-800",AA,96438c40-5f27-45ce-841f-c9952d716286,1,149,129,B17,0.71875,0.6875,0.03125
+"American Airlines to Chicago, Boeing 737-800",AA,1b829d7b-0588-4513-b142-c92a794bc7ea,1,149,143,B6b,0.743055556,0.704861111,0.038194444
+"American Airlines to Los Angeles, Boeing 737-800",AA,eb6582cb-1e5b-408c-a56c-2452eb422974,1,149,127,B11,0.836805556,0.725694444,0.111111111
+"American Airlines to Miami, Boeing 737-800",AA,85cb78d3-9a8c-4559-9a2d-ea7672f8d8b8,1,149,137,B10a,0.871527778,0.78125,0.090277778
+"American Airlines to Chicago, Boeing 737-800",AA,387f11c2-b74b-4e81-a7f8-ef953b93c0ae,1,149,142,B5,0.986099537,0.958321759,0.027777778
+"American Airlines to Chicago, Boeing 737-800",AA,b7d1a206-30bb-47a0-9a54-557dacd40fbc,1,149,141,B17,0.260416667,0.213125,0.047291667
+"American Airlines to Chicago, Boeing 737-800",AA,4d4d6231-9e2f-48d9-9098-2084ad8ccced,1,149,138,B13,0.388888889,0.341597222,0.047291667
+"American Airlines to Miami, Boeing 737-800",AA,a8cdd394-bf61-4431-b887-2029312fce7d,1,149,123,B15,0.25,0.202708333,0.047291667
+"American Airlines to Los Angeles, Boeing 737-800",AA,66fff1e0-143b-4ae7-84a4-ecf0bf6b5b4e,1,149,148,B14b,0.270821759,0.223530093,0.047291667
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,bab6a2d2-841d-4aae-b3b3-9f8351244b4e,1,149,150,B14a,0.25,0.202708333,0.047291667
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,75dee59b-40cb-4474-85fa-a7474421a871,1,149,146,B15,0.326388889,0.279097222,0.047291667
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,ff788c6b-7f5a-4f89-8bd8-52d1d0ab8394,1,149,126,B4,0.347210648,0.299918981,0.047291667
+"American Airlines to Dallas-Fort Worth, Boeing 737-800",AA,53d028c0-dfda-4917-b24b-e44432e25aef,1,149,137,B11,0.40625,0.358958333,0.047291667
+"American Airlines to New York, Boeing 777",AA,d6682035-a53a-4557-a650-44f72287d057,1,247,268,B6,0.298599537,0.173599537,0.125
+"American Airlines to New York, Boeing 777",AA,769a512d-806b-4328-98a6-9b55fc57e0a7,1,304,306,B7,0.385416667,0.271215278,0.114197531
+"American Airlines to Dallas-Fort Worth, Boeing 787-800",AA,b0a52338-ce5a-4244-9115-737d3c56b6ff,1,219,244,B10,0.378460648,0.336793981,0.041666667
+"American Airlines to New York, Boeing 787-800",AA,a40ff9c6-d816-41b3-89e8-8bc437518017,1,219,237,B14,0.635416667,0.53125,0.104166667
+"Air France to Paris, Airbus A380",AF,852cd695-f418-464e-9e57-656f58c6dbe5,1,516,510,B10,0.743055556,0.618055556,0.125
+"Air France to Paris, Boeing 777",AF,1141d720-4953-402c-a209-f55531352bd4,1,310,283,B7,0.652777778,0.544444444,0.111111111
+"Air France to Paris, Boeing 777",AF,ad513251-e414-44bf-9f7c-de6757281cda,1,310,291,B6,0.892349537,0.774293981,0.118055556
+"Alaska Airlines to Seattle, Boeing 737-800",AS,07765bd7-1b7e-48ca-83e1-216c30e0275a,1,157,142,B2,0.423599537,0.361099537,0.0625
+"Alaska Airlines to Portland, Boeing 737-800",AS,aa643b34-51c9-4b18-bd54-84c8d34fdd70,1,157,153,B13,0.63193287,0.59375,0.038194444
+"Alaska Airlines to Seattle, Boeing 737-900",AS,c68efad0-7a5b-4203-a8d6-f0c62e8eecee,1,172,160,B15,0.385416667,0.354166667,0.03125
+"Alaska Airlines to Puerto Vallarta, Boeing 737-900",AS,774ca8e6-f053-4e36-85cc-842d37aef288,1,172,163,B7a,0.447916667,0.395833333,0.052083333
+"Alaska Airlines to Seattle, Boeing 737-900",AS,f5d8b115-1a90-4240-98c4-613c43c5175d,1,172,159,B1,0.829849537,0.410416667,0.419444444
+"Alaska Airlines to Seattle, Boeing 737-900",AS,167414a8-34d5-4dbb-a768-4ee1512943fe,1,172,163,B6a,0.544444444,0.506238426,0.035416667
+"Alaska Airlines to Palm Springs, Boeing 737-900",AS,7a4db272-a6fe-4be9-a7e9-9dd91dfa60cc,1,172,155,B19,0.618055556,0.588888889,0.029166667
+"Alaska Airlines to Seattle, Boeing 737-900",AS,f27d461d-edd6-4f38-96c7-af7287edf11e,1,172,160,B20b,0.704849537,0.680543981,0.024305556
+"Alaska Airlines to Seattle, Boeing 737-900",AS,8be62f48-5b47-4d97-a05a-7f064f16e8a4,1,172,170,B4,0.8125,0.777777778,0.034722222
+"Alaska Airlines to Portland, Boeing 737-900",AS,5c0973a6-ce1e-4aff-8200-17385de6923f,1,172,166,B10b,0.85068287,0.786099537,0.064583333
+"Alaska Airlines to Palm Springs, Boeing 737-900",AS,44fdd486-cab8-4879-ab1a-9d46a91182af,1,172,152,B14a,0.871527778,0.847210648,0.024305556
+"Alaska Airlines to Seattle, Boeing 737-900",AS,146d0ffe-93ef-45ed-aa7a-2aa2ecdf6ec9,1,172,169,B2,0.302071759,0,2.136363636
+"Alaska Airlines to Portland, Boeing 737-900",AS,75eeadc8-ca18-4a4f-af8a-7066c22fe9e2,1,172,156,B1,0.294444444,0,2.136363636
+"Horizon Air to Portland, De Havilland Bombardier Dash 8",QX,7e4cd885-0842-4eb5-afb2-761c9f7e8746,1,74,75,B14b,0.375,0.34375,0.03125
+"Horizon Air to Portland, De Havilland Bombardier Dash 8",QX,2f20e235-3c11-48d5-b253-cc76a5ed10c9,1,74,64,B23,0.555555556,0.53125,0.024305556
+"Horizon Air to Portland, De Havilland Bombardier Dash 8",QX,b20ba8d6-e011-4873-84f9-ab344a2a09fc,1,74,60,B15,0.746527778,0.722210648,0.024305556
+"JetBlue Airways to Boston, Airbus Industries A321",B6,38523527-dc9f-4d28-891a-893ad84453b9,1,183,169,B4,0.294444444,0.049305556,0.242361111
+"JetBlue Airways to Long Beach, Airbus Industries A321",B6,097df76b-e597-484a-8473-61154117359f,1,183,171,B17,0.384710648,0.354849537,0.029861111
+"JetBlue Airways to New York, Airbus Industries A321",B6,f501c578-2172-4194-a84d-3d88fc6b1256,1,183,156,B11,0.451388889,0.419444444,0.034722222
+"JetBlue Airways to Long Beach, Airbus Industries A321",B6,d56dbefb-3342-4e13-b6f7-532fc692e943,1,183,157,B7b,0.46875,0.423599537,0.045138889
+"JetBlue Airways to Long Beach, Airbus Industries A321",B6,c0f79645-55b2-4f87-b5a0-115c1446b536,1,183,164,B13,0.504166667,0.469444444,0.034722222
+"JetBlue Airways to Boston, Airbus Industries A321",B6,8878587c-63ac-4b81-8837-6403e6d8634c,1,183,169,B21,0.56943287,0.534710648,0.034722222
+"JetBlue Airways to , Airbus Industries A321",B6,88857ece-4ccf-44c8-84be-27b05eb846d6,1,183,162,B9,0.708321759,0.672905093,0.035416667
+"JetBlue Airways to Long Beach, Airbus Industries A321",B6,afe5dc47-e1c5-44cf-a6a9-6d060caedd37,1,183,181,B3,0.802071759,0.770821759,0.03125
+"JetBlue Airways to New York, Airbus Industries A321",B6,b4a9de81-c2bd-45ee-8d93-d888802a2810,1,183,170,B13,0.875,0.82568287,0.049305556
+"JetBlue Airways to Boston, Airbus Industries A321",B6,056ce01b-ee8b-4c21-a929-c87ec3bed7b4,1,183,161,B6b,0.930555556,0.895833333,0.034722222
+"JetBlue Airways to Fort Lauderdale, Airbus Industries A321",B6,ce5ed659-45dc-465a-8c85-9eec5963c2c4,1,183,175,B10b,0.930555556,0.899305556,0.03125
+"JetBlue Airways to New York, Airbus Industries A321",B6,84333117-63b6-4647-9112-a336e72f4368,1,183,173,B2,0.999305556,0.963194444,0.036111111
+"JetBlue Airways to New York, Airbus Industries A321",B6,8028808a-45db-4df3-b8a9-be386d8ca023,1,183,167,B14b,0.333321759,0.280023148,0.053298611
+"British Airways to London, Airbus A350-1000",BA,de1f96ae-7ff3-47e8-ab68-b37b7fafb7c9,1,369,366,B18,0.59375,0.510416667,0.083333333
+"British Airways to London, Airbus A350-1000",BA,a1ec92da-7df1-4209-8c5e-dd0c42bdf06a,1,369,373,B7,0.78818287,0.701377315,0.086805556
+"British Airways to London, Airbus A380",BA,3c728447-85eb-4800-a716-81c4ca49b8a8,1,469,463,B18,0.704849537,0.60068287,0.104166667
+"Delta Air Lines to New York, Airbus Industries A319",DL,82eb7b25-8cbf-4704-b6aa-a24e2d9d2fe5,1,126,118,B5,0.722210648,0.673599537,0.048611111
+"Delta Air Lines to Minneapolis, Airbus Industries A320",DL,76faf464-fccc-4179-bd12-4b2a545b4966,1,150,156,B7b,0.517349537,0.479166667,0.038194444
+"Delta Air Lines to Salt Lake City, Airbus Industries A320",DL,fda94d20-8c2d-48bf-a063-06ffcaefe858,1,150,142,B13,0.767349537,0.743043981,0.024305556
+"Delta Air Lines to Salt Lake City, Airbus Industries A320",DL,19ebb6ff-2230-4534-8be3-5e94ac7aee5e,1,150,139,B18a,0.253460648,0.222210648,0.03125
+"Delta Air Lines to Atlanta, Airbus A330-300",DL,029bec87-9dc3-4307-8158-550ab0e3a2cf,1,293,301,B6,0.493055556,0.431944444,0.061111111
+"Delta Air Lines to Atlanta, Airbus A330-300",DL,a2af0761-405b-436c-a43e-1b478a67d24f,1,293,297,B10,0.3125,0.215729167,0.096759259
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,63675477-769a-4e39-a5f7-9b8fdf8fa9c9,1,160,140,B3,0.25,0.003460648,0.246527778
+"Delta Air Lines to New York, Boeing 737-800",DL,cff49649-a837-490a-9320-09027cea090f,1,160,137,B11,0.333321759,0.257638889,0.075694444
+"Delta Air Lines to Salt Lake City, Boeing 737-800",DL,80f4244c-684d-466b-9e17-32ba39916342,1,160,147,B14a,0.378460648,0.347210648,0.03125
+"Delta Air Lines to New York, Boeing 737-800",DL,68607e29-a15d-4a25-b273-a27ffd6205ab,1,160,143,B4,0.479166667,0.434027778,0.045138889
+"Delta Air Lines to Detroit, Boeing 737-800",DL,538ece9f-494f-4509-b444-3d2997716d48,1,160,144,B2,0.565960648,0.451388889,0.114583333
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,f95a1e0d-da84-4194-bf4c-8d04d5864f49,1,160,161,B4,0.60068287,0.492349537,0.108333333
+"Delta Air Lines to New York, Boeing 737-800",DL,d9113ee7-1b36-44ce-a8de-50bd037ebeec,1,160,150,B5,0.669444444,0.559027778,0.107638889
+"Delta Air Lines to Minneapolis, Boeing 737-800",DL,c9cca167-95e2-4f39-ae2b-2b84b246b4ab,1,160,138,B3,0.746527778,0.570833333,0.175694444
+"Delta Air Lines to Minneapolis, Boeing 737-800",DL,c08bf3a8-1750-47ad-a894-df5774fb40df,1,160,144,B2,0.625,0.590277778,0.034722222
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,404faa1b-be90-43d0-ad8c-1d4485be4472,1,160,138,B13,0.69443287,0.645821759,0.048611111
+"Delta Air Lines to Honolulu, Boeing 737-800",DL,0b18feda-b77b-4f59-bf70-df8eca7dfee6,1,160,145,B5,0.761805556,0.729166667,0.032638889
+"Delta Air Lines to Cincinnati, Boeing 737-800",DL,88259f22-593d-45cf-a490-0ed3b415a9ee,1,160,150,B2,0.958321759,0.74443287,0.213888889
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,7684929a-32a6-459a-96a3-16cf8a064f57,1,160,133,B5,0.9375,0.77568287,0.161805556
+"Delta Air Lines to Los Angeles, Boeing 737-800",DL,e1e5fb2f-13f3-4e83-9296-57c8c7f89a5e,1,160,145,B14a,0.847210648,0.805543981,0.041666667
+"Delta Air Lines to Detroit, Boeing 737-800",DL,879d8c4d-3f58-463c-b1ed-765bb5ad0ec2,1,160,143,B7a,0.951388889,0.813888889,0.1375
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,27d396af-5f66-48c5-b654-5616fd5e0246,1,160,137,B4,0.989571759,0.81943287,0.170138889
+"Delta Air Lines to New York, Boeing 737-800",DL,de63472e-435d-4cd9-96fd-2658b57f81e8,1,160,139,B7b,0.885416667,0.822916667,0.0625
+"Delta Air Lines to New York, Boeing 737-800",DL,b46d0686-fbe8-46c5-9ff8-74b7d08b426e,1,160,141,B1,0.96875,0.888888889,0.079861111
+"Delta Air Lines to Minneapolis, Boeing 737-800",DL,e41831e2-1f55-4af0-8396-84b7675ac2d2,1,160,131,B7b,0.267349537,0.162453704,0.104899691
+"Delta Air Lines to New York, Boeing 737-800",DL,39a41a12-b827-4b47-98b6-01af9a04e3b4,1,160,143,B7a,0.260416667,0.155509259,0.104899691
+"Delta Air Lines to Detroit, Boeing 737-800",DL,2a276957-165b-4771-abe7-cd671fbe28af,1,160,154,B9,0.336805556,0.231898148,0.104899691
+"Delta Air Lines to Detroit, Boeing 737-800",DL,ce5ea5b7-aa66-4731-9218-bc91a497c312,1,160,151,B5,0.385416667,0.280509259,0.104899691
+"Delta Air Lines to Atlanta, Boeing 737-800",DL,cd19f80b-5dc0-4007-af72-eb0a5c077eaf,1,160,147,B3,0.371527778,0.26662037,0.104899691
+"Delta Air Lines to Minneapolis, Boeing 737-900",DL,f057190c-d73b-490c-afdc-a878a01f402d,1,180,165,B6a,0.419444444,0.381944444,0.034722222
+"Delta Air Lines to Salt Lake City, Boeing 737-900",DL,79a0ca5e-2f95-48d4-9903-7e29c9b26109,1,180,169,B11,0.548599537,0.505543981,0.043055556
+"Delta Air Lines to Minneapolis, Boeing 737-900",DL,d49b5783-54c4-4112-a4b3-29c0c89f66af,1,180,170,B17,0.322916667,0.284027778,0.038888889
+"Delta Air Lines to Detroit, Boeing 737-900",DL,71836175-431d-4c14-af31-15136747e42f,1,180,164,B18a,0.295138889,0.25625,0.038888889
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,bebef26c-594e-4ec2-9254-17acb52a64a6,1,126,118,B2,0.354166667,0.330555556,0.023611111
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,7acc498e-cc8c-44d1-9314-2bf369b58dda,1,126,131,B18b,0.395821759,0.370138889,0.025694444
+"SkyWest Airlines to Salt Lake City, Airbus Industries A319",OO,20136cbe-fffb-47f9-80f5-394fd29c921a,1,126,126,B15,0.432638889,0.406944444,0.025694444
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,e4ae0c2c-5803-4419-bf0a-ca052a0362a0,1,126,108,B10b,0.451388889,0.413194444,0.038194444
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,b2afffe4-331f-47b0-bcb7-1073e3f2e6aa,1,126,112,B13,0.534710648,0.509710648,0.025
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,5a4470fd-259d-4c3d-b039-b50d000b0314,1,126,117,B23,0.583321759,0.558321759,0.025
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,df1041ba-034e-4195-936c-f7887eccaa6e,1,126,120,B20a,0.625,0.60068287,0.024305556
+"SkyWest Airlines to Salt Lake City, Airbus Industries A319",OO,030bc9ae-d5c4-4bec-b046-4febfdb668a1,1,126,123,B21,0.696527778,0.672916667,0.023611111
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,48487c44-7628-484a-b18c-97a0f6801812,1,126,118,B4,0.774305556,0.731944444,0.042361111
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,c06bb437-c792-478a-aa7b-6d51fdbef998,1,126,113,B17,0.815960648,0.786793981,0.029166667
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,d2c3e7a4-996a-4f15-99f6-ff4f46e52da1,1,126,116,B1,0.88193287,0.854849537,0.027083333
+"SkyWest Airlines to Los Angeles, Airbus Industries A319",OO,cb98a121-4351-4009-8249-a5f41dadcf9a,1,126,104,B18b,0.263888889,0.228136574,0.035745614
+"SkyWest Airlines to Los Angeles, Airbus Industries A320",OO,c302b4e1-5f10-4729-a866-1ec0c8ced648,1,150,142,B20a,0.708321759,0.68193287,0.026388889
+"Emirates to Dubai, Airbus A380",EK,1ed50b12-b5d4-4eed-839c-0675457c840e,1,526,532,B6,0.697916667,0.545138889,0.152777778
+"Emirates to Dubai, Airbus A380",EK,50f51443-08eb-4270-a280-b107fecb13fa,1,526,532,B14,0.802071759,0.680543981,0.121527778
+"Frontier Airlines to Denver, Airbus Industries A320",F9,1f2f3d0b-a83c-4d20-97de-292d89afecf7,1,162,160,B15,0.607638889,0.578460648,0.029166667
+"Frontier Airlines to Denver, Airbus Industries A321",F9,79dd1d04-7cea-4dde-adb5-1eb4044a4d9e,1,180,155,B14a,0.4375,0.408321759,0.029166667
+"Frontier Airlines to Denver, Airbus Industries A321",F9,d21397af-d88f-418b-bb60-6866f843fca4,1,180,164,B15,0.711805556,0.677083333,0.034722222
+"Frontier Airlines to Denver, Airbus Industries A321",F9,4dca6f9a-2517-4129-a324-1d48f1db860a,1,180,163,B15,0.795138889,0.765277778,0.029861111
+"Frontier Airlines to Denver, Airbus Industries A321",F9,077dad42-f638-41a0-a415-162c22fe7c85,1,180,164,B19,0.25693287,0.22568287,0.03125
+"Hawaiian Airlines to Honolulu, Airbus A330-200",HA,2c399545-3517-4801-a843-f1514c62e9b2,1,267,276,B20,0.597210648,0.541655093,0.055555556
+"Hawaiian Airlines to Honolulu, Airbus A330-200",HA,c1a000bc-6dcf-4548-bdde-a2134d724f36,1,294,300,B6,0.371527778,0.315960648,0.055555556
+"KLM Royal Dutch Airlines to Amsterdam, Boeing 777",KL,32109f1a-ea9b-40a2-8300-ce9f51794c36,1,425,421,B10,0.579849537,0.489571759,0.090277778
+"MN Airlines (Sun Country) to Minneapolis, Boeing 737",SY,f6e1dc96-abe0-45ad-8390-f0f81ea05294,1,129,117,B13,0.736099537,0.701388889,0.034722222
+"MN Airlines (Sun Country) to Minneapolis, Boeing 737-800",SY,e4fb3e18-5dac-4dd2-bd85-651875b149d6,1,162,142,B6b,0.41318287,0.38193287,0.03125
+"SkyWest Airlines to Santa Barbara, De Havilland Bombardier Dash 8",OO,d390ebfe-1153-4d9a-9aa5-1ab83c474e45,1,74,69,B3,0.513888889,0.438194444,0.075694444
+"Southwest Airlines to Milwaukee, Boeing 737",WN,9260db03-f91e-4e34-99f7-45ddfb9f118c,1,143,131,B2,0.326388889,0.305555556,0.020833333
+"Southwest Airlines to Phoenix, Boeing 737",WN,9077c507-8d3a-42fe-84b8-409ce32a5a39,1,143,129,B18a,0.34375,0.326388889,0.017361111
+"Southwest Airlines to Los Angeles, Boeing 737",WN,e3fd0ed4-e801-46d1-a469-390a34ef46e8,1,143,124,B17,0.347210648,0.326388889,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,39018ce8-c18b-489b-8a51-88598a900100,1,143,137,B18a,0.399305556,0.371527778,0.027777778
+"Southwest Airlines to Fort Lauderdale, Boeing 737",WN,5f6bf95b-872c-4fb6-abce-e9311f47bfb0,1,143,124,B3,0.423599537,0.388888889,0.034722222
+"Southwest Airlines to Denver, Boeing 737",WN,1e514d20-0949-41d3-8029-6e7ebd648c3d,1,143,132,B7b,0.41318287,0.388877315,0.024305556
+"Southwest Airlines to Chicago, Boeing 737",WN,ea9a1237-8554-4481-84af-5c5151444822,1,143,120,B10b,0.41318287,0.392349537,0.020833333
+"Southwest Airlines to Los Angeles, Boeing 737",WN,9abcadc3-20e8-4ad5-b05e-f94a774b51a8,1,143,121,B18b,0.430555556,0.409722222,0.020833333
+"Southwest Airlines to Santa Ana, Boeing 737",WN,ac5940bc-c59a-4ee3-8e56-1ed06872e46a,1,143,127,B18a,0.44443287,0.423599537,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,120d4a96-5d66-472d-b433-66753e4cfd67,1,143,134,B7a,0.489571759,0.461793981,0.027777778
+"Southwest Airlines to Phoenix, Boeing 737",WN,e3c0abde-f74a-450c-b672-4231a2864ac1,1,143,135,B20a,0.534710648,0.510405093,0.024305556
+"Southwest Airlines to Chicago, Boeing 737",WN,f4c96d0f-6e6e-4e3e-bea1-b6c9d00efaa0,1,143,133,B5,0.555555556,0.53125,0.024305556
+"Southwest Airlines to Milwaukee, Boeing 737",WN,c8679c70-4417-445c-989f-edecded9648f,1,143,135,B25,0.56943287,0.545127315,0.024305556
+"Southwest Airlines to Phoenix, Boeing 737",WN,4d603107-38dc-4189-b3f5-bb7e8de5ace5,1,143,122,null,0.576388889,0.555555556,0.020833333
+"Southwest Airlines to Denver, Boeing 737",WN,d9b16e4b-942b-4027-af43-b2d536fb9e89,1,143,127,null,0.583321759,0.5625,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,180f1570-3f27-4852-85ad-ee78ee799937,1,143,138,B22,0.597210648,0.572905093,0.024305556
+"Southwest Airlines to Los Angeles, Boeing 737",WN,787c5c34-3ded-471c-9156-33572410935a,1,143,130,B21,0.604166667,0.579849537,0.024305556
+"Southwest Airlines to Phoenix, Boeing 737",WN,5dacd2b3-d40f-4e2f-8d78-9a5c0d7601df,1,143,135,B4,0.642349537,0.614571759,0.027777778
+"Southwest Airlines to San Diego, Boeing 737",WN,cac7ac35-ae84-4206-bf3e-6dd55d5c875b,1,143,143,B17,0.642349537,0.618043981,0.024305556
+"Southwest Airlines to Los Angeles, Boeing 737",WN,4755ad38-8269-467b-a9f4-e152009149a8,1,143,131,B14b,0.670138889,0.649305556,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,1ed4f8ac-6d81-47f8-a44f-0e3bbd4f3d0f,1,143,127,B22,0.690960648,0.670138889,0.020833333
+"Southwest Airlines to Los Angeles, Boeing 737",WN,ba853916-4dc4-47fe-9376-39f79bae6628,1,143,135,B7b,0.697916667,0.673599537,0.024305556
+"Southwest Airlines to Las Vegas, Boeing 737",WN,6362805a-7829-488d-9087-6b425eb0d82d,1,143,124,B11,0.72568287,0.704849537,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,f55f1408-97ed-4a42-a3f2-b9ee972a55bc,1,143,123,B18a,0.732638889,0.708321759,0.024305556
+"Southwest Airlines to San Diego, Boeing 737",WN,ce691e12-21c6-4211-a17c-196124fa9315,1,143,122,B9,0.75,0.722210648,0.027777778
+"Southwest Airlines to Las Vegas, Boeing 737",WN,a6f25b71-9e9c-4bf2-9117-2a324ba913a0,1,143,120,B17,0.75693287,0.736099537,0.020833333
+"Southwest Airlines to Phoenix, Boeing 737",WN,93908527-e089-4f62-a1f4-1427ce58140d,1,143,107,B6b,0.770821759,0.746516204,0.024305556
+"Southwest Airlines to Santa Ana, Boeing 737",WN,d3469abf-7cd8-4a7a-8953-d6f046fea7fc,1,143,132,B19,0.794444444,0.770833333,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,43f91720-6a55-4f29-8d6b-072da61acd7e,1,143,131,B18b,0.798599537,0.774293981,0.024305556
+"Southwest Airlines to Denver, Boeing 737",WN,c98b562f-c56b-4fc5-897e-ebb7bed6d09e,1,143,123,B13,0.809027778,0.777777778,0.03125
+"Southwest Airlines to Denver, Boeing 737",WN,d77aa96b-b2a7-44c6-91ab-a11da9943ff2,1,143,128,B15,0.826388889,0.802071759,0.024305556
+"Southwest Airlines to Atlanta, Boeing 737",WN,273cbbdd-7ad6-4e04-8651-35bdb430498a,1,143,130,B3,0.999305556,0.805555556,0.19375
+"Southwest Airlines to Los Angeles, Boeing 737",WN,1680ba17-d3a8-43e2-9b5c-b19b52e847b5,1,143,129,B15,0.868055556,0.84375,0.024305556
+"Southwest Airlines to Santa Ana, Boeing 737",WN,26a7e125-dff8-4238-b1b8-277bf2463f74,1,143,134,B17,0.868055556,0.847222222,0.020833333
+"Southwest Airlines to San Diego, Boeing 737",WN,de8ecae1-9075-4681-ae54-db308096b1df,1,143,136,B11,0.871527778,0.847210648,0.024305556
+"Southwest Airlines to Las Vegas, Boeing 737",WN,61775294-566f-441d-85bc-db539521f4c1,1,143,128,B10b,0.895821759,0.875,0.020833333
+"Southwest Airlines to St Louis, Boeing 737",WN,4d3525d2-fc27-4bc1-8107-2e2fcb040c56,1,143,132,B7b,0.927071759,0.895821759,0.03125
+"Southwest Airlines to Phoenix, Boeing 737",WN,db22e69a-e169-4a37-bdd5-118c650a51ab,1,143,133,B13,0.919444444,0.895833333,0.020833333
+"Southwest Airlines to Santa Ana, Boeing 737",WN,e1148c20-9139-4d6a-b791-fa3e56faed0e,1,143,134,B21,0.28125,0.253032407,0.028216374
+"Southwest Airlines to Santa Ana, Boeing 737",WN,4cbb0773-b5cc-472c-84e5-cb0c45075aa5,1,143,121,B20a,0.315960648,0.28775463,0.028216374
+"Southwest Airlines to San Diego, Boeing 737",WN,b6f30a20-ff5e-4a78-a836-b6b52bd7f80b,1,143,125,B19,0.295138889,0.266921296,0.028216374
+"Southwest Airlines to Chicago, Boeing 737",WN,8ff131b9-9c2d-4d50-bde0-5292f88a8726,1,143,137,B23,0.267349537,0.239143519,0.028216374
+"Southwest Airlines to Los Angeles, Boeing 737",WN,feffcbc9-4e5a-4243-8611-3d65f5aab7f9,1,143,123,B22,0.25,0.221782407,0.028216374
+"Southwest Airlines to Las Vegas, Boeing 737",WN,96a5e2c8-f8ac-4f9e-9fee-620d8ec8faa0,1,143,135,B21,0.25,0.221782407,0.028216374
+"Southwest Airlines to Las Vegas, Boeing 737",WN,b8a07b81-7298-4444-aee2-35a7cf9813ef,1,143,137,B18b,0.295138889,0.266921296,0.028216374
+"Southwest Airlines to Denver, Boeing 737",WN,b86366db-dc3b-4149-9cd2-ebf857503bb5,1,143,132,B20b,0.253460648,0.22525463,0.028216374
+"Southwest Airlines to Atlanta, Boeing 737",WN,3560fdf9-8a32-48b7-8dd7-11642fce049a,1,143,139,B20a,0.270821759,0.242615741,0.028216374
+"Southwest Airlines to Denver, Boeing 737-800",WN,29e710ec-f5e7-48b9-95d2-1e3466b5fc84,1,175,161,B11,0.354166667,0.336805556,0.017361111
+"Southwest Airlines to Milwaukee, Boeing 737-800",WN,4b11f604-faf5-47a1-875a-c6f3b4f3d938,1,175,168,B20a,0.385416667,0.364583333,0.020833333
+"Southwest Airlines to Los Angeles, Boeing 737-800",WN,59c4c5f7-9480-442c-8fa5-5d6cffdb2e3d,1,175,152,B19,0.399305556,0.375,0.024305556
+"Southwest Airlines to Las Vegas, Boeing 737-800",WN,380f3a2c-a83b-4ccf-a76e-60e9b3d06b7b,1,175,160,B17,0.451388889,0.430555556,0.020833333
+"Southwest Airlines to Los Angeles, Boeing 737-800",WN,251d1839-17c0-40f8-aa90-05826f466e43,1,175,172,B10b,0.479166667,0.454849537,0.024305556
+"Southwest Airlines to Los Angeles, Boeing 737-800",WN,88c34bcc-44f4-4a37-99d8-d6b86f9cc13c,1,175,167,B14a,0.493055556,0.46875,0.024305556
+"Southwest Airlines to Atlanta, Boeing 737-800",WN,33eabb36-6064-4739-b95c-7abf32aa929e,1,175,154,B15,0.56943287,0.527766204,0.041666667
+"Southwest Airlines to Santa Ana, Boeing 737-800",WN,b7a811db-b426-4a24-8b73-64ec8507f228,1,175,180,B22,0.565960648,0.53818287,0.027777778
+"Southwest Airlines to Las Vegas, Boeing 737-800",WN,61927b67-44a4-4f74-8ad1-a54ce57cfacf,1,175,159,B24,0.572916667,0.548599537,0.024305556
+"Southwest Airlines to Santa Ana, Boeing 737-800",WN,38efb20f-b782-4ee6-a0db-6ace794ddfe4,1,175,165,B15,0.66318287,0.635405093,0.027777778
+"Southwest Airlines to San Diego, Boeing 737-800",WN,1414a200-e796-40b4-a9d4-aa511d0881ad,1,175,157,B6a,0.75693287,0.715266204,0.041666667
+"Southwest Airlines to Los Angeles, Boeing 737-800",WN,f9163169-9f76-4719-b904-323abf5b7520,1,175,165,B18a,0.78818287,0.763877315,0.024305556
+"Southwest Airlines to Los Angeles, Boeing 737-800",WN,7e3a5ed2-1d9b-4147-8900-f901fdd193d2,1,175,167,B11,0.91318287,0.892349537,0.020833333

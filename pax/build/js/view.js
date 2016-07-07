@@ -285,14 +285,16 @@ var app = app || {};
 			this.flights.forEach(function(flight, idx) {
 
 				self._flights.push({
-					name : flight.getFlightName(),
-					code : flight.airline.IATA,
-					id : flight.id,
-					loadFactor : flight.loadFactor,
-					seats : flight.flight.seats,
-					count : flight.passengers.length,
-					gate : flight.gate,
-					time : AVIATION.time.decimalDayToTime(flight.getTime())
+					'name' : flight.getFlightName(),
+					'code' : flight.airline.IATA,
+					'id' : flight.id,
+					'loadFactor' : flight.loadFactor,
+					'seats' : flight.flight.seats,
+					'count' : flight.passengers.length,
+					'gate' : flight.gate,
+					'time' : AVIATION.time.decimalDayToTime(flight.getTime()),
+					'arrival' : AVIATION.time.decimalDayToTime(flight.getTime() - flight.ival.getLength()),
+					'delta.arrival' : flight.ival.getLength()
 				});
 
 				var flightString = template.replace('%name%', flight.getFlightName())
@@ -428,16 +430,16 @@ var app = app || {};
 
 			if (push === true) {
 				this._profiles.push({
-					name : typeObj._name,
-					count : typeObj._data.count,
-					percentage : typeObj._data.percentage,
-					brfood: typeObj._data.brfood,
-					food : typeObj._data.food,
-					bags : typeObj._data.bags,
-					brshop : typeObj._data.brshop,
-					shop : typeObj._data.shop,
-					weighted : typeObj._data.weighted,
-					color : this.hexColors[typeObj._name.split('.').slice(1).join('.')]
+					'name' : typeObj._name,
+					'count' : typeObj._data.count,
+					'percentage' : typeObj._data.percentage,
+					'brfood' : typeObj._data.brfood,
+					'food' : typeObj._data.food,
+					'bags' : typeObj._data.bags,
+					'brshop' : typeObj._data.brshop,
+					'shop' : typeObj._data.shop,
+					'weighted' : typeObj._data.weighted,
+					'color' : this.hexColors[typeObj._name.split('.').slice(1).join('.')]
 				});
 			}
 
