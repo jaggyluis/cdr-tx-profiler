@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+
+		function wrangle(data) {
+
+			var dat = [],
+				d = {};
+
+			for (var i=0; i<data.length; i++) {
+
+				var name = data[i]['Location ID'];
+
+				if (d.name === name) {
+
+				} else {
+					d.name = name
+				}
+			}
+
+		}	
+
+		d3.csv('passengerdata.csv', function(data) {
+			console.log(data);
+		})
+
+	</script>
+
+
+</body>
+</html>

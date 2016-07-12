@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="box.js"></script>
+	<script src="../aircraft.js"></script>
+
+	<style>
+
+		body {
+		  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+
+		.box {
+		  font: 10px sans-serif;
+		}
+
+		.box line,
+		.box rect,
+		.box circle {
+		  fill: #fff;
+		  stroke: #000;
+		  stroke-width: 1.5px;
+		}
+
+		.box .center {
+		  stroke-dasharray: 3,3;
+		}
+
+		.box .outlier {
+		  fill: none;
+		  stroke: #ccc;
+		}
+
+	</style>
+
+</head>
+<body>
+
+<div id="myDiv"></div>
+
+<script type="text/javascript">
+
+	// Returns a function to compute the interquartile range.
+	function iqr(k) {
+	  return function(d, i) {
+	    var q1 = d.quartiles[0],
+	        q3 = d.quartiles[2],
+	        iqr = (q3 - q1) * k,
+	        i = -1,
+	        j = d.length;
+	    while (d[++i] < q1 - iqr);
+	    while (d[--j] > q3 + iqr);
+	    return [i, j];
+	  };
+	}
+
+	var margin = {top: 50, right: 50, bottom: 20, left: 50},
+	    width = 120 - margin.left - margin.right,
+	    height = 1000 - margin.top - margin.bottom;
+
+	var min = Infinity,
+	    max = -Infinity;
+
+	var chart = d3.box()
+	    .whiskers(iqr(1.5))
+	    .width(width)
+	    .height(height);
+	
+	var wrangle = function (data){
+
+	  var passengers = [];
+
+	  Object.keys(data).forEach(function(k) {
+	  	
+	  	Object.keys(data[k]).forEach(function(l) {
+
+	  		var name = [k,l].join('.');
+	  		passengers.push({type:name, data:data[k][l]})
+	  	})
+	  })
+	  return passengers;
+	}
+
+	profiles = wrangle(aircraft);
+	console.log(profiles)
+
+  	var data = [];
+
+  	
+	profiles.forEach(function(profile, i) {
+
+		if (i>0) return;
+
+		console.log(profile.data);
+		Object.keys(profile.data).forEach(function(type) {
+
+			var dist = [];
+
+			console.log(type)
+			Object.keys(profile.data[type].dist).forEach(function(key) {
+				for (var i=0; i<profile.data[type].dist[key]; i++) {
+					dist.push(key)
+				}
+			})
+
+			data.push(dist);
+		});
+	});
+
+	//chart.domain([min, max]);
+	chart.domain([0,600])
+
+	console.log(data);
+
+	var svg = d3.select("body").selectAll("svg")
+	  .data(data)
+	.enter().append("svg")
+	  .attr("class", "box")
+	  .attr("width", width + margin.left + margin.right)
+	  .attr("height", height + margin.bottom + margin.top)
+	.append("g")
+	  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	  .call(chart);
+
+</script>
+
+<!--<script type="text/javascript">
+	
+	var y = ['day 1', 'day 1', 'day 1', 'day 1', 'day 1', 'day 1',
+         'day 2', 'day 2', 'day 2', 'day 2', 'day 2', 'day 2']
+
+    var wrangle = function (data){
+
+	  var passengers = [];
+
+	  Object.keys(data).forEach(function(k) {
+	  	
+	  	Object.keys(data[k]).forEach(function(l) {
+
+	  		var name = [k,l].join('.');
+	  		passengers.push({type:name, data:data[k][l]})
+	  	})
+	  })
+	  return passengers;
+	}
+
+	profiles = wrangle(aircraft);
+	console.log(profiles)
+
+	var trace1 = {
+	  x: [0.2, 0.2, 0.6, 1.0, 0.5, 0.4, 0.2, 0.7, 0.9, 0.1, 0.5, 0.3],
+	  y: y,
+	  name: 'kale',
+	  marker: {color: '#3D9970'},
+	  type: 'box',
+	  boxmean: false,
+	  orientation: 'h'
+	};
+
+	var trace2 = {
+	  x: [0.6, 0.7, 0.3, 0.6, 0.0, 0.5, 0.7, 0.9, 0.5, 0.8, 0.7, 0.2],
+	  y: y,
+	  name: 'radishes',
+	  marker: {color: '#FF4136'},
+	  type: 'box',
+	  boxmean: false,
+	  orientation: 'h'
+	};
+
+	var trace3 = {
+	  x: [0.1, 0.3, 0.1, 0.9, 0.6, 0.6, 0.9, 1.0, 0.3, 0.6, 0.8, 0.5],
+	  y: y,
+	  name: 'carrots',
+	  marker: {color: '#FF851B'},
+	  type: 'box',
+	  boxmean: false,
+	  orientation: 'h'
+	};
+
+	var data = [trace1, trace2, trace3];
+
+	var layout = {
+	  title: 'Grouped Horizontal Box Plot',
+	  xaxis: {
+	    title: 'normalized moisture',
+	    zeroline: false
+	  },
+	  boxmode: 'group'
+	};
+
+	Plotly.newPlot('myDiv', data, layout);
+
+
+</script>-->
+
+</body>
+</html>
