@@ -15,8 +15,11 @@ d3.box = function() {
 
     function box(g) {
         g.each(function(d, i) {
+
+            var h = d.perc;
+
             // sort the data objects by the value function
-            d = d.sort(function(a, b) {
+            d = d.dist.sort(function(a, b) {
                 if (value(a) > value(b)) {
                     return 1;
                 }

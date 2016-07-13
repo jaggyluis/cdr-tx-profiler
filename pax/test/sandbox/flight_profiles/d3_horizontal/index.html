@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="horizontalboxplot.js"></script>
 
 
-    <script src="../aircraft.js"></script>
+    <script src="../aircraft_profiles.js"></script>
 
 
     <style>
@@ -105,23 +105,27 @@
         
         profiles.forEach(function(profile, i) {
 
-            if (i!=0) return;
+            //if (i!=0) return;
+            if (profile.type.split('.')[0] === "_") return;
 
             console.log(profile.data);
             Object.keys(profile.data).forEach(function(type) {
 
                 var dist = [];
 
-                console.log(type)
+                if (profile.data[type].count < 10) return;
+
                 Object.keys(profile.data[type].dist).forEach(function(key) {
+
                     for (var i=0; i<profile.data[type].dist[key]; i++) {
                         dist.push(key)
                     }
                 })
 
                 data.push({
-                    type : type,
+                    type : profile.type + " : " + type,
                     dist : dist,
+                    perc : profile.data[type].percentage
                 });
             });
         });
@@ -132,7 +136,7 @@
         console.log(data);
 
         var svg = d3.select("body").selectAll("svg")
-          .data(data.map(function(d) { return d.dist; }))
+          .data(data)
         .enter().append("svg")
           .attr("class", "boxplot")
           .attr("width", width + margin.left + margin.right)
