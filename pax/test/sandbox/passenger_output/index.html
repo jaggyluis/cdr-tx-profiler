@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+
+
+		function wrangle(data) {
+
+			var dat = [],
+				currName = data[0]['Location ID']
+				currArr = [];
+
+			for (var i=0; i<data.length; i++) {
+
+				var name = data[i]['Location ID'];
+
+				if (name == currName) {
+					currArr.push(data[i])
+				} else {
+					dat.push(currArr.slice());
+					currName = name;
+					currArr = [data[i]];
+				}
+
+			}
+
+			return dat;
+
+		}	
+
+		d3.csv('passengerdata.csv', function(data) {
+			
+			data = wrangle(data);
+			data = data.map(function(dat) {
+				return dat.find(function(item) {
+					return item['Value'] === 'MEAN' && item['Passenger type'] === 'All';
+				});
+			});
+			console.log(data);
+		})
+
+	</script>
+
+
+</body>
+</html>

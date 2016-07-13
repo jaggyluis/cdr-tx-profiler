@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		
+		h2 {
+			font: 14px sans-serif;
+			padding-left: 30px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="d3.parcoords.js"></script>
+	<link rel="stylesheet" type="text/css" href="d3.parcoords.css">
+	<h2>Passenger Flow</h2>
+	<div id="flow" class="parcoords" style="width:1500px;height:800px"></div>
+
+	<script>
+
+		d3.csv('passengers.csv', function(data) {
+
+			//var color = function(d) { return colorgen(d.passengerType); };
+			var color = function(d) {return d.color};
+
+			data.push({
+				arrival : 0,
+				security : 0,
+				concourse : 0,
+				gate : 0,
+				boarding : 0,
+				departure : 0
+			});
+			data.push({
+				arrival : 1,
+				security : 1,
+				concourse : 1,
+				gate : 1,
+				boarding : 1,
+				departure : 1
+			});
+
+			var parcoords = d3.parcoords()("#flow")
+			    .data(data.map(function(dat) {
+			    	if (dat['delta.checkIn'] > 0.25) {
+			    		dat['delta.checkIn'] = null;
+			    	} else {
+			    		dat['delta.checkIn'] = dat['delta.checkIn'] * 24 * 60
+			    	}
+			    	if (dat['delta.security'] > 0.25) {
+			    		dat['delta.security'] = null;
+			    	} else {
+			    		dat['delta.security'] = dat['delta.security'] * 24 * 60
+			    	}
+			    	dat['delta.arrival'] = dat['delta.arrival'] * 24 * 60
+			    	return dat;
+			    }))
+			    .hideAxis(["flightID", "gender", "color", "passengerType", "bags", "isPreCheck", "category", "delta.arrival", "delta.checkIn", "delta.security"])
+			    .color(color)
+			    .alpha(0.05)
+			    .composite("darken")
+			    .margin({ top: 24, left: 150, bottom: 12, right: 0 })
+			    .mode("queue")
+			    .render()
+			    //.reorderable();
+			    .brushMode("1D-axes");  // enable brushing
+
+
+		  	parcoords.svg.selectAll("text")
+		    	.style("font", "10px sans-serif");
+
+		});
+		
+		
+
+
+
+	</script>
+
+</body>
+</html>
