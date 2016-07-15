@@ -3,9 +3,21 @@
 <head>
 	<title></title>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<style type="text/css">
+		
+		.name, .time {
+			font-size: 9px;
+			font-family: Consolas, courier;
+		}
+
+	</style>
 </head>
 <body>
 	<script type="text/javascript">
+
+		function isTime(key) {
+			return key.match(/:/) !== null;
+		}
 
 
 		function wrangle(data) {
@@ -37,10 +49,83 @@
 			data = wrangle(data);
 			data = data.map(function(dat) {
 				return dat.find(function(item) {
-					return item['Value'] === 'MEAN' && item['Passenger type'] === 'All';
+					return item['Value'] === 'MEAN' && 
+						item['Passenger type'] === 'All' &&
+						item['Location type'] === 'Area' //&&
+						//item['Name'] === 'Security';
 				});
 			});
+			data = data.filter(function(dat) {
+				return dat !== undefined;
+			})
 			console.log(data);
+
+
+			var padding = {top : 20, right : 0, bottom : 0, left : 160},
+				gridSize = 10;
+
+			 var colorScale =  d3.scale.linear()
+			    .domain([0, 2])
+			    .range(["#f6faaa","#9E0142"]);
+			    //.range(['#F1F2B5', '#135058'])
+			    //.range(['#EAECC6', '#2BC0E4'])
+
+			var svg = d3.select('body').append('svg')
+				.attr('width', 1400)
+				.attr('height', 1000)
+				.append('g')
+				.attr('transform', 'translate(' + padding.left + ',' + padding.top + ')');
+
+			var timeBar = svg.append('g')
+				.attr('class', 'time-bar')
+
+			var times = timeBar.selectAll('.time')
+				.data(Object.keys(data[0]).filter(function(key) {
+					return isTime(key);
+				}))
+				.enter()
+					.append('text')
+					.text(function(d) { return d; })
+					.attr('class', 'time')
+					.attr('x', function(d,i) {return i*(gridSize+1); })
+					.attr('y', function(d,i) {return -5; })
+
+			var containers = svg.selectAll('.container')
+				.data(data)
+				.enter()
+					.append('g')
+					.attr('class', 'container')
+					.attr('transform', function(d,i) {
+						return 'translate(0,' + (i*(gridSize+1)).toString() + ')';
+					});
+
+			var ids = containers.append('text')
+				.text(function(d) {
+					return d['Name'] + " : " + d['Location ID'];
+				})
+				.attr('class', 'name')
+				.attr('width', 100)
+				.attr('transform', 'translate(' + -padding.left + ',' + (gridSize-1).toString() + ')');
+
+			var boxes = containers.selectAll('.box')
+				.data(function(d) {
+					var data = Object.keys(d).filter(function(key) {
+						return isTime(key);
+					})
+					data = data.map(function(key) {
+						return d[key] / d['Dimension'];
+					});
+					return data;
+				})
+				.enter()
+					.append('rect')
+					.attr('class','box')
+					.attr('width', gridSize)
+					.attr('height', gridSize)
+					.attr('x', function(d,i) {return i*(gridSize+1); })
+					.attr('y', function(d,i) {return 0; })
+					.style("fill", function(d) { return colorScale(d); });
+   
 		})
 
 	</script>
