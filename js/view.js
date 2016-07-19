@@ -48,22 +48,38 @@ var app = app || {};
 			this.runButtons.forEach(function(btn) {
 				btn.addEventListener('click', function() {
 
+					btn.disabled = true;
 					btn.parentNode.children[1].classList.toggle('hidden');
 
 					if (btn.id == 'timing-btn') {
-						app.run();
-						self.buildResults();
-						self.enableDownloads('#timing-box')
+						app.run(function(data) {
+
+							self.clear();
+							btn.parentNode.children[1].classList.toggle('hidden');
+							btn.disabled = false;
+
+							self.passengers = data.passengers.filter(function(passenger) {
+								//this.getPassengerFilter();
+								return true;
+							});
+							self.flights = data.flights;
+
+							
+							self.buildResults();
+							self.enableDownloads('#timing-box')
+						});
+
 					}
 					else if (btn.id == 'profile-btn') {
 						app.compute(function(data) {
 
-							btn.parentNode.children[1].classList.toggle('hidden');
-
 							self.clearTables();
-							self.buildTables(data);
+							btn.parentNode.children[1].classList.toggle('hidden');
+							btn.disabled = false;
+
 							self.profiles = data.profiles;
 							
+							self.buildTables(data);							
 							self.enableDownloads('#profile-box');
 							self.enableProfileRunButton();
 						});
