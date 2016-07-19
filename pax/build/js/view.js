@@ -50,18 +50,24 @@ var app = app || {};
 
 					btn.parentNode.children[1].classList.toggle('hidden');
 
-					setTimeout(function() {
-						if (btn.id == 'timing-btn') {
-							app.run();
-							self.buildResults();
-							self.enableDownloads('#timing-box')
-						}
-						else if (btn.id == 'profile-btn') {
-							app.compute();
-							self.enableDownloads('#profile-box')
-						}
-						btn.parentNode.children[1].classList.toggle('hidden');
-					},10);
+					if (btn.id == 'timing-btn') {
+						app.run();
+						self.buildResults();
+						self.enableDownloads('#timing-box')
+					}
+					else if (btn.id == 'profile-btn') {
+						app.compute(function(data) {
+
+							btn.parentNode.children[1].classList.toggle('hidden');
+
+							self.clearTables();
+							self.buildTables(data);
+							self.profiles = data.profiles;
+							
+							self.enableDownloads('#profile-box');
+							self.enableProfileRunButton();
+						});
+					}
 
 				})
 			});
@@ -250,7 +256,7 @@ var app = app || {};
 			this._total = null;
 
 		},
-		buildTables : function (typeBuilder) {
+		buildTables : function (dataObj) {
 
 			var typeTable = document.getElementById('passenger-profile-table'),
 				typeHeader = document.getElementById('passenger-type-header').innerHTML,
@@ -260,18 +266,21 @@ var app = app || {};
 			//
 			//	Build the total passenger profile table
 			//
-			totalBox.appendChild(this.buildTypeTable(typeBuilder.typeClass, []));
-			typeTable.innerHTML+=typeHeader;
+			/*
+			totalBox.appendChild(this.buildTypeTable(dataObj.typeClass, []));
+			*/
+			totalBox.innerHTML+="<br>currently disabled"
 			//
 			//	Build all of the unique passenger profile tables
 			//
-			typeBuilder.getTypes().forEach((function (type) {
+			typeTable.innerHTML+=typeHeader;
+			dataObj.types.forEach((function (type) {
 				typeTable.appendChild(this.buildTypeTableRow(type, true));
 			}).bind(this));
 			//
 			//	Build all of the flight profile tables
 			//
-			typeBuilder.getProfiles().forEach((function (profile) {
+			dataObj.profiles.forEach((function (profile) {
 				profileBox.appendChild(this.buildProfileTable(profile));
 			}).bind(this));
 		},
@@ -419,8 +428,6 @@ var app = app || {};
 
 			if (parents.length === 0) container.style.marginBottom = "-10px";
 
-			//this._total = typeObj;
-
 			return container;
 		},
 		buildTypeTableRow : function (typeObj, push, weighted) {
@@ -482,7 +489,7 @@ var app = app || {};
 				div = document.createElement('div'),
 				weighted = weighted === undefined ? false : weighted,
 				top = boxTemplate.replace(/%name%/g, flightObj._name),
-				percs = flightObj._getPerc();
+				percs = flightObj._percs;
 				this._aircraft[flightObj._name] = percs;
 
 			for (var type in percs) {

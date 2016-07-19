@@ -6,30 +6,25 @@ var app = app || {};
 
 		this._view = new this.View();
 		this._view.init();
-		this._gates = gatelayout;
 		this._timeSlice = 1;
 	}
-	app.compute = function() {
+	app.compute = function(cb) {
 
-		var terminalFilter = this._view.getTerminalFilter(),
-			flightBuilder = new this.FlightBuilder(designDay, terminalFilter),
-			profileBuilder = new this.ProfileBuilder(
-				p12.concat(p13)
-				.concat(p14)
-				.concat(p15));
+		var self = this,
+			worker  = new Worker('js/profile-worker.js');
 
-		profileBuilder.run(terminalFilter, this._timeSlice, (function() {
+		worker.addEventListener('message', function(e) {
+	
+			self._profiles = e.data.profiles;
+			self._types = e.data.types;
+			self._designDay = e.data.flights;
+			self._gates = e.data.gates;
 
-			this._profiles = profileBuilder.getProfiles();
-			this._types = profileBuilder.getTypes();
-			this._designDay = flightBuilder.getFlights();
+			cb(e.data);
 
-			this._view.enableProfileRunButton();
-			this._view.clearTables();
-			this._view.buildTables(profileBuilder);
-			this._view.profiles = this._profiles;
+		}, false);
 
-		}).bind(this));
+		worker.postMessage({terminalFilter : self._view.getTerminalFilter(), timeSlice : self._timeSlice});
 	};
 	app.run = function() {
 
