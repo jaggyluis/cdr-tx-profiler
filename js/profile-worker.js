@@ -2,7 +2,8 @@ importScripts('lib/aviation/airports.js',
 	'lib/aviation/airlines.js',
 	'lib/aviation/aircraft.js',
 	'lib/aviation/tt.js',
-	'lib/aviation/aviation.js');
+	'lib/aviation/aviation.js',
+	'profiler.js');
 
 function wrangleDesignDayData (flightArray) {
 
@@ -28,7 +29,7 @@ function wrangleDesignDayData (flightArray) {
 		return (flight.ba === 1 && flight.dep === true);
 	});
 };
-function wranglePassengerData (passengerArray, flightArray, lexicon) {
+function wranglePassengerData (passengerArray, lexicon) {
 
 	return passengerArray.map(function(passenger) {
 
@@ -39,34 +40,18 @@ function wranglePassengerData (passengerArray, flightArray, lexicon) {
 			'arrival' : AVIATION.time.toDecimalDay(passenger['ARRTIME']),
 			'departure' : AVIATION.time.toDecimalDay(passenger['DEPTIME']),
 			'di' : passenger['DESTGEO'] < 4 ? 'domestic' : 'international',
-			'type' : null,
-			'isTransfer' : false,
+			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3) ? 
+				'transfer' : 
+				'departing',
+			'type' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(1) ? 
+				'business' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(2) ? 
+				'leisure' : 
+				'other',
 			'weight' : passenger['WEIGHT'],
-			//'ba' : passenger['BAREA'],
 			'gate' : passenger['GATE'],
 			'bags' : passenger['Q4BAGS'] === 1 ? true : false,
 			'shop' : passenger['Q4STORE'] === 1 ? true : false,
 			'food' : passenger['Q4FOOD'] === 1 ? true : false,
-		}
-
-		for (var i=1; i<=3; i++) {
-			
-			var type = p['Q2PURP'+i.toString()];
-
-			if (type === 1){
-				p['type'] = 'business';
-			} else if (type === 2 || type === 3 || type === 4 || type === 5 || type === 6) {
-				p['type'] = 'leisure';
-			} else {
-				p['type'] = 'other';
-			}
-		}
-
-		for (var i=0; i<3; i++) {
-
-			var arr = p['Q3GETTO'+i.toString()];
-
-			if (arr === 3) p['isTransfer'] = true;
 		}
 
 		return p;
@@ -79,11 +64,6 @@ function wranglePassengerData (passengerArray, flightArray, lexicon) {
 
 			if (t < (6/24) && t > (0.5/24)) {
 				
-				/*
-				return passenger.ba == 'B' || (passenger.gate >= 20 && passenger.gate <= 39) ||
-						passenger.ba == 'C' || (passenger.gate >= 40 && passenger.gate <= 48);
-				*/
-
 				return true;
 			}
 		}
@@ -128,12 +108,17 @@ self.addEventListener('message', function(e) {
 		    			loadFile(designDayFilePath, function(responseText) {
 
 			    			designday = wrangleDesignDayData(JSON.parse(responseText));
-			    			passengerData = wranglePassengerData(passengerData, designday, lexicon);
+			    			passengerData = wranglePassengerData(passengerData, lexicon);
 
-			    			console.log(passengerData);
+			    			
 
-							var	profileBuilder = new ProfileBuilder(passengerData, designDay);
+							var	profiler = new Profiler(passengerData, ['di', 'type', 'dt', 'bags']);
+							
+							console.log(profiler);
 
+							
+
+							/*
 							profileBuilder.run(e.data.terminalFilter, e.data.timeSlice, function(data) {
 
 								self.postMessage({
@@ -144,6 +129,7 @@ self.addEventListener('message', function(e) {
 								});
 
 							});
+							*/
 
 			    		})
 		    		})
