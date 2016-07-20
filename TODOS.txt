@@ -66,6 +66,6 @@ ___________________________________________
 - multiple visualization for profile type parallel coords
 ____________________________________________
 
-- web worker for simulation
+X web worker for simulation
 - move data/profile builder to server side
 - implement npm for module build - major refactor

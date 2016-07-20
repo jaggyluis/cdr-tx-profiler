@@ -4,14 +4,33 @@ importScripts('lib/aviation/airports.js',
 	'lib/aviation/tt.js',
 	'lib/aviation/aviation.js');
 
+var gateLayoutFilePath = 'var/sfo/gatelayout.json',
+	gateLayout;
+
 self.addEventListener('message', function(e) {
 
-	AVIATION.set(e.data, function() {
+	loadFile(gateLayoutFilePath, function(responseText) {
 
-		self.postMessage({
-			"passengers" : AVIATION.get.passengers(),
-			"flights" : AVIATION.get.flights()
-		});
-	})
+		gateLayout = JSON.parse(responseText);
 
-})
+		e.data.gates = gateLayout;
+
+		AVIATION.clear();
+
+		AVIATION.set(e.data, function() {
+
+			self.postMessage({
+				"passengers" : AVIATION.get.passengers().map(function(p) { return p.serialize(); }),
+				"flights" : AVIATION.get.flights().map(function(f) { return f.serialize(); })
+			});
+		})
+	}
+
+}, false)
+
+function loadFile(filePath, done) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () { return done(this.responseText) }
+    xhr.open("GET", filePath, true);
+    xhr.send();
+}
