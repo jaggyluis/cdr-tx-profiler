@@ -20,13 +20,10 @@ function wrangleDesignDayData (flightArray) {
 			'flight' : flight['D FLIGHT #'],
 			'destination' : flight['DEST.'],
 			'ba' : flight['Analysis Boarding Area'],
-			'dep' : flight['DEP'] === 1 ? true : false
+			'dep' : flight['DEP'] === 1 ?true : false
 
 		};
 
-	}).filter(function(flight) {
-
-		return (flight.ba === 1 && flight.dep === true);
 	});
 };
 function wranglePassengerData (passengerArray, lexicon) {
@@ -47,44 +44,32 @@ function wranglePassengerData (passengerArray, lexicon) {
 				'business' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(2) ? 
 				'leisure' : 
 				'other',
-			'weight' : passenger['WEIGHT'],
+			'weight' : passenger['WEIGHT'] ? passenger['WEIGHT'] : 1,
 			'gate' : passenger['GATE'],
 			'bags' : passenger['Q4BAGS'] === 1 ? true : false,
 			'shop' : passenger['Q4STORE'] === 1 ? true : false,
+			'brshop' : null,
 			'food' : passenger['Q4FOOD'] === 1 ? true : false,
+			'brfood' : null,
 		}
 
 		return p;
 
-	}).filter(function(passenger) {
-
-		if (passenger.arrival && passenger.departure) {
-
-			var t = passenger.departure - passenger.arrival;
-
-			if (t < (6/24) && t > (0.5/24)) {
-				
-				return true;
-			}
-		}
-
-		return false;
-
-	})
+	});
 }
 
 var designDayFilePath = 'var/sfo/designday.json',
-	designDay;
+	designDayData;
 
 var passengerFilePath = 'var/sfo/passengers/',
 	passengerFiles = ['p13.json', 'p14.json', 'p15.json'],
 	passengerData = [];
 
 var lexiconFilePath = 'var/sfo/passengers/lexicon.json',
-	lexicon;
+	lexiconData;
 
 var propensityFilePath = 'var/dia/passengers/propensities.json',
-	propensities;
+	propensityData;
 
 
 self.addEventListener('message', function(e) {
@@ -99,24 +84,46 @@ self.addEventListener('message', function(e) {
 
 		    	loadFile(lexiconFilePath, function(responseText) {
 
-		    		lexicon = JSON.parse(responseText);
+		    		lexiconData = JSON.parse(responseText);
 
 		    		loadFile(propensityFilePath, function(responseText) {
 
-		    			propensities = JSON.parse(responseText);
+		    			propensityData = JSON.parse(responseText);
 
 		    			loadFile(designDayFilePath, function(responseText) {
 
-			    			designday = wrangleDesignDayData(JSON.parse(responseText));
-			    			passengerData = wranglePassengerData(passengerData, lexicon);
+		    				passengerData = wranglePassengerData(passengerData, lexiconData);
+		    				passengerData = passengerData.filter(function(passenger) {
 
-			    			
+								if (passenger.arrival && passenger.departure) {
 
-							var	profiler = new Profiler(passengerData, ['di', 'type', 'dt', 'bags']);
+									var t = passenger.departure - passenger.arrival;
+
+									if (t < (6/24) && t > (0.5/24)) {
+										
+										return true;
+									}
+								}
+
+								return false;
+
+							})
+
+			    			designDayData = wrangleDesignDayData(JSON.parse(responseText));
+
+			    			var typeData = ['di', 'type', 'dt'],
+			   					profiler = new Profiler(passengerData, designDayData, typeData);
+
+
+							designDayData = designDayData.filter(function(flight) {
+
+								return (flight.ba === 1 && flight.dep === true);
+
+							});
 							
-							console.log(profiler);
+							//console.log(profiler);
 
-							
+							close();
 
 							/*
 							profileBuilder.run(e.data.terminalFilter, e.data.timeSlice, function(data) {

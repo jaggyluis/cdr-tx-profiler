@@ -96,6 +96,7 @@ var AVIATION = (function (aviation) {
 		romanToNumber : function (str) {
 
 			var dict = {
+
 				"I" : 1,
 				"II" : 2,
 				"III" : 3,
@@ -116,6 +117,7 @@ var AVIATION = (function (aviation) {
 		romanToLetter : function(str) {
 
 			var dict = {
+
 				"I" : 'A',
 				"II" : 'B',
 				"III" : 'C',
@@ -871,14 +873,11 @@ var AVIATION = (function (aviation) {
 		return Object.create(Matrix3d.prototype, {
 
 			'd' : {'value' : null }, // !!!!! TODO
-
 			'm' : {'value' : data.m },
-
 			'r' : {'value' : data.r },
-
 			'c' : {'value' : data.c },
-
 			'_rs' : {'value' : data._rs },
+
 		});
 	};
 	function Matrix3d (numRow, numCol, mod) {
@@ -1230,18 +1229,14 @@ var AVIATION = (function (aviation) {
 			return 	{
 
 				'class' : 'Matrix3d',
-
 				'data' : {
 
 					'd' : null , // !!!!! TODO
-
 					'm' : this.m,
-
 					'r' : this.r,
-
 					'c' : this.c,
-
 					'_rs' : this._rs
+
 				}
 			};
 		}
@@ -1261,24 +1256,16 @@ var AVIATION = (function (aviation) {
 		return Object.create(Flight.prototype, {
 
 			'flight' : {'value' : data.flight },
-
 			'destination' : {'value' : data.destination },
-
 			'airline' : {'value' : data.airline },
-
 			'aircraft' : {'value' : data.aircraft },
-
 			'loadFactor' : {'value' : data.loadFactor },
-
 			'id' : {'value' : data.id },
-
 			'gate' : {'value' : data.gate },
-
 			'ival' : {'value' : aviation.class.Interval.deserialize(data.ival.data) },
-
 			'seats' : {'value' : data.seats },
-
 			'passengers' : {'value' : data.passengers.map(function(p) { return aviation.class.Passenger.deserialize(p.data);}) }
+
 		});
 	};
 	function Flight (flightObj, destination, airline, aircraft, loadFactor) {
@@ -1501,27 +1488,17 @@ var AVIATION = (function (aviation) {
 			return {
 
 				'class' : 'Flight',
-
 				'data' : {
 
 					'flight' : this.flight,
-
 					'destination' : this.destination,
-
 					'airline' : this.airline,
-
 					'aircraft' : this.aircraft,
-
 					'loadFactor' : this.loadFactor,
-
 					'id' : this.id,
-
 					'gate' : this.gate,
-
 					'ival' : this.ival.serialize(),
-
 					'seats' : this.seats,
-
 					'passengers' : cycle ? this.passengers.map(function(p) { return p.serialize(); }) : []
 
 				}
@@ -1543,20 +1520,14 @@ var AVIATION = (function (aviation) {
 		return Object.create(Gate.prototype, {
 
 			'name' : {'value' : data.name },
-
 			'isMARS' : {'value' : data.isMARS },
-
 			'seats' : {'value' : data.seats },
-
 			'padding' : {'value' : data.padding },
-
 			'sf' : {'value' : data.sf },
-
 			'group' : {'value' : data.group },
-
 			'flights' : {'value' : null }, // !!!!! TODO
-
 			'carriers' : {'value' : data.carriers }
+
 		});
 	};
 	function Gate (gateObj) {
@@ -1756,24 +1727,17 @@ var AVIATION = (function (aviation) {
 			return {
 
 				'class' : 'Gate',
-
 				'data' : {
 
 					'name' : this.name,
-
 					'isMARS' : this.isMARS,
-
 					'seats' : this.seats,
-
 					'padding' : this.padding,
-
 					'sf' : this.sf,
-
 					'group' : this.group,
-
 					'flights' :  null, // !!!!! TODO
-
 					'carriers' : this.carriers
+
 				}
 			};
 		}
@@ -1793,12 +1757,10 @@ var AVIATION = (function (aviation) {
 		return Object.create(Passenger.prototype, {
 
 			'flight' : {'value' : aviation.class.Flight.deserialize(data.flight.data) },
-
 			'profile' : {'value' : aviation.class.PassengerProfile.deserialize(data.profile.data) },
-
 			'_attributes' : { 'value' : data._attributes },
-
 			'_events' : {'value' : data._events }
+
 		});
 	};
 	aviation.class.Passenger.null = function () {
@@ -1813,24 +1775,16 @@ var AVIATION = (function (aviation) {
 		this._attributes = {
 
 			'gender' : ['M', 'F'][Math.round(Math.random())],
-
 			'bags' : [false,true][aviation.math.getRandomBinaryWithProbablity(this.profile._data.bags / 100)],
-
 			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)], //verify
-
 			'isTransfer' : this.profile._name.match(/transfer/) ? true : false,
-
 			'isBusiness' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.1)], // verify
-
 			'isGateHog' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.17)], // verify
-
 			'passengerID' : aviation.string.generateUUID(),
-
 			'passengerType' : this.profile._name,
-
 			'flightID' : this.flight.id,
-
 			'flightName' : this.flight.getFlightName()
+
 		};
 		this._events = [
 			{
@@ -1916,15 +1870,11 @@ var AVIATION = (function (aviation) {
 			return {
 
 				'class' : 'Passenger',
-
 				'data' : {
 
 					'flight' : this.flight.serialize(false),
-
 					'profile' : this.profile, // !!!!!! this should be serilized and imported to aviation
-
 					'_attributes' : this._attributes,
-
 					'_events' : this._events
 				}
 			};
@@ -2003,11 +1953,9 @@ var AVIATION = (function (aviation) {
 			return {
 
 				'class' : 'Interval',
-
 				'data' : {
 
 					'start' : this.start,
-
 					'end' : this.end
 				}
 			}
