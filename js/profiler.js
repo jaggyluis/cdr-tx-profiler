@@ -18,14 +18,14 @@ function Profiler(passengerData, flightData, attributeData) {
 	for (var key in this._cluster.passengerTypes) {
 
 		var arr = this._cluster.passengerTypes[key],
-			len = arr.length;
-			perc = this.percentile(arr, len, false)
+			len = arr.length,
+			perc = this.percentile(arr, len, true);
 
 		console.log(key);
+
 		for (var p in perc) {
 			console.log(p, perc[p]);
 		}
-		break;
 	}	
 }
 Profiler.prototype = {
@@ -45,16 +45,16 @@ Profiler.prototype = {
 				if (passengers[i][key]) {
 					percentiles[key] += weighted ? passengers[i].weight : 1;
 				}
-				weightedCount += weighted ? passengers[i].weight : 1;
-				count++;
 			}
+			weightedCount += weighted ? passengers[i].weight : 1;
+			count++;
 		}
 
 		return Object.keys(percentiles).reduce(function(obj, attribute) {
 			if ('br'+attribute.toString() in percentiles) {
 				//obj['br'+attribute.toString()] = Math.round(func(filtered[b] / count) * 100);
 			}
-			obj[attribute] = Math.round((percentiles[attribute] / count) * 100);
+			obj[attribute] = Math.round((percentiles[attribute] / weightedCount) * 100);
 
 			return obj;
 
