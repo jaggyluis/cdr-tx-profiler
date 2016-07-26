@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/style.css">
+		
 </head>
 <body>
 	<div id="container">
@@ -26,73 +27,53 @@
 						</div>
 					</div>
 				</div>
-				<div id="total-box" class="pad box">
-					<div class="title-box outlined-bottom">
-						<div class="title">TOTAL PASSENGER PROFILES</div>
-						<div class="show-box">
-							<button class="show-btn" disabled>Show Results</button>
-						</div>
-					</div>
-					<div class="result-box collapsed">
-						<div class="content-box" style="padding: 2px 0px 30px 0px">
-						</div>
-						<div class="save-box">
-							<button class="save-btn" id="total">Save</button>
-							<div class="chk-box">
-								<input class="chk-btn csv" type="checkbox" disabled></input>
-								<div class="chk-txt disabled">total.csv</div>
-							</div>
-							<div class="chk-box">
-								<input class="chk-btn json" type="checkbox" checked></input>
-								<div class="chk-txt">total.json</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div id="passenger-profile-box" class="pad box">
 					<div class="title-box outlined-bottom">
-						<div class="title">UNIQUE PASSENGER PROFILES</div>
+						<div class="title">PASSENGER PROFILES</div>
 						<div class="show-box">
 							<button class="show-btn" disabled>Show Results</button>
 						</div>
 					</div>
 					<div class="result-box collapsed">
 						<div class="table-box">
-							<table id="passenger-profile-table">
-							</table>
+							<div id="passenger-profile-parcoords" class="parcoords" style="width: 1000px; height: 150px;"></div>
+							<div id="passenger-profile-table"></div>
 						</div>
 						<div class="save-box">
-							<button class="save-btn" id="profiles">Save</button>
+							<button class="save-btn" id="passengerProfiles">Save</button>
 							<div class="chk-box">
 								<input class="chk-btn csv" type="checkbox" checked></input>
-								<div class="chk-txt">profiles.csv</div>
+								<div class="chk-txt">.csv</div>
 							</div>
 							<div class="chk-box">
 								<input class="chk-btn json" type="checkbox"></input>
-								<div class="chk-txt">profiles.json</div>
+								<div class="chk-txt">.json</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div id="aircraft-profile-box" class="pad box">
+				<div id="flight-profile-box" class="pad box">
 					<div class="title-box outlined-bottom">
-						<div class="title">AIRCRAFT PROFILES</div>
+						<div class="title">FLIGHT PROFILES</div>
 						<div class="show-box">
 							<button class="show-btn" disabled>Show Results</button>
 						</div>
 					</div>
 					<div class="result-box collapsed">
-						<div class="content-box">
+						<div class="table-box">
+							<div id="flight-profile-parcoords" class="parcoords" style="width: 1000px; height: 300px;"></div>
+							<table id="flight-profile-table">
+							</table>
 						</div>
 						<div class="save-box">
-							<button class="save-btn" id="aircraft">Save</button>
+							<button class="save-btn" id="flightProfiles">Save</button>
 							<div class="chk-box">
 								<input class="chk-btn csv" type="checkbox" disabled></input>
-								<div class="chk-txt disabled">aircraft.csv</div>
+								<div class="chk-txt disabled">.csv</div>
 							</div>
 							<div class="chk-box">
 								<input class="chk-btn json" type="checkbox" checked></input>
-								<div class="chk-txt">aircraft.json</div>
+								<div class="chk-txt">.json</div>
 							</div>
 						</div>
 					</div>
@@ -187,52 +168,6 @@
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	-->
 
-	<script type="text/template" id="passenger-box-template">
-		<div class="passenger-box">
-			<table class="passenger-timing-table">
-				<tr class="bold">
-					<td>Name</td>
-					<td class="count">Count</td>
-					<td>% Total Count</td>
-					<td>% Bags</td>
-					<td>% br Food</td>
-					<td>% Food</td>
-					<td>% br Shop</td>
-					<td>% Shop</td>
-					<td>Weighted</td>
-				</tr>
-			</table>
-			<div id="" class="expand"><img src="img/expand.png"></div>
-			<div class="table-container outlined-left collapsed pad"></div>
-		</div>
-	</script>
-	<script type="text/template" id="passenger-type-header">
-		<tr class="bold">
-			<td>Name</td>
-			<td class="count">Count</td>
-			<td>% Total Count</td>
-			<td>% Bags</td>
-			<td>% br Food</td>
-			<td>% Food</td>
-			<td>% br Shop</td>
-			<td>% Shop</td>
-			<td>Weighted</td>
-		</tr>
-	</script>
-	<script type="text/template" id="passenger-type-template">
-		<tr>
-			<td>%name%</td>
-			<td class="count">%count%</td>
-			<td>%percent%</td>
-			<td>%bags%</td>
-			<td>%brfood%</td>
-			<td>%food%</td>
-			<td>%brshop%</td>
-			<td>%shop%</td>
-			<td>%weighted%</td>
-		</tr>
-	</script>
-
 
 	<script type="text/template" id="flight-table-header">
 		<tr class="bold">
@@ -258,53 +193,6 @@
 			<td>%time%</td>
 		</tr>
 	</script>
-
-
-	<script type="text/template" id="flight-box-template">
-		<div class="flight-box">
-			<div class="flight-name">%name%</div>
-			<div id="%name%-hook" class="expand"><img src="img/expand.png"></div>
-			<div class="flight-table-box table-container pad outlined-left collapsed"><tt></div>
-		</div>
-	</script>
-	<script type="text/template" id="flight-type-template">
-		<div>		
-			<table class="table-sm">
-				<tr class="bold">
-					<td class="top">Name</td>
-					<td class="top count">Count</td>
-					<td class="top"></td>
-				</tr>
-				<tr>
-					<td>%type%</td>
-					<td>%count%</td>
-				</tr>
-			</table>
-			<div id="%name%-%type%-hook" class="expand"><img src="img/expand.png"></div>
-			<div class="pad outlined-left table-container collapsed">
-				<table class="table-sm">
-					<tr class="bold">
-						<td class="top">Name</td>
-						<td class="top count">Count</td>
-						<td class="top">% Passengers</td>
-						<td class="top">Weighted</td>
-						<td class="top">Arrival Distribution</td>
-					</tr>
-					<tl>
-				</table>
-			</div>
-		</div>
-	</script>
-	<script type="text/template" id="flight-info-template">
-		<tr>
-			<td>%name%</td>
-			<td class="count">%count%</td>
-			<td >%percent%</td>
-			<td>%weighted%</td>
-			<td class="med dist">%dist%</td>
-		</tr>
-	</script>
-
 
 	<script type="text/template" id="passenger-timing-header">
 		<tr class="bold">
@@ -340,7 +228,12 @@
 	<!-- APP 
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	-->
-	<!-- aviation module -->
+	<!--d3-->
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="js/lib/d3/d3.parcoords.js"></script>
+	<script src="js/lib/d3/d3.divgrid.js"></script>
+	<script src="js/lib/d3/d3.horizontalboxplot.js"></script>
+	<!-- aviation -->
 	<script src="js/lib/aviation/aviation.js"></script>
 	<!-- Main App -->
 	<script src="js/view.js"></script>

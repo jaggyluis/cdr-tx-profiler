@@ -419,85 +419,314 @@ var AVIATION = (function (aviation) {
 	// aviation module FlightProfile class that handles flight type data
 	//
 
-	aviation.class.FlightProfile = function (name, types) {
+	aviation.class.FlightProfile = function (name, profileData) {
 
-		return new FlightProfile(name, types);
+		return new FlightProfile(name, profileData);
 
 	};
-	function FlightProfile(name, types) {
+	aviation.class.FlightProfile.deserialize = function (data) {
+		
+		return Object.create(FlightProfile.prototype, {
+
+			'name' : {'value' : data.name }, // !!!!! TODO
+			'data' : {'value' : data.data }
+
+		});
+	};
+	function FlightProfile (name, profileData) {
 
 		this.name = name;
-		this.types = types;
+		this.data = profileData;
 	};
 	FlightProfile.prototype = {
 
-		get di () {
+		serialize : function () {
 
-			var dist = {
-				domestic : {},
-				international : {}
+			return 	{
+
+				'class' : 'FlightProfile',
+				'data' : {
+
+					'name' : this.name ,
+					'data' : this.data,
+				}
 			};
-
-			for (var type in this.types) {
-				if (type.split('.').includes('domestic')) {
-					dist.domestic[type] = this.types[type];
-				} else if (type.split('.').includes('international')) {
-					dist.international[type] = this.types[type];
-				}
-			}
-
-			return dist;
-		},		
-		get percs () {
-
-			var perc = {};
-
-			for (var d in this.di) {
-
-				var count = 0
-
-				perc[d] = {}
-				for (var t in this.di[d]) {
-					perc[d][t] = this.di[d][t].pax.length
-					count+=this.di[d][t].pax.length
-				}
-				for (var p in perc[d]){
-					perc[d][p] = {
-						count : perc[d][p],
-						percentage : Math.round(perc[d][p]/count*100),
-						dist : this.types[p].dist
-					}
-				} 
-			}
-
-			return perc;
-		},
-		getPercarray : function(dist) {
-
-			var arr = [];
-
-			for (var d in dist) {
-				for (var i=0; i<dist[d].percentage; i++) {
-					arr.push(d);
-				}
-			}
-
-			return arr;
-		},
+		}
 	};
 
 	//
-	//
+	// aviation module FlightProfile class that handles passenger type data
 	//
 
-	aviation.class.PassengerProfile = function () {
+	aviation.class.PassengerProfile = function (name, profileData) {
+
+		return new PassengerProfile(name, profileData);
 
 	};
-	function PassengerProfile() {
+	aviation.class.PassengerProfile.deserialize = function (data) {
+		
+		return Object.create(PassengerProfile.prototype, {
 
+			'name' : {'value' : data.name }, // !!!!! TODO
+			'data' : {'value' : data.data }
+
+		});
+	};
+	function PassengerProfile (name, profileData) {
+
+		this.name = name;
+		this.data = profileData;
 	};
 	PassengerProfile.prototype = {
 
+		wrangle : function () {
+
+			return {
+
+				'name' : this.name,
+				'count' : this.data.count,
+				'percentage' : this.data.percentage,
+				'bags' : this.data.bags,
+				'brshop' : this.data.brshop,
+				'shop' : this.data.shop,
+				'brfood' : this.data.brfood,
+				'food' : this.data.food,
+
+			};
+
+		},
+		serialize : function () {
+
+			return 	{
+
+				'class' : 'PassengerProfile',
+				'data' : {
+
+					'name' : this.name ,
+					'data' : this.data,
+
+				}
+			};
+		}
+	};
+	
+	//
+	//	aviation module Profiler
+	//
+
+	aviation.class.Profiler = function(passengerData, flightData, attributeData, timeSlice, func) {
+
+		return new Profiler(passengerData, flightData, attributeData, timeSlice, func);
+	};
+
+	function Profiler(passengerData, flightData, attributeData, timeSlice, func) {
+
+		this.passengers = passengerData;
+		this.attributes = attributeData;
+		this.flights = flightData;
+		this.timeSlice = timeSlice;
+
+		if (func !== undefined) this.func = func;
+
+		this._cluster = this.cluster(this.passengers, this.attributes);
+		this._cluster.flightTypes = this.match(this._cluster.flightTypes, this.flights);
+	};
+	Profiler.prototype = {
+
+		percentile : function (passengers, total, weighted) {
+
+			var self = this,
+				count = 0,
+				weightedCount = 0,
+				weighted = weighted === undefined ? false : weighted,
+				deltas = [];
+				percentiles = {};
+
+			for (var i=0; i<passengers.length; i++) {
+
+				var arrival = passengers[i].arrival,
+					departure = passengers[i].departure,
+					delta = aviation.math.round(aviation.time.decimalDayToMinutes(departure - arrival), self.timeSlice);
+
+				for (var key in passengers[i]) {
+					if (!(key in percentiles)) {
+						percentiles[key] = 0;
+					}
+					if (passengers[i][key]) {
+						percentiles[key] += weighted ? passengers[i].weight : 1;
+					}
+				}
+				if (weighted) {
+					weightedCount += passengers[i].weight;
+					for (var j=0; j<Math.round(passengers[i].weight); j++) {
+						deltas.push(delta);
+					}
+					
+				} else {
+					weightedCount += 1;
+					deltas.push(delta);
+				}
+				count++;
+			}
+
+			return Object.keys(percentiles).reduce(function(obj, attribute) {
+
+				if ('br'+attribute.toString() in percentiles) {
+					if (self.func !== undefined) {
+						obj['br'+attribute.toString()] = Math.round(self.func(percentiles[attribute] / weightedCount) * 100);
+					}
+				}
+				if (attribute.match(/br/) == null) {
+					obj[attribute] = Math.round((percentiles[attribute] / weightedCount) * 100);
+				}
+			
+				return obj;
+
+			}, {
+				'count' : count,
+				'weighted' : weighted,
+				'percentage' : Math.round(count / total * 100),
+				'arrivalDistribution' : aviation.array.mapElementsToObjByPercentile(deltas, true)
+			});
+		},
+		permute : function (attributes) {
+
+			var permuted = [[]],
+				curr = [];
+
+			for (var i=0; i<nestedArray.length; i++) {
+				for (var j=0; j<nestedArray[i].length; j++) {
+					for (var k=0; k<permuted.length; k++) {
+						curr.push(permuted[k].slice().concat([nestedArray[i][j]]));
+					}
+				}
+				permuted = curr;
+				curr = [];
+			}
+
+			return permuted;
+		},
+		cluster : function (passengers, attributes) {
+
+			var typeCluster = {},
+				typeAttibutes = attributes,
+				
+				flightCluster = {},
+				flightAttributes = ['airline', 'destination'];
+
+			for (var i=0; i<passengers.length; i++) {
+
+				var type = [],
+					flight = [];
+
+				for (var j=0; j<typeAttibutes.length; j++) {
+					type.push(passengers[i][typeAttibutes[j]]);
+				}
+				type = type.join('.');
+				if (!(type in typeCluster)) {
+					typeCluster[type] = [];
+				}
+				typeCluster[type].push(passengers[i]);
+
+				for (var k=0; k<flightAttributes.length; k++) {
+					flight.push(passengers[i][flightAttributes[k]]);
+				}
+				flight = flight.join('.');
+				if (!(flight in flightCluster)) {
+					flightCluster[flight] = [];
+				}
+				flightCluster[flight].push(passengers[i]);
+
+				passengers[i].flightType = flight;
+				passengers[i].passengerType = type;
+			}
+
+			return {
+				'passengerTypes' : typeCluster,
+				'flightTypes' : flightCluster
+			}
+		},
+		match : function (flightTypes, flights) {
+
+			var typeCluster = {};
+
+			Object.keys(flightTypes).forEach(function(flight) {
+
+				var params = flight.split('.');
+					airline = aviation.get.airlineByCode(params[0]),
+					destination = aviation.get.airportByString(params[1]);
+
+				if (airline && destination) {
+					
+					for (var i=0; i<flights.length; i++) {
+						if (flights[i].airline == airline.IATA && flights[i].destination == destination.IATA) {
+
+							var aircraft = aviation.get.aircraftByCode(flights[i].aircraft),
+								type = aircraft ? aviation.time.romanToLetter(aircraft.ARC.split('-')[1]) : undefined; 
+
+							if (aircraft == undefined) {
+								break;
+							}
+							if (!(type in typeCluster)) {
+								typeCluster[type] = [];
+							}
+							typeCluster[type] = typeCluster[type].concat(flightTypes[flight]);
+
+							for (var j=0; j<flightTypes[flight].length; j++) {
+								flightTypes[flight][j].flightType = type;
+							} 
+
+							break;
+
+						}
+					}
+				}
+			});
+
+			return typeCluster;
+		},
+		get passengerProfiles() {
+
+			var self = this,
+				profiles = [];
+
+			for (var key in self._cluster.passengerTypes) {
+
+				var pax = self._cluster.passengerTypes[key],
+					len = self.passengers.length,
+					passengerProfile = aviation.class.PassengerProfile(key, self.percentile(pax, len, true));
+
+				profiles.push(passengerProfile);
+			}
+
+			return profiles;
+		},
+		get flightProfiles() {
+
+			var self = this,
+				profiles  = [];
+
+			for (var key in self._cluster.flightTypes) {
+
+				var pax = self._cluster.flightTypes[key],
+					di = aviation.array.mapElementsToObjByKey(pax, 'di');
+
+				Object.keys(di).forEach(function(d) {
+
+					var len = di[d].length,
+						name = [key,d].join('.'),
+						data = aviation.array.mapElementsToObjByKey(di[d], 'passengerType');
+
+					for (var type in data) data[type] = ( data[type].length / len ) *100
+
+					var flightProfile = aviation.class.FlightProfile(name, data);
+
+					profiles.push(flightProfile);
+				})				
+			}
+
+			return profiles;
+		}
 	};
 
 	//

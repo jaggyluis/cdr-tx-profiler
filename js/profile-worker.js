@@ -3,7 +3,7 @@ importScripts('lib/aviation/airports.js',
 	'lib/aviation/aircraft.js',
 	'lib/aviation/tt.js',
 	'lib/aviation/aviation.js',
-	'profiler.js');
+	'lib/numeric/numeric-1.2.6.js');
 
 function wrangleDesignDayData (flightArray) {
 
@@ -57,6 +57,57 @@ function wranglePassengerData (passengerArray, lexicon) {
 
 	});
 }
+function wranglePropensityData (propensityData) {
+
+	var pts = propensityData.map(function(p) {
+
+		return {
+			x : p.buy,
+			y : p.browse
+		}
+
+	});
+	var order = 1;
+	var xArr = pts.map(function(pt) {
+
+	    return pt.x;
+	})
+	var yArr = pts.map(function(pt) {
+
+	    return pt.y;
+	})
+	var xMatrix = [];
+	var xTemp = [];
+	var yMatrix = numeric.transpose([yArr]);
+
+	for (j=0;j<xArr.length;j++) {
+	    xTemp = [];
+	    for(i=0;i<=order;i++)
+	    {
+	        xTemp.push(1*Math.pow(xArr[j],i));
+	    }
+	    xMatrix.push(xTemp);
+	}
+	var xMatrixT = numeric.transpose(xMatrix);
+	var dot1 = numeric.dot(xMatrixT,xMatrix);
+	var dotInv = numeric.inv(dot1);
+	var dot2 = numeric.dot(xMatrixT,yMatrix);
+	var solution = numeric.dot(dotInv,dot2);
+
+	var fn = function(x) {
+
+	    var y = 0;
+
+	    for (var i=0; i<solution.length; i++) {
+	      y+= solution[i] * Math.pow(x, i);
+	    }
+
+	    return y > 0 ? y : 0;
+	    
+	}
+
+	return fn;
+}
 
 var designDayFilePath = 'var/sfo/designday.json',
 	designDayData;
@@ -69,7 +120,10 @@ var lexiconFilePath = 'var/sfo/passengers/lexicon.json',
 	lexiconData;
 
 var propensityFilePath = 'var/dia/passengers/propensities.json',
-	propensityData;
+	propensityData,
+	propensityfunc;
+
+var typeData = ['di', 'type', 'dt'];
 
 
 self.addEventListener('message', function(e) {
@@ -107,37 +161,21 @@ self.addEventListener('message', function(e) {
 
 								return false;
 
-							})
-
-			    			designDayData = wrangleDesignDayData(JSON.parse(responseText));
-
-			    			var typeData = ['di', 'type', 'dt'],
-			   					profiler = new Profiler(passengerData, designDayData, typeData);
-
-
-							designDayData = designDayData.filter(function(flight) {
-
-								return (flight.ba === 1 && flight.dep === true);
-
 							});
-							
-							//console.log(profiler);
+			    			designDayData = wrangleDesignDayData(JSON.parse(responseText));
+			    			propensityFunc = wranglePropensityData(propensityData);
+
+			    			var timeSlice = e.data.timeSlice;
+
+			   				profiler = AVIATION.class.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
+
+							self.postMessage({
+								"flights" : designDayData.filter(function(f) { return (f.ba === 1 && f.dep === true); }),
+								"passengerProfiles" : profiler.passengerProfiles.map(function(p) { return p.serialize(); }),
+								"flightProfiles" : profiler.flightProfiles.map(function(f) { return f.serialize(); }),
+							});
 
 							close();
-
-							/*
-							profileBuilder.run(e.data.terminalFilter, e.data.timeSlice, function(data) {
-
-								self.postMessage({
-									"profiles" : profileBuilder.getProfiles(),
-									"flights" : designDay,
-									"types" : profileBuilder.getTypes(),
-									"gates" : gateLayout
-								});
-
-							});
-							*/
-
 			    		})
 		    		})
 		    	});

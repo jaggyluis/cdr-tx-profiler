@@ -55,15 +55,16 @@ img {
 	//width: 1200px;
 }
 .table-box {
-	max-height: 500px;
-	//overflow-x: hidden;
-	overflow-x: scroll;
-	overflow-y: scroll;
+	//max-height: 500px;
+	min-height: 400px;
+	//overflow-x: scroll;
+	//overflow-y: scroll;
 	padding-right: 3px;
 }
 .flight-box {
 	padding-bottom: 10px;
 }
+
 .passenger-timing-table {
 	margin-top: -1px;
 }
@@ -71,7 +72,9 @@ img {
 	padding-top: 5px;
 }
 
-
+#passenger-profile-table {
+	padding : 20px 0px 0px 0px;
+}
 
 
 /* Main Container
@@ -209,7 +212,7 @@ img {
 	visibility: hidden;
 }
 .collapsed  {
-	display: none;
+	//display: none;
 }
 
 
@@ -254,4 +257,86 @@ img {
 	font-weight: bold;
 }
 
+/*--------------------------
+ * parcoords
+*/
 
+.parcoords > svg, .parcoords > canvas { 
+  font: 10px sans-serif;
+  position: absolute;
+}
+.parcoords > canvas {
+  pointer-events: none;
+}
+
+.parcoords text.label {
+  cursor: default;
+}
+
+.parcoords rect.background {
+  fill: transparent;
+}
+.parcoords rect.background:hover {
+  fill: rgba(120,120,120,0.2);
+}
+.parcoords .resize rect {
+  fill: rgba(0,0,0,0.1);
+}
+.parcoords rect.extent {
+  fill: rgba(255,255,255,0.25);
+  stroke: rgba(0,0,0,0.6);
+}
+.parcoords .axis line, .parcoords .axis path {
+  fill: none;
+  stroke: #222;
+  shape-rendering: crispEdges;
+}
+.parcoords canvas {
+  opacity: 1;
+  -moz-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+}
+.parcoords canvas.faded {
+  opacity: 0.25;
+}
+.parcoords {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    background-color: white;
+}
+
+/* -------------------------------- 
+*divgrid
+*/
+
+/* data table styles */
+#grid { 
+	height: 198px; 
+}
+.row, .header { 
+	clear: both;
+	overflow: hidden; 
+	font-size: 12px; 
+	//border: 1px solid black;
+}
+.row:nth-child(odd) { 
+	background: rgba(0,0,0,0.05); 
+}
+.header { 
+	font-weight: bold; 
+}
+.cell { 
+	float: left; 
+	//overflow: hidden; 
+	white-space: nowrap; 
+	width: 100px; 
+	//height: 18px; 
+}
+.col-0 { 
+	width: 180px;
+}

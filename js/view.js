@@ -6,7 +6,6 @@ var app = app || {};
 
 			this.passengers = null;
 			this.flights = null;
-			this.profiles = null;
 			this.keys = [ 
 				'flightID',
 				'passengerType',
@@ -22,25 +21,25 @@ var app = app || {};
 
 			this.hexColors = {
 
-				'business.domestic.departing' 		: '#211463',
-				'business.domestic.transfer' 		: '#35277D',
-				'business.international.departing' 	: '#685BA9',
-				'business.international.transfer' 	: '#4B3D92',
-				'leisure.domestic.departing' 		: '#8F600D',
-				'leisure.domestic.transfer' 		: '#B58126',
-				'leisure.international.departing' 	: '#F5C673',
-				'leisure.international.transfer' 	: '#D3A047',
-				'other.domestic.departing' 			: '#2D8677',
-				'other.domestic.transfer' 			: '#085B4D',
-				'other.international.departing' 	: '#187263',
-				'other.international.transfer' 		: '#499B8D',
+				'domestic.business.departing' 		: '#211463',
+				'domestic.business.transfer' 		: '#35277D',
+				'international.business.departing' 	: '#685BA9',
+				'international.business.transfer' 	: '#4B3D92',
+				'domestic.leisure.departing' 		: '#8F600D',
+				'domestic.leisure.transfer' 		: '#B58126',
+				'international.leisure.departing' 	: '#F5C673',
+				'international.leisure.transfer' 	: '#D3A047',
+				'domestic.other.departing' 			: '#2D8677',
+				'domestic.other.transfer' 			: '#085B4D',
+				'international.other.departing' 	: '#187263',
+				'international.other.transfer' 		: '#499B8D',
 			}
 
 			this._passengers=[];
 			this._flights = [];
-			this._profiles = [];
-			this._aircraft = {};
-			this._total = null;
+
+			this._passengerProfiles = [];
+			this._flightProfiles = [];
 
 			var self = this;
 
@@ -54,7 +53,7 @@ var app = app || {};
 					if (btn.id == 'timing-btn') {
 						app.run(function(data) {
 
-							self.clear();
+							self.clearPassengerTimingSimulationTables();
 							btn.parentNode.children[1].classList.toggle('hidden');
 							btn.disabled = false;
 
@@ -62,10 +61,10 @@ var app = app || {};
 								//this.getPassengerFilter();
 								return true;
 							});
+
 							self.flights = data.flights;
 
-							
-							self.buildResults();
+							self.buildPassengerTimingSimulationTables();
 							self.enableDownloads('#timing-box')
 						});
 
@@ -73,14 +72,16 @@ var app = app || {};
 					else if (btn.id == 'profile-btn') {
 						app.compute(function(data) {
 
-							self.clearTables();
+							self.clearPassengerProfileSimulationTables();
 							btn.parentNode.children[1].classList.toggle('hidden');
 							btn.disabled = false;
 
-							self.profiles = data.profiles;
+							self._passengerProfiles = data.passengerProfiles;
+							self._flightProfiles = data.flightProfiles;
 							
-							self.buildTables(data);							
+							self.buildPassengerProfileSimulationTables(data);							
 							self.enableDownloads('#profile-box');
+
 							self.enableProfileRunButton();
 						});
 					}
@@ -122,17 +123,17 @@ var app = app || {};
 					btn.parentNode.parentNode.parentNode
 						.children[1].classList.toggle('collapsed');
 				});
-				btn.addEventListener('mousedown', function(){
-				});
-				btn.addEventListener('mousedown', function(){
-				});
 			});
 	};
 	app.View.prototype = {
+
+		//
+		//	General Functions
+		//
 		
 		init : function() {
 
-			this.clear();
+			this.clearPassengerTimingSimulationTables();
 		},
 		enableDownloads : function(id) {
 
@@ -238,12 +239,83 @@ var app = app || {};
 			a.download = name+'.csv';
 			a.click();
 		},
-		buildResults : function() {
-			this.clear();
-			this.buildPassengerTable();
-			this.buildFlightTable();
+
+
+		//
+		//	Passenger Profile simulation view updates
+		//
+
+		buildPassengerProfileSimulationTables : function (data) {
+
+			this.buildPassengerProfilesTable(data.passengerProfiles);
+			this.buildFlightProfilesTable(data.flightProfiles);
+
 		},
-		clear : function() {
+		clearPassengerProfileSimulationTables : function() {
+
+			document.getElementById('passenger-profile-parcoords').innerHTML = '';
+			document.getElementById('passenger-profile-table').innerHTML = '';
+
+			this._passengerProfiles = [];
+			this._flightProfiles = [];
+
+		},
+		buildPassengerProfilesTable : function (passengerProfiles) {
+
+			var self = this,
+				color = function(d) {return self.hexColors[d.name]; };
+
+			var parcoords = d3.parcoords()("#passenger-profile-parcoords")
+			    .data(passengerProfiles.map(function(d) {return d.wrangle(); }))
+			    .hideAxis([])
+			    .color(color)
+			    .alpha(0.5)
+			    .composite("darken")
+			    .margin({ top: 20, left: 100, bottom: 10, right: 0 })
+			    .mode("queue")
+			    .render()
+			    //.reorderable();
+			    .brushMode("1D-axes");  // enable brushing
+
+			var grid = d3.divgrid();
+
+			d3.select("#passenger-profile-table")
+			    .datum(passengerProfiles.slice(0,10).map(function(d) {return d.wrangle(); }))
+			    .call(grid)
+			    .selectAll(".row")
+			    .on({
+			    	"mouseover": function(d) { parcoords.highlight([d]) },
+			    	"mouseout": parcoords.unhighlight
+			    });
+
+			parcoords.on("brush", function(d) {
+			    d3.select("#passenger-profile-table")
+			    	.datum(d.slice(0,10))
+			    	.call(grid)
+			    	.selectAll(".row")
+			    	.on({
+			        	"mouseover": function(d) { parcoords.highlight([d]) },
+			        	"mouseout": parcoords.unhighlight
+			      });
+			  });
+
+
+		},
+		buildFlightProfilesTable : function (flightProfiles) {
+
+			console.log(flightProfiles);
+		},
+
+		//
+		//	Passenger Timing simulation view updates
+		//
+
+		buildPassengerTimingSimulationTables : function() {
+
+			this.buildPassengersTable();
+			this.buildFlightsTable();
+		},
+		clearPassengerTimingSimulationTables : function() {
 
 			var pTable = document.getElementById("passenger-timing-table"),
 				pHeader = document.getElementById("passenger-timing-header").innerHTML,
@@ -255,86 +327,8 @@ var app = app || {};
 
 			this._passengers=[];
 			this._flights = [];
-
-
 		},
-		clearTables : function() {
-
-			var t = document.querySelector('#passenger-profile-table'),
-				p = document.querySelector('#aircraft-profile-box .content-box'),
-				b = document.querySelector('#total-box .content-box');
-
-			t.innerHTML = "";
-			p.innerHTML = "";
-			b.innerHTML = "";
-
-			this._profiles = [];
-			this._total = null;
-
-		},
-		buildTables : function (dataObj) {
-
-			var typeTable = document.getElementById('passenger-profile-table'),
-				typeHeader = document.getElementById('passenger-type-header').innerHTML,
-				profileBox = document.querySelector('#aircraft-profile-box .content-box'),
-				totalBox = document.querySelector('#total-box .content-box');
-
-			//
-			//	Build the total passenger profile table
-			//
-			/*
-			totalBox.appendChild(this.buildTypeTable(dataObj.typeClass, []));
-			*/
-			totalBox.innerHTML+="<br>currently disabled"
-			//
-			//	Build all of the unique passenger profile tables
-			//
-			typeTable.innerHTML+=typeHeader;
-			dataObj.types.forEach((function (type) {
-				typeTable.appendChild(this.buildTypeTableRow(type, true));
-			}).bind(this));
-			//
-			//	Build all of the flight profile tables
-			//
-			dataObj.profiles.forEach((function (profile) {
-				profileBox.appendChild(this.buildProfileTable(profile));
-			}).bind(this));
-		},
-		buildFlightTable : function () {
-
-			var table = document.getElementById('flight-table'),
-				template = document.querySelector('#flight-table-template').innerHTML,
-				innerString = '',
-				self = this;
-
-			this.flights.forEach(function(flight, idx) {
-
-				self._flights.push({
-					'name' : flight.getFlightName(),
-					'code' : flight.airline.IATA,
-					'id' : flight.id,
-					'loadFactor' : flight.loadFactor,
-					'seats' : flight.flight.seats,
-					'count' : flight.passengers.length,
-					'gate' : flight.gate,
-					'time' : AVIATION.time.decimalDayToTime(flight.getTime()),
-					'arrival' : AVIATION.time.decimalDayToTime(flight.getTime() - flight.ival.getLength()),
-					'delta.arrival' : flight.ival.getLength()
-				});
-
-				var flightString = template.replace('%name%', flight.getFlightName())
-							.replace('%code%', flight.airline.IATA)
-							.replace('%id%', flight.id)
-							.replace('%loadFactor%', flight.loadFactor)
-							.replace('%seats%', flight.flight.seats)
-							.replace('%count%', flight.passengers.length)
-							.replace('%gate%', flight.gate)
-							.replace('%time%', AVIATION.time.decimalDayToTime(flight.getTime()));
-				innerString+=flightString;
-			});
-			table.innerHTML+=innerString;
-		},
-		buildPassengerTable : function() {
+		buildPassengersTable : function() {
 
 			var table = document.getElementById('passenger-timing-table'),
 				template = document.getElementById('passenger-timing-template').innerHTML,
@@ -390,154 +384,39 @@ var app = app || {};
 			
 			table.innerHTML+=innerString;
 		},
-		buildTypeTable : function (typeObj, parents, weighted) {
-			
-			var template = document.getElementById('passenger-box-template').innerHTML,
-				div = document.createElement('div'),
-				trace = parents.slice();
+		buildFlightsTable : function () {
 
-			div.innerHTML = template;
+			var table = document.getElementById('flight-table'),
+				template = document.querySelector('#flight-table-template').innerHTML,
+				innerString = '',
+				self = this;
 
-			var container = div.children[0],
-				table = container.children[0],
-				collapsed = container.children[2],
-				expand = container.children[1],
-				img = expand.children[0];
+			this.flights.forEach(function(flight, idx) {
 
-			table.appendChild(this.buildTypeTableRow(typeObj));
-			
-			var parent = table.children[1].children[0];
-			var sub = [];
-
-			typeObj._getTypes().forEach((function(type) {
-				sub.push(this.buildTypeTable(typeObj[type], trace.concat([parent])));
-			}).bind(this));
-
-			if (sub.length !== 0) {
-				expand.addEventListener('click', function() {
-					collapsed.classList.toggle('collapsed');
-					collapsed.classList.add('outlined-left')
-
-					if (collapsed.classList.contains('collapsed')) {
-						img.src = 'img/expand.png';
-					} else {
-						img.src = 'img/collapse.png';
-					}
+				self._flights.push({
+					'name' : flight.getFlightName(),
+					'code' : flight.airline.IATA,
+					'id' : flight.id,
+					'loadFactor' : flight.loadFactor,
+					'seats' : flight.flight.seats,
+					'count' : flight.passengers.length,
+					'gate' : flight.gate,
+					'time' : AVIATION.time.decimalDayToTime(flight.getTime()),
+					'arrival' : AVIATION.time.decimalDayToTime(flight.getTime() - flight.ival.getLength()),
+					'delta.arrival' : flight.ival.getLength()
 				});
-				for (var s in sub ) collapsed.appendChild(sub[s]);
-			} else {
-				container.removeChild(expand);
-				container.removeChild(collapsed);
-			};
-			table.addEventListener('mouseenter', function() {
-				for (var i=0; i<parents.length; i++) {
-					parents[i].classList.add('sel');
-					parent.classList.add('sel');
-				}
+
+				var flightString = template.replace('%name%', flight.getFlightName())
+							.replace('%code%', flight.airline.IATA)
+							.replace('%id%', flight.id)
+							.replace('%loadFactor%', flight.loadFactor)
+							.replace('%seats%', flight.flight.seats)
+							.replace('%count%', flight.passengers.length)
+							.replace('%gate%', flight.gate)
+							.replace('%time%', AVIATION.time.decimalDayToTime(flight.getTime()));
+				innerString+=flightString;
 			});
-			table.addEventListener('mouseleave', function() {
-				for (var i=0; i<parents.length; i++) {
-					parents[i].classList.remove('sel');
-					parent.classList.remove('sel');
-				}
-			});
-
-			if (parents.length === 0) container.style.marginBottom = "-10px";
-
-			return container;
-		},
-		buildTypeTableRow : function (typeObj, push, weighted) {
-
-			var template = document.getElementById("passenger-type-template").innerHTML,
-				row = document.createElement('tr');
-
-			if (push === true) {
-				this._profiles.push({
-					'name' : typeObj._name,
-					'count' : typeObj._data.count,
-					'percentage' : typeObj._data.percentage,
-					'brfood' : typeObj._data.brfood,
-					'food' : typeObj._data.food,
-					'bags' : typeObj._data.bags,
-					'brshop' : typeObj._data.brshop,
-					'shop' : typeObj._data.shop,
-					'weighted' : typeObj._data.weighted,
-					'color' : this.hexColors[typeObj._name.split('.').slice(1).join('.')]
-				});
-			}
-
-			row.innerHTML += template.replace('%name%', typeObj._name)
-								.replace('%count%', typeObj._data.count)
-								.replace('%percent%', typeObj._data.percentage)
-								.replace('%brfood%', typeObj._data.brfood)
-								.replace('%food%', typeObj._data.food)
-								.replace('%bags%', typeObj._data.bags)
-								.replace('%brshop%', typeObj._data.brshop)
-								.replace('%shop%', typeObj._data.shop)
-								.replace('%weighted%', typeObj._data.weighted);
-			return row;
-		},
-		buildProfileTable : function (flightObj, weighted) {
-
-			function insert(s, l, str) {
-
-				return [str.slice(0, str.indexOf(l)), s, str.slice(str.indexOf(l))].join('');
-			};
-			function addClickEvent(nodeArray) {
-				for (var i=0; i<nodeArray.length; i++) {
-					if (nodeArray[i].id.match(/hook/)) {
-						nodeArray[i].addEventListener('click', (function(a,b) {
-							b.classList.toggle('collapsed');
-							if (b.classList.contains('collapsed')) {
-								a.children[0].src = 'img/expand.png';
-							} else {
-								a.children[0].src = 'img/collapse.png'
-							}
-						}).bind(undefined, nodeArray[i], nodeArray[i+1]))
-					}
-					addClickEvent(nodeArray[i].children);
-				}
-			};
-
-			var boxTemplate = document.getElementById('flight-box-template').innerHTML,
-				typeTemplate = document.getElementById('flight-type-template').innerHTML,
-				flightTemplate = document.getElementById('flight-info-template').innerHTML,
-				div = document.createElement('div'),
-				weighted = weighted === undefined ? false : weighted,
-				top = boxTemplate.replace(/%name%/g, flightObj._name),
-				percs = flightObj._percs;
-				this._aircraft[flightObj._name] = percs;
-
-			for (var type in percs) {
-
-				var rep = typeTemplate.replace(/%type%/g, flightObj._name+'.'+type)
-									.replace(/%name%/g, flightObj._name)
-									.replace(/%count%/, Object.keys(percs[type]).map(function(k) {
-
-										return percs[type][k].count
-
-									}).reduce(function(a,b) {
-
-										return a+b;
-
-									}, 0));
-				for (var p in percs[type]) {
-					var f = percs[type][p],
-						st =  JSON.stringify(f.dist).replace(/[{}]/g, '');
-						flight = flightTemplate.replace(/%name%/g, [flightObj._name, 
-													p.split('.').slice(1).join('.')].join('.'))
-										.replace(/%count%/g, f.count)
-										.replace(/%percent%/g, f.percentage)
-										.replace(/%weighted%/g, weighted)
-										.replace(/%dist%/g, '--');
-					rep = insert(flight, '<tl>', rep);
-				}
-				top = insert(rep, '<tt>', top);
-			}
-			div.innerHTML = top;
-			addClickEvent(div.children[0].children);
-			
-			return div;
+			table.innerHTML+=innerString;
 		}
 	};
 
