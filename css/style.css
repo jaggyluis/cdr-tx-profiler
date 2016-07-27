@@ -46,37 +46,6 @@ img {
  */
 
 
-
-.table-container {
-	clear: both;
-	//overflow: hidden;
-	margin-bottom: 10px;
-	border-top: 1px dotted grey;
-	//width: 1200px;
-}
-.table-box {
-	//max-height: 500px;
-	min-height: 400px;
-	//overflow-x: scroll;
-	//overflow-y: scroll;
-	padding-right: 3px;
-}
-.flight-box {
-	padding-bottom: 10px;
-}
-
-.passenger-timing-table {
-	margin-top: -1px;
-}
-.type-name {
-	padding-top: 5px;
-}
-
-#passenger-profile-table {
-	padding : 20px 0px 0px 0px;
-}
-
-
 /* Main Container
  */
  #run-box {
@@ -322,21 +291,58 @@ img {
 	clear: both;
 	overflow: hidden; 
 	font-size: 12px; 
-	//border: 1px solid black;
+	border-bottom: 1px solid black;
 }
-.row:nth-child(odd) { 
-	background: rgba(0,0,0,0.05); 
+.row:hover {
+	background-color: #ffffcc;
 }
 .header { 
 	font-weight: bold; 
 }
 .cell { 
 	float: left; 
-	//overflow: hidden; 
 	white-space: nowrap; 
-	width: 100px; 
-	//height: 18px; 
+	width: 60px; 
+	border-left: 1px solid black;
+}
+.cell:hover {
+	background-color: yellow;
 }
 .col-0 { 
 	width: 180px;
 }
+
+/* other */
+.table-container {
+	clear: both;
+	//overflow: hidden;
+	margin-bottom: 10px;
+	border-top: 1px dotted grey;
+	//width: 1200px;
+}
+.table-box {
+	min-height: 400px;
+	//border-right: 1px dotted grey;
+}
+.flight-box {
+	padding-bottom: 10px;
+}
+
+#passenger-timing-table {
+	padding-top: 20px;
+	width: 1000px;
+}
+#passenger-timing-table .col-4 {
+	width: 250px;
+}
+
+.type-name {
+	padding-top: 5px;
+}
+
+#passenger-profile-table {
+	padding-top: 20px;
+	width : 1000px;
+}
+
+

@@ -440,6 +440,33 @@ var AVIATION = (function (aviation) {
 	};
 	FlightProfile.prototype = {
 
+		wrangle : function () {
+
+			var data = this.data;
+
+			return  {
+
+				'name' : this.name,
+				'data' : Object.keys(data).map(function(i) {
+
+					return {
+
+						'name' : i,
+						'data' : Object.keys(data[i]).map(function(j) {
+
+							return {
+
+								'name' : j,
+								'percentage' : data[i][j]
+
+							};
+
+						})
+
+					};
+				}) 
+			};
+		},
 		serialize : function () {
 
 			return 	{
@@ -448,7 +475,8 @@ var AVIATION = (function (aviation) {
 				'data' : {
 
 					'name' : this.name ,
-					'data' : this.data,
+					'data' : this.data
+
 				}
 			};
 		}
@@ -677,7 +705,6 @@ var AVIATION = (function (aviation) {
 							} 
 
 							break;
-
 						}
 					}
 				}
@@ -709,20 +736,21 @@ var AVIATION = (function (aviation) {
 			for (var key in self._cluster.flightTypes) {
 
 				var pax = self._cluster.flightTypes[key],
-					di = aviation.array.mapElementsToObjByKey(pax, 'di');
+					data = aviation.array.mapElementsToObjByKey(pax, 'di');
 
-				Object.keys(di).forEach(function(d) {
+				Object.keys(data).forEach(function(d) {
 
-					var len = di[d].length,
-						name = [key,d].join('.'),
-						data = aviation.array.mapElementsToObjByKey(di[d], 'passengerType');
+					var len = data[d].length,
+						name = [key,d].join('.');
+					
+					data[d] = aviation.array.mapElementsToObjByKey(data[d], 'passengerType');
 
-					for (var type in data) data[type] = ( data[type].length / len ) *100
+					for (var type in data[d]) {
+						data[d][type] = Math.round(( data[d][type].length / len ) *100);
+					}
+				});
 
-					var flightProfile = aviation.class.FlightProfile(name, data);
-
-					profiles.push(flightProfile);
-				})				
+				profiles.push(aviation.class.FlightProfile(key, data));			
 			}
 
 			return profiles;
@@ -759,7 +787,7 @@ var AVIATION = (function (aviation) {
 		},
 		get passengerTypeDistributionPercentages () {
 
-			return this.flightProfile._percs[this.flight.getDI()];
+			return this.flightProfile.data[this.flight.getDI()];
 		},
 
 		_data : {
@@ -857,21 +885,17 @@ var AVIATION = (function (aviation) {
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
-				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats),
-					passengerProfile = passengerProfiles.find(function(profile) {
-								
-								return profile._name === type;
+				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type] / 100) * passengerSeats),
+					passengerProfile = aviation.get.passengerProfileByType(type);
 
-							});
-
-				Object.keys(passengerPercentagesTotal[type].dist).map(function(arrivalTime) {
+				Object.keys(passengerProfile.data.arrivalDistribution).map(function(arrivalTime) {
 
 					//
 					//	Convert the passenger type distribution percentages from the flightProfile
 					//	into a mapped number for this particular flight
 					//
 
-					var arrivalTimePercentageTotal = passengerPercentagesTotal[type].dist[arrivalTime];
+					var arrivalTimePercentageTotal = passengerProfile.data.arrivalDistribution[arrivalTime];
 						arrivalTimePercentageMapped = arrivalTimePercentageTotal / 100 * typePercentageTotal,
 						arrivalTimeActual = self.getTimeActual(arrivalTime),
 						arrivalTimeRounded = aviation.math.floor(
@@ -2003,16 +2027,17 @@ var AVIATION = (function (aviation) {
 		this.profile = passengerProfile;
 		this._attributes = {
 
+			'passengerType' : this.profile.name,
 			'gender' : ['M', 'F'][Math.round(Math.random())],
-			'bags' : [false,true][aviation.math.getRandomBinaryWithProbablity(this.profile._data.bags / 100)],
+			'bags' : [false,true][aviation.math.getRandomBinaryWithProbablity(this.profile.data.bags / 100)],
 			'isPreCheck' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.2)], //verify
-			'isTransfer' : this.profile._name.match(/transfer/) ? true : false,
+			'isTransfer' : this.profile.name.match(/transfer/) ? true : false,
 			'isBusiness' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.1)], // verify
 			'isGateHog' : [false,true][aviation.math.getRandomBinaryWithProbablity(0.17)], // verify
 			'passengerID' : aviation.string.generateUUID(),
-			'passengerType' : this.profile._name,
 			'flightID' : this.flight.id,
-			'flightName' : this.flight.getFlightName()
+			'flightName' : this.flight.getFlightName(),
+			'category' : this.flight.getCategory()
 
 		};
 		this._events = [
@@ -2094,6 +2119,27 @@ var AVIATION = (function (aviation) {
 				}
 			}
 		},
+		wrangle : function () {
+
+			var data = {};
+			for (var attributes = this.attributes, keys=Object.keys(attributes), i=0; i<keys.length; i++) {
+				if (typeof attributes[keys[i]] !== 'object') {
+					if (typeof attributes[keys[i]] == 'boolean') {
+						data[keys[i]] = attributes[keys[i]].toString();
+					} else {
+						data[keys[i]] = attributes[keys[i]];
+					}
+				}
+			}
+			for (var events = this.events, i=0; i<events.length; i++) {
+				data[events[i].name] = events[i].value;
+			}
+			for (var deltas = this.delta, keys=Object.keys(deltas) , i=0; i<keys.length; i++) {
+				data[['delta',keys[i]].join('.')] = aviation.time.decimalDayToMinutes(deltas[keys[i]]);
+			}
+
+			return data;
+		},
 		serialize : function (cycle) {
 
 			return {
@@ -2102,7 +2148,7 @@ var AVIATION = (function (aviation) {
 				'data' : {
 
 					'flight' : this.flight.serialize(false),
-					'profile' : this.profile, // !!!!!! this should be serilized and imported to aviation
+					'profile' : this.profile.serialize(),
 					'_attributes' : this._attributes,
 					'_events' : this._events
 				}
@@ -2267,11 +2313,19 @@ var AVIATION = (function (aviation) {
 
 			return aviation.array.getBestMatch(airports, str);
 		},
-		profileByAircraftType : function (type) {
+		flightProfileByAircraftType : function (type) {
 
 			return aviation._flightProfiles.find(function(p) {
 
-				return p._name === type;
+				return p.name === type;
+
+			});
+		},
+		passengerProfileByType : function (type) {
+
+			return aviation._passengerProfiles.find(function(p) {
+
+				return p.name === type;
 
 			});
 		}
@@ -2370,7 +2424,7 @@ var AVIATION = (function (aviation) {
 
 			sorted.forEach(function(flight) {
 
-				var pax = aviation.class.Pax(aviation.get.profileByAircraftType(flight.getCategory()), flight, timeSlice);
+				var pax = aviation.class.Pax(aviation.get.flightProfileByAircraftType(flight.getCategory()), flight, timeSlice);
 
 				flight.findGate(aviation.get.gates(), true);
 				matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
@@ -2580,8 +2634,12 @@ var AVIATION = (function (aviation) {
 		//	Run the simulation with the current data object.
 		//
 
-		aviation._flightProfiles = data.flightProfiles;
-		aviation._passengerProfiles = data.passengerProfiles;
+		aviation._flightProfiles = data.flightProfiles.map(function(f) {
+			return aviation.class.FlightProfile.deserialize(f.data); 
+		});;
+		aviation._passengerProfiles = data.passengerProfiles.map(function(p) {
+			return aviation.class.PassengerProfile.deserialize(p.data);
+		});;
 		aviation._gates = setGates(data.gates);
 		aviation._flights = setFlights(data.designDay, data.loadFactor, data.filter, data.timeFrame, data.timeSlice);
 

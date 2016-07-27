@@ -8,12 +8,16 @@ var app = app || {};
 		this._view.init();
 		this._timeSlice = 1;
 	}
-	app.compute = function(cb) {
+	app.runPassengerProfileSimulation = function(cb) {
 
 		var self = this,
 			worker  = new Worker('js/profile-worker.js');
 
 		worker.addEventListener('message', function(e) {
+
+			self._flightProfiles = e.data.flightProfiles;
+			self._passengerProfiles = e.data.passengerProfiles;
+			self._designDay = e.data.flights;
 
 			e.data.flightProfiles = e.data.flightProfiles.map(function(f) {
 				return AVIATION.class.FlightProfile.deserialize(f.data); 
@@ -22,10 +26,6 @@ var app = app || {};
 				return AVIATION.class.PassengerProfile.deserialize(p.data);
 			});
 	
-			self._flightProfiles = e.data.flightProfiles;
-			self._passengerProfiles = e.data.passengerProfiles;
-			self._designDay = e.data.flights;
-
 			cb(e.data);
 
 		}, false);
@@ -35,7 +35,7 @@ var app = app || {};
 			"timeSlice" : self._timeSlice
 		});
 	};
-	app.run = function(cb) {
+	app.runPassengerTimingSimulation = function(cb) {
 
 		var self = this,
 			worker = new Worker('js/timing-worker.js');
@@ -48,8 +48,6 @@ var app = app || {};
 			e.data.flights = e.data.flights.map(function(f) {
 				return AVIATION.class.Flight.deserialize(f.data); 
 			});
-
-			console.log(e.data);
 
 			cb(e.data);
 

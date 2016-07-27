@@ -4,21 +4,6 @@ var app = app || {};
 
 	app.View = function() {
 
-			this.passengers = null;
-			this.flights = null;
-			this.keys = [ 
-				'flightID',
-				'passengerType',
-				'gender',
-				'bags',
-				'isPreCheck',
-				'arrival',
-				'security',
-				'concourse',
-				'gate',
-				'boarding',
-				'departure'];
-
 			this.hexColors = {
 
 				'domestic.business.departing' 		: '#211463',
@@ -35,12 +20,6 @@ var app = app || {};
 				'international.other.transfer' 		: '#499B8D',
 			}
 
-			this._passengers=[];
-			this._flights = [];
-
-			this._passengerProfiles = [];
-			this._flightProfiles = [];
-
 			var self = this;
 
 			this.runButtons = Array.prototype.slice.call(document.getElementsByClassName('run-btn'));
@@ -51,7 +30,7 @@ var app = app || {};
 					btn.parentNode.children[1].classList.toggle('hidden');
 
 					if (btn.id == 'timing-btn') {
-						app.run(function(data) {
+						app.runPassengerTimingSimulation(function(data) {
 
 							self.clearPassengerTimingSimulationTables();
 							btn.parentNode.children[1].classList.toggle('hidden');
@@ -62,22 +41,17 @@ var app = app || {};
 								return true;
 							});
 
-							self.flights = data.flights;
-
-							self.buildPassengerTimingSimulationTables();
+							self.buildPassengerTimingSimulationTables(data);
 							self.enableDownloads('#timing-box')
 						});
 
 					}
 					else if (btn.id == 'profile-btn') {
-						app.compute(function(data) {
+						app.runPassengerProfileSimulation(function(data) {
 
 							self.clearPassengerProfileSimulationTables();
 							btn.parentNode.children[1].classList.toggle('hidden');
 							btn.disabled = false;
-
-							self._passengerProfiles = data.passengerProfiles;
-							self._flightProfiles = data.flightProfiles;
 							
 							self.buildPassengerProfileSimulationTables(data);							
 							self.enableDownloads('#profile-box');
@@ -127,9 +101,9 @@ var app = app || {};
 	};
 	app.View.prototype = {
 
-		//
+		///////////////////////////////////////////////////////////////////////////////
 		//	General Functions
-		//
+		/////////////////////////////////////////////////////////////////////////////////
 		
 		init : function() {
 
@@ -241,9 +215,9 @@ var app = app || {};
 		},
 
 
-		//
+		/////////////////////////////////////////////////////////////////////////
 		//	Passenger Profile simulation view updates
-		//
+		//////////////////////////////////////////////////////////////////////////
 
 		buildPassengerProfileSimulationTables : function (data) {
 
@@ -255,9 +229,6 @@ var app = app || {};
 
 			document.getElementById('passenger-profile-parcoords').innerHTML = '';
 			document.getElementById('passenger-profile-table').innerHTML = '';
-
-			this._passengerProfiles = [];
-			this._flightProfiles = [];
 
 		},
 		buildPassengerProfilesTable : function (passengerProfiles) {
@@ -280,7 +251,7 @@ var app = app || {};
 			var grid = d3.divgrid();
 
 			d3.select("#passenger-profile-table")
-			    .datum(passengerProfiles.slice(0,10).map(function(d) {return d.wrangle(); }))
+			    .datum(passengerProfiles.slice().map(function(d) {return d.wrangle(); }))
 			    .call(grid)
 			    .selectAll(".row")
 			    .on({
@@ -290,7 +261,7 @@ var app = app || {};
 
 			parcoords.on("brush", function(d) {
 			    d3.select("#passenger-profile-table")
-			    	.datum(d.slice(0,10))
+			    	.datum(d.slice()) // (0,10) before
 			    	.call(grid)
 			    	.selectAll(".row")
 			    	.on({
@@ -303,120 +274,147 @@ var app = app || {};
 		},
 		buildFlightProfilesTable : function (flightProfiles) {
 
-			console.log(flightProfiles);
+			console.log(flightProfiles.map(function(p) {return p.wrangle()}));
 		},
 
-		//
+		////////////////////////////////////////////////////////////////////////////////
 		//	Passenger Timing simulation view updates
-		//
+		////////////////////////////////////////////////////////////////////////////////
 
-		buildPassengerTimingSimulationTables : function() {
+		buildPassengerTimingSimulationTables : function(data) {
 
-			this.buildPassengersTable();
-			this.buildFlightsTable();
+			console.log(data)
+
+			this.buildPassengersTable(data.passengers);
+			this.buildFlightsTable(data.flights);
 		},
 		clearPassengerTimingSimulationTables : function() {
 
-			var pTable = document.getElementById("passenger-timing-table"),
-				pHeader = document.getElementById("passenger-timing-header").innerHTML,
-				fTable = document.getElementById("flight-table"),
-				fHeader = document.getElementById("flight-table-header").innerHTML;
-			
-			pTable.innerHTML = pHeader;
-			fTable.innerHTML = fHeader;
-
-			this._passengers=[];
-			this._flights = [];
+			document.getElementById("passenger-timing-table").innerHTML = '';
+			document.getElementById("flight-table").innerHTML = '';
 		},
-		buildPassengersTable : function() {
+		buildPassengersTable : function(passengers) {
 
-			var table = document.getElementById('passenger-timing-table'),
-				template = document.getElementById('passenger-timing-template').innerHTML,
-				innerString = '',
-				count = 0;
-			
-			this.passengers.forEach((function(passenger, idx) {
+			passengers = passengers.filter(function (p) {
 
-				var _ret = {};
-				var passengerString = template;
+				var w = p.wrangle();
 
-				if (passenger.getEvent('security').value < passenger.getEvent('arrival').value || 
-					passenger.getEvent('concourse').value < passenger.getEvent('security').value) {
-					count++;
-					return;
-				}
+				if (w['delta.checkIn'] > 360) return false;
+				if (w['delta.security'] > 360) return false;
 
-				this.keys.forEach(function(key) {
+				return true;
 
-					var event = passenger.getEvent(key);
+			})
 
-					if (event) {
-						_ret[key] = event.value;
-						passengerString = passengerString.replace('%'+key+'%', 
-							AVIATION.time.decimalDayToTime(_ret[key]));
-					} else {
-						_ret[key] = passenger.attributes[key];
-						passengerString = passengerString.replace('%'+key+'%', _ret[key]);
+			var self = this,
+				color = function(d) {return self.hexColors[d.passengerType]; },
+				tempFind = [];
 
-					}
-				})
+			var parcoords = d3.parcoords()("#passenger-timing-parcoords")
+			    .data(passengers.map(function(d) { return d.wrangle(); }))
+			    .hideAxis([
 
+			    	//'arrival',
+					//'bags',
+					'boarding',
+					//'category',
+					'checkInTime',
+					'concourse',
+					//'delta.arrival',
+					//'delta.checkIn',
+					//'delta.security',
+					'departure',
+					'flightID',
+					'flightName',
+					'gate',
+					'gateInfo',
+					'gender',
+					'isBusiness',
+					'isGateHog',
+					//'isPreCheck',
+					'isTransfer',
+					'passengerID',
+					//'passengerType',
+					'security',
+					'securityTime',
 
-				//
-				//	Additional visualisation variables
-				//
+			    	])
+			    .color(color)
+			    .alpha(0.1)
+			    .composite("darken")
+			    .margin({ top: 20, left: 100, bottom: 10, right: 0 })
+			    .mode("queue")
+			    .render()
+			    //.reorderable();
+			    .brushMode("1D-axes");  // enable brushing
 
-				_ret['category'] = passenger.flight.getCategory();
-				_ret['color'] = this.hexColors[passenger.attributes.passengerType.split('.').slice(1).join('.')]
+			var grid = d3.divgrid();
 
-				var delta = passenger.delta;
+			d3.select("#passenger-timing-table")
+			    .datum(passengers.slice(0,10).map(function(d, i) {
 
-				Object.keys(delta).forEach(function(key) {
-					_ret['delta.'+key] = delta[key];
-				})	
+			    	d = d.wrangle();
 
-				this._passengers.push(_ret);
-				innerString+=passengerString;
-				
-			}).bind(this));
+			    	tempFind[i] = d;
+			    	
+			    	return {
 
-			console.error('passengers broken : ', count);
-			
-			table.innerHTML+=innerString;
+			    		'name' : d.passengerType,
+			    		'gender' : d['gender'],
+			    		'bags' : d['bags'],
+			    		'preCheck' : d['isPreCheck'],
+			    		'flightID' : d['flightID'],
+			    		'arrival' : AVIATION.time.decimalDayToTime(d['arrival']),
+			    		'security' : AVIATION.time.decimalDayToTime(d['security']),
+			    		'concourse' : AVIATION.time.decimalDayToTime(d['concourse']),
+			    		'gate' : AVIATION.time.decimalDayToTime(d['gate']),
+			    		'boarding' : AVIATION.time.decimalDayToTime(d['boarding']),
+			    		'departure' : AVIATION.time.decimalDayToTime(d['departure']),
+			    		
+			    	};
+			    }))
+			    .call(grid)
+			    .selectAll(".row")
+			    .on({
+			    	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]) },
+			    	"mouseout": parcoords.unhighlight
+			    });
+
+			parcoords.on("brush", function(d) {
+
+				tempFind = [];
+
+			    d3.select("#passenger-timing-table")
+			    	.datum(d.slice(0,10).map(function(d, i) {
+
+			    		tempFind[i] = d;
+				    	
+				    	return {
+
+				    		'name' : d.passengerType,
+				    		'gender' : d['gender'],
+				    		'bags' : d['bags'],
+				    		'preCheck' : d['isPreCheck'],
+				    		'flightID' : d['flightID'],
+				    		'arrival' : AVIATION.time.decimalDayToTime(d['arrival']),
+				    		'security' : AVIATION.time.decimalDayToTime(d['security']),
+				    		'concourse' : AVIATION.time.decimalDayToTime(d['concourse']),
+				    		'gate' : AVIATION.time.decimalDayToTime(d['gate']),
+				    		'boarding' : AVIATION.time.decimalDayToTime(d['boarding']),
+				    		'departure' : AVIATION.time.decimalDayToTime(d['departure']),
+				    		
+				    	};
+				    }))
+			    	.call(grid)
+			    	.selectAll(".row")
+			    	.on({
+			        	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]) },
+			        	"mouseout": parcoords.unhighlight
+			      });
+			  });
 		},
 		buildFlightsTable : function () {
 
-			var table = document.getElementById('flight-table'),
-				template = document.querySelector('#flight-table-template').innerHTML,
-				innerString = '',
-				self = this;
-
-			this.flights.forEach(function(flight, idx) {
-
-				self._flights.push({
-					'name' : flight.getFlightName(),
-					'code' : flight.airline.IATA,
-					'id' : flight.id,
-					'loadFactor' : flight.loadFactor,
-					'seats' : flight.flight.seats,
-					'count' : flight.passengers.length,
-					'gate' : flight.gate,
-					'time' : AVIATION.time.decimalDayToTime(flight.getTime()),
-					'arrival' : AVIATION.time.decimalDayToTime(flight.getTime() - flight.ival.getLength()),
-					'delta.arrival' : flight.ival.getLength()
-				});
-
-				var flightString = template.replace('%name%', flight.getFlightName())
-							.replace('%code%', flight.airline.IATA)
-							.replace('%id%', flight.id)
-							.replace('%loadFactor%', flight.loadFactor)
-							.replace('%seats%', flight.flight.seats)
-							.replace('%count%', flight.passengers.length)
-							.replace('%gate%', flight.gate)
-							.replace('%time%', AVIATION.time.decimalDayToTime(flight.getTime()));
-				innerString+=flightString;
-			});
-			table.innerHTML+=innerString;
 		}
 	};
 

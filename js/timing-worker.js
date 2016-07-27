@@ -24,7 +24,7 @@ self.addEventListener('message', function(e) {
 				"flights" : AVIATION.get.flights().map(function(f) { return f.serialize(); })
 			});
 		})
-	}
+	})
 
 }, false)
 
