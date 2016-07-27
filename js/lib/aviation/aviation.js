@@ -1736,6 +1736,22 @@ var AVIATION = (function (aviation) {
 
 			return this.passengers;
 		},
+		wrangle : function () {
+
+			return {
+
+				'name' : this.getFlightName(),
+				'code' : this.airline.IATA,
+				'gate' : this.gate,
+				'flightID' : this.id,
+				'loadFactor' : this.loadFactor,
+				'seats' : this.flight.seats,
+				'count' : this.passengers.length,
+				'time' : this.getTime(),
+				'arrival' : this.getTime() - this.ival.getLength(),
+				'delta.arrival' : this.ival.getLength()
+			}
+		},
 		serialize : function (cycle) {
 
 			return {

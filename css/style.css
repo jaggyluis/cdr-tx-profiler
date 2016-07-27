@@ -318,31 +318,37 @@ img {
 	//overflow: hidden;
 	margin-bottom: 10px;
 	border-top: 1px dotted grey;
-	//width: 1200px;
 }
 .table-box {
-	min-height: 400px;
-	//border-right: 1px dotted grey;
+	min-height: 500px;
+	width: 1000px;
+	padding-top: 20px;
 }
-.flight-box {
-	padding-bottom: 10px;
+.table {
+	margin-top : 20px;
+	max-height: 300px;
+	overflow-y: scroll;
 }
 
-#passenger-timing-table {
-	padding-top: 20px;
-	width: 1000px;
+#passenger-profile-table .col-0 {
+	width: 300px;
 }
 #passenger-timing-table .col-4 {
 	width: 250px;
 }
 
-.type-name {
-	padding-top: 5px;
+#flight-table .col-0 {
+	width: 300px;
 }
 
-#passenger-profile-table {
-	padding-top: 20px;
-	width : 1000px;
+#flight-table .col-1,
+#flight-table .col-2 {
+	width: 30px;
 }
+#flight-table .col-3 {
+	width: 250px;
+}
+
+
 
 

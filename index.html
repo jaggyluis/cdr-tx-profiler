@@ -16,7 +16,7 @@
 					<div>>> PASSENGER PROFILE SIMULATION</div>
 					<br>
 					<div class="input-box">
-						<input id="filter-terminal" class="filter" placeholder="All">
+						<input id="filter-terminal" class="filter" placeholder="Currently Disabled" disabled>
 						<div class="input-title">Terminal</div>
 					</div>
 					<div class="run-btn-box">
@@ -36,7 +36,7 @@
 					<div class="result-box collapsed">
 						<div class="table-box">
 							<div id="passenger-profile-parcoords" class="parcoords" style="width: 1000px; height: 150px;"></div>
-							<div id="passenger-profile-table"></div>
+							<div id="passenger-profile-table" class="table"></div>
 						</div>
 						<div class="save-box">
 							<button class="save-btn" id="passengerProfiles">Save</button>
@@ -61,7 +61,7 @@
 					<div class="result-box collapsed">
 						<div class="table-box">
 							<div id="flight-profile-parcoords" class="parcoords" style="width: 1000px; height: 300px;"></div>
-							<div id="flight-profile-table"></div>
+							<div id="flight-profile-table" class="table"></div>
 						</div>
 						<div class="save-box">
 							<button class="save-btn" id="flightProfiles">Save</button>
@@ -116,7 +116,7 @@
 					</div>
 					<div class="result-box collapsed">
 						<div class="table-box">
-							<div id="flight-table"></div>
+							<div id="flight-table" class="table"></div>
 						</div>
 						<div class="save-box">
 							<button class="save-btn" id="flights">Save</button>
@@ -141,7 +141,8 @@
 					<div class="result-box collapsed">
 						<div class="table-box">
 							<div id="passenger-timing-parcoords" class="parcoords" style="width: 1000px; height: 150px;"></div>
-							<div id="passenger-timing-table"></div>
+							<div id="passenger-timing-table" class="table"></div>
+							<div><br>>>> displaying top 20 filtered passengers</div>
 						</div>
 						<div class="save-box">
 							<button class="save-btn" id="passengers">Save</button>

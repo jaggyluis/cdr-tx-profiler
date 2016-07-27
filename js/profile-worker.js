@@ -36,6 +36,9 @@ function wranglePassengerData (passengerArray, lexicon) {
 			'destination' : lexicon['DESTINATION'][passenger['DEST']],
 			'arrival' : AVIATION.time.toDecimalDay(passenger['ARRTIME']),
 			'departure' : AVIATION.time.toDecimalDay(passenger['DEPTIME']),
+			//'am' : AVIATION.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
+			//	'pre9AM' : 
+			//	'post9AM',
 			'di' : passenger['DESTGEO'] < 4 ? 'domestic' : 'international',
 			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3) ? 
 				'transfer' : 

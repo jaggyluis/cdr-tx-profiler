@@ -290,6 +290,7 @@ var app = app || {};
 		},
 		clearPassengerTimingSimulationTables : function() {
 
+			document.getElementById("passenger-timing-parcoords").innerHTML = '';
 			document.getElementById("passenger-timing-table").innerHTML = '';
 			document.getElementById("flight-table").innerHTML = '';
 		},
@@ -351,7 +352,7 @@ var app = app || {};
 			var grid = d3.divgrid();
 
 			d3.select("#passenger-timing-table")
-			    .datum(passengers.slice(0,10).map(function(d, i) {
+			    .datum(passengers.slice(0,20).map(function(d, i) {
 
 			    	d = d.wrangle();
 
@@ -385,7 +386,7 @@ var app = app || {};
 				tempFind = [];
 
 			    d3.select("#passenger-timing-table")
-			    	.datum(d.slice(0,10).map(function(d, i) {
+			    	.datum(d.slice(0,20).map(function(d, i) {
 
 			    		tempFind[i] = d;
 				    	
@@ -413,7 +414,23 @@ var app = app || {};
 			      });
 			  });
 		},
-		buildFlightsTable : function () {
+		buildFlightsTable : function (flights) {
+
+			var grid = d3.divgrid();
+
+			d3.select("#flight-table")
+			    .datum(flights.slice().map(function(d) {
+			    	
+			    	d = d.wrangle(); 
+
+			    	d['arrival'] = AVIATION.time.decimalDayToTime(d['arrival']);
+			    	d['time'] = AVIATION.time.decimalDayToTime(d['time']);
+			    	d['delta.arrival'] = AVIATION.time.decimalDayToMinutes(d['delta.arrival']);
+
+			    	return d;
+
+			    }))
+			    .call(grid);
 
 		}
 	};
