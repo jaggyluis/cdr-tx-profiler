@@ -181,7 +181,7 @@ img {
 	visibility: hidden;
 }
 .collapsed  {
-	//display: none;
+	display: none;
 }
 
 
@@ -292,6 +292,7 @@ img {
 	overflow: hidden; 
 	font-size: 12px; 
 	border-bottom: 1px solid black;
+	width : 1200px;
 }
 .row:hover {
 	background-color: #ffffcc;
@@ -309,7 +310,7 @@ img {
 	background-color: yellow;
 }
 .col-0 { 
-	width: 180px;
+	width: 300px;
 }
 
 /* other */
@@ -328,17 +329,15 @@ img {
 	margin-top : 20px;
 	max-height: 300px;
 	overflow-y: scroll;
+	overflow-x: scroll;
 }
 
-#passenger-profile-table .col-0 {
-	width: 300px;
-}
 #passenger-timing-table .col-4 {
 	width: 250px;
 }
 
-#flight-table .col-0 {
-	width: 300px;
+#flight-profile-table {
+	//max-height: none;
 }
 
 #flight-table .col-1,
@@ -347,6 +346,41 @@ img {
 }
 #flight-table .col-3 {
 	width: 250px;
+}
+
+/*
+ * dendogram
+ */
+
+
+.node circle {
+  fill: #999;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.node--internal circle {
+  fill: #555;
+}
+
+.node--internal text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.8;
+  stroke-width: 1px;
+}
+
+.datum-line {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.5;
+  stroke-width: 0.2px;
 }
 
 

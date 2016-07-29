@@ -21,6 +21,9 @@ var app = app || {};
 			}
 
 			var self = this;
+			
+			this.passengerProfileData,
+			this.passengerTimingData,
 
 			this.runButtons = Array.prototype.slice.call(document.getElementsByClassName('run-btn'));
 			this.runButtons.forEach(function(btn) {
@@ -29,38 +32,62 @@ var app = app || {};
 					btn.disabled = true;
 					btn.parentNode.children[1].classList.toggle('hidden');
 
-					if (btn.id == 'timing-btn') {
-						app.runPassengerTimingSimulation(function(data) {
+					if (btn.id == 'profile-btn') {
+						app.runPassengerProfileSimulation(function(data) {
+				
+							self.clearPassengerProfilesTable();
+							self.clearFlightProfilesTable();
 
-							self.clearPassengerTimingSimulationTables();
+							var bt1 = document.getElementById('show-passenger-profiles-btn'),
+								bt2 = document.getElementById('show-flight-profiles-btn')
+
+							if (bt1.innerText == 'Hide Results') {
+								bt1.click();
+							}
+							if (bt2.innerText == 'Hide Results') {
+								bt2.click();
+							}
+
 							btn.parentNode.children[1].classList.toggle('hidden');
 							btn.disabled = false;
 
-							self.passengers = data.passengers.filter(function(passenger) {
-								//this.getPassengerFilter();
-								return true;
+							self.passengerProfileData = data;			
+							self.enableDownloads('#profile-box');
+							self.enableProfileRunButton();
+						});
+					} else if (btn.id == 'timing-btn') {
+						app.runPassengerTimingSimulation(function(data) {
+
+							self.clearFlightsTable();
+							self.clearPassengersTable();
+
+							var bt1 = document.getElementById('show-flights-btn'),
+								bt2 = document.getElementById('show-passengers-btn')
+
+							if (bt1.innerText == 'Hide Results') {
+								bt1.click();
+							}
+							if (bt2.innerText == 'Hide Results') {
+								bt2.click();
+							}
+							
+
+							btn.parentNode.children[1].classList.toggle('hidden');
+							btn.disabled = false;
+
+							var filter = new RegExp(self.getPassengerFilter());
+
+							data.passengers = data.passengers.filter(function(passenger) {
+								
+								return JSON.stringify(passenger.wrangle()).match(filter);
 							});
 
-							self.buildPassengerTimingSimulationTables(data);
+							self.passengerTimingData = data;
 							self.enableDownloads('#timing-box')
 						});
 
 					}
-					else if (btn.id == 'profile-btn') {
-						app.runPassengerProfileSimulation(function(data) {
-
-							self.clearPassengerProfileSimulationTables();
-							btn.parentNode.children[1].classList.toggle('hidden');
-							btn.disabled = false;
-							
-							self.buildPassengerProfileSimulationTables(data);							
-							self.enableDownloads('#profile-box');
-
-							self.enableProfileRunButton();
-						});
-					}
-
-				})
+				});
 			});
 
 			this.checkButtons = Array.prototype.slice.call(document.getElementsByClassName('chk-btn'));
@@ -96,6 +123,33 @@ var app = app || {};
 						'Show Results' : 'Hide Results';
 					btn.parentNode.parentNode.parentNode
 						.children[1].classList.toggle('collapsed');
+
+					if (btn.id == 'show-passenger-profiles-btn') {
+						if (btn.innerText == 'Show Results') {
+							self.clearPassengerProfilesTable();
+						} else {
+							self.buildPassengerProfilesTable(self.passengerProfileData.passengerProfiles);
+						}
+						
+					} else if (btn.id == 'show-flight-profiles-btn') {
+						if (btn.innerText == 'Show Results') {
+							self.clearFlightProfilesTable();
+						} else {
+							self.buildFlightProfilesTable(self.passengerProfileData.flightProfiles);
+						}
+					} else if (btn.id == 'show-flights-btn') {
+						if (btn.innerText == 'Show Results') {
+							self.clearFlightsTable();
+						} else {
+							self.buildFlightsTable(self.passengerTimingData.flights);
+						}
+					} else if (btn.id == 'show-passengers-btn') {
+						if (btn.innerText == 'Show Results') {
+							self.clearPassengersTable();
+						} else {
+							self.buildPassengersTable(self.passengerTimingData.passengers);
+						}
+					}
 				});
 			});
 	};
@@ -107,7 +161,8 @@ var app = app || {};
 		
 		init : function() {
 
-			this.clearPassengerTimingSimulationTables();
+			this.clearPassengerProfilesTable();
+			this.clearFlightProfilesTable();
 		},
 		enableDownloads : function(id) {
 
@@ -162,19 +217,58 @@ var app = app || {};
 			}
 		},
 		save : function (id, type) {
+
+			var self = this,
+				dataType;
+
+			switch (id) {
+
+				case 'passengerProfiles' : 
+				case 'flightProfiles' : 
+
+					dataType = 'passengerProfileData';
+
+					break;
+
+				case 'passengers' :
+				case 'flights' :
+
+					dataType = 'passengerTimingData';
+
+					break;
+
+				default : 
+
+					break;
+			};
+
+			var data = self[dataType][id].map(function (item) { 
+				
+				var item = item.wrangle();
+
+				for (var i in self.hexColors) {
+
+					if (JSON.stringify(item).match(new RegExp(i))){
+						item.color = self.hexColors[i];
+					}
+				} 
+				return item;
+
+			})
 						
 			switch (type) {
 
 				case "json":
-					this.downloadJSON(this['_'+id], id);
+
+					this.downloadJSON(data, id);
 
 					break;
 
 				case "csv":
 
-					var keys = Object.keys(this['_'+id][0]) 
+					var keys = Object.keys(data[0]) 
 
-					this.downloadCSV(AVIATION.string.serializeJSON(this['_'+id], keys), id);
+					this.downloadCSV(AVIATION.string.serializeJSON(data, keys), id);
 
 					break;
 
@@ -219,17 +313,10 @@ var app = app || {};
 		//	Passenger Profile simulation view updates
 		//////////////////////////////////////////////////////////////////////////
 
-		buildPassengerProfileSimulationTables : function (data) {
-
-			this.buildPassengerProfilesTable(data.passengerProfiles);
-			this.buildFlightProfilesTable(data.flightProfiles);
-
-		},
-		clearPassengerProfileSimulationTables : function() {
+		clearPassengerProfilesTable : function () {
 
 			document.getElementById('passenger-profile-parcoords').innerHTML = '';
 			document.getElementById('passenger-profile-table').innerHTML = '';
-
 		},
 		buildPassengerProfilesTable : function (passengerProfiles) {
 
@@ -272,27 +359,174 @@ var app = app || {};
 
 
 		},
+		clearFlightProfilesTable : function () {
+
+			document.getElementById('flight-profile-table').innerHTML = '';
+		},
 		buildFlightProfilesTable : function (flightProfiles) {
 
-			console.log(flightProfiles.map(function(p) {return p.wrangle()}));
+			var self = this;
+
+			var color = function(d) {return self.hexColors[d.id.split('-')[3]]; };
+
+			var wrangled = flightProfiles.map(function(p) {return p.wrangle()});
+				stratified = [{
+
+					'id' : 'flightProfiles'
+				}];
+
+			var nestedDivGrid = document.createElement('div');
+
+			for (var i=0; i<wrangled.length; i++) {
+
+				var designGroup = wrangled[i].name,
+					designGroupDiv = document.createElement('div');
+
+				designGroupDiv.innerHTML = '<div class="outlined-bottom outlined-left bold">'+designGroup+'</div>';
+
+				stratified.push({
+
+					'id' : ['flightProfiles', designGroup].join('-')
+				})
+
+				for (var j=0; j<wrangled[i].data.length; j++) {
+
+					var di = wrangled[i].data[j].name,
+						diDiv = document.createElement('div');
+
+					diDiv.innerHTML = '<div class="outlined-bottom outlined-left bold">'+di+'</div>';
+					diDiv.classList.add('pad');
+						
+					stratified.push({
+
+						'id' : ['flightProfiles', designGroup, di].join('-')
+
+					})
+
+					for (var k=0; k<wrangled[i].data[j].data.length; k++) {
+
+						var am = wrangled[i].data[j].data[k].name,
+							amDiv = document.createElement('div'),
+							typeDiv = document.createElement('div')
+
+						amDiv.innerHTML = '<div class="outlined-bottom outlined-left bold">'+am+'</div>';
+						amDiv.classList.add('pad');
+
+						typeDiv.classList.add('pad');
+
+						stratified.push({
+
+							'id' : ['flightProfiles', designGroup, di, am].join('-')
+						})
+
+						for (var l=0; l<wrangled[i].data[j].data[k].data.length; l++) {
+
+							var type = wrangled[i].data[j].data[k].name;
+
+							stratified.push( {
+
+								'id' : ['flightProfiles', designGroup, di, am, type].join('-'),
+								'value' : wrangled[i].data[j].data[k].data[l].percentage
+
+							});
+						}
+
+						var grid = d3.divgrid();
+
+						var divgrid = d3.select(typeDiv)
+							.datum(wrangled[i].data[j].data[k].data)
+							.call(grid);
+						
+						amDiv.appendChild(typeDiv);						
+						diDiv.appendChild(amDiv);
+					}			
+					designGroupDiv.appendChild(diDiv);
+				}
+				nestedDivGrid.appendChild(designGroupDiv);
+			}
+			document.getElementById('flight-profile-table').appendChild(nestedDivGrid);
+
+			var g = d3.select('#flight-profile-dendogram')
+				.append('svg')
+				.attr('width', 1000)
+				.attr('height', 300)
+				.append('g')
+				.attr("transform", "translate(120,0)");
+
+			var tree = d3.layout.cluster()
+				.size([300, 600])
+
+			var stratify = d3.stratify()
+				.parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf('-')); });
+
+			var root = stratify(stratified)
+				.sort(function (a,b) {return (a.height - b.height) || a.id.localeCompare(b.id); });
+
+			tree(root);
+
+			var link = g.selectAll('.link')
+				.data(root.descendants().slice(1))
+				.enter().append('path')
+					.attr('class', 'link')
+					.attr('d', function(d) {
+						return 'M' + d.y + ',' + d.x
+							+ 'C' + (d.parent.y + 100) + ',' + d.x
+							+ ' ' + (d.parent.y + 100) + ',' + d.parent.x
+							+ ' ' + d.parent.y + ',' + d.parent.x;
+					});
+
+			var node = g.selectAll('.node')
+				.data(root.descendants())
+				.enter().append('g')
+					.attr('class', function(d) { return 'node' + (d.children ? ' node--internal' : ' node--leaf'); })
+					.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; })
+
+			node.each(function(d,i) {
+
+				val = (d.data.value / 100 ) * 100
+
+				if (d.children) {
+					d3.select(this)
+						.append('circle')
+						.attr('r', 2.5);
+				} else {
+
+
+					d3.select(this)
+						.append("line") 
+					    .attr('class', 'datum-line')
+					    .attr("x1", 0)  
+					    .attr("y1", 0) 
+					    .attr("x2", 100)  
+					    .attr("y2", 0);
+
+					d3.select(this)
+						.append('rect')
+						.attr('x', 0)
+						.attr('y', -2.5)
+						.attr('width', val)
+						.attr('height', 5)
+						.attr('fill', color)
+				}
+
+			})
+
+			node.append('text')
+				.attr('dy', 3)
+				.attr('x', function (d) { return d.children ? -8 : 100; })
+				.style('text-anchor', function(d) {return d.children ? 'end' : 'start'; })
+				.text(function(d) {return d.id.substring(d.id.lastIndexOf('-') + 1); });
+
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
 		//	Passenger Timing simulation view updates
 		////////////////////////////////////////////////////////////////////////////////
 
-		buildPassengerTimingSimulationTables : function(data) {
-
-			console.log(data)
-
-			this.buildPassengersTable(data.passengers);
-			this.buildFlightsTable(data.flights);
-		},
-		clearPassengerTimingSimulationTables : function() {
+		clearPassengersTable : function () {
 
 			document.getElementById("passenger-timing-parcoords").innerHTML = '';
 			document.getElementById("passenger-timing-table").innerHTML = '';
-			document.getElementById("flight-table").innerHTML = '';
 		},
 		buildPassengersTable : function(passengers) {
 
@@ -414,6 +648,10 @@ var app = app || {};
 			      });
 			  });
 		},
+		clearFlightsTable : function () {
+
+			document.getElementById("flight-table").innerHTML = '';
+		},
 		buildFlightsTable : function (flights) {
 
 			var grid = d3.divgrid();
@@ -424,7 +662,7 @@ var app = app || {};
 			    	d = d.wrangle(); 
 
 			    	d['arrival'] = AVIATION.time.decimalDayToTime(d['arrival']);
-			    	d['time'] = AVIATION.time.decimalDayToTime(d['time']);
+			    	d['departure'] = AVIATION.time.decimalDayToTime(d['departure']);
 			    	d['delta.arrival'] = AVIATION.time.decimalDayToMinutes(d['delta.arrival']);
 
 			    	return d;

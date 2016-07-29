@@ -1,8 +1,8 @@
-importScripts('lib/aviation/airports.js',
-	'lib/aviation/airlines.js',
-	'lib/aviation/aircraft.js',
-	'lib/aviation/tt.js',
-	'lib/aviation/aviation.js',
+importScripts('lib/aviation/aviation.airports.js',
+	'lib/aviation/aviation.airlines.js',
+	'lib/aviation/aviation.aircraft.js',
+	'lib/aviation/aviation.tt.js',
+	'lib/aviation/aviation.core.js',
 	'lib/numeric/numeric-1.2.6.js');
 
 function wrangleDesignDayData (flightArray) {
@@ -36,9 +36,9 @@ function wranglePassengerData (passengerArray, lexicon) {
 			'destination' : lexicon['DESTINATION'][passenger['DEST']],
 			'arrival' : AVIATION.time.toDecimalDay(passenger['ARRTIME']),
 			'departure' : AVIATION.time.toDecimalDay(passenger['DEPTIME']),
-			//'am' : AVIATION.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
-			//	'pre9AM' : 
-			//	'post9AM',
+			'am' : AVIATION.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
+				'pre9AM' : 
+				'post9AM',
 			'di' : passenger['DESTGEO'] < 4 ? 'domestic' : 'international',
 			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3) ? 
 				'transfer' : 
@@ -126,7 +126,7 @@ var propensityFilePath = 'var/dia/passengers/propensities.json',
 	propensityData,
 	propensityfunc;
 
-var typeData = ['di', 'type', 'dt'];
+var typeData = ['di', 'type', 'dt', 'am', 'bags'];
 
 
 self.addEventListener('message', function(e) {

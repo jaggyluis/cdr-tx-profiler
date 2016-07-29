@@ -1,8 +1,8 @@
-importScripts('lib/aviation/airports.js',
-	'lib/aviation/airlines.js',
-	'lib/aviation/aircraft.js',
-	'lib/aviation/tt.js',
-	'lib/aviation/aviation.js');
+importScripts('lib/aviation/aviation.airports.js',
+	'lib/aviation/aviation.airlines.js',
+	'lib/aviation/aviation.aircraft.js',
+	'lib/aviation/aviation.tt.js',
+	'lib/aviation/aviation.core.js');
 
 var gateLayoutFilePath = 'var/sfo/gatelayout.json',
 	gateLayout;

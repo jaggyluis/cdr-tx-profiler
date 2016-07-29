@@ -56,16 +56,18 @@ X fix checkin distribution null passengers
 X implement airline clustering
 X cull bad departing passenger data
 
-- more discrete types - pre 9am and correlate arrival times with bags
+X more discrete types - pre 9am and correlate arrival times with bags
 
-- passenger survey data weighting
+X passenger survey data weighting
+- test pre9am types for consistency
 - implement fit curve on arrival distributions
+- fix variable modulo
 ___________________________________________
 
-- add fast charts and integrate visualisation to main app
-- multiple visualization for profile type parallel coords
+X add fast charts and integrate visualisation to main app
+X multiple visualization for profile type parallel coords
+- add gate packing to visualization
 ____________________________________________
 
 X web worker for simulation
-- move data/profile builder to server side
 - implement npm for module build - major refactor

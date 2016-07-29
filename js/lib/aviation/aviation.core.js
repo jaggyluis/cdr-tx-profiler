@@ -93,6 +93,11 @@ var AVIATION = (function (aviation) {
 
 			return ['AM', 'PM'].includes(str.toString().split(/ /).reverse()[0]);
 		},
+		isPre9AM : function (time) {
+
+			return this.toDecimalDay(time) < 0.375;
+
+		},
 		romanToNumber : function (str) {
 
 			var dict = {
@@ -437,6 +442,7 @@ var AVIATION = (function (aviation) {
 
 		this.name = name;
 		this.data = profileData;
+
 	};
 	FlightProfile.prototype = {
 
@@ -457,12 +463,18 @@ var AVIATION = (function (aviation) {
 							return {
 
 								'name' : j,
-								'percentage' : data[i][j]
+								'data' : Object.keys(data[i][j]).map(function(k) {
 
+									return {
+
+										'name' : k,
+										'count' : data[i][j][k].count,
+										'percentage' : data[i][j][k].percentage
+
+									};
+								})
 							};
-
 						})
-
 					};
 				}) 
 			};
@@ -556,8 +568,8 @@ var AVIATION = (function (aviation) {
 
 		if (func !== undefined) this.func = func;
 
-		this._cluster = this.cluster(this.passengers, this.attributes);
-		this._cluster.flightTypes = this.match(this._cluster.flightTypes, this.flights);
+		this._cluster = this.clusterPassengersByAttribute(this.passengers, this.attributes);
+		this._cluster.flightTypes = this.matchFlights(this._cluster.flightTypes, this.flights);
 	};
 	Profiler.prototype = {
 
@@ -634,7 +646,7 @@ var AVIATION = (function (aviation) {
 
 			return permuted;
 		},
-		cluster : function (passengers, attributes) {
+		clusterPassengersByAttribute : function (passengers, attributes) {
 
 			var typeCluster = {},
 				typeAttibutes = attributes,
@@ -674,7 +686,7 @@ var AVIATION = (function (aviation) {
 				'flightTypes' : flightCluster
 			}
 		},
-		match : function (flightTypes, flights) {
+		matchFlights : function (flightTypes, flights) {
 
 			var typeCluster = {};
 
@@ -720,10 +732,9 @@ var AVIATION = (function (aviation) {
 			for (var key in self._cluster.passengerTypes) {
 
 				var pax = self._cluster.passengerTypes[key],
-					len = self.passengers.length,
-					passengerProfile = aviation.class.PassengerProfile(key, self.percentile(pax, len, true));
+					len = self.passengers.length;
 
-				profiles.push(passengerProfile);
+				profiles.push(aviation.class.PassengerProfile(key, self.percentile(pax, len, true)));
 			}
 
 			return profiles;
@@ -733,7 +744,45 @@ var AVIATION = (function (aviation) {
 			var self = this,
 				profiles  = [];
 
-			for (var key in self._cluster.flightTypes) {
+			for (var k in self._cluster.flightTypes) {
+
+				var pax = self._cluster.flightTypes[k]
+					diDist = aviation.array.mapElementsToObjByKey(pax, 'di');
+
+				Object.keys(diDist).forEach(function(d) {
+
+					var di = diDist[d],
+						amDist = aviation.array.mapElementsToObjByKey(di, 'am');
+
+					Object.keys(amDist).forEach(function(a) {
+
+						var len = amDist[a].length,
+							name = [k,d,a].join('.');
+
+						amDist[a] = aviation.array.mapElementsToObjByKey(amDist[a], 'passengerType');
+
+						for (var type in amDist[a]) {
+							amDist[a][type] = {
+
+								'count' : amDist[a][type].length,
+								'percentage' : Math.round((amDist[a][type].length / len) * 100)
+
+							}
+						}
+
+					})
+
+					diDist[d] = amDist
+
+				})
+
+				profiles.push(aviation.class.FlightProfile(k, diDist));
+
+
+				//
+				// ! superceded
+				//
+				/*
 
 				var pax = self._cluster.flightTypes[key],
 					data = aviation.array.mapElementsToObjByKey(pax, 'di');
@@ -746,11 +795,18 @@ var AVIATION = (function (aviation) {
 					data[d] = aviation.array.mapElementsToObjByKey(data[d], 'passengerType');
 
 					for (var type in data[d]) {
-						data[d][type] = Math.round(( data[d][type].length / len ) *100);
+						data[d][type] = {
+
+							'count' : data[d][type].length,
+							'percentage' : Math.round(( data[d][type].length / len ) *100)
+
+						}
 					}
 				});
 
-				profiles.push(aviation.class.FlightProfile(key, data));			
+				profiles.push(aviation.class.FlightProfile(key, data));
+
+				*/	
 			}
 
 			return profiles;
@@ -787,7 +843,9 @@ var AVIATION = (function (aviation) {
 		},
 		get passengerTypeDistributionPercentages () {
 
-			return this.flightProfile.data[this.flight.getDI()];
+			var isPre9AM = aviation.time.isPre9AM(this.flight.getTime()) ? 'pre9AM' : 'post9AM';
+
+			return this.flightProfile.data[this.flight.getDI()][isPre9AM];
 		},
 
 		_data : {
@@ -885,7 +943,7 @@ var AVIATION = (function (aviation) {
 
 			Object.keys(passengerPercentagesTotal).map(function(type) {
 
-				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type] / 100) * passengerSeats),
+				var typePercentageTotal = Math.ceil((passengerPercentagesTotal[type].percentage / 100) * passengerSeats),
 					passengerProfile = aviation.get.passengerProfileByType(type);
 
 				Object.keys(passengerProfile.data.arrivalDistribution).map(function(arrivalTime) {
@@ -1747,8 +1805,8 @@ var AVIATION = (function (aviation) {
 				'loadFactor' : this.loadFactor,
 				'seats' : this.flight.seats,
 				'count' : this.passengers.length,
-				'time' : this.getTime(),
 				'arrival' : this.getTime() - this.ival.getLength(),
+				'departure' : this.getTime(),
 				'delta.arrival' : this.ival.getLength()
 			}
 		},
