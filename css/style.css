@@ -305,6 +305,7 @@ img {
 	white-space: nowrap; 
 	width: 60px; 
 	border-left: 1px solid black;
+	background-color: white;
 }
 .cell:hover {
 	background-color: yellow;
@@ -323,13 +324,14 @@ img {
 .table-box {
 	min-height: 500px;
 	width: 1000px;
-	padding-top: 20px;
+	padding-top: 30px;
 }
 .table {
 	margin-top : 20px;
-	max-height: 300px;
+	height: 300px;
 	overflow-y: scroll;
 	overflow-x: scroll;
+	background-color: #f2f2f2;
 }
 
 #passenger-timing-table .col-4 {

@@ -926,7 +926,7 @@ var AVIATION = (function (aviation) {
 
 			var passengerPercentagesTotal = self.passengerTypeDistributionPercentages,
 				passengerSeats = self.flight.seats,
-				checkInCounters = Math.ceil(passengerSeats / 100),
+				checkInCounters = Math.ceil(passengerSeats / 100) + 1,
 				passengers = [],
 				matrix = aviation.class.Matrix3d(6, 1440 / self.timeSlice, self.timeSlice);		
 
@@ -2439,7 +2439,7 @@ var AVIATION = (function (aviation) {
 			var flights = [],
 				sorted = [],
 				filtered = [],
-				securityCounters = [10, 12], 
+				securityCounters = [10, 16], 
 				matrix = aviation.class.Matrix3d(undefined,undefined,timeSlice);
 
 			designDayFlightObjarr.forEach(function(flightObj, index) {

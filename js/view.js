@@ -321,15 +321,21 @@ var app = app || {};
 		buildPassengerProfilesTable : function (passengerProfiles) {
 
 			var self = this,
-				color = function(d) {return self.hexColors[d.name]; };
+				color = function(d) {return self.hexColors[d.name]; },
+				divheight = passengerProfiles.length * 10;
 
-			var parcoords = d3.parcoords()("#passenger-profile-parcoords")
+			var div = document.getElementById('passenger-profile-parcoords');
+		
+			div.style.width = '1000px';
+			div.style.height = divheight.toString() + 'px';
+
+			var parcoords = d3.parcoords()('#passenger-profile-parcoords')
 			    .data(passengerProfiles.map(function(d) {return d.wrangle(); }))
 			    .hideAxis([])
 			    .color(color)
-			    .alpha(0.5)
+			    .alpha(0.3)
 			    .composite("darken")
-			    .margin({ top: 20, left: 100, bottom: 10, right: 0 })
+			    .margin({ top: 20, left: 200, bottom: 10, right: 0 })
 			    .mode("queue")
 			    .render()
 			    //.reorderable();
@@ -357,6 +363,8 @@ var app = app || {};
 			      });
 			  });
 
+			  
+
 
 		},
 		clearFlightProfilesTable : function () {
@@ -365,9 +373,10 @@ var app = app || {};
 		},
 		buildFlightProfilesTable : function (flightProfiles) {
 
-			var self = this;
+			var self = this,
+				heightCount = 0;
 
-			var color = function(d) {return self.hexColors[d.id.split('-')[3]]; };
+			var color = function(d) {return self.hexColors[d.id.split('-')[d.id.split('-').length - 1]]; };
 
 			var wrangled = flightProfiles.map(function(p) {return p.wrangle()});
 				stratified = [{
@@ -421,7 +430,7 @@ var app = app || {};
 
 						for (var l=0; l<wrangled[i].data[j].data[k].data.length; l++) {
 
-							var type = wrangled[i].data[j].data[k].name;
+							var type = wrangled[i].data[j].data[k].data[l].name;
 
 							stratified.push( {
 
@@ -429,6 +438,8 @@ var app = app || {};
 								'value' : wrangled[i].data[j].data[k].data[l].percentage
 
 							});
+
+							heightCount++;
 						}
 
 						var grid = d3.divgrid();
@@ -446,15 +457,22 @@ var app = app || {};
 			}
 			document.getElementById('flight-profile-table').appendChild(nestedDivGrid);
 
-			var g = d3.select('#flight-profile-dendogram')
-				.append('svg')
+			var divheight = (heightCount * 10 ),
+				padding = {top : 0, right : 0, bottom : 0 , left : 120}
+
+			var FlightProfileDendogramDiv = d3.select('#flight-profile-dendogram')
+				.append('div')
+				.style('height', divheight.toString() + "px")
+				.style('width', "1000px")
+
+			var g = FlightProfileDendogramDiv.append('svg')
 				.attr('width', 1000)
-				.attr('height', 300)
+				.attr('height', divheight)
 				.append('g')
 				.attr("transform", "translate(120,0)");
 
 			var tree = d3.layout.cluster()
-				.size([300, 600])
+				.size([divheight, 600 - padding.left - padding.right])
 
 			var stratify = d3.stratify()
 				.parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf('-')); });
@@ -515,7 +533,9 @@ var app = app || {};
 				.attr('dy', 3)
 				.attr('x', function (d) { return d.children ? -8 : 100; })
 				.style('text-anchor', function(d) {return d.children ? 'end' : 'start'; })
-				.text(function(d) {return d.id.substring(d.id.lastIndexOf('-') + 1); });
+				.text(function(d) {	return d.id.substring(d.id.lastIndexOf('-') + 1); });
+
+			
 
 		},
 
@@ -544,6 +564,12 @@ var app = app || {};
 			var self = this,
 				color = function(d) {return self.hexColors[d.passengerType]; },
 				tempFind = [];
+				divheight = self.passengerProfileData.passengerProfiles.length * 10;
+
+			var div = document.getElementById('passenger-timing-parcoords');
+		
+			div.style.width = '1000px';
+			div.style.height = divheight.toString() + 'px';
 
 			var parcoords = d3.parcoords()("#passenger-timing-parcoords")
 			    .data(passengers.map(function(d) { return d.wrangle(); }))
@@ -577,7 +603,7 @@ var app = app || {};
 			    .color(color)
 			    .alpha(0.1)
 			    .composite("darken")
-			    .margin({ top: 20, left: 100, bottom: 10, right: 0 })
+			    .margin({ top: 20, left: 200, bottom: 10, right: 0 })
 			    .mode("queue")
 			    .render()
 			    //.reorderable();

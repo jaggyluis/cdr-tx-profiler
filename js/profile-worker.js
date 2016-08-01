@@ -105,7 +105,16 @@ function wranglePropensityData (propensityData) {
 	      y+= solution[i] * Math.pow(x, i);
 	    }
 
-	    return y > 0 ? y : 0;
+	    if (y < 0) {
+	    	
+	    	y =  0;
+	    
+	    } else if (y > 1) {
+
+	    	y = 1;
+	    }
+
+	    return y;
 	    
 	}
 
@@ -126,7 +135,7 @@ var propensityFilePath = 'var/dia/passengers/propensities.json',
 	propensityData,
 	propensityfunc;
 
-var typeData = ['di', 'type', 'dt', 'am', 'bags'];
+var typeData = ['di', 'type', 'dt']; //, 'am', 'bags'
 
 
 self.addEventListener('message', function(e) {
