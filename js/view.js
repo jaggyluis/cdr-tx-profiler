@@ -18,7 +18,7 @@ var app = app || {};
 				'domestic.other.transfer' 			: '#085B4D',
 				'international.other.departing' 	: '#187263',
 				'international.other.transfer' 		: '#499B8D',
-			}
+			};
 
 			var self = this;
 			
@@ -39,7 +39,7 @@ var app = app || {};
 							self.clearFlightProfilesTable();
 
 							var bt1 = document.getElementById('show-passenger-profiles-btn'),
-								bt2 = document.getElementById('show-flight-profiles-btn')
+								bt2 = document.getElementById('show-flight-profiles-btn');
 
 							if (bt1.innerText == 'Hide Results') {
 								bt1.click();
@@ -62,7 +62,7 @@ var app = app || {};
 							self.clearPassengersTable();
 
 							var bt1 = document.getElementById('show-flights-btn'),
-								bt2 = document.getElementById('show-passengers-btn')
+								bt2 = document.getElementById('show-passengers-btn');
 
 							if (bt1.innerText == 'Hide Results') {
 								bt1.click();
@@ -83,7 +83,7 @@ var app = app || {};
 							});
 
 							self.passengerTimingData = data;
-							self.enableDownloads('#timing-box')
+							self.enableDownloads('#timing-box');
 						});
 
 					}
@@ -97,7 +97,7 @@ var app = app || {};
 						.id+' .chk-btn';
 					Array.prototype.slice.call(document.querySelectorAll(cls)).forEach(function(b){
 						b.checked = false;
-					})
+					});
 					btn.checked = true;
 				});
 			});
@@ -109,11 +109,11 @@ var app = app || {};
 						.filter(function(elem) {
 
 							return elem.children.length !== 0 &&
-								elem.children[0].checked == true;
+								elem.children[0].checked === true;
 						})[0].children[0];
 
 					self.save(btn.id, checked.classList[1]);
-				})
+				});
 			});
 
 			this.showButtons = Array.prototype.slice.call(document.getElementsByClassName('show-btn'));
@@ -240,11 +240,11 @@ var app = app || {};
 				default : 
 
 					break;
-			};
+			}
 
 			var data = self[dataType][id].map(function (item) { 
 				
-				var item = item.wrangle();
+				item = item.wrangle();
 
 				for (var i in self.hexColors) {
 
@@ -254,7 +254,7 @@ var app = app || {};
 				} 
 				return item;
 
-			})
+			});
 						
 			switch (type) {
 
@@ -266,7 +266,7 @@ var app = app || {};
 
 				case "csv":
 
-					var keys = Object.keys(data[0]) 
+					var keys = Object.keys(data[0]);
 
 					this.downloadCSV(AVIATION.string.serializeJSON(data, keys), id);
 
@@ -275,7 +275,7 @@ var app = app || {};
 				default :
 
 					break;
-			};
+			}
 		},
 		downloadJSON : function(data, name) {
 			/*
@@ -348,7 +348,7 @@ var app = app || {};
 			    .call(grid)
 			    .selectAll(".row")
 			    .on({
-			    	"mouseover": function(d) { parcoords.highlight([d]) },
+			    	"mouseover": function(d) { parcoords.highlight([d]); },
 			    	"mouseout": parcoords.unhighlight
 			    });
 
@@ -358,7 +358,7 @@ var app = app || {};
 			    	.call(grid)
 			    	.selectAll(".row")
 			    	.on({
-			        	"mouseover": function(d) { parcoords.highlight([d]) },
+			        	"mouseover": function(d) { parcoords.highlight([d]); },
 			        	"mouseout": parcoords.unhighlight
 			      });
 			  });
@@ -378,7 +378,7 @@ var app = app || {};
 
 			var color = function(d) {return self.hexColors[d.id.split('-')[d.id.split('-').length - 1]]; };
 
-			var wrangled = flightProfiles.map(function(p) {return p.wrangle()});
+			var wrangled = flightProfiles.map(function(p) {return p.wrangle(); });
 				stratified = [{
 
 					'id' : 'flightProfiles'
@@ -396,7 +396,7 @@ var app = app || {};
 				stratified.push({
 
 					'id' : ['flightProfiles', designGroup].join('-')
-				})
+				});
 
 				for (var j=0; j<wrangled[i].data.length; j++) {
 
@@ -410,13 +410,13 @@ var app = app || {};
 
 						'id' : ['flightProfiles', designGroup, di].join('-')
 
-					})
+					});
 
 					for (var k=0; k<wrangled[i].data[j].data.length; k++) {
 
 						var am = wrangled[i].data[j].data[k].name,
 							amDiv = document.createElement('div'),
-							typeDiv = document.createElement('div')
+							typeDiv = document.createElement('div');
 
 						amDiv.innerHTML = '<div class="outlined-bottom outlined-left bold">'+am+'</div>';
 						amDiv.classList.add('pad');
@@ -426,7 +426,7 @@ var app = app || {};
 						stratified.push({
 
 							'id' : ['flightProfiles', designGroup, di, am].join('-')
-						})
+						});
 
 						for (var l=0; l<wrangled[i].data[j].data[k].data.length; l++) {
 
@@ -458,12 +458,12 @@ var app = app || {};
 			document.getElementById('flight-profile-table').appendChild(nestedDivGrid);
 
 			var divheight = (heightCount * 10 ),
-				padding = {top : 0, right : 0, bottom : 0 , left : 120}
+				padding = {top : 0, right : 0, bottom : 0 , left : 120};
 
 			var FlightProfileDendogramDiv = d3.select('#flight-profile-dendogram')
 				.append('div')
 				.style('height', divheight.toString() + "px")
-				.style('width', "1000px")
+				.style('width', "1000px");
 
 			var g = FlightProfileDendogramDiv.append('svg')
 				.attr('width', 1000)
@@ -472,7 +472,7 @@ var app = app || {};
 				.attr("transform", "translate(120,0)");
 
 			var tree = d3.layout.cluster()
-				.size([divheight, 600 - padding.left - padding.right])
+				.size([divheight, 600 - padding.left - padding.right]);
 
 			var stratify = d3.stratify()
 				.parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf('-')); });
@@ -497,11 +497,11 @@ var app = app || {};
 				.data(root.descendants())
 				.enter().append('g')
 					.attr('class', function(d) { return 'node' + (d.children ? ' node--internal' : ' node--leaf'); })
-					.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; })
+					.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')'; });
 
 			node.each(function(d,i) {
 
-				val = (d.data.value / 100 ) * 100
+				val = (d.data.value / 100 ) * 100;
 
 				if (d.children) {
 					d3.select(this)
@@ -524,10 +524,10 @@ var app = app || {};
 						.attr('y', -2.5)
 						.attr('width', val)
 						.attr('height', 5)
-						.attr('fill', color)
+						.attr('fill', color);
 				}
 
-			})
+			});
 
 			node.append('text')
 				.attr('dy', 3)
@@ -559,7 +559,7 @@ var app = app || {};
 
 				return true;
 
-			})
+			});
 
 			var self = this,
 				color = function(d) {return self.hexColors[d.passengerType]; },
@@ -621,23 +621,23 @@ var app = app || {};
 			    	return {
 
 			    		'name' : d.passengerType,
-			    		'gender' : d['gender'],
-			    		'bags' : d['bags'],
-			    		'preCheck' : d['isPreCheck'],
-			    		'flightID' : d['flightID'],
-			    		'arrival' : AVIATION.time.decimalDayToTime(d['arrival']),
-			    		'security' : AVIATION.time.decimalDayToTime(d['security']),
-			    		'concourse' : AVIATION.time.decimalDayToTime(d['concourse']),
-			    		'gate' : AVIATION.time.decimalDayToTime(d['gate']),
-			    		'boarding' : AVIATION.time.decimalDayToTime(d['boarding']),
-			    		'departure' : AVIATION.time.decimalDayToTime(d['departure']),
+			    		'gender' : d.gender,
+			    		'bags' : d.bags,
+			    		'preCheck' : d.isPreCheck,
+			    		'flightID' : d.flightID,
+			    		'arrival' : AVIATION.time.decimalDayToTime(d.arrival),
+			    		'security' : AVIATION.time.decimalDayToTime(d.security),
+			    		'concourse' : AVIATION.time.decimalDayToTime(d.concourse),
+			    		'gate' : AVIATION.time.decimalDayToTime(d.gate),
+			    		'boarding' : AVIATION.time.decimalDayToTime(d.boarding),
+			    		'departure' : AVIATION.time.decimalDayToTime(d.departure),
 			    		
 			    	};
 			    }))
 			    .call(grid)
 			    .selectAll(".row")
 			    .on({
-			    	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]) },
+			    	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]); },
 			    	"mouseout": parcoords.unhighlight
 			    });
 
@@ -653,23 +653,23 @@ var app = app || {};
 				    	return {
 
 				    		'name' : d.passengerType,
-				    		'gender' : d['gender'],
-				    		'bags' : d['bags'],
-				    		'preCheck' : d['isPreCheck'],
-				    		'flightID' : d['flightID'],
-				    		'arrival' : AVIATION.time.decimalDayToTime(d['arrival']),
-				    		'security' : AVIATION.time.decimalDayToTime(d['security']),
-				    		'concourse' : AVIATION.time.decimalDayToTime(d['concourse']),
-				    		'gate' : AVIATION.time.decimalDayToTime(d['gate']),
-				    		'boarding' : AVIATION.time.decimalDayToTime(d['boarding']),
-				    		'departure' : AVIATION.time.decimalDayToTime(d['departure']),
+				    		'gender' : d.gender,
+				    		'bags' : d.bags,
+				    		'preCheck' : d.isPreCheck,
+				    		'flightID' : d.flightID,
+				    		'arrival' : AVIATION.time.decimalDayToTime(d.arrival),
+				    		'security' : AVIATION.time.decimalDayToTime(d.security),
+				    		'concourse' : AVIATION.time.decimalDayToTime(d.concourse),
+				    		'gate' : AVIATION.time.decimalDayToTime(d.gate),
+				    		'boarding' : AVIATION.time.decimalDayToTime(d.boarding),
+				    		'departure' : AVIATION.time.decimalDayToTime(d.departure),
 				    		
 				    	};
 				    }))
 			    	.call(grid)
 			    	.selectAll(".row")
 			    	.on({
-			        	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]) },
+			        	"mouseover": function(d, i) { parcoords.highlight([tempFind[i]]); },
 			        	"mouseout": parcoords.unhighlight
 			      });
 			  });
@@ -687,8 +687,8 @@ var app = app || {};
 			    	
 			    	d = d.wrangle(); 
 
-			    	d['arrival'] = AVIATION.time.decimalDayToTime(d['arrival']);
-			    	d['departure'] = AVIATION.time.decimalDayToTime(d['departure']);
+			    	d.arrival = AVIATION.time.decimalDayToTime(d.arrival);
+			    	d.departure = AVIATION.time.decimalDayToTime(d.departure);
 			    	d['delta.arrival'] = AVIATION.time.decimalDayToMinutes(d['delta.arrival']);
 
 			    	return d;

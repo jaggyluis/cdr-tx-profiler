@@ -7,11 +7,11 @@ var app = app || {};
 		this._view = new this.View();
 		this._view.init();
 		this._timeSlice = 1;
-	}
+	};
 	app.runPassengerProfileSimulation = function(cb) {
 
 		var self = this,
-			worker  = new Worker('js/profile-worker.js');
+			worker  = new Worker('js/worker.profile.js');
 
 		worker.addEventListener('message', function(e) {
 
@@ -38,7 +38,7 @@ var app = app || {};
 	app.runPassengerTimingSimulation = function(cb) {
 
 		var self = this,
-			worker = new Worker('js/timing-worker.js');
+			worker = new Worker('js/worker.timing.js');
 
 		worker.addEventListener('message', function(e) {
 

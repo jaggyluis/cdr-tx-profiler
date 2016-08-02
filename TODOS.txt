@@ -70,4 +70,4 @@ X multiple visualization for profile type parallel coords
 ____________________________________________
 
 X web worker for simulation
-- implement npm for module build - major refactor
+X implement npm for module build - major refactor
