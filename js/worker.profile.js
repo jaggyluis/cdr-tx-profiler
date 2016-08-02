@@ -1,11 +1,4 @@
-/*jshint sub:true*/
-
-importScripts('lib/aviation.airports.js',
-	'lib/aviation.airlines.js',
-	'lib/aviation.aircraft.js',
-	'lib/aviation.tt.js',
-	'lib/aviation.core.js',
-	'lib/numeric.js');
+importScripts('lib/aviation.min.js', 'lib/numeric.js');
 
 function wrangleDesignDayData (flightArray) {
 
@@ -36,9 +29,9 @@ function wranglePassengerData (passengerArray, lexicon) {
 
 			'airline' : lexicon['AIRLINE'][passenger['AIRLINE']],
 			'destination' : lexicon['DESTINATION'][passenger['DEST']],
-			'arrival' : AVIATION.time.toDecimalDay(passenger['ARRTIME']),
-			'departure' : AVIATION.time.toDecimalDay(passenger['DEPTIME']),
-			'am' : AVIATION.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
+			'arrival' : aviation.core.time.toDecimalDay(passenger['ARRTIME']),
+			'departure' : aviation.core.time.toDecimalDay(passenger['DEPTIME']),
+			'am' : aviation.core.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
 				'pre9AM' : 
 				'post9AM',
 			'di' : passenger['DESTGEO'] < 4 ? 'domestic' : 'international',
@@ -181,7 +174,7 @@ self.addEventListener('message', function(e) {
 
 			    			var timeSlice = e.data.timeSlice;
 
-			   				profiler = AVIATION.class.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
+			   				profiler = aviation.profiles.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
 
 							self.postMessage({
 								"flights" : designDayData.filter(function(f) { return (f.ba === 1 && f.dep === true); }),

@@ -268,7 +268,7 @@ var app = app || {};
 
 					var keys = Object.keys(data[0]);
 
-					this.downloadCSV(AVIATION.string.serializeJSON(data, keys), id);
+					this.downloadCSV(aviation.core.string.serializeJSON(data, keys), id);
 
 					break;
 
@@ -625,12 +625,12 @@ var app = app || {};
 			    		'bags' : d.bags,
 			    		'preCheck' : d.isPreCheck,
 			    		'flightID' : d.flightID,
-			    		'arrival' : AVIATION.time.decimalDayToTime(d.arrival),
-			    		'security' : AVIATION.time.decimalDayToTime(d.security),
-			    		'concourse' : AVIATION.time.decimalDayToTime(d.concourse),
-			    		'gate' : AVIATION.time.decimalDayToTime(d.gate),
-			    		'boarding' : AVIATION.time.decimalDayToTime(d.boarding),
-			    		'departure' : AVIATION.time.decimalDayToTime(d.departure),
+			    		'arrival' : aviation.core.time.decimalDayToTime(d.arrival),
+			    		'security' : aviation.core.time.decimalDayToTime(d.security),
+			    		'concourse' : aviation.core.time.decimalDayToTime(d.concourse),
+			    		'gate' : aviation.core.time.decimalDayToTime(d.gate),
+			    		'boarding' : aviation.core.time.decimalDayToTime(d.boarding),
+			    		'departure' : aviation.core.time.decimalDayToTime(d.departure),
 			    		
 			    	};
 			    }))
@@ -657,12 +657,12 @@ var app = app || {};
 				    		'bags' : d.bags,
 				    		'preCheck' : d.isPreCheck,
 				    		'flightID' : d.flightID,
-				    		'arrival' : AVIATION.time.decimalDayToTime(d.arrival),
-				    		'security' : AVIATION.time.decimalDayToTime(d.security),
-				    		'concourse' : AVIATION.time.decimalDayToTime(d.concourse),
-				    		'gate' : AVIATION.time.decimalDayToTime(d.gate),
-				    		'boarding' : AVIATION.time.decimalDayToTime(d.boarding),
-				    		'departure' : AVIATION.time.decimalDayToTime(d.departure),
+				    		'arrival' : aviation.core.time.decimalDayToTime(d.arrival),
+				    		'security' : aviation.core.time.decimalDayToTime(d.security),
+				    		'concourse' : aviation.core.time.decimalDayToTime(d.concourse),
+				    		'gate' : aviation.core.time.decimalDayToTime(d.gate),
+				    		'boarding' : aviation.core.time.decimalDayToTime(d.boarding),
+				    		'departure' : aviation.core.time.decimalDayToTime(d.departure),
 				    		
 				    	};
 				    }))
@@ -687,9 +687,9 @@ var app = app || {};
 			    	
 			    	d = d.wrangle(); 
 
-			    	d.arrival = AVIATION.time.decimalDayToTime(d.arrival);
-			    	d.departure = AVIATION.time.decimalDayToTime(d.departure);
-			    	d['delta.arrival'] = AVIATION.time.decimalDayToMinutes(d['delta.arrival']);
+			    	d.arrival = aviation.core.time.decimalDayToTime(d.arrival);
+			    	d.departure = aviation.core.time.decimalDayToTime(d.departure);
+			    	d['delta.arrival'] = aviation.core.time.decimalDayToMinutes(d['delta.arrival']);
 
 			    	return d;
 

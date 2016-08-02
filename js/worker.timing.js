@@ -1,8 +1,4 @@
-importScripts('lib/aviation.airports.js',
-	'lib/aviation.airlines.js',
-	'lib/aviation.aircraft.js',
-	'lib/aviation.tt.js',
-	'lib/aviation.core.js');
+importScripts('lib/aviation.min.js');
 
 var gateLayoutFilePath = 'var/sfo/gatelayout.json',
 	gateLayout;
@@ -15,13 +11,12 @@ self.addEventListener('message', function(e) {
 
 		e.data.gates = gateLayout;
 
-		AVIATION.clear();
-
-		AVIATION.set(e.data, function() {
+		aviation.clear();
+		aviation.set(e.data, function() {
 
 			self.postMessage({
-				"passengers" : AVIATION.get.passengers().map(function(p) { return p.serialize(); }),
-				"flights" : AVIATION.get.flights().map(function(f) { return f.serialize(); })
+				"passengers" : aviation.get.passengers().map(function(p) { return p.serialize(); }),
+				"flights" : aviation.get.flights().map(function(f) { return f.serialize(); })
 			});
 		});
 	});

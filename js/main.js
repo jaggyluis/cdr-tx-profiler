@@ -20,10 +20,10 @@ var app = app || {};
 			self._designDay = e.data.flights;
 
 			e.data.flightProfiles = e.data.flightProfiles.map(function(f) {
-				return AVIATION.class.FlightProfile.deserialize(f.data); 
+				return aviation.profiles.FlightProfile.deserialize(f.data); 
 			});
 			e.data.passengerProfiles = e.data.passengerProfiles.map(function(p) {
-				return AVIATION.class.PassengerProfile.deserialize(p.data);
+				return aviation.profiles.PassengerProfile.deserialize(p.data);
 			});
 	
 			cb(e.data);
@@ -43,10 +43,10 @@ var app = app || {};
 		worker.addEventListener('message', function(e) {
 
 			e.data.passengers = e.data.passengers.map(function(p) {
-				return AVIATION.class.Passenger.deserialize(p.data); 
+				return aviation.class.Passenger.deserialize(p.data); 
 			});
 			e.data.flights = e.data.flights.map(function(f) {
-				return AVIATION.class.Flight.deserialize(f.data); 
+				return aviation.class.Flight.deserialize(f.data); 
 			});
 
 			cb(e.data);
