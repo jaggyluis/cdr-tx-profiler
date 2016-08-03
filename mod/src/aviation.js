@@ -1,0 +1,9 @@
+aviation = {};
+aviation.version = "0.0.1",
+aviation.class = {};
+aviation.core = {};
+aviation.profiles = {};
+aviation._flights = [];
+aviation._gates = [];
+aviation._flightProfiles = [];
+aviation._passengerProfiles = [];
