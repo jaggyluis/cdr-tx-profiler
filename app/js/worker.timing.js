@@ -1,13 +1,32 @@
-importScripts('lib/aviation.min.js');
+importScripts('lib/aviation.min.js', 'lib/d3.v3.min.js');
 
-var gateLayoutFilePath = 'var/sfo/gatelayout.json',
+function wrangleGateLayoutData (gateLayoutData) {
+
+	return gateLayoutData.map(function(gate) {
+
+		return  {
+
+			'name' : gate['NAME'],
+			'isMARS' : gate['MARS'],
+			'seats' : gate['SEATS'],
+			'waiting' : gate['SFWAIT'],
+			'boarding' : gate['SFBOARD'],
+			'designGroup' : gate['GR'],
+			'designGroupMARS' : gate['GRMARS'] ? gate['GRMARS'] : null,
+			'sub' : gate['MARS'] ? [gate['SUBA'], gate['SUBB']] : null,
+		};
+		
+	});
+}
+
+var gateLayoutFilePath = '../doc/gatelayout.csv',
 	gateLayout;
 
 self.addEventListener('message', function(e) {
 
-	loadFile(gateLayoutFilePath, function(responseText) {
+	d3.csv(gateLayoutFilePath, function(responseText) {
 
-		gateLayout = JSON.parse(responseText);
+		gateLayout = wrangleGateLayoutData(responseText);
 
 		e.data.gates = gateLayout;
 
@@ -22,10 +41,3 @@ self.addEventListener('message', function(e) {
 	});
 
 }, false);
-
-function loadFile(filePath, done) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () { return done(this.responseText); };
-    xhr.open("GET", filePath, true);
-    xhr.send();
-}

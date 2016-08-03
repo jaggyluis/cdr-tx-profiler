@@ -1,8 +1,8 @@
-importScripts('lib/aviation.min.js', 'lib/numeric.js');
+importScripts('lib/aviation.min.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
 
-function wrangleDesignDayData (flightArray) {
+function wrangleDesignDayData (designDayData) {
 
-	return flightArray.map(function(flight) {
+	return designDayData.map(function(flight) {
 
 		return  {
 
@@ -21,9 +21,9 @@ function wrangleDesignDayData (flightArray) {
 
 	});
 }
-function wranglePassengerData (passengerArray, lexicon) {
+function wranglePassengerData (passengerData, lexicon) {
 
-	return passengerArray.map(function(passenger) {
+	return passengerData.map(function(passenger) {
 
 		var p =  {
 
@@ -116,17 +116,17 @@ function wranglePropensityData (propensityData) {
 	return fn;
 }
 
-var designDayFilePath = 'var/sfo/designday.json',
+var designDayFilePath = '../doc/designday.csv',
 	designDayData;
 
-var passengerFilePath = 'var/sfo/passengers/',
-	passengerFiles = ['p13.json', 'p14.json', 'p15.json'],
+var passengerFilePath = '../doc/passengerdata/sfo/',
+	passengerFiles = ['p13.csv', 'p14.csv', 'p15.csv'],
 	passengerData = [];
 
-var lexiconFilePath = 'var/sfo/passengers/lexicon.json',
+var lexiconFilePath = '../doc/passengerdata/sfo/lexicon.json',
 	lexiconData;
 
-var propensityFilePath = 'var/dia/passengers/propensities.json',
+var propensityFilePath = '../doc/passengerdata/dia/propensities.csv',
 	propensityData,
 	propensityfunc;
 
@@ -137,9 +137,9 @@ self.addEventListener('message', function(e) {
 
 	passengerFiles.forEach(function (file, i) {
 
-	    loadFile(passengerFilePath+file, function (responseText) {
+	    d3.csv(passengerFilePath+file, function (responseText) {
 	        
-	        passengerData = passengerData.concat(JSON.parse(responseText));
+	        passengerData = passengerData.concat(responseText);
 
 	        if (i === passengerFiles.length-1) {
 
@@ -147,11 +147,11 @@ self.addEventListener('message', function(e) {
 
 		    		lexiconData = JSON.parse(responseText);
 
-		    		loadFile(propensityFilePath, function(responseText) {
+		    		d3.csv(propensityFilePath, function(responseText) {
 
-		    			propensityData = JSON.parse(responseText);
+		    			propensityData = responseText;
 
-		    			loadFile(designDayFilePath, function(responseText) {
+		    			d3.csv(designDayFilePath, function(responseText) {
 
 		    				passengerData = wranglePassengerData(passengerData, lexiconData);
 		    				passengerData = passengerData.filter(function(passenger) {
@@ -169,7 +169,7 @@ self.addEventListener('message', function(e) {
 								return false;
 
 							});
-			    			designDayData = wrangleDesignDayData(JSON.parse(responseText));
+			    			designDayData = wrangleDesignDayData(responseText);
 			    			propensityFunc = wranglePropensityData(propensityData);
 
 			    			var timeSlice = e.data.timeSlice;

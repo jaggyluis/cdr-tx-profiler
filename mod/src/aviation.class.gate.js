@@ -14,9 +14,9 @@ aviation.class.Gate.deserialize = function (data) {
 	});
 };
 function Gate (gateObj) {
-	this.name = gateObj[0];
-	this.isMARS = gateObj[1];
-	this.seats = gateObj[2];
+	this.name = gateObj.name;
+	this.isMARS = gateObj.isMARS;
+	this.seats = gateObj.seats;
 	this.padding = [
 		-aviation.core.time.timeToDecimalDay('00:15:00'),
 		aviation.core.time.timeToDecimalDay('00:15:00')
@@ -27,7 +27,7 @@ function Gate (gateObj) {
 		default : null,
 	};
 	this.flights =  this.isMARS
-		? gateObj[7].reduce(function(obj, sub) {
+		? gateObj.sub.reduce(function(obj, sub) {
 			obj[sub] = [];
 			return obj;
 		},{}) 
@@ -35,10 +35,10 @@ function Gate (gateObj) {
 			obj[sub] = [];
 			return obj;
 		},{});
-	this.setArea('waiting', gateObj[3]);
-	this.setArea('boarding', gateObj[4]);
-	this.setDesignGroup(gateObj[5]);
-	if (gateObj[6] !== null) this.setDesignGroup(gateObj[6], true);
+	this.setArea('waiting', gateObj.waiting);
+	this.setArea('boarding', gateObj.boarding);
+	this.setDesignGroup(gateObj.designGroup);
+	if (gateObj.designGroupMARS !== null) this.setDesignGroup(gateObj.designGroupMARS, true);
 	this.carriers = new Set();
 }
 Gate.prototype = {};

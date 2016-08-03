@@ -363,9 +363,6 @@ var app = app || {};
 			      });
 			  });
 
-			  
-
-
 		},
 		clearFlightProfilesTable : function () {
 
