@@ -1,10 +1,51 @@
-importScripts('lib/aviation.min.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
+importScripts('lib/aviation.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
+
+function loadFile(filePath, done) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () { return done(this.responseText); };
+    xhr.open("GET", filePath, true);
+    xhr.send();
+}
+
+function isNull(obj) {
+
+	var is = true;
+
+	for (var key in obj) {
+		if (obj[key] !== null) is = false;
+	}
+
+	return is;
+}
+
+function parse(obj) {
+	return Object.keys(obj).reduce(function(o, k) {
+			if(Number(obj[k])) {
+				o[k] = Number(obj[k]);
+			} else if (obj[k].toLowerCase().match(/false|true/)) {
+				o[k] = obj[k].toLowerCase().match(/false/)
+					? false
+					: true;
+			} else if (obj[k].length === 0) {
+				o[k] = null;
+			} else {
+				o[k] = obj[k];
+			}
+
+			return o;
+
+		}, {});
+}
 
 function wrangleDesignDayData (designDayData) {
 
-	return designDayData.map(function(flight) {
+	return designDayData.reduce(function(arr, flight) {
 
-		return  {
+		flight = parse(flight);
+
+		if (isNull(flight)) return arr;
+
+		var f = {
 
 			'airline' : flight['OPERATOR'],
 			'aircraft' : flight['AIRCRAFT'],
@@ -19,11 +60,19 @@ function wrangleDesignDayData (designDayData) {
 
 		};
 
-	});
+		arr.push(f);
+
+		return arr;
+
+	}, []);
 }
 function wranglePassengerData (passengerData, lexicon) {
 
-	return passengerData.map(function(passenger) {
+	return passengerData.reduce(function(arr, passenger) {
+
+		passenger = parse(passenger);
+
+		if (isNull(passenger)) return arr;
 
 		var p =  {
 
@@ -51,20 +100,31 @@ function wranglePassengerData (passengerData, lexicon) {
 			'brfood' : null,
 		};
 
-		return p;
+		arr.push(p);
 
-	});
+		return arr;
+
+	}, []);
 }
 function wranglePropensityData (propensityData) {
 
-	var pts = propensityData.map(function(p) {
+	var pts = propensityData.reduce(function(arr, passenger) {
 
-		return {
-			x : p.buy,
-			y : p.browse
+		passenger = parse(passenger);
+
+		if (isNull(passenger)) return arr;
+
+		var p =  {
+			x : passenger.buy,
+			y : passenger.browse
 		};
 
-	});
+		arr.push(p);
+
+		return arr;
+
+	}, []);
+
 	var order = 1;
 	var xArr = pts.map(function(pt) {
 
@@ -191,11 +251,5 @@ self.addEventListener('message', function(e) {
 	});
 }, false);
 
-function loadFile(filePath, done) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () { return done(this.responseText); };
-    xhr.open("GET", filePath, true);
-    xhr.send();
-}
 
 
