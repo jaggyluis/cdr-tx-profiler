@@ -1,4 +1,4 @@
-importScripts('lib/aviation.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
+importScripts('lib/aviation.min.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
 
 function loadFile(filePath, done) {
     var xhr = new XMLHttpRequest();
@@ -51,12 +51,12 @@ function wrangleDesignDayData (designDayData) {
 			'aircraft' : flight['AIRCRAFT'],
 			'seats' : flight['SEAT CONFIG.'],
 			'tt' : flight['TT'],
-			'time' : flight['D TIME'],
+			'time' : flight['D TIME'] ? aviation.core.time.toDecimalDay(flight['D TIME']) : null,
 			'di' : flight['D D/I'] === 'D' ? 'domestic' : 'international',
 			'flight' : flight['D FLIGHT #'],
 			'destination' : flight['DEST.'],
 			'ba' : flight['Analysis Boarding Area'],
-			'dep' : flight['DEP'] === 1 ?true : false
+			'dep' : flight['DEP'] === 1 ? true : false
 
 		};
 
