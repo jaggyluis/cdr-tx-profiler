@@ -50,7 +50,7 @@ function wrangleDesignDayData (designDayData) {
 			'airline' : flight['OPERATOR'],
 			'aircraft' : flight['AIRCRAFT'],
 			'seats' : flight['SEAT CONFIG.'],
-			'tt' : flight['TT'],
+			'tt' : flight['TT'] ? aviation.core.time.toDecimalDay(flight['TT']) : null,
 			'time' : flight['D TIME'] ? aviation.core.time.toDecimalDay(flight['D TIME']) : null,
 			'di' : flight['D D/I'] === 'D' ? 'domestic' : 'international',
 			'flight' : flight['D FLIGHT #'],

@@ -84309,7 +84309,7 @@ Flight.prototype.setTurnaroundTime = function (turnaroundTimes) {
 		t2 = this.airline.IATA,
 		length,
 		sum;
-	if (this.flight.tt !== 0) tt = this.flight.tt;
+	if (this.flight.tt !== null) tt = this.flight.tt;
 	else {
 		if (t1 in turnaroundTimes) {
 			if (t2 in turnaroundTimes[t1]) {
