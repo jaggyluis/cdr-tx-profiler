@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 				//mangleProperties: true,
 				//reserveDOMCache: true,
 				mangle : true,
-				compress : true
+				compress : true,
 			},
 			build: {
 				files: {

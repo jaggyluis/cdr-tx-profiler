@@ -216,6 +216,26 @@ var app = app || {};
 				return 1;
 			}
 		},
+		getColor : function (str) {
+			
+			var self = this,
+				color = null;
+
+			for (var i in self.hexColors) {
+
+				var attributes = i.split('.');
+
+				if (attributes.every(function(attr) {
+
+					if (str.match(new RegExp(attr))) return true;
+					return false;
+
+				})) {
+					color = self.hexColors[i];
+				}
+			}
+			return color;
+		},
 		save : function (id, type) {
 
 			var self = this,
@@ -245,13 +265,8 @@ var app = app || {};
 			var data = self[dataType][id].map(function (item) { 
 				
 				item = item.wrangle();
-
-				for (var i in self.hexColors) {
-
-					if (JSON.stringify(item).match(new RegExp(i))){
-						item.color = self.hexColors[i];
-					}
-				} 
+				item.color = self.getColor(JSON.stringify(item));
+				
 				return item;
 
 			});
@@ -268,7 +283,7 @@ var app = app || {};
 
 					var keys = Object.keys(data[0]);
 
-					this.downloadCSV(aviation.core.string.serializeJSON(data, keys), id);
+					this.downloadCSV(aviation.core.csv.serialize(data, keys), id);
 
 					break;
 
@@ -321,7 +336,7 @@ var app = app || {};
 		buildPassengerProfilesTable : function (passengerProfiles) {
 
 			var self = this,
-				color = function(d) {return self.hexColors[d.name]; },
+				color = function(d) {return self.getColor(d.name); },
 				divheight = passengerProfiles.length * 10;
 
 			var div = document.getElementById('passenger-profile-parcoords');
@@ -373,7 +388,7 @@ var app = app || {};
 			var self = this,
 				heightCount = 0;
 
-			var color = function(d) {return self.hexColors[d.id.split('-')[d.id.split('-').length - 1]]; };
+			var color = function(d) {return self.getColor(d.id); };
 
 			var wrangled = flightProfiles.map(function(p) {return p.wrangle(); });
 				stratified = [{
@@ -559,7 +574,7 @@ var app = app || {};
 			});
 
 			var self = this,
-				color = function(d) {return self.hexColors[d.passengerType]; },
+				color = function(d) {return self.getColor(d.passengerType); },
 				tempFind = [];
 				divheight = self.passengerProfileData.passengerProfiles.length * 10;
 

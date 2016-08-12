@@ -7,43 +7,13 @@ function loadFile(filePath, done) {
     xhr.send();
 }
 
-function isNull(obj) {
-
-	var is = true;
-
-	for (var key in obj) {
-		if (obj[key] !== null) is = false;
-	}
-
-	return is;
-}
-
-function parse(obj) {
-	return Object.keys(obj).reduce(function(o, k) {
-			if(Number(obj[k])) {
-				o[k] = Number(obj[k]);
-			} else if (obj[k].toLowerCase().match(/false|true/)) {
-				o[k] = obj[k].toLowerCase().match(/false/)
-					? false
-					: true;
-			} else if (obj[k].length === 0) {
-				o[k] = null;
-			} else {
-				o[k] = obj[k];
-			}
-
-			return o;
-
-		}, {});
-}
-
 function wrangleDesignDayData (designDayData) {
 
 	return designDayData.reduce(function(arr, flight) {
 
-		flight = parse(flight);
+		flight = aviation.core.obj.parse(flight);
 
-		if (isNull(flight)) return arr;
+		if (aviation.core.obj.isNull(flight)) return arr;
 
 		var f = {
 
@@ -70,9 +40,9 @@ function wranglePassengerData (passengerData, lexicon) {
 
 	return passengerData.reduce(function(arr, passenger) {
 
-		passenger = parse(passenger);
+		passenger = aviation.core.obj.parse(passenger);
 
-		if (isNull(passenger)) return arr;
+		if (aviation.core.obj.isNull(passenger)) return arr;
 
 		var p =  {
 
@@ -110,9 +80,9 @@ function wranglePropensityData (propensityData) {
 
 	var pts = propensityData.reduce(function(arr, passenger) {
 
-		passenger = parse(passenger);
+		passenger = aviation.core.obj.parse(passenger);
 
-		if (isNull(passenger)) return arr;
+		if (aviation.core.obj.isNull(passenger)) return arr;
 
 		var p =  {
 			x : passenger.buy,
@@ -190,7 +160,7 @@ var propensityFilePath = '../doc/passengerdata/dia/propensities.csv',
 	propensityData,
 	propensityfunc;
 
-var typeData = ['di', 'type', 'dt']; //, 'am', 'bags'
+var typeData = ['di', 'type', 'dt', 'am', 'bags'];
 
 
 self.addEventListener('message', function(e) {

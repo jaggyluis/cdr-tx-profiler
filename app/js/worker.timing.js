@@ -1,42 +1,12 @@
 importScripts('lib/aviation.min.js', 'lib/d3.v3.min.js');
 
-function isNull(obj) {
-
-	var is = true;
-
-	for (var key in obj) {
-		if (obj[key] !== null) is = false;
-	}
-
-	return is;
-}
-
-function parse(obj) {
-	return Object.keys(obj).reduce(function(o, k) {
-			if(Number(obj[k])) {
-				o[k] = Number(obj[k]);
-			} else if (obj[k].toLowerCase().match(/false|true/)) {
-				o[k] = obj[k].toLowerCase().match(/false/)
-					? false
-					: true;
-			} else if (obj[k].length === 0) {
-				o[k] = null;
-			} else {
-				o[k] = obj[k];
-			}
-
-			return o;
-
-		}, {});
-}
-
 function wrangleGateLayoutData (gateLayoutData) {
 
 	return gateLayoutData.reduce(function(arr, gate) {
 
-		gate = parse(gate);
+		gate = aviation.core.obj.parse(gate);
 
-		if (isNull(gate)) return arr;
+		if (aviation.core.obj.isNull(gate)) return arr;
 
 		var g = {
 

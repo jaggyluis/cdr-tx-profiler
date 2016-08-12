@@ -83711,6 +83711,77 @@ aviation.core.math = {
 		return scale * Math.pow(-Math.log(Math.random()),1/shape);
 	}
 };
+aviation.core.obj = {
+	isNull : function (obj) {
+		var is = true;
+		for (var key in obj) {
+			if (obj[key] !== null) is = false;
+		}
+		return is;
+	},
+	parse : function (obj) {
+		return Object.keys(obj).reduce(function(o, k) {
+				if(Number(obj[k])) {
+					o[k] = Number(obj[k]);
+				} else if (obj[k].toLowerCase().match(/false|true/)) {
+					o[k] = obj[k].toLowerCase().match(/false/)
+						? false
+						: true;
+				} else if (obj[k].length === 0) {
+					o[k] = null;
+				} else {
+					o[k] = obj[k];
+				}
+				return o;
+			}, {});
+	},
+	pprint : function (obj) {
+		function format(obj, _tabs) {
+			var tabs = _tabs+"\t",
+				str = "";
+			if (obj instanceof array) {
+				obj.forEach((function(i) {
+					str+="\r\n"+tabs+format(i, tabs);
+				}).bind(this));
+			} else if (obj instanceof Object ){
+				for (var k in obj) {
+					str+= "\r\n"+ tabs + k;
+					str+= format(obj[k], tabs);
+				}
+			} else {
+				str+= "\t"+obj;
+			}
+			return str;
+		}
+		return format(obj, "");
+	}
+};
+aviation.core.csv = {
+	parse : function (str) {
+		var parsed = str.split('\n'),
+			re = /[^\w\:\-]/gi,
+			keys = parsed[0].split(',').map(function(str) {
+				return str.replace(re, "");
+			});
+		return parsed.slice(1).map(function(csvarray) {
+			var flight = {};
+			csvarray.split(',').map(function(str) {	return str.replace(re, "");	})
+				.forEach(function(value, idx) {
+				if (!isNaN(Number(value))) flight[keys[idx]] =  Number(value);
+				else if (value.match(':')) flight[keys[idx]] = aviation.core.time.toDecimalDay(value);
+				else flight[keys[idx]] = value;
+			});
+			return flight;
+		});
+	},
+	serialize : function (obj, keys) {
+		return obj.reduce(function(a,b) {
+			return a+(keys.map(function(key) {
+				return '"'+b[key]+'"';
+			}).join(',')+'\n');
+		}, keys.join(',')+'\n');
+	}
+};
 aviation.core.array = {
 	filterStrict : function (arr, str) {
 		var spl = str.split(/[^\w\.]/);
@@ -83798,54 +83869,6 @@ aviation.core.string = {
 	        	return (c=='x' ? r : (r&0x3|0x8)).toString(16);
 	    	});
 	    return uuid;
-	},
-	serializeObj : function (obj) {
-		function serialize(obj, _tabs) {
-			var tabs = _tabs+"\t",
-				str = "";
-			if (obj instanceof array) {
-				obj.forEach((function(i) {
-					str+="\r\n"+tabs+serialize(i, tabs);
-				}).bind(this));
-			} else if (obj instanceof Object ){
-				for (var k in obj) {
-					str+= "\r\n"+ tabs + k;
-					str+= serialize(obj[k], tabs);
-				}
-			} else {
-				str+= "\t"+obj;
-			}
-			return str;
-		}
-		return sserialize(obj, "");
-	},
-	serializeJSON : function (json, keys) {
-		return json.reduce(function(a,b) {
-			return a+(keys.map(function(key) {
-				return '"'+b[key]+'"';
-			}).join(',')+'\n');
-		}, keys.join(',')+'\n');
-	},
-	parseJSON : function (fileStr) {
-		try { return JSON.parse(fileStr); }
-		catch (e) { return null; }
-	},
-	parseCSV : function (fileStr) {
-		var parsed = fileStr.split('\n'),
-			re = /[^\w\:\-]/gi,
-			keys = parsed[0].split(',').map(function(str) {
-				return str.replace(re, "");
-			});
-		return parsed.slice(1).map(function(csvarray) {
-			var flight = {};
-			csvarray.split(',').map(function(str) {	return str.replace(re, "");	})
-				.forEach(function(value, idx) {
-				if (!isNaN(Number(value))) flight[keys[idx]] =  Number(value);
-				else if (value.match(':')) flight[keys[idx]] = timeToDecimalDay(value);
-				else flight[keys[idx]] = value;
-			});
-			return flight;
-		});
 	}
 };
 aviation.core.time = {
