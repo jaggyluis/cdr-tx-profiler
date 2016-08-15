@@ -11,6 +11,7 @@ function wrangleGateLayoutData (gateLayoutData) {
 		var g = {
 
 			'name' : gate['NAME'],
+			'num' : gate['NUM'] ? gate['NUM'] : null,
 			'ba' : gate['BA'],
 			'isMARS' : gate['MARS'],
 			'seats' : gate['SEATS'],

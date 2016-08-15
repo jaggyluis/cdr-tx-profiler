@@ -84131,6 +84131,7 @@ aviation.class.Gate = function (gateObj) {
 aviation.class.Gate.deserialize = function (data) {	
 	return Object.create(Gate.prototype, {
 		'name' : {'value' : data.name },
+		'num' : { 'value' : data.num },
 		'isMARS' : {'value' : data.isMARS },
 		'seats' : {'value' : data.seats },
 		'padding' : {'value' : data.padding },
@@ -84143,6 +84144,7 @@ aviation.class.Gate.deserialize = function (data) {
 };
 function Gate (gateObj) {
 	this.name = gateObj.name;
+	this.num = gateObj.num;
 	this.isMARS = gateObj.isMARS;
 	this.seats = gateObj.seats;
 	this.padding = [
@@ -84172,6 +84174,10 @@ function Gate (gateObj) {
 	if (gateObj.carrier !== null) this.addCarrier(gateObj.carrier);
 }
 Gate.prototype = {};
+//
+// Superceded from Non Num input Sheet
+//
+/*
 Gate.prototype.__defineGetter__('num', function() {
 	var n = parseInt(this.name.split('').reduce(function(numStr, str) {
 			if (isNaN(parseInt(str))) return numStr;
@@ -84179,6 +84185,7 @@ Gate.prototype.__defineGetter__('num', function() {
 		}, ''));
 	return isNaN(n) ? 0 : n;
 });
+*/
 Gate.prototype.setArea = function (key, val) {
 	this.sf[key] = val;
 };
@@ -84276,6 +84283,7 @@ Gate.prototype.serialize = function (cycle) {
 		'class' : 'Gate',
 		'data' : {
 			'name' : this.name,
+			'num' : this.num,
 			'isMARS' : this.isMARS,
 			'seats' : this.seats,
 			'padding' : this.padding,
