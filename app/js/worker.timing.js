@@ -11,6 +11,7 @@ function wrangleGateLayoutData (gateLayoutData) {
 		var g = {
 
 			'name' : gate['NAME'],
+			'ba' : gate['BA'],
 			'isMARS' : gate['MARS'],
 			'seats' : gate['SEATS'],
 			'waiting' : gate['SFWAIT'],
@@ -18,6 +19,7 @@ function wrangleGateLayoutData (gateLayoutData) {
 			'designGroup' : gate['GR'],
 			'designGroupMARS' : gate['GRMARS'] ? gate['GRMARS'] : null,
 			'sub' : gate['MARS'] ? [gate['SUBA'], gate['SUBB']] : null,
+			'carrier' : gate['CARRIER']
 		};
 
 		arr.push(g);

@@ -160,7 +160,8 @@ var propensityFilePath = '../doc/passengerdata/dia/propensities.csv',
 	propensityData,
 	propensityfunc;
 
-var typeData = ['di', 'type', 'dt', 'am', 'bags'];
+var typeData = ['di', 'type', 'dt', 'am', 'bags'],
+	timeSlice;
 
 
 self.addEventListener('message', function(e) {
@@ -190,6 +191,11 @@ self.addEventListener('message', function(e) {
 
 									var t = passenger.departure - passenger.arrival;
 
+									//
+									// 	Passenger cleanup - valid passenger data for analysis is between
+									//	30 min and 6 hours in the airport.
+									//
+
 									if (t < (6/24) && t > (0.5/24)) {
 										
 										return true;
@@ -201,13 +207,28 @@ self.addEventListener('message', function(e) {
 							});
 			    			designDayData = wrangleDesignDayData(responseText);
 			    			propensityFunc = wranglePropensityData(propensityData);
-
-			    			var timeSlice = e.data.timeSlice;
-
+			    			timeSlice = e.data.timeSlice;
 			   				profiler = aviation.profiles.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
 
+			   				designDayData = designDayData.filter(function(flight) {
+
+			   					//
+			   					//	Flight cleanup - Boarding Area 1 / departing
+			   					//	Delta - BAC / Other - BAB
+			   					//
+
+			    				if (flight.ba === 1 && flight.dep === true) {
+
+			    					flight.ba = flight.airline === 'DL' ? 'C' : 'B';
+
+			    					return true;
+			    				}
+
+			    				return false;
+			    			})
+
 							self.postMessage({
-								"flights" : designDayData.filter(function(f) { return (f.ba === 1 && f.dep === true); }),
+								"flights" : designDayData,
 								"passengerProfiles" : profiler.passengerProfiles.map(function(p) { return p.serialize(); }),
 								"flightProfiles" : profiler.flightProfiles.map(function(f) { return f.serialize(); }),
 							});

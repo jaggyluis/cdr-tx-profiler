@@ -84135,6 +84135,7 @@ aviation.class.Gate.deserialize = function (data) {
 		'seats' : {'value' : data.seats },
 		'padding' : {'value' : data.padding },
 		'sf' : {'value' : data.sf },
+		'ba' : {'value' : data.ba },
 		'group' : {'value' : data.group },
 		'flights' : {'value' : null }, // !!!!! TODO
 		'carriers' : {'value' : data.carriers }
@@ -84145,10 +84146,11 @@ function Gate (gateObj) {
 	this.isMARS = gateObj.isMARS;
 	this.seats = gateObj.seats;
 	this.padding = [
-		-aviation.core.time.timeToDecimalDay('00:15:00'),
+		-aviation.core.time.timeToDecimalDay('00:05:00'),
 		aviation.core.time.timeToDecimalDay('00:15:00')
 		];
 	this.sf = {};
+	this.ba = gateObj.ba;
 	this.group = {
 		mars : null,
 		default : null,
@@ -84167,6 +84169,7 @@ function Gate (gateObj) {
 	this.setDesignGroup(gateObj.designGroup);
 	if (gateObj.designGroupMARS !== null) this.setDesignGroup(gateObj.designGroupMARS, true);
 	this.carriers = new Set();
+	if (gateObj.carrier !== null) this.addCarrier(gateObj.carrier);
 }
 Gate.prototype = {};
 Gate.prototype.__defineGetter__('num', function() {
@@ -84262,6 +84265,9 @@ Gate.prototype.tap = function (flight, farr) {
 		})
 		.bind(this));
 };
+Gate.prototype.addCarrier = function(airline) {
+	if (!this.carriers.has(airline)) this.carriers.add(airline);
+};
 Gate.prototype.hasCarrier = function (airline) {
 	return this.carriers.has(airline);
 };
@@ -84274,6 +84280,7 @@ Gate.prototype.serialize = function (cycle) {
 			'seats' : this.seats,
 			'padding' : this.padding,
 			'sf' : this.sf,
+			'ba' : this.ba,
 			'group' : this.group,
 			'flights' :  null, // !!!!! TODO
 			'carriers' : this.carriers
@@ -84326,6 +84333,9 @@ Flight.prototype.getTime = function () {
 Flight.prototype.getDI = function () {
 	return this.flight.di;
 };
+Flight.prototype.getBA = function (){
+	return this.flight.ba;
+};
 Flight.prototype.setTurnaroundTime = function (turnaroundTimes) {
 	var tt = 0,
 		t1 = this.aircraft.IATA,
@@ -84370,7 +84380,8 @@ Flight.prototype.getGate = function () {
 	return this.gate;
 };
 Flight.prototype.findGate = function (gates, cluster) {
-	var hasCarrier = [],
+	var self = this,
+		hasCarrier = [],
 		notHasCarrier = [],
 		drift = [],
 		sorted = [],
@@ -84381,17 +84392,18 @@ Flight.prototype.findGate = function (gates, cluster) {
 		i,
 		j,
 		k;
-	if (this.ival.getLength() === 0) {
-		this.setGate('*');
+	if (self.ival.getLength() === 0) {
+		self.setGate('*');
 		console.error('invalid ival: ', 
-			this, 
-			this.getFlightName(), 
-			aviation.core.time.decimalDayToTime(this.getTime()));
+			self, 
+			self.getFlightName(), 
+			aviation.core.time.decimalDayToTime(self.getTime()));
 		return;
 	}
+	gates = gates.filter(function(g) { return g.ba === self.getBA(); });
 	if (cluster === true) {	
 		for (i=0; i<gates.length; i++) {
-			if (gates[i].hasCarrier(this.airline)) hasCarrier.push(gates[i]);
+			if (gates[i].hasCarrier(self.airline)) hasCarrier.push(gates[i]);
 			else notHasCarrier.push(gates[i]);
 		}
 		for (i=0; i<notHasCarrier.length; i++) {
@@ -84422,27 +84434,26 @@ Flight.prototype.findGate = function (gates, cluster) {
 			drift.splice(k,0, min);
 		}
 		hasCarrier.sort(function(ga,gb) {
-			return gb.getFlightsByCarrier(this.airline).length - ga.getFlightsByCarrier(this.airline).length;
+			return gb.getFlightsByCarrier(self.airline).length - ga.getFlightsByCarrier(self.airline).length;
 		});
 		gates = hasCarrier.concat(sorted);
 	}
 	for (i=0; i<gates.length; i++) {
 		gate = gates[i];
-		if (gate.fit(this, (function(data, flight) {
+		if (gate.fit(self, function(data, flight) {
 			if (data.response) {
-				this.setGate(data.gate);
-				gate.setFlight(this, data.gate);
+				self.setGate(data.gate);
+				gate.setFlight(self, data.gate);
 				return true;
 			} else {
 				return false;
 			}
-		})
-		.bind(this))) {	return;	}
+		})) { return; }
 	}
 	console.error('gate not assigned: ', 
-		this, 
-		this.getFlightName(), 
-		aviation.core.time.decimalDayToTime(this.getTime()));
+		self, 
+		self.getFlightName(), 
+		aviation.core.time.decimalDayToTime(self.getTime()));
 };
 Flight.prototype.getFlightName = function () {
 	return '%airline% to %municipality%, %plane%'

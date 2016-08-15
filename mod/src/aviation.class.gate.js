@@ -8,6 +8,7 @@ aviation.class.Gate.deserialize = function (data) {
 		'seats' : {'value' : data.seats },
 		'padding' : {'value' : data.padding },
 		'sf' : {'value' : data.sf },
+		'ba' : {'value' : data.ba },
 		'group' : {'value' : data.group },
 		'flights' : {'value' : null }, // !!!!! TODO
 		'carriers' : {'value' : data.carriers }
@@ -18,10 +19,11 @@ function Gate (gateObj) {
 	this.isMARS = gateObj.isMARS;
 	this.seats = gateObj.seats;
 	this.padding = [
-		-aviation.core.time.timeToDecimalDay('00:15:00'),
+		-aviation.core.time.timeToDecimalDay('00:05:00'),
 		aviation.core.time.timeToDecimalDay('00:15:00')
 		];
 	this.sf = {};
+	this.ba = gateObj.ba;
 	this.group = {
 		mars : null,
 		default : null,
@@ -40,6 +42,7 @@ function Gate (gateObj) {
 	this.setDesignGroup(gateObj.designGroup);
 	if (gateObj.designGroupMARS !== null) this.setDesignGroup(gateObj.designGroupMARS, true);
 	this.carriers = new Set();
+	if (gateObj.carrier !== null) this.addCarrier(gateObj.carrier);
 }
 Gate.prototype = {};
 Gate.prototype.__defineGetter__('num', function() {
@@ -135,6 +138,9 @@ Gate.prototype.tap = function (flight, farr) {
 		})
 		.bind(this));
 };
+Gate.prototype.addCarrier = function(airline) {
+	if (!this.carriers.has(airline)) this.carriers.add(airline);
+};
 Gate.prototype.hasCarrier = function (airline) {
 	return this.carriers.has(airline);
 };
@@ -147,6 +153,7 @@ Gate.prototype.serialize = function (cycle) {
 			'seats' : this.seats,
 			'padding' : this.padding,
 			'sf' : this.sf,
+			'ba' : this.ba,
 			'group' : this.group,
 			'flights' :  null, // !!!!! TODO
 			'carriers' : this.carriers
