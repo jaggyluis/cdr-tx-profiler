@@ -118,6 +118,7 @@ Flight.prototype.findGate = function (gates, cluster) {
 			else notHasCarrier.push(gates[i]);
 		}
 		for (i=0; i<notHasCarrier.length; i++) {
+            count = notHasCarrier[i].getCarriers().length;
 			min = Infinity;
 			if (hasCarrier.length !== 0) {
 				for (j=0; j<hasCarrier.length; j++) {
@@ -130,13 +131,13 @@ Flight.prototype.findGate = function (gates, cluster) {
 					}
 				}
 			} else {
+                dist = 0;
 				for (j=0; j<notHasCarrier.length; j++) {
-					dist = Math.abs(notHasCarrier[j].num - notHasCarrier[i].num);
-					count = notHasCarrier[i].getFlights().length;
-					if (count && dist < min) min = dist;
+					dist += Math.abs(notHasCarrier[j].num - notHasCarrier[i].num);	
 				}
+                if (!count) min = dist;
 				for (k=0; k<drift.length; k++) {
-					if (min > drift[k]) {
+					if (min < drift[k]) {
 						break;
 					}
 				}					
