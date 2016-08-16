@@ -24,8 +24,7 @@ module.exports = function(grunt) {
 			},
 			build: {
 				files: {
-					'.build/aviation.min.js' : ['.build/aviation.js'],
-					'../app/js/lib/aviation.min.js' : ['.build/aviation.js']
+					'.build/aviation.min.js' : ['.build/aviation.js']
 				}
 			}
 		}

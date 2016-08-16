@@ -84170,8 +84170,9 @@ function Gate (gateObj) {
 	this.setArea('boarding', gateObj.boarding);
 	this.setDesignGroup(gateObj.designGroup);
 	if (gateObj.designGroupMARS !== null) this.setDesignGroup(gateObj.designGroupMARS, true);
-	this.carriers = new Set();
-	if (gateObj.carrier !== null) this.addCarrier(gateObj.carrier);
+	this.carriers = gateObj.carrier !== null 
+        ? new Set([gateObj.carrier])
+        : new Set();
 }
 Gate.prototype = {};
 //
@@ -84224,7 +84225,7 @@ Gate.prototype.setFlight = function (flight, sub) {
 	} else {
 		for (var key in this.flights) this.flights[key].push(flight);
 	}
-	this.carriers.add(flight.airline);
+	this.addCarrier(flight.airline);
 },
 Gate.prototype.getFlights = function (sub) {
 	if (sub && this.isMARS) {
@@ -84273,10 +84274,13 @@ Gate.prototype.tap = function (flight, farr) {
 		.bind(this));
 };
 Gate.prototype.addCarrier = function(airline) {
-	if (!this.carriers.has(airline)) this.carriers.add(airline);
+	if (!this.hasCarrier(airline)) this.carriers.add(airline.IATA);
 };
 Gate.prototype.hasCarrier = function (airline) {
-	return this.carriers.has(airline);
+	return this.carriers.has(airline.IATA);
+};
+Gate.prototype.getCarriers = function () {
+	return Array.from(this.carriers);
 };
 Gate.prototype.serialize = function (cycle) {
 	return {
