@@ -42,12 +42,11 @@ img {
 }
 
 /*
- * -----------------------------------------
+ * 	-----------------------------------------
  */
 
 
-/* Main Container
- */
+/* Main Container */
  #run-box {
 	float: left;
 	border-right: 1px dotted grey;
@@ -58,24 +57,21 @@ img {
 	padding-top: 160px;
 }
 
-/* IMG Attributes
- */
+/* IMG Attributes */
 .loading {
 	width: 15px;
 	height: 15px;
 	float: left;
 }
 
-/* General Box
- */
+/* General Box */
 .box {
 	padding-bottom: 10px;
 	overflow: hidden;
 	clear: both;
 }
 
-/* Nav Bar
- */
+/* Nav Bar */
  .nav-bar {
 	margin-left: 1050px;
 	padding-left: 5px;
@@ -108,8 +104,7 @@ img {
 	margin-right: 4px;
 }
 
-/* Title Box 
- */
+/* Title Box */
 .title-box {
 	margin-bottom: 5px;
 	overflow: hidden;
@@ -122,8 +117,7 @@ img {
 	position: relative;
 }
 
-/* Result Box 
- */
+/* Result Box */
 .show-box {
 	float: right;
 }
@@ -159,8 +153,7 @@ img {
 	width: 70px;
 }
 
-/* Expand Button 
- */
+/* Expand Button */
 .expand {
 	width: 10px;
 	height: 10px;
@@ -174,9 +167,7 @@ img {
 	background-color: yellow;
 }
 
-/* General Display 
- */
-
+/* General Display */
 .hidden {
 	visibility: hidden;
 }
@@ -226,8 +217,8 @@ img {
 	font-weight: bold;
 }
 
-/*--------------------------
- * parcoords
+/*	--------------------------
+ * 	parcoords
 */
 
 .parcoords > svg, .parcoords > canvas { 
@@ -279,8 +270,8 @@ img {
     background-color: white;
 }
 
-/* -------------------------------- 
-*divgrid
+/* 	-------------------------------- 
+*	divgrid
 */
 
 /* data table styles */
@@ -350,11 +341,7 @@ img {
 	width: 250px;
 }
 
-/*
- * dendogram
- */
-
-
+/* dendogram */
 .node circle {
   fill: #999;
 }
@@ -385,6 +372,26 @@ img {
   stroke-width: 0.2px;
 }
 
+/* logos */
+#logo-box {
+	position : relative;
+	left: 30px;
+	margin-left: 1050px;
+	padding-top: 20px;
+	padding-left: 5px;
+	opacity: 0.5;
+}
+
+#superspace-logo {
+	width: 150px;
+	margin-left: 26px;
+}
+
+#woods-bagot-logo {
+	width: 60px;
+	padding-top: 5px;
+	margin-left: 72px;
+}
 
 
 
