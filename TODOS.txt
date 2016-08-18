@@ -2,5 +2,4 @@ X wrangle data  layout
 X change input for gates to obj
 X import d3 to workers for csv import
 X update colors to reflect all types
-- update readme
-- fix count on plane output
+X fix count on plane output

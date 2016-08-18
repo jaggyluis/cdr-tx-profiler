@@ -84313,7 +84313,8 @@ aviation.class.Flight.deserialize = function (data) {
 		'gate' : {'value' : data.gate },
 		'ival' : {'value' : aviation.class.Interval.deserialize(data.ival.data) },
 		'seats' : {'value' : data.seats },
-		'passengers' : {'value' : data.passengers.map(function(p) { return aviation.class.Passenger.deserialize(p.data);}) }
+		'passengers' : {'value' : data.passengers.map(function(p) { return aviation.class.Passenger.deserialize(p.data);}) },
+		'passengerCount' : { 'value' : data.passengerCount}
 	});
 };
 function Flight (flightObj, destination, airline, aircraft, loadFactor) {
@@ -84325,13 +84326,14 @@ function Flight (flightObj, destination, airline, aircraft, loadFactor) {
 	this.id = aviation.core.string.generateUUID();
 	this.gate = null;
 	this.ival = null;
-	this.seats = this.flight.seats !== undefined ?
-		this.flight.seats*this.loadFactor :
-		this.aircraft.seats !== null ?
-		this.aircraft.seats*this.loadFactor :
-		0;
+	this.seats = this.flight.seats !== undefined
+		? this.flight.seats*this.loadFactor
+		: this.aircraft.seats !== null
+			? this.aircraft.seats*this.loadFactor
+			: 0;
 	this.seats = Math.round(this.seats);
 	this.passengers = [];
+	this.passengerCount = 0;
 	if (this.seats === 0) console.warn('seats not available: ', this);
 	if (this.aircraft.RFLW === null || this.aircraft.ARC === null){
 		console.error('category not assigned: ', 
@@ -84476,6 +84478,7 @@ Flight.prototype.getFlightName = function () {
 };
 Flight.prototype.setPassengers = function (passengers) {
 	this.passengers = passengers;
+	this.passengerCount = passengers.length;
 };
 Flight.prototype.getPassengers = function () {
 	return this.passengers;
@@ -84488,7 +84491,7 @@ Flight.prototype.wrangle = function () {
 		'flightID' : this.id,
 		'loadFactor' : this.loadFactor,
 		'seats' : this.flight.seats,
-		'count' : this.passengers.length,
+		'count' : this.passengerCount,
 		'arrival' : this.getTime() - this.ival.getLength(),
 		'departure' : this.getTime(),
 		'delta.arrival' : this.ival.getLength()
@@ -84507,7 +84510,8 @@ Flight.prototype.serialize = function (cycle) {
 			'gate' : this.gate,
 			'ival' : this.ival.serialize(),
 			'seats' : this.seats,
-			'passengers' : cycle ? this.passengers.map(function(p) { return p.serialize(); }) : []
+			'passengers' : cycle ? this.passengers.map(function(p) { return p.serialize(); }) : [],
+			'passengerCount' : this.passengerCount
 		}
 	};
 };

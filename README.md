@@ -1,2 +1,2 @@
 # aviation
-aviation.js module
+aviation.js module and aviation passenger event simulation application
