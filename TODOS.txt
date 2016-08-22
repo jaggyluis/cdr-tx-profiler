@@ -3,3 +3,5 @@ X change input for gates to obj
 X import d3 to workers for csv import
 X update colors to reflect all types
 X fix count on plane output
+
+- re-evaluate  the turnaround times based on actual gate time
