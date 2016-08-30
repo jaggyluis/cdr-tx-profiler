@@ -48,18 +48,6 @@ function Gate (gateObj) {
         : new Set();
 }
 Gate.prototype = {};
-//
-// Superceded from Non Num input Sheet
-//
-/*
-Gate.prototype.__defineGetter__('num', function() {
-	var n = parseInt(this.name.split('').reduce(function(numStr, str) {
-			if (isNaN(parseInt(str))) return numStr;
-			return numStr+str;
-		}, ''));
-	return isNaN(n) ? 0 : n;
-});
-*/
 Gate.prototype.setArea = function (key, val) {
 	this.sf[key] = val;
 };
@@ -126,6 +114,7 @@ Gate.prototype.fit = function (flight, cb) {
 				if (this.tap(flight, this.getFlights(sub))) {
 					data.response = true;
 					data.gate = sub;
+					data.num = this.num;
 					break;
 				}
 			}
@@ -133,6 +122,7 @@ Gate.prototype.fit = function (flight, cb) {
 			if (this.tap(flight, this.getFlights())) {
 				data.response = true;
 				data.gate = this.name;
+				data.num = this.num;
 			}
 		}
 	}

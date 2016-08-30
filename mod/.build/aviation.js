@@ -25,6 +25,9 @@ aviation.get = {
 	gates : function () {
 		return aviation._gates;
 	},
+	gateByName : function (name) {
+		return aviation._gates.find(function(obj) { return obj.name == name; });
+	},
 	turnaroundTimes : function () {
 		return aviation._tt;
 	},
@@ -84175,18 +84178,6 @@ function Gate (gateObj) {
         : new Set();
 }
 Gate.prototype = {};
-//
-// Superceded from Non Num input Sheet
-//
-/*
-Gate.prototype.__defineGetter__('num', function() {
-	var n = parseInt(this.name.split('').reduce(function(numStr, str) {
-			if (isNaN(parseInt(str))) return numStr;
-			return numStr+str;
-		}, ''));
-	return isNaN(n) ? 0 : n;
-});
-*/
 Gate.prototype.setArea = function (key, val) {
 	this.sf[key] = val;
 };
@@ -84253,6 +84244,7 @@ Gate.prototype.fit = function (flight, cb) {
 				if (this.tap(flight, this.getFlights(sub))) {
 					data.response = true;
 					data.gate = sub;
+					data.num = this.num;
 					break;
 				}
 			}
@@ -84260,6 +84252,7 @@ Gate.prototype.fit = function (flight, cb) {
 			if (this.tap(flight, this.getFlights())) {
 				data.response = true;
 				data.gate = this.name;
+				data.num = this.num;
 			}
 		}
 	}
@@ -84311,6 +84304,7 @@ aviation.class.Flight.deserialize = function (data) {
 		'loadFactor' : {'value' : data.loadFactor },
 		'id' : {'value' : data.id },
 		'gate' : {'value' : data.gate },
+		'location' : {'value' : data.location },
 		'ival' : {'value' : aviation.class.Interval.deserialize(data.ival.data) },
 		'seats' : {'value' : data.seats },
 		'passengers' : {'value' : data.passengers.map(function(p) { return aviation.class.Passenger.deserialize(p.data);}) },
@@ -84325,6 +84319,7 @@ function Flight (flightObj, destination, airline, aircraft, loadFactor) {
 	this.loadFactor = loadFactor;
 	this.id = aviation.core.string.generateUUID();
 	this.gate = null;
+	this.location = null;
 	this.ival = null;
 	this.seats = this.flight.seats !== undefined
 		? this.flight.seats*this.loadFactor
@@ -84386,6 +84381,9 @@ Flight.prototype.getDesignGroup = function () {
 };
 Flight.prototype.getCategory = function () {
 	return aviation.core.time.romanToLetter(this.aircraft.ARC.split('-')[1]);
+};
+Flight.prototype.setLocation = function (num) {
+	this.location = num;
 };
 Flight.prototype.setGate = function (gate) {
 	this.gate = gate;
@@ -84458,6 +84456,7 @@ Flight.prototype.findGate = function (gates, cluster) {
 		if (gate.fit(self, function(data, flight) {
 			if (data.response) {
 				self.setGate(data.gate);
+				self.setLocation(data.num);
 				gate.setFlight(self, data.gate);
 				return true;
 			} else {
@@ -84508,6 +84507,7 @@ Flight.prototype.serialize = function (cycle) {
 			'loadFactor' : this.loadFactor,
 			'id' : this.id,
 			'gate' : this.gate,
+			'location' : this.location,
 			'ival' : this.ival.serialize(),
 			'seats' : this.seats,
 			'passengers' : cycle ? this.passengers.map(function(p) { return p.serialize(); }) : [],

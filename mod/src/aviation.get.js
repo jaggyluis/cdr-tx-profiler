@@ -16,6 +16,9 @@ aviation.get = {
 	gates : function () {
 		return aviation._gates;
 	},
+	gateByName : function (name) {
+		return aviation._gates.find(function(obj) { return obj.name == name; });
+	},
 	turnaroundTimes : function () {
 		return aviation._tt;
 	},

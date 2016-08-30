@@ -9,6 +9,65 @@ function loadFile(filePath, done) {
 
 function wrangleDesignDayData (designDayData) {
 
+	//
+	// SFO specific turnaround time calculator
+	//
+	function calcTT(flight) {
+
+		var minTurnaroundTime = 35; // min
+
+		var tt = flight['TT'],
+			nt,
+			gt = [],
+			st = [],
+			curr = [],
+			i;
+
+		Object.keys(flight).forEach(function(key) {
+			if (!isNaN(Number(key))) gt.push(Number(flight[key]));
+		})
+		
+		for (i=0; i<gt.length; i++) {
+			if (gt[i] !== 0){
+				curr.push(gt[i])
+			} else {
+				if (gt[i-1] !== 0 && gt[i-1] !== undefined) {
+					st.push(curr.slice());
+					curr = [];
+				}
+			}
+		}
+
+		nt = st.pop();
+
+		if (nt === undefined) {
+			nt = null;
+		} else {
+			nt = (nt.length * 5) - 20;
+			nt = nt > minTurnaroundTime //
+				? aviation.core.time.minutesToDecimalDay(nt)
+				: null;
+		}
+		if (!tt) {
+			tt = null;
+		}
+		else {
+			tt = aviation.core.time.toDecimalDay(tt);
+		}
+
+		tt = tt !== null && nt !== null
+			? tt <= nt
+				? tt
+				: nt
+			: tt !== null
+				? tt
+				: nt !== null
+					? nt
+					: null
+
+		return tt;
+	}
+
 	return designDayData.reduce(function(arr, flight) {
 
 		flight = aviation.core.obj.parse(flight);
@@ -20,7 +79,7 @@ function wrangleDesignDayData (designDayData) {
 			'airline' : flight['OPERATOR'],
 			'aircraft' : flight['AIRCRAFT'],
 			'seats' : flight['SEAT CONFIG.'],
-			'tt' : flight['TT'] ? aviation.core.time.toDecimalDay(flight['TT']) : null,
+			'tt' :  calcTT(flight),
 			'time' : flight['D TIME'] ? aviation.core.time.toDecimalDay(flight['D TIME']) : null,
 			'di' : flight['D D/I'] === 'D' ? 'domestic' : 'international',
 			'flight' : flight['D FLIGHT #'],
@@ -53,14 +112,17 @@ function wranglePassengerData (passengerData, lexicon) {
 			'am' : aviation.core.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
 				'pre9AM' : 
 				'post9AM',
-			'di' : passenger['DESTGEO'] < 4 ? 'domestic' : 'international',
-			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3) ? 
-				'transfer' : 
-				'departing',
-			'type' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(1) ? 
-				'business' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(2) ? 
-				'leisure' : 
-				'other',
+			'di' : passenger['DESTGEO'] < 4
+						? 'domestic'
+						: 'international',
+			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3)
+						? 'transfer'
+						: 'departing',
+			'type' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(1)
+						? 'business'
+						: [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(2)
+							? 'leisure'
+							: 'other',
 			'weight' : passenger['WEIGHT'] ? passenger['WEIGHT'] : 1,
 			'gate' : passenger['GATE'],
 			'bags' : passenger['Q4BAGS'] === 1 ? true : false,
@@ -95,6 +157,9 @@ function wranglePropensityData (propensityData) {
 
 	}, []);
 
+	//
+	// From somewhere on stackOverflow - not sure
+	//
 	var order = 1;
 	var xArr = pts.map(function(pt) {
 

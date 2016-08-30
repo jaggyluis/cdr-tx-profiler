@@ -692,7 +692,115 @@ var app = app || {};
 		},
 		buildFlightsTable : function (flights) {
 
+			function wrangleGates(flights) {
+				
+				var mapped = aviation.core.array.mapElementsToObjByKey(flights, 'gate'),
+					gates = Object.keys(mapped);
+
+				var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"], // alternatively colorbrewer.YlGnBu[9]
+					carriers = {},
+					lineValY;
+
+				colors.reverse();
+
+				return gates.map(function(gate) {
+
+					return {
+						'gate' : gate,
+						'flights' : mapped[gate].map(function(flight) {
+
+							var yLocation = flight.location > 300
+								? ((flight.location - 300) * 20 ) + 1000
+								: ((flight.location - 200) * 20 )
+
+							if (gate.match(/[a]/)) yLocation -= 3;
+							if (gate.match(/[b]/)) yLocation += 3;
+
+							lineValY = yLocation;
+
+							var carrier = flight.airline.IATA,
+								color;
+
+							if (!(carrier in carriers)) {
+								carriers[carrier] = colors.pop();
+							} 
+
+							return {
+								'name' : flight.getFlightName(),
+								'lineVals' : [
+									{
+										'x': flight.ival.start * 1000,
+										'y': yLocation
+									},
+									{
+										'x': flight.ival.end * 1000,
+										'y': yLocation
+									}
+								],
+								'carrier' : flight.airline,
+								'color' : carriers[carrier]
+							}
+						}),
+						'lineVals' : [
+							{
+								'x': 0,
+								'y': lineValY
+							},
+							{
+								'x': 1000,
+								'y': lineValY
+							}
+						],
+					}
+				})
+			}
+
+			var lineFunc = d3.svg.line()
+				.x(function(d) { return d.x; })
+				.y(function(d) { return d.y; })
+				.interpolate('linear');
+
 			var grid = d3.divgrid();
+
+			var packsvg = d3.select("#flight-packing")
+				.append("svg")
+				.attr("width", 1000)
+				.attr("height", 500)
+				.attr("class", "vis");
+
+			var g = packsvg.append("g");
+
+			var gates = wrangleGates(flights);
+
+			var gateItems = g.selectAll('.gate')
+				.data(gates)
+				.enter().append('g');
+
+			gateItems.each(function(d, i) {
+
+				d3.select(this)
+					.append("path")
+					.attr("d", lineFunc(d.lineVals))
+					.attr("stroke", "grey")
+					.attr("stroke-width", 1)
+					.attr("opacity", 0.5)
+					.attr("fill", "none");
+
+				//d3.select(this)
+				//	.append("text")
+					//.x(d.lineVals[0].x)
+					//.y(d.lineVals[0].y)
+				//	.text(function(d) { return d.gate})
+
+				for (var f in d.flights) {
+					d3.select(this)
+						.append("path")
+						.attr("d", lineFunc(d.flights[f].lineVals))
+						.attr("stroke", d.flights[f].color)
+						.attr("stroke-width", 2)
+						.attr("fill", "none");
+				}
+			});
 
 			d3.select("#flight-table")
 			    .datum(flights.slice().map(function(d) {

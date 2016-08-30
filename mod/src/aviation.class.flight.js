@@ -10,6 +10,7 @@ aviation.class.Flight.deserialize = function (data) {
 		'loadFactor' : {'value' : data.loadFactor },
 		'id' : {'value' : data.id },
 		'gate' : {'value' : data.gate },
+		'location' : {'value' : data.location },
 		'ival' : {'value' : aviation.class.Interval.deserialize(data.ival.data) },
 		'seats' : {'value' : data.seats },
 		'passengers' : {'value' : data.passengers.map(function(p) { return aviation.class.Passenger.deserialize(p.data);}) },
@@ -24,6 +25,7 @@ function Flight (flightObj, destination, airline, aircraft, loadFactor) {
 	this.loadFactor = loadFactor;
 	this.id = aviation.core.string.generateUUID();
 	this.gate = null;
+	this.location = null;
 	this.ival = null;
 	this.seats = this.flight.seats !== undefined
 		? this.flight.seats*this.loadFactor
@@ -85,6 +87,9 @@ Flight.prototype.getDesignGroup = function () {
 };
 Flight.prototype.getCategory = function () {
 	return aviation.core.time.romanToLetter(this.aircraft.ARC.split('-')[1]);
+};
+Flight.prototype.setLocation = function (num) {
+	this.location = num;
 };
 Flight.prototype.setGate = function (gate) {
 	this.gate = gate;
@@ -157,6 +162,7 @@ Flight.prototype.findGate = function (gates, cluster) {
 		if (gate.fit(self, function(data, flight) {
 			if (data.response) {
 				self.setGate(data.gate);
+				self.setLocation(data.num);
 				gate.setFlight(self, data.gate);
 				return true;
 			} else {
@@ -207,6 +213,7 @@ Flight.prototype.serialize = function (cycle) {
 			'loadFactor' : this.loadFactor,
 			'id' : this.id,
 			'gate' : this.gate,
+			'location' : this.location,
 			'ival' : this.ival.serialize(),
 			'seats' : this.seats,
 			'passengers' : cycle ? this.passengers.map(function(p) { return p.serialize(); }) : [],

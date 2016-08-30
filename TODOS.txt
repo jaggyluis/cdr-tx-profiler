@@ -4,4 +4,12 @@ X import d3 to workers for csv import
 X update colors to reflect all types
 X fix count on plane output
 
-- re-evaluate  the turnaround times based on actual gate time
+X build gate packing visualization
+
+X re-evaluate  the turnaround times based on actual gate time
+
+- fit curve to passenger  arrival data
+- clean up outliers on arrival rates?
+- test passenger type clustering
+
+- put grunt into /app
