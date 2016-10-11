@@ -689,6 +689,7 @@ var app = app || {};
 		clearFlightsTable : function () {
 
 			document.getElementById("flight-table").innerHTML = '';
+			document.getElementById("flight-packing").innerHTML = '';
 		},
 		buildFlightsTable : function (flights) {
 
