@@ -11,5 +11,6 @@ X re-evaluate  the turnaround times based on actual gate time
 - fit curve to passenger  arrival data
 - clean up outliers on arrival rates?
 - test passenger type clustering
+- remove null passenger types ( < 1)
 
 - put grunt into /app

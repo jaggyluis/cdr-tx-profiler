@@ -274,6 +274,7 @@ self.addEventListener('message', function(e) {
 			    			propensityFunc = wranglePropensityData(propensityData);
 			    			timeSlice = e.data.timeSlice;
 			   				profiler = aviation.profiles.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
+			   				profiler.buildProfiles();
 
 			   				designDayData = designDayData.filter(function(flight) {
 

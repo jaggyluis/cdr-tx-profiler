@@ -7,8 +7,7 @@ function Profiler(passengerData, flightData, attributeData, timeSlice, func) {
 	this.flights = flightData;
 	this.timeSlice = timeSlice;
 	if (func !== undefined) this.func = func;
-	this._cluster = this.clusterPassengersByAttribute(this.passengers, this.attributes);
-	this._cluster.flightTypes = this.matchFlights(this._cluster.flightTypes, this.flights);
+	this._cluster;
 }
 Profiler.prototype = {};
 Profiler.prototype.__defineGetter__('passengerProfiles', function () {
@@ -55,6 +54,63 @@ Profiler.prototype.__defineGetter__('flightProfiles', function () {
 	}
 	return profiles;
 });
+Profiler.prototype.buildProfiles = function() {
+ 	this._cluster = this.clusterPassengersByAttribute(this.passengers, this.attributes);
+	this._cluster.flightTypes = this.matchFlights(this._cluster.flightTypes, this.flights);
+};
+Profiler.prototype.clusterPassengersByAttribute = function (passengers, attributes) {
+	var typeCluster = {},
+		typeAttibutes = attributes,
+		flightCluster = {},
+		flightAttributes = ['airline', 'destination'],
+		type,
+		flight,
+		i,
+		j;
+	for (i=0; i<passengers.length; i++) {
+		type = [],
+		flight = [];
+		for (j=0; j<typeAttibutes.length; j++) type.push(passengers[i][typeAttibutes[j]]);
+		type = type.join('.');
+		if (!(type in typeCluster)) typeCluster[type] = [];
+		typeCluster[type].push(passengers[i]);
+		for (var k=0; k<flightAttributes.length; k++) flight.push(passengers[i][flightAttributes[k]]);
+		flight = flight.join('.');
+		if (!(flight in flightCluster)) flightCluster[flight] = [];
+		flightCluster[flight].push(passengers[i]);
+		passengers[i].flightType = flight;
+		passengers[i].passengerType = type;
+	}
+	return {
+		'passengerTypes' : typeCluster,
+		'flightTypes' : flightCluster
+	};
+};
+Profiler.prototype.matchFlights = function (flightTypes, flights) {
+	var typeCluster = {};
+	Object.keys(flightTypes).forEach(function(flight) {
+		var params = flight.split('.'),
+			airline = aviation.get.airlineByCode(params[0]),
+			destination = aviation.get.airportByString(params[1]),
+			type,
+			i,
+			j;
+		if (airline && destination) {
+			for (i=0; i<flights.length; i++) {
+				if (flights[i].airline == airline.IATA && flights[i].destination == destination.IATA) {
+					aircraft = aviation.get.aircraftByCode(flights[i].aircraft),
+					type = aircraft ? aviation.core.time.romanToLetter(aircraft.ARC.split('-')[1]) : undefined; 
+					if (aircraft === undefined) break;
+					if (!(type in typeCluster)) typeCluster[type] = [];
+					typeCluster[type] = typeCluster[type].concat(flightTypes[flight]);
+					for (j=0; j<flightTypes[flight].length; j++) flightTypes[flight][j].flightType = type;
+					break;
+				}
+			}
+		}
+	});
+	return typeCluster;
+};
 Profiler.prototype.percentile = function (passengers, total, weighted) {
 	var self = this,
 		count = 0,
@@ -117,57 +173,4 @@ Profiler.prototype.permute = function (attributes) {
 		curr = [];
 	}
 	return permuted;
-};
-Profiler.prototype.clusterPassengersByAttribute = function (passengers, attributes) {
-	var typeCluster = {},
-		typeAttibutes = attributes,
-		flightCluster = {},
-		flightAttributes = ['airline', 'destination'],
-		type,
-		flight,
-		i,
-		j;
-	for (i=0; i<passengers.length; i++) {
-		type = [],
-		flight = [];
-		for (j=0; j<typeAttibutes.length; j++) type.push(passengers[i][typeAttibutes[j]]);
-		type = type.join('.');
-		if (!(type in typeCluster)) typeCluster[type] = [];
-		typeCluster[type].push(passengers[i]);
-		for (var k=0; k<flightAttributes.length; k++) flight.push(passengers[i][flightAttributes[k]]);
-		flight = flight.join('.');
-		if (!(flight in flightCluster)) flightCluster[flight] = [];
-		flightCluster[flight].push(passengers[i]);
-		passengers[i].flightType = flight;
-		passengers[i].passengerType = type;
-	}
-	return {
-		'passengerTypes' : typeCluster,
-		'flightTypes' : flightCluster
-	};
-};
-Profiler.prototype.matchFlights = function (flightTypes, flights) {
-	var typeCluster = {};
-	Object.keys(flightTypes).forEach(function(flight) {
-		var params = flight.split('.'),
-			airline = aviation.get.airlineByCode(params[0]),
-			destination = aviation.get.airportByString(params[1]),
-			type,
-			i,
-			j;
-		if (airline && destination) {
-			for (i=0; i<flights.length; i++) {
-				if (flights[i].airline == airline.IATA && flights[i].destination == destination.IATA) {
-					aircraft = aviation.get.aircraftByCode(flights[i].aircraft),
-					type = aircraft ? aviation.core.time.romanToLetter(aircraft.ARC.split('-')[1]) : undefined; 
-					if (aircraft === undefined) break;
-					if (!(type in typeCluster)) typeCluster[type] = [];
-					typeCluster[type] = typeCluster[type].concat(flightTypes[flight]);
-					for (j=0; j<flightTypes[flight].length; j++) flightTypes[flight][j].flightType = type;
-					break;
-				}
-			}
-		}
-	});
-	return typeCluster;
 };
