@@ -97,7 +97,7 @@ Flight.prototype.setGate = function (gate) {
 Flight.prototype.getGate = function () {
 	return this.gate;
 };
-Flight.prototype.findGate = function (gates, cluster) {
+Flight.prototype.findGate = function (gates, searchType) {
 	var self = this,
 		hasCarrier = [],
 		notHasCarrier = [],
@@ -119,44 +119,51 @@ Flight.prototype.findGate = function (gates, cluster) {
 		return;
 	}
 	gates = gates.filter(function(g) { return g.ba === self.getBA(); });
-	if (cluster === true) {	
-		for (i=0; i<gates.length; i++) {
-			if (gates[i].hasCarrier(self.airline)) hasCarrier.push(gates[i]);
-			else notHasCarrier.push(gates[i]);
-		}
-		for (i=0; i<notHasCarrier.length; i++) {
-            count = notHasCarrier[i].getCarriers().length;
-			min = Infinity;
-			if (hasCarrier.length !== 0) {
-				for (j=0; j<hasCarrier.length; j++) {
-					dist = Math.abs(hasCarrier[j].num - notHasCarrier[i].num);
-					if (dist < min) min = dist;
-				}
-				for (k=0; k<drift.length; k++) {
-					if (min < drift[k]) {
-						break;
-					}
-				}
-			} else {
-                dist = 0;
-				for (j=0; j<notHasCarrier.length; j++) {
-					dist += Math.abs(notHasCarrier[j].num - notHasCarrier[i].num);	
-				}
-                if (!count) min = dist;
-				for (k=0; k<drift.length; k++) {
-					if (min < drift[k]) {
-						break;
-					}
-				}					
+	switch (searchType) {
+		case "cluster":
+			for (i=0; i<gates.length; i++) {
+				if (gates[i].hasCarrier(self.airline)) hasCarrier.push(gates[i]);
+				else notHasCarrier.push(gates[i]);
 			}
-			sorted.splice(k,0, notHasCarrier[i]);
-			drift.splice(k,0, min);
-		}
-		hasCarrier.sort(function(ga,gb) {
-			return gb.getFlightsByCarrier(self.airline).length - ga.getFlightsByCarrier(self.airline).length;
-		});
-		gates = hasCarrier.concat(sorted);
-	}
+			for (i=0; i<notHasCarrier.length; i++) {
+	            count = notHasCarrier[i].getCarriers().length;
+				min = Infinity;
+				if (hasCarrier.length !== 0) {
+					for (j=0; j<hasCarrier.length; j++) {
+						dist = Math.abs(hasCarrier[j].num - notHasCarrier[i].num);
+						if (dist < min) min = dist;
+					}
+					for (k=0; k<drift.length; k++) {
+						if (min < drift[k]) {
+							break;
+						}
+					}
+				} else {
+	                dist = 0;
+					for (j=0; j<notHasCarrier.length; j++) {
+						dist += Math.abs(notHasCarrier[j].num - notHasCarrier[i].num);	
+					}
+	                if (!count) min = dist;
+					for (k=0; k<drift.length; k++) {
+						if (min < drift[k]) {
+							break;
+						}
+					}					
+				}
+				sorted.splice(k,0, notHasCarrier[i]);
+				drift.splice(k,0, min);
+			}
+			hasCarrier.sort(function(ga,gb) {
+				return gb.getFlightsByCarrier(self.airline).length - ga.getFlightsByCarrier(self.airline).length;
+			});
+			gates = hasCarrier.concat(sorted);
+			break;
+		case "random":
+			gates = aviation.core.array.shuffle(gates);
+			break;
+		default:
+			break;
+	}	
 	for (i=0; i<gates.length; i++) {
 		gate = gates[i];
 		if (gate.fit(self, function(data, flight) {

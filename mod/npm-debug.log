@@ -1,0 +1,972 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'grunt-smash' ]
+2 info using npm@2.15.8
+3 info using node@v4.4.7
+4 verbose install initial load of D:\_git\aviation-input-analysis\mod\package.json
+5 warn package.json aviation@0.0.1 No README data
+6 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt\package.json
+7 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-jshint\package.json
+8 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-uglify\package.json
+9 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\package.json
+10 silly cache add args [ 'grunt-smash', null ]
+11 verbose cache add spec grunt-smash
+12 silly cache add parsed spec Result {
+12 silly cache add   raw: 'grunt-smash',
+12 silly cache add   scope: null,
+12 silly cache add   name: 'grunt-smash',
+12 silly cache add   rawSpec: '',
+12 silly cache add   spec: 'latest',
+12 silly cache add   type: 'tag' }
+13 silly addNamed grunt-smash@latest
+14 verbose addNamed "latest" is being treated as a dist-tag for grunt-smash
+15 info addNameTag [ 'grunt-smash', 'latest' ]
+16 silly mapToRegistry name grunt-smash
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry data Result {
+19 silly mapToRegistry   raw: 'grunt-smash',
+19 silly mapToRegistry   scope: null,
+19 silly mapToRegistry   name: 'grunt-smash',
+19 silly mapToRegistry   rawSpec: '',
+19 silly mapToRegistry   spec: 'latest',
+19 silly mapToRegistry   type: 'tag' }
+20 silly mapToRegistry uri https://registry.npmjs.org/grunt-smash
+21 verbose addNameTag registry:https://registry.npmjs.org/grunt-smash not in flight; fetching
+22 verbose request uri https://registry.npmjs.org/grunt-smash
+23 verbose request no auth needed
+24 info attempt registry request try #1 at 2:28:04 PM
+25 verbose request id a6e85b14e2fe3a1d
+26 verbose etag "ANPNWZ7RQNAQO68ZHRQ7CIBV0"
+27 http request GET https://registry.npmjs.org/grunt-smash
+28 http 304 https://registry.npmjs.org/grunt-smash
+29 verbose headers { date: 'Wed, 12 Oct 2016 21:28:04 GMT',
+29 verbose headers   via: '1.1 varnish',
+29 verbose headers   'cache-control': 'max-age=300',
+29 verbose headers   etag: '"ANPNWZ7RQNAQO68ZHRQ7CIBV0"',
+29 verbose headers   age: '0',
+29 verbose headers   connection: 'keep-alive',
+29 verbose headers   'x-served-by': 'cache-sea1922-SEA',
+29 verbose headers   'x-cache': 'MISS',
+29 verbose headers   'x-cache-hits': '0',
+29 verbose headers   'x-timer': 'S1476307684.656875,VS0,VE31',
+29 verbose headers   vary: 'Accept-Encoding' }
+30 silly get cb [ 304,
+30 silly get   { date: 'Wed, 12 Oct 2016 21:28:04 GMT',
+30 silly get     via: '1.1 varnish',
+30 silly get     'cache-control': 'max-age=300',
+30 silly get     etag: '"ANPNWZ7RQNAQO68ZHRQ7CIBV0"',
+30 silly get     age: '0',
+30 silly get     connection: 'keep-alive',
+30 silly get     'x-served-by': 'cache-sea1922-SEA',
+30 silly get     'x-cache': 'MISS',
+30 silly get     'x-cache-hits': '0',
+30 silly get     'x-timer': 'S1476307684.656875,VS0,VE31',
+30 silly get     vary: 'Accept-Encoding' } ]
+31 verbose etag https://registry.npmjs.org/grunt-smash from cache
+32 verbose get saving grunt-smash to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-smash\.cache.json
+33 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+34 silly addNameTag next cb for grunt-smash with tag latest
+35 silly addNamed grunt-smash@0.1.0
+36 verbose addNamed "0.1.0" is a plain semver version for grunt-smash
+37 silly cache afterAdd grunt-smash@0.1.0
+38 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\grunt-smash\0.1.0\package\package.json not in flight; writing
+39 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+40 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\grunt-smash\0.1.0\package\package.json written
+41 silly install resolved [ { name: 'grunt-smash',
+41 silly install resolved     description: 'A grunt task for Mike Bostock\'s Smash',
+41 silly install resolved     version: '0.1.0',
+41 silly install resolved     homepage: 'https://github.com/cvisco/grunt-smash',
+41 silly install resolved     author: { name: 'Casey Visco', email: 'cvisco@gmail.com' },
+41 silly install resolved     repository: { type: 'git', url: 'git://github.com/cvisco/grunt-smash.git' },
+41 silly install resolved     bugs: { url: 'https://github.com/cvisco/grunt-smash/issues' },
+41 silly install resolved     licenses: [ [Object] ],
+41 silly install resolved     main: 'Gruntfile.js',
+41 silly install resolved     engines: { node: '>= 0.8.0' },
+41 silly install resolved     scripts: { test: 'grunt test' },
+41 silly install resolved     dependencies: { smash: '~0.0.11', 'queue-async': '~1.0.3' },
+41 silly install resolved     devDependencies:
+41 silly install resolved      { 'grunt-contrib-jshint': '~0.1.1',
+41 silly install resolved        'grunt-contrib-clean': '~0.4.0',
+41 silly install resolved        'grunt-contrib-nodeunit': '~0.1.2',
+41 silly install resolved        grunt: '~0.4.1' },
+41 silly install resolved     peerDependencies: { grunt: '~0.4.1' },
+41 silly install resolved     keywords: [ 'gruntplugin', 'smash' ],
+41 silly install resolved     readme: '# grunt-smash\n\n> A grunt task for Mike Bostock\'s Smash utility.\n\n## Getting Started\nThis plugin requires Grunt `~0.4.1`\n\nIf you haven\'t used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you\'re familiar with that process, you may install this plugin with this command:\n\n```shell\nnpm install grunt-smash --save-dev\n```\n\nOnce the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:\n\n```js\ngrunt.loadNpmTasks(\'grunt-smash\');\n```\n\n## The "smash" task\n\n### Overview\nIn your project\'s Gruntfile, add a section named `smash` to the data object passed into `grunt.initConfig()`.\n\n```js\ngrunt.initConfig({\n  smash: {\n    your_target: {\n      // Target-specific file lists go here.\n    },\n  },\n})\n```\n\n### Usage Examples\n\nIn this example, import statements in `js/index.js` will be resolved and the result will be written to `dist/bundle.js`.\n\n```js\ngrunt.initConfig({\n  smash: {\n    bundle: {\n      src: \'js/index.js\',\n      dest: \'dist/bundle.js\'\n    },\n  },\n})\n```\n\n\n## Contributing\nIn lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).\n\n## Release History\n* 2013-06-03   v0.1.0   Initial release\n',
+41 silly install resolved     readmeFilename: 'README.md',
+41 silly install resolved     _id: 'grunt-smash@0.1.0',
+41 silly install resolved     dist:
+41 silly install resolved      { shasum: '77282b48b1372aeb7d67456f1277e9c9c5219741',
+41 silly install resolved        tarball: 'https://registry.npmjs.org/grunt-smash/-/grunt-smash-0.1.0.tgz' },
+41 silly install resolved     _from: 'grunt-smash@latest',
+41 silly install resolved     _npmVersion: '1.2.24',
+41 silly install resolved     _npmUser: { name: 'cvisco', email: 'cvisco@gmail.com' },
+41 silly install resolved     maintainers: [ [Object] ],
+41 silly install resolved     directories: {},
+41 silly install resolved     _shasum: '77282b48b1372aeb7d67456f1277e9c9c5219741',
+41 silly install resolved     _resolved: 'https://registry.npmjs.org/grunt-smash/-/grunt-smash-0.1.0.tgz' } ]
+42 info install grunt-smash@0.1.0 into D:\_git\aviation-input-analysis\mod
+43 info installOne grunt-smash@0.1.0
+44 verbose installOne of grunt-smash to D:\_git\aviation-input-analysis\mod not in flight; installing
+45 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+46 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-2a0f5f19149c29ae.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+47 silly install write writing grunt-smash 0.1.0 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+48 verbose unbuild node_modules\grunt-smash
+49 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash is being purged from base D:\_git\aviation-input-analysis\mod
+50 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+51 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\grunt-smash\0.1.0\package.tgz
+52 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+53 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash is being purged
+54 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+55 silly gunzTarPerm modes [ '777', '666' ]
+56 silly gunzTarPerm extractEntry package.json
+57 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+58 silly gunzTarPerm extractEntry .npmignore
+59 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+60 silly gunzTarPerm extractEntry README.md
+61 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+62 silly gunzTarPerm extractEntry Gruntfile.js
+63 silly gunzTarPerm modified mode [ 'Gruntfile.js', 420, 438 ]
+64 silly gunzTarPerm extractEntry .jshintrc
+65 silly gunzTarPerm modified mode [ '.jshintrc', 420, 438 ]
+66 silly gunzTarPerm extractEntry LICENSE-MIT
+67 silly gunzTarPerm modified mode [ 'LICENSE-MIT', 420, 438 ]
+68 silly gunzTarPerm extractEntry tasks/smash.js
+69 silly gunzTarPerm modified mode [ 'tasks/smash.js', 420, 438 ]
+70 silly gunzTarPerm extractEntry test/smash_test.js
+71 silly gunzTarPerm modified mode [ 'test/smash_test.js', 420, 438 ]
+72 silly gunzTarPerm extractEntry test/expected/target1.js
+73 silly gunzTarPerm modified mode [ 'test/expected/target1.js', 420, 438 ]
+74 silly gunzTarPerm extractEntry test/expected/target2.js
+75 silly gunzTarPerm modified mode [ 'test/expected/target2.js', 420, 438 ]
+76 silly gunzTarPerm extractEntry test/fixtures/bar.js
+77 silly gunzTarPerm modified mode [ 'test/fixtures/bar.js', 420, 438 ]
+78 silly gunzTarPerm extractEntry test/fixtures/baz.js
+79 silly gunzTarPerm modified mode [ 'test/fixtures/baz.js', 420, 438 ]
+80 silly gunzTarPerm extractEntry test/fixtures/foo.js
+81 silly gunzTarPerm modified mode [ 'test/fixtures/foo.js', 420, 438 ]
+82 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+83 info preinstall grunt-smash@0.1.0
+84 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+85 silly prepareForInstallMany adding smash@~0.0.11 from grunt-smash dependencies
+86 silly prepareForInstallMany adding queue-async@~1.0.3 from grunt-smash dependencies
+87 silly prepareForInstallMany adding grunt@~0.4.1 from grunt-smash peerDependencies
+88 warn peerDependencies The peer dependency grunt@~0.4.1 included from grunt-smash will no
+89 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+90 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+91 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+92 silly cache add args [ 'smash@~0.0.11', null ]
+93 verbose cache add spec smash@~0.0.11
+94 silly cache add args [ 'queue-async@~1.0.3', null ]
+95 verbose cache add spec queue-async@~1.0.3
+96 silly cache add parsed spec Result {
+96 silly cache add   raw: 'smash@~0.0.11',
+96 silly cache add   scope: null,
+96 silly cache add   name: 'smash',
+96 silly cache add   rawSpec: '~0.0.11',
+96 silly cache add   spec: '>=0.0.11 <0.1.0',
+96 silly cache add   type: 'range' }
+97 silly addNamed smash@>=0.0.11 <0.1.0
+98 verbose addNamed ">=0.0.11 <0.1.0" is a valid semver range for smash
+99 silly addNameRange { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: false }
+100 silly mapToRegistry name smash
+101 silly mapToRegistry using default registry
+102 silly mapToRegistry registry https://registry.npmjs.org/
+103 silly mapToRegistry data Result {
+103 silly mapToRegistry   raw: 'smash',
+103 silly mapToRegistry   scope: null,
+103 silly mapToRegistry   name: 'smash',
+103 silly mapToRegistry   rawSpec: '',
+103 silly mapToRegistry   spec: 'latest',
+103 silly mapToRegistry   type: 'tag' }
+104 silly mapToRegistry uri https://registry.npmjs.org/smash
+105 verbose addNameRange registry:https://registry.npmjs.org/smash not in flight; fetching
+106 silly cache add parsed spec Result {
+106 silly cache add   raw: 'queue-async@~1.0.3',
+106 silly cache add   scope: null,
+106 silly cache add   name: 'queue-async',
+106 silly cache add   rawSpec: '~1.0.3',
+106 silly cache add   spec: '>=1.0.3 <1.1.0',
+106 silly cache add   type: 'range' }
+107 silly addNamed queue-async@>=1.0.3 <1.1.0
+108 verbose addNamed ">=1.0.3 <1.1.0" is a valid semver range for queue-async
+109 silly addNameRange { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: false }
+110 silly mapToRegistry name queue-async
+111 silly mapToRegistry using default registry
+112 silly mapToRegistry registry https://registry.npmjs.org/
+113 silly mapToRegistry data Result {
+113 silly mapToRegistry   raw: 'queue-async',
+113 silly mapToRegistry   scope: null,
+113 silly mapToRegistry   name: 'queue-async',
+113 silly mapToRegistry   rawSpec: '',
+113 silly mapToRegistry   spec: 'latest',
+113 silly mapToRegistry   type: 'tag' }
+114 silly mapToRegistry uri https://registry.npmjs.org/queue-async
+115 verbose addNameRange registry:https://registry.npmjs.org/queue-async not in flight; fetching
+116 verbose request uri https://registry.npmjs.org/smash
+117 verbose request no auth needed
+118 info attempt registry request try #1 at 2:28:05 PM
+119 verbose etag "2I4T5E8Z0IKSW6PLW52NWH5OS"
+120 http request GET https://registry.npmjs.org/smash
+121 verbose request uri https://registry.npmjs.org/queue-async
+122 verbose request no auth needed
+123 info attempt registry request try #1 at 2:28:05 PM
+124 verbose etag "1MUAGVF2VHPIFYVKYGDVINJ5X"
+125 http request GET https://registry.npmjs.org/queue-async
+126 http 304 https://registry.npmjs.org/queue-async
+127 verbose headers { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+127 verbose headers   via: '1.1 varnish',
+127 verbose headers   'cache-control': 'max-age=300',
+127 verbose headers   etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
+127 verbose headers   age: '111',
+127 verbose headers   connection: 'keep-alive',
+127 verbose headers   'x-served-by': 'cache-sea1923-SEA',
+127 verbose headers   'x-cache': 'HIT',
+127 verbose headers   'x-cache-hits': '2',
+127 verbose headers   'x-timer': 'S1476307685.365838,VS0,VE0',
+127 verbose headers   vary: 'Accept-Encoding' }
+128 silly get cb [ 304,
+128 silly get   { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+128 silly get     via: '1.1 varnish',
+128 silly get     'cache-control': 'max-age=300',
+128 silly get     etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
+128 silly get     age: '111',
+128 silly get     connection: 'keep-alive',
+128 silly get     'x-served-by': 'cache-sea1923-SEA',
+128 silly get     'x-cache': 'HIT',
+128 silly get     'x-cache-hits': '2',
+128 silly get     'x-timer': 'S1476307685.365838,VS0,VE0',
+128 silly get     vary: 'Accept-Encoding' } ]
+129 verbose etag https://registry.npmjs.org/queue-async from cache
+130 verbose get saving queue-async to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\queue-async\.cache.json
+131 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+132 silly addNameRange number 2 { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: true }
+133 silly addNameRange versions [ 'queue-async',
+133 silly addNameRange   [ '0.0.2',
+133 silly addNameRange     '1.0.0',
+133 silly addNameRange     '1.0.1',
+133 silly addNameRange     '1.0.2',
+133 silly addNameRange     '1.0.3',
+133 silly addNameRange     '1.0.4',
+133 silly addNameRange     '1.0.5',
+133 silly addNameRange     '1.0.6',
+133 silly addNameRange     '1.0.7',
+133 silly addNameRange     '1.1.0',
+133 silly addNameRange     '1.1.1',
+133 silly addNameRange     '1.2.0',
+133 silly addNameRange     '1.2.1' ] ]
+134 silly addNamed queue-async@1.0.7
+135 verbose addNamed "1.0.7" is a plain semver version for queue-async
+136 warn deprecated queue-async@1.0.7: renamed to d3-queue
+137 silly cache afterAdd queue-async@1.0.7
+138 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json not in flight; writing
+139 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+140 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json written
+141 http 304 https://registry.npmjs.org/smash
+142 verbose headers { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+142 verbose headers   via: '1.1 varnish',
+142 verbose headers   'cache-control': 'max-age=300',
+142 verbose headers   etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
+142 verbose headers   age: '0',
+142 verbose headers   connection: 'keep-alive',
+142 verbose headers   'x-served-by': 'cache-sea1922-SEA',
+142 verbose headers   'x-cache': 'MISS',
+142 verbose headers   'x-cache-hits': '0',
+142 verbose headers   'x-timer': 'S1476307685.311318,VS0,VE91',
+142 verbose headers   vary: 'Accept-Encoding' }
+143 silly get cb [ 304,
+143 silly get   { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+143 silly get     via: '1.1 varnish',
+143 silly get     'cache-control': 'max-age=300',
+143 silly get     etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
+143 silly get     age: '0',
+143 silly get     connection: 'keep-alive',
+143 silly get     'x-served-by': 'cache-sea1922-SEA',
+143 silly get     'x-cache': 'MISS',
+143 silly get     'x-cache-hits': '0',
+143 silly get     'x-timer': 'S1476307685.311318,VS0,VE91',
+143 silly get     vary: 'Accept-Encoding' } ]
+144 verbose etag https://registry.npmjs.org/smash from cache
+145 verbose get saving smash to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\smash\.cache.json
+146 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+147 silly addNameRange number 2 { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: true }
+148 silly addNameRange versions [ 'smash',
+148 silly addNameRange   [ '0.0.1',
+148 silly addNameRange     '0.0.2',
+148 silly addNameRange     '0.0.3',
+148 silly addNameRange     '0.0.4',
+148 silly addNameRange     '0.0.5',
+148 silly addNameRange     '0.0.6',
+148 silly addNameRange     '0.0.7',
+148 silly addNameRange     '0.0.8',
+148 silly addNameRange     '0.0.9',
+148 silly addNameRange     '0.0.10',
+148 silly addNameRange     '0.0.11',
+148 silly addNameRange     '0.0.12',
+148 silly addNameRange     '0.0.13',
+148 silly addNameRange     '0.0.14',
+148 silly addNameRange     '0.0.15' ] ]
+149 silly addNamed smash@0.0.15
+150 verbose addNamed "0.0.15" is a plain semver version for smash
+151 silly cache afterAdd smash@0.0.15
+152 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json not in flight; writing
+153 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+154 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json written
+155 silly install resolved [ { name: 'queue-async',
+155 silly install resolved     version: '1.0.7',
+155 silly install resolved     description: 'A little helper for asynchronous JavaScript.',
+155 silly install resolved     keywords: [ 'asynchronous', 'async', 'queue' ],
+155 silly install resolved     author: { name: 'Mike Bostock', url: 'http://bost.ocks.org/mike' },
+155 silly install resolved     repository:
+155 silly install resolved      { type: 'git',
+155 silly install resolved        url: 'git+https://github.com/mbostock/queue.git' },
+155 silly install resolved     main: 'queue.js',
+155 silly install resolved     devDependencies: { 'uglify-js': '2', vows: '0.7' },
+155 silly install resolved     scripts: { test: 'vows; echo' },
+155 silly install resolved     bugs: { url: 'https://github.com/mbostock/queue/issues' },
+155 silly install resolved     _id: 'queue-async@1.0.7',
+155 silly install resolved     dist:
+155 silly install resolved      { shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
+155 silly install resolved        tarball: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz' },
+155 silly install resolved     _from: 'queue-async@>=1.0.3 <1.1.0',
+155 silly install resolved     _npmVersion: '1.3.11',
+155 silly install resolved     _npmUser: { name: 'mbostock', email: 'mbostock@gmail.com' },
+155 silly install resolved     maintainers: [ [Object] ],
+155 silly install resolved     deprecated: 'renamed to d3-queue',
+155 silly install resolved     directories: {},
+155 silly install resolved     _shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
+155 silly install resolved     _resolved: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz',
+155 silly install resolved     readme: 'ERROR: No README data found!',
+155 silly install resolved     homepage: 'https://github.com/mbostock/queue#readme' },
+155 silly install resolved   { name: 'smash',
+155 silly install resolved     version: '0.0.15',
+155 silly install resolved     description: 'Concatenate files together using import statements.',
+155 silly install resolved     keywords: [ 'import', 'module' ],
+155 silly install resolved     author: { name: 'Mike Bostock', url: 'http://bost.ocks.org/mike' },
+155 silly install resolved     repository:
+155 silly install resolved      { type: 'git',
+155 silly install resolved        url: 'git+https://github.com/mbostock/smash.git' },
+155 silly install resolved     main: 'index.js',
+155 silly install resolved     bin: { smash: 'smash' },
+155 silly install resolved     engines: { node: '>=0.10.0' },
+155 silly install resolved     engineStrict: true,
+155 silly install resolved     dependencies: { optimist: '0.3.x', 'queue-async': '1.0.x' },
+155 silly install resolved     devDependencies: { vows: '0.7.x' },
+155 silly install resolved     scripts: { test: 'vows; echo' },
+155 silly install resolved     licenses: [ [Object] ],
+155 silly install resolved     gitHead: '2f39efe2aa44b78105ecd516e190b392e3ba7eea',
+155 silly install resolved     bugs: { url: 'https://github.com/mbostock/smash/issues' },
+155 silly install resolved     homepage: 'https://github.com/mbostock/smash',
+155 silly install resolved     _id: 'smash@0.0.15',
+155 silly install resolved     _shasum: 'b9fa6850aeb113d25e3d1e672dff4ff955a7a657',
+155 silly install resolved     _from: 'smash@>=0.0.11 <0.1.0',
+155 silly install resolved     _npmVersion: '2.7.5',
+155 silly install resolved     _nodeVersion: '0.12.2',
+155 silly install resolved     _npmUser: { name: 'mbostock', email: 'mike@ocks.org' },
+155 silly install resolved     dist:
+155 silly install resolved      { shasum: 'b9fa6850aeb113d25e3d1e672dff4ff955a7a657',
+155 silly install resolved        tarball: 'https://registry.npmjs.org/smash/-/smash-0.0.15.tgz' },
+155 silly install resolved     maintainers: [ [Object] ],
+155 silly install resolved     directories: {},
+155 silly install resolved     _resolved: 'https://registry.npmjs.org/smash/-/smash-0.0.15.tgz',
+155 silly install resolved     readme: 'ERROR: No README data found!' } ]
+156 info install queue-async@1.0.7 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+157 info install smash@0.0.15 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+158 info installOne queue-async@1.0.7
+159 verbose installOne of queue-async to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash not in flight; installing
+160 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+161 info installOne smash@0.0.15
+162 verbose installOne of smash to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash not in flight; installing
+163 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+164 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-583f7391ff3b8866.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+165 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-4ef1b4d1596e6f11.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+166 silly install write writing smash 0.0.15 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+167 silly install write writing queue-async 1.0.7 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+168 verbose unbuild node_modules\grunt-smash\node_modules\queue-async
+169 verbose unbuild node_modules\grunt-smash\node_modules\smash
+170 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async is being purged from base D:\_git\aviation-input-analysis\mod
+171 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+172 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash is being purged from base D:\_git\aviation-input-analysis\mod
+173 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+174 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package.tgz
+175 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+176 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async is being purged
+177 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+178 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package.tgz
+179 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+180 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash is being purged
+181 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+182 silly gunzTarPerm modes [ '777', '666' ]
+183 silly gunzTarPerm modes [ '777', '666' ]
+184 silly gunzTarPerm extractEntry package.json
+185 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+186 silly gunzTarPerm extractEntry package.json
+187 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+188 silly gunzTarPerm extractEntry .npmignore
+189 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+190 silly gunzTarPerm extractEntry README.md
+191 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+192 silly gunzTarPerm extractEntry .npmignore
+193 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+194 silly gunzTarPerm extractEntry README.md
+195 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+196 silly gunzTarPerm extractEntry LICENSE
+197 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+198 silly gunzTarPerm extractEntry index.js
+199 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+200 silly gunzTarPerm extractEntry LICENSE
+201 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+202 silly gunzTarPerm extractEntry queue.js
+203 silly gunzTarPerm modified mode [ 'queue.js', 420, 438 ]
+204 silly gunzTarPerm extractEntry lib/smash/emit-imports.js
+205 silly gunzTarPerm modified mode [ 'lib/smash/emit-imports.js', 420, 438 ]
+206 silly gunzTarPerm extractEntry lib/smash/emit-lines.js
+207 silly gunzTarPerm modified mode [ 'lib/smash/emit-lines.js', 420, 438 ]
+208 silly gunzTarPerm extractEntry queue.min.js
+209 silly gunzTarPerm modified mode [ 'queue.min.js', 420, 438 ]
+210 silly gunzTarPerm extractEntry Makefile
+211 silly gunzTarPerm modified mode [ 'Makefile', 420, 438 ]
+212 silly gunzTarPerm extractEntry lib/smash/expand-file.js
+213 silly gunzTarPerm modified mode [ 'lib/smash/expand-file.js', 420, 438 ]
+214 silly gunzTarPerm extractEntry lib/smash/load.js
+215 silly gunzTarPerm modified mode [ 'lib/smash/load.js', 420, 438 ]
+216 silly gunzTarPerm extractEntry component.json
+217 silly gunzTarPerm modified mode [ 'component.json', 420, 438 ]
+218 silly gunzTarPerm extractEntry src/component.js
+219 silly gunzTarPerm modified mode [ 'src/component.js', 420, 438 ]
+220 silly gunzTarPerm extractEntry lib/smash/read-all-imports.js
+221 silly gunzTarPerm modified mode [ 'lib/smash/read-all-imports.js', 420, 438 ]
+222 silly gunzTarPerm extractEntry lib/smash/read-graph.js
+223 silly gunzTarPerm modified mode [ 'lib/smash/read-graph.js', 420, 438 ]
+224 silly gunzTarPerm extractEntry lib/smash/read-imports.js
+225 silly gunzTarPerm modified mode [ 'lib/smash/read-imports.js', 420, 438 ]
+226 silly gunzTarPerm extractEntry lib/smash/smash.js
+227 silly gunzTarPerm modified mode [ 'lib/smash/smash.js', 420, 438 ]
+228 silly gunzTarPerm extractEntry smash
+229 silly gunzTarPerm modified mode [ 'smash', 493, 511 ]
+230 silly gunzTarPerm extractEntry test/expandFile-test.js
+231 silly gunzTarPerm modified mode [ 'test/expandFile-test.js', 420, 438 ]
+232 silly gunzTarPerm extractEntry test/load-test.js
+233 silly gunzTarPerm modified mode [ 'test/load-test.js', 420, 438 ]
+234 silly gunzTarPerm extractEntry test/readAllImports-test.js
+235 silly gunzTarPerm modified mode [ 'test/readAllImports-test.js', 420, 438 ]
+236 silly gunzTarPerm extractEntry test/readGraph-test.js
+237 silly gunzTarPerm modified mode [ 'test/readGraph-test.js', 420, 438 ]
+238 silly gunzTarPerm extractEntry test/readImports-test.js
+239 silly gunzTarPerm modified mode [ 'test/readImports-test.js', 420, 438 ]
+240 silly gunzTarPerm extractEntry test/smash-test.js
+241 silly gunzTarPerm modified mode [ 'test/smash-test.js', 420, 438 ]
+242 silly gunzTarPerm extractEntry test/data/bar.js
+243 silly gunzTarPerm modified mode [ 'test/data/bar.js', 420, 438 ]
+244 silly gunzTarPerm extractEntry test/data/imports-foo-bar-baz.js
+245 silly gunzTarPerm modified mode [ 'test/data/imports-foo-bar-baz.js', 420, 438 ]
+246 silly gunzTarPerm extractEntry test/data/imports-foo-expected.js
+247 silly gunzTarPerm modified mode [ 'test/data/imports-foo-expected.js', 420, 438 ]
+248 silly gunzTarPerm extractEntry test/data/imports-foo-foo-bar-foo-expected.js
+249 silly gunzTarPerm modified mode [ 'test/data/imports-foo-foo-bar-foo-expected.js', 420, 438 ]
+250 silly gunzTarPerm extractEntry test/data/imports-foo-foo-bar-foo.js
+251 silly gunzTarPerm modified mode [ 'test/data/imports-foo-foo-bar-foo.js', 420, 438 ]
+252 silly gunzTarPerm extractEntry test/data/imports-foo-bar-baz-expected.js
+253 silly gunzTarPerm modified mode [ 'test/data/imports-foo-bar-baz-expected.js', 420, 438 ]
+254 silly gunzTarPerm extractEntry test/data/imports-imports-foo-expected.js
+255 silly gunzTarPerm modified mode [ 'test/data/imports-imports-foo-expected.js', 420, 438 ]
+256 silly gunzTarPerm extractEntry test/data/imports-imports-foo.js
+257 silly gunzTarPerm modified mode [ 'test/data/imports-imports-foo.js', 420, 438 ]
+258 silly gunzTarPerm extractEntry test/data/imports-index.js
+259 silly gunzTarPerm modified mode [ 'test/data/imports-index.js', 420, 438 ]
+260 silly gunzTarPerm extractEntry test/data/imports-not-found.js
+261 silly gunzTarPerm modified mode [ 'test/data/imports-not-found.js', 420, 438 ]
+262 silly gunzTarPerm extractEntry test/data/imports-self.js
+263 silly gunzTarPerm modified mode [ 'test/data/imports-self.js', 420, 438 ]
+264 silly gunzTarPerm extractEntry test/data/imports-circular-foo.js
+265 silly gunzTarPerm modified mode [ 'test/data/imports-circular-foo.js', 420, 438 ]
+266 silly gunzTarPerm extractEntry test/data/index.js
+267 silly gunzTarPerm modified mode [ 'test/data/index.js', 420, 438 ]
+268 silly gunzTarPerm extractEntry test/data/imports-circular-foo-expected.js
+269 silly gunzTarPerm modified mode [ 'test/data/imports-circular-foo-expected.js', 420, 438 ]
+270 silly gunzTarPerm extractEntry test/data/invalid-import-syntax.js
+271 silly gunzTarPerm modified mode [ 'test/data/invalid-import-syntax.js', 420, 438 ]
+272 silly gunzTarPerm extractEntry test/data/imports-circular-bar.js
+273 silly gunzTarPerm modified mode [ 'test/data/imports-circular-bar.js', 420, 438 ]
+274 silly gunzTarPerm extractEntry test/data/mismatched-quotes.js
+275 silly gunzTarPerm modified mode [ 'test/data/mismatched-quotes.js', 420, 438 ]
+276 silly gunzTarPerm extractEntry test/data/import-empty-lines.js
+277 silly gunzTarPerm modified mode [ 'test/data/import-empty-lines.js', 420, 438 ]
+278 silly gunzTarPerm extractEntry test/data/not-commented-import-expected.js
+279 silly gunzTarPerm modified mode [ 'test/data/not-commented-import-expected.js', 420, 438 ]
+280 silly gunzTarPerm extractEntry test/data/forty-two.js
+281 silly gunzTarPerm modified mode [ 'test/data/forty-two.js', 420, 438 ]
+282 silly gunzTarPerm extractEntry test/data/not-commented-import.js
+283 silly gunzTarPerm modified mode [ 'test/data/not-commented-import.js', 420, 438 ]
+284 silly gunzTarPerm extractEntry test/data/foo.js
+285 silly gunzTarPerm modified mode [ 'test/data/foo.js', 420, 438 ]
+286 silly gunzTarPerm extractEntry test/data/single-quote-import-expected.js
+287 silly gunzTarPerm modified mode [ 'test/data/single-quote-import-expected.js', 420, 438 ]
+288 silly gunzTarPerm extractEntry test/data/empty-lines.js
+289 silly gunzTarPerm modified mode [ 'test/data/empty-lines.js', 420, 438 ]
+290 silly gunzTarPerm extractEntry test/data/single-quote-import.js
+291 silly gunzTarPerm modified mode [ 'test/data/single-quote-import.js', 420, 438 ]
+292 silly gunzTarPerm extractEntry test/data/commented-import.js
+293 silly gunzTarPerm modified mode [ 'test/data/commented-import.js', 420, 438 ]
+294 silly gunzTarPerm extractEntry test/data/trailing-comment-import-expected.js
+295 silly gunzTarPerm modified mode [ 'test/data/trailing-comment-import-expected.js', 420, 438 ]
+296 silly gunzTarPerm extractEntry test/data/baz.js
+297 silly gunzTarPerm modified mode [ 'test/data/baz.js', 420, 438 ]
+298 silly gunzTarPerm extractEntry test/data/trailing-comment-import.js
+299 silly gunzTarPerm modified mode [ 'test/data/trailing-comment-import.js', 420, 438 ]
+300 silly gunzTarPerm extractEntry test/data/imports-foo.js
+301 silly gunzTarPerm modified mode [ 'test/data/imports-foo.js', 420, 438 ]
+302 silly gunzTarPerm extractEntry src/package.js
+303 silly gunzTarPerm modified mode [ 'src/package.js', 420, 438 ]
+304 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+305 info preinstall queue-async@1.0.7
+306 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+307 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+308 silly install resolved []
+309 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+310 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+311 info linkStuff queue-async@1.0.7
+312 silly linkStuff queue-async@1.0.7 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules as its parent node_modules
+313 verbose linkBins queue-async@1.0.7
+314 verbose linkMans queue-async@1.0.7
+315 verbose rebuildBundles queue-async@1.0.7
+316 info install queue-async@1.0.7
+317 info postinstall queue-async@1.0.7
+318 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-4ef1b4d1596e6f11.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+319 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+320 info preinstall smash@0.0.15
+321 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+322 silly prepareForInstallMany adding optimist@0.3.x from smash dependencies
+323 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+324 silly cache add args [ 'optimist@0.3.x', null ]
+325 verbose cache add spec optimist@0.3.x
+326 silly cache add parsed spec Result {
+326 silly cache add   raw: 'optimist@0.3.x',
+326 silly cache add   scope: null,
+326 silly cache add   name: 'optimist',
+326 silly cache add   rawSpec: '0.3.x',
+326 silly cache add   spec: '>=0.3.0 <0.4.0',
+326 silly cache add   type: 'range' }
+327 silly addNamed optimist@>=0.3.0 <0.4.0
+328 verbose addNamed ">=0.3.0 <0.4.0" is a valid semver range for optimist
+329 silly addNameRange { name: 'optimist', range: '>=0.3.0 <0.4.0', hasData: false }
+330 silly mapToRegistry name optimist
+331 silly mapToRegistry using default registry
+332 silly mapToRegistry registry https://registry.npmjs.org/
+333 silly mapToRegistry data Result {
+333 silly mapToRegistry   raw: 'optimist',
+333 silly mapToRegistry   scope: null,
+333 silly mapToRegistry   name: 'optimist',
+333 silly mapToRegistry   rawSpec: '',
+333 silly mapToRegistry   spec: 'latest',
+333 silly mapToRegistry   type: 'tag' }
+334 silly mapToRegistry uri https://registry.npmjs.org/optimist
+335 verbose addNameRange registry:https://registry.npmjs.org/optimist not in flight; fetching
+336 verbose request uri https://registry.npmjs.org/optimist
+337 verbose request no auth needed
+338 info attempt registry request try #1 at 2:28:06 PM
+339 verbose etag "2NB2ROHJ4GTU9A3BEFFXFSKL8"
+340 http request GET https://registry.npmjs.org/optimist
+341 http 200 https://registry.npmjs.org/optimist
+342 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+342 verbose headers   etag: '"8ZDPHXL00R9UQVIVA976647Y0"',
+342 verbose headers   'content-type': 'application/json',
+342 verbose headers   'content-encoding': 'gzip',
+342 verbose headers   'cache-control': 'max-age=300',
+342 verbose headers   'content-length': '9316',
+342 verbose headers   'accept-ranges': 'bytes',
+342 verbose headers   date: 'Wed, 12 Oct 2016 21:28:06 GMT',
+342 verbose headers   via: '1.1 varnish',
+342 verbose headers   age: '243',
+342 verbose headers   connection: 'keep-alive',
+342 verbose headers   'x-served-by': 'cache-sea1923-SEA',
+342 verbose headers   'x-cache': 'HIT',
+342 verbose headers   'x-cache-hits': '45',
+342 verbose headers   'x-timer': 'S1476307686.827973,VS0,VE0',
+342 verbose headers   vary: 'Accept-Encoding' }
+343 silly get cb [ 200,
+343 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+343 silly get     etag: '"8ZDPHXL00R9UQVIVA976647Y0"',
+343 silly get     'content-type': 'application/json',
+343 silly get     'content-encoding': 'gzip',
+343 silly get     'cache-control': 'max-age=300',
+343 silly get     'content-length': '9316',
+343 silly get     'accept-ranges': 'bytes',
+343 silly get     date: 'Wed, 12 Oct 2016 21:28:06 GMT',
+343 silly get     via: '1.1 varnish',
+343 silly get     age: '243',
+343 silly get     connection: 'keep-alive',
+343 silly get     'x-served-by': 'cache-sea1923-SEA',
+343 silly get     'x-cache': 'HIT',
+343 silly get     'x-cache-hits': '45',
+343 silly get     'x-timer': 'S1476307686.827973,VS0,VE0',
+343 silly get     vary: 'Accept-Encoding' } ]
+344 verbose get saving optimist to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\optimist\.cache.json
+345 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+346 silly addNameRange number 2 { name: 'optimist', range: '>=0.3.0 <0.4.0', hasData: true }
+347 silly addNameRange versions [ 'optimist',
+347 silly addNameRange   [ '0.0.1',
+347 silly addNameRange     '0.0.2',
+347 silly addNameRange     '0.0.4',
+347 silly addNameRange     '0.0.5',
+347 silly addNameRange     '0.0.6',
+347 silly addNameRange     '0.0.7',
+347 silly addNameRange     '0.1.0',
+347 silly addNameRange     '0.1.1',
+347 silly addNameRange     '0.1.2',
+347 silly addNameRange     '0.1.3',
+347 silly addNameRange     '0.1.4',
+347 silly addNameRange     '0.1.5',
+347 silly addNameRange     '0.1.6',
+347 silly addNameRange     '0.1.7',
+347 silly addNameRange     '0.1.8',
+347 silly addNameRange     '0.1.9',
+347 silly addNameRange     '0.0.3',
+347 silly addNameRange     '0.2.0',
+347 silly addNameRange     '0.2.1',
+347 silly addNameRange     '0.2.2',
+347 silly addNameRange     '0.2.3',
+347 silly addNameRange     '0.2.4',
+347 silly addNameRange     '0.2.5',
+347 silly addNameRange     '0.2.6',
+347 silly addNameRange     '0.2.7',
+347 silly addNameRange     '0.2.8',
+347 silly addNameRange     '0.3.0',
+347 silly addNameRange     '0.3.1',
+347 silly addNameRange     '0.3.3',
+347 silly addNameRange     '0.3.4',
+347 silly addNameRange     '0.3.5',
+347 silly addNameRange     '0.3.6',
+347 silly addNameRange     '0.3.7',
+347 silly addNameRange     '0.4.0',
+347 silly addNameRange     '0.5.0',
+347 silly addNameRange     '0.5.1',
+347 silly addNameRange     '0.5.2',
+347 silly addNameRange     '0.6.0',
+347 silly addNameRange     '0.6.1' ] ]
+348 silly addNamed optimist@0.3.7
+349 verbose addNamed "0.3.7" is a plain semver version for optimist
+350 silly cache afterAdd optimist@0.3.7
+351 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\optimist\0.3.7\package\package.json not in flight; writing
+352 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+353 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\optimist\0.3.7\package\package.json written
+354 silly install resolved [ { name: 'optimist',
+354 silly install resolved     version: '0.3.7',
+354 silly install resolved     description: 'Light-weight option parsing with an argv hash. No optstrings attached.',
+354 silly install resolved     main: './index.js',
+354 silly install resolved     dependencies: { wordwrap: '~0.0.2' },
+354 silly install resolved     devDependencies: { hashish: '~0.0.4', tap: '~0.4.0' },
+354 silly install resolved     scripts: { test: 'tap ./test/*.js' },
+354 silly install resolved     repository:
+354 silly install resolved      { type: 'git',
+354 silly install resolved        url: 'git+ssh://git@github.com/substack/node-optimist.git' },
+354 silly install resolved     keywords:
+354 silly install resolved      [ 'argument',
+354 silly install resolved        'args',
+354 silly install resolved        'option',
+354 silly install resolved        'parser',
+354 silly install resolved        'parsing',
+354 silly install resolved        'cli',
+354 silly install resolved        'command' ],
+354 silly install resolved     author:
+354 silly install resolved      { name: 'James Halliday',
+354 silly install resolved        email: 'mail@substack.net',
+354 silly install resolved        url: 'http://substack.net' },
+354 silly install resolved     license: 'MIT/X11',
+354 silly install resolved     engine: { node: '>=0.4' },
+354 silly install resolved     _id: 'optimist@0.3.7',
+354 silly install resolved     dist:
+354 silly install resolved      { shasum: 'c90941ad59e4273328923074d2cf2e7cbc6ec0d9',
+354 silly install resolved        tarball: 'https://registry.npmjs.org/optimist/-/optimist-0.3.7.tgz' },
+354 silly install resolved     _from: 'optimist@>=0.3.0 <0.4.0',
+354 silly install resolved     _npmVersion: '1.2.2',
+354 silly install resolved     _npmUser: { name: 'substack', email: 'mail@substack.net' },
+354 silly install resolved     maintainers: [ [Object] ],
+354 silly install resolved     directories: {},
+354 silly install resolved     _shasum: 'c90941ad59e4273328923074d2cf2e7cbc6ec0d9',
+354 silly install resolved     _resolved: 'https://registry.npmjs.org/optimist/-/optimist-0.3.7.tgz',
+354 silly install resolved     bugs: { url: 'https://github.com/substack/node-optimist/issues' },
+354 silly install resolved     readme: 'ERROR: No README data found!',
+354 silly install resolved     homepage: 'https://github.com/substack/node-optimist#readme' } ]
+355 info install optimist@0.3.7 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+356 info installOne optimist@0.3.7
+357 verbose installOne of optimist to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash not in flight; installing
+358 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+359 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-fe951875cdfc235e.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+360 silly install write writing optimist 0.3.7 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+361 verbose unbuild node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+362 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged from base D:\_git\aviation-input-analysis\mod
+363 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+364 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\optimist\0.3.7\package.tgz
+365 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+366 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged
+367 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+368 silly gunzTarPerm modes [ '777', '666' ]
+369 silly gunzTarPerm extractEntry package.json
+370 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+371 silly gunzTarPerm extractEntry LICENSE
+372 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+373 silly gunzTarPerm extractEntry index.js
+374 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+375 silly gunzTarPerm extractEntry example/line_count_options.js
+376 silly gunzTarPerm modified mode [ 'example/line_count_options.js', 420, 438 ]
+377 silly gunzTarPerm extractEntry example/boolean_double.js
+378 silly gunzTarPerm modified mode [ 'example/boolean_double.js', 420, 438 ]
+379 silly gunzTarPerm extractEntry example/divide.js
+380 silly gunzTarPerm modified mode [ 'example/divide.js', 420, 438 ]
+381 silly gunzTarPerm extractEntry example/nonopt.js
+382 silly gunzTarPerm modified mode [ 'example/nonopt.js', 420, 438 ]
+383 silly gunzTarPerm extractEntry example/string.js
+384 silly gunzTarPerm modified mode [ 'example/string.js', 420, 438 ]
+385 silly gunzTarPerm extractEntry example/default_hash.js
+386 silly gunzTarPerm modified mode [ 'example/default_hash.js', 420, 438 ]
+387 silly gunzTarPerm extractEntry example/reflect.js
+388 silly gunzTarPerm modified mode [ 'example/reflect.js', 420, 438 ]
+389 silly gunzTarPerm extractEntry example/default_singles.js
+390 silly gunzTarPerm modified mode [ 'example/default_singles.js', 420, 438 ]
+391 silly gunzTarPerm extractEntry example/usage-options.js
+392 silly gunzTarPerm modified mode [ 'example/usage-options.js', 420, 438 ]
+393 silly gunzTarPerm extractEntry example/bool.js
+394 silly gunzTarPerm modified mode [ 'example/bool.js', 420, 438 ]
+395 silly gunzTarPerm extractEntry example/short.js
+396 silly gunzTarPerm modified mode [ 'example/short.js', 420, 438 ]
+397 silly gunzTarPerm extractEntry example/xup.js
+398 silly gunzTarPerm modified mode [ 'example/xup.js', 420, 438 ]
+399 silly gunzTarPerm extractEntry example/boolean_single.js
+400 silly gunzTarPerm modified mode [ 'example/boolean_single.js', 420, 438 ]
+401 silly gunzTarPerm extractEntry example/line_count_wrap.js
+402 silly gunzTarPerm modified mode [ 'example/line_count_wrap.js', 420, 438 ]
+403 silly gunzTarPerm extractEntry example/line_count.js
+404 silly gunzTarPerm modified mode [ 'example/line_count.js', 420, 438 ]
+405 silly gunzTarPerm extractEntry readme.markdown
+406 silly gunzTarPerm modified mode [ 'readme.markdown', 420, 438 ]
+407 silly gunzTarPerm extractEntry test/parse.js
+408 silly gunzTarPerm modified mode [ 'test/parse.js', 420, 438 ]
+409 silly gunzTarPerm extractEntry test/_.js
+410 silly gunzTarPerm modified mode [ 'test/_.js', 420, 438 ]
+411 silly gunzTarPerm extractEntry test/usage.js
+412 silly gunzTarPerm modified mode [ 'test/usage.js', 420, 438 ]
+413 silly gunzTarPerm extractEntry test/_/bin.js
+414 silly gunzTarPerm modified mode [ 'test/_/bin.js', 493, 511 ]
+415 silly gunzTarPerm extractEntry test/_/argv.js
+416 silly gunzTarPerm modified mode [ 'test/_/argv.js', 420, 438 ]
+417 silly gunzTarPerm extractEntry .travis.yml
+418 silly gunzTarPerm modified mode [ '.travis.yml', 420, 438 ]
+419 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+420 info preinstall optimist@0.3.7
+421 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+422 silly prepareForInstallMany adding wordwrap@~0.0.2 from optimist dependencies
+423 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+424 silly cache add args [ 'wordwrap@~0.0.2', null ]
+425 verbose cache add spec wordwrap@~0.0.2
+426 silly cache add parsed spec Result {
+426 silly cache add   raw: 'wordwrap@~0.0.2',
+426 silly cache add   scope: null,
+426 silly cache add   name: 'wordwrap',
+426 silly cache add   rawSpec: '~0.0.2',
+426 silly cache add   spec: '>=0.0.2 <0.1.0',
+426 silly cache add   type: 'range' }
+427 silly addNamed wordwrap@>=0.0.2 <0.1.0
+428 verbose addNamed ">=0.0.2 <0.1.0" is a valid semver range for wordwrap
+429 silly addNameRange { name: 'wordwrap', range: '>=0.0.2 <0.1.0', hasData: false }
+430 silly mapToRegistry name wordwrap
+431 silly mapToRegistry using default registry
+432 silly mapToRegistry registry https://registry.npmjs.org/
+433 silly mapToRegistry data Result {
+433 silly mapToRegistry   raw: 'wordwrap',
+433 silly mapToRegistry   scope: null,
+433 silly mapToRegistry   name: 'wordwrap',
+433 silly mapToRegistry   rawSpec: '',
+433 silly mapToRegistry   spec: 'latest',
+433 silly mapToRegistry   type: 'tag' }
+434 silly mapToRegistry uri https://registry.npmjs.org/wordwrap
+435 verbose addNameRange registry:https://registry.npmjs.org/wordwrap not in flight; fetching
+436 verbose request uri https://registry.npmjs.org/wordwrap
+437 verbose request no auth needed
+438 info attempt registry request try #1 at 2:28:07 PM
+439 verbose etag "EJIKDPZLF7J8QHRSPBCBABX9T"
+440 http request GET https://registry.npmjs.org/wordwrap
+441 http 304 https://registry.npmjs.org/wordwrap
+442 verbose headers { date: 'Wed, 12 Oct 2016 21:28:07 GMT',
+442 verbose headers   via: '1.1 varnish',
+442 verbose headers   'cache-control': 'max-age=300',
+442 verbose headers   etag: '"EJIKDPZLF7J8QHRSPBCBABX9T"',
+442 verbose headers   age: '30',
+442 verbose headers   connection: 'keep-alive',
+442 verbose headers   'x-served-by': 'cache-sea1922-SEA',
+442 verbose headers   'x-cache': 'HIT',
+442 verbose headers   'x-cache-hits': '10',
+442 verbose headers   'x-timer': 'S1476307687.605047,VS0,VE0',
+442 verbose headers   vary: 'Accept-Encoding' }
+443 silly get cb [ 304,
+443 silly get   { date: 'Wed, 12 Oct 2016 21:28:07 GMT',
+443 silly get     via: '1.1 varnish',
+443 silly get     'cache-control': 'max-age=300',
+443 silly get     etag: '"EJIKDPZLF7J8QHRSPBCBABX9T"',
+443 silly get     age: '30',
+443 silly get     connection: 'keep-alive',
+443 silly get     'x-served-by': 'cache-sea1922-SEA',
+443 silly get     'x-cache': 'HIT',
+443 silly get     'x-cache-hits': '10',
+443 silly get     'x-timer': 'S1476307687.605047,VS0,VE0',
+443 silly get     vary: 'Accept-Encoding' } ]
+444 verbose etag https://registry.npmjs.org/wordwrap from cache
+445 verbose get saving wordwrap to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\wordwrap\.cache.json
+446 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+447 silly addNameRange number 2 { name: 'wordwrap', range: '>=0.0.2 <0.1.0', hasData: true }
+448 silly addNameRange versions [ 'wordwrap', [ '0.0.1', '0.0.2', '0.0.3', '1.0.0' ] ]
+449 silly addNamed wordwrap@0.0.3
+450 verbose addNamed "0.0.3" is a plain semver version for wordwrap
+451 silly cache afterAdd wordwrap@0.0.3
+452 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\wordwrap\0.0.3\package\package.json not in flight; writing
+453 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+454 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\wordwrap\0.0.3\package\package.json written
+455 silly install resolved [ { name: 'wordwrap',
+455 silly install resolved     description: 'Wrap those words. Show them at what columns to start and stop.',
+455 silly install resolved     version: '0.0.3',
+455 silly install resolved     repository:
+455 silly install resolved      { type: 'git',
+455 silly install resolved        url: 'git://github.com/substack/node-wordwrap.git' },
+455 silly install resolved     main: './index.js',
+455 silly install resolved     keywords: [ 'word', 'wrap', 'rule', 'format', 'column' ],
+455 silly install resolved     directories: { lib: '.', example: 'example', test: 'test' },
+455 silly install resolved     scripts: { test: 'expresso' },
+455 silly install resolved     devDependencies: { expresso: '=0.7.x' },
+455 silly install resolved     engines: { node: '>=0.4.0' },
+455 silly install resolved     license: 'MIT',
+455 silly install resolved     author:
+455 silly install resolved      { name: 'James Halliday',
+455 silly install resolved        email: 'mail@substack.net',
+455 silly install resolved        url: 'http://substack.net' },
+455 silly install resolved     gitHead: 'e59aa1bd338914019456bdfba034508c9c4cb29d',
+455 silly install resolved     bugs: { url: 'https://github.com/substack/node-wordwrap/issues' },
+455 silly install resolved     homepage: 'https://github.com/substack/node-wordwrap#readme',
+455 silly install resolved     _id: 'wordwrap@0.0.3',
+455 silly install resolved     _shasum: 'a3d5da6cd5c0bc0008d37234bbaf1bed63059107',
+455 silly install resolved     _from: 'wordwrap@>=0.0.2 <0.1.0',
+455 silly install resolved     _npmVersion: '2.9.0',
+455 silly install resolved     _nodeVersion: '2.0.0',
+455 silly install resolved     _npmUser: { name: 'substack', email: 'substack@gmail.com' },
+455 silly install resolved     dist:
+455 silly install resolved      { shasum: 'a3d5da6cd5c0bc0008d37234bbaf1bed63059107',
+455 silly install resolved        tarball: 'https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz' },
+455 silly install resolved     maintainers: [ [Object] ],
+455 silly install resolved     _resolved: 'https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz',
+455 silly install resolved     readme: 'ERROR: No README data found!' } ]
+456 info install wordwrap@0.0.3 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+457 info installOne wordwrap@0.0.3
+458 verbose installOne of wordwrap to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist not in flight; installing
+459 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+460 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-f5a48cb61d223e42.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+461 silly install write writing wordwrap 0.0.3 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+462 verbose unbuild node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+463 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged from base D:\_git\aviation-input-analysis\mod
+464 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+465 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\wordwrap\0.0.3\package.tgz
+466 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+467 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged
+468 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+469 silly gunzTarPerm modes [ '777', '666' ]
+470 silly gunzTarPerm extractEntry package.json
+471 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+472 silly gunzTarPerm extractEntry LICENSE
+473 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+474 silly gunzTarPerm extractEntry index.js
+475 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+476 silly gunzTarPerm extractEntry README.markdown
+477 silly gunzTarPerm modified mode [ 'README.markdown', 420, 438 ]
+478 silly gunzTarPerm extractEntry example/center.js
+479 silly gunzTarPerm modified mode [ 'example/center.js', 420, 438 ]
+480 silly gunzTarPerm extractEntry example/meat.js
+481 silly gunzTarPerm modified mode [ 'example/meat.js', 420, 438 ]
+482 silly gunzTarPerm extractEntry test/break.js
+483 silly gunzTarPerm modified mode [ 'test/break.js', 420, 438 ]
+484 silly gunzTarPerm extractEntry test/wrap.js
+485 silly gunzTarPerm modified mode [ 'test/wrap.js', 420, 438 ]
+486 silly gunzTarPerm extractEntry test/idleness.txt
+487 silly gunzTarPerm modified mode [ 'test/idleness.txt', 420, 438 ]
+488 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+489 info preinstall wordwrap@0.0.3
+490 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+491 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+492 silly install resolved []
+493 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+494 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+495 info linkStuff wordwrap@0.0.3
+496 silly linkStuff wordwrap@0.0.3 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules as its parent node_modules
+497 verbose linkBins wordwrap@0.0.3
+498 verbose linkMans wordwrap@0.0.3
+499 verbose rebuildBundles wordwrap@0.0.3
+500 info install wordwrap@0.0.3
+501 info postinstall wordwrap@0.0.3
+502 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-f5a48cb61d223e42.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+503 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+504 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+505 info linkStuff optimist@0.3.7
+506 silly linkStuff optimist@0.3.7 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules as its parent node_modules
+507 verbose linkBins optimist@0.3.7
+508 verbose linkMans optimist@0.3.7
+509 verbose rebuildBundles optimist@0.3.7
+510 verbose rebuildBundles [ 'wordwrap' ]
+511 info install optimist@0.3.7
+512 info postinstall optimist@0.3.7
+513 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-fe951875cdfc235e.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+514 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+515 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+516 info linkStuff smash@0.0.15
+517 silly linkStuff smash@0.0.15 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules as its parent node_modules
+518 verbose linkBins smash@0.0.15
+519 verbose link bins [ { smash: 'smash' },
+519 verbose link bins   'D:\\_git\\aviation-input-analysis\\mod\\node_modules\\grunt-smash\\node_modules\\.bin',
+519 verbose link bins   false ]
+520 verbose linkMans smash@0.0.15
+521 verbose rebuildBundles smash@0.0.15
+522 verbose rebuildBundles [ 'optimist' ]
+523 info install smash@0.0.15
+524 info postinstall smash@0.0.15
+525 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-583f7391ff3b8866.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+526 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+527 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+528 info linkStuff grunt-smash@0.1.0
+529 silly linkStuff grunt-smash@0.1.0 has D:\_git\aviation-input-analysis\mod\node_modules as its parent node_modules
+530 verbose linkBins grunt-smash@0.1.0
+531 verbose linkMans grunt-smash@0.1.0
+532 verbose rebuildBundles grunt-smash@0.1.0
+533 verbose rebuildBundles [ '.bin', 'queue-async', 'smash' ]
+534 info install grunt-smash@0.1.0
+535 info postinstall grunt-smash@0.1.0
+536 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\package.json
+537 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt\package.json
+538 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-jshint\package.json
+539 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-uglify\package.json
+540 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+541 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\.bin\grunt\package.json
+542 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\.bin\grunt.cmd\package.json
+543 verbose already installed skipping grunt@~0.4.1 D:\_git\aviation-input-analysis\mod
+544 silly install resolved []
+545 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-2a0f5f19149c29ae.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+546 verbose validateInstall loading D:\_git\aviation-input-analysis\mod\package.json for validation
+547 verbose stack Error: The package grunt@1.0.1 does not satisfy its siblings' peerDependencies requirements!
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:125:32
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:268:7
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:142:5
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+547 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+547 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+547 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+548 verbose cwd D:\_git\aviation-input-analysis\mod
+549 error Windows_NT 6.1.7601
+550 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save-dev" "grunt-smash"
+551 error node v4.4.7
+552 error npm  v2.15.8
+553 error code EPEERINVALID
+554 error peerinvalid The package grunt@1.0.1 does not satisfy its siblings' peerDependencies requirements!
+554 error peerinvalid Peer grunt-smash@0.1.0 wants grunt@~0.4.1
+554 error peerinvalid Peer grunt-contrib-jshint@1.0.0 wants grunt@>=0.4.0
+555 verbose exit [ 1, true ]

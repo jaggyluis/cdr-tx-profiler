@@ -56,7 +56,7 @@ function setFlights (designDayFlightObjarr, loadFactor, filter, timeFrame, timeS
 	});
 	sorted.forEach(function(flight) {
 		var pax = aviation.class.Pax(aviation.get.flightProfileByAircraftType(flight.getCategory()), flight, timeSlice);
-		flight.findGate(aviation.get.gates(), true);
+		flight.findGate(aviation.get.gates(), "cluster");
 		matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
 	});
 	matrix.sortRowCols(1, function(pa, pb){

@@ -73,5 +73,19 @@ aviation.core.array = {
 			});
 		});
 		return true;
-	}
+	},
+	///
+    /// from http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
+    ///
+    shuffle: function(arr) {
+        var counter = arr.length;
+        while (counter > 0) {
+            var index = Math.floor(Math.random() * counter);
+            counter--;
+            var temp = arr[counter];
+            arr[counter] = arr[index];
+            arr[index] = temp;
+        }
+        return arr;
+    }
 };
