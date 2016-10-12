@@ -14,3 +14,6 @@ X re-evaluate  the turnaround times based on actual gate time
 - remove null passenger types ( < 1)
 
 - put grunt into /app
+
+- build gate output tab
+- add names to gate allocation diagram
