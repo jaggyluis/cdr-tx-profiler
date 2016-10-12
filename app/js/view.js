@@ -787,11 +787,18 @@ var app = app || {};
 					.attr("opacity", 0.5)
 					.attr("fill", "none");
 
-				//d3.select(this)
-				//	.append("text")
-					//.x(d.lineVals[0].x)
-					//.y(d.lineVals[0].y)
-				//	.text(function(d) { return d.gate})
+				d3.select(this)
+					.append("text")
+					//.attr("x", d.lineVals[0].x)
+					.attr("y", d.lineVals[0].y)
+					.text(function(d) {
+						if (!d.gate.match(/[ab]/)){
+							return d.gate;
+						}
+						else {
+							return "";
+						}
+					})
 
 				for (var f in d.flights) {
 					d3.select(this)
