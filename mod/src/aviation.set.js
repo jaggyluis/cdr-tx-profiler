@@ -6,7 +6,7 @@ aviation.set = function (data, cb) {
 		return aviation.profiles.PassengerProfile.deserialize(p.data);
 	});
 	aviation._gates = setGates(data.gates);
-	aviation._flights = setFlights(data.designDay, data.loadFactor, data.filter, data.timeFrame, data.timeSlice);
+	aviation._flights = setFlights(data.designDay, data.loadFactor, data.filter, data.timeFrame, data.timeSlice, data.clusterType);
 	cb();
 };
 function setGates (gateSchemeObjarr) {
@@ -17,7 +17,7 @@ function setGates (gateSchemeObjarr) {
 	});
 	return gates;
 }
-function setFlights (designDayFlightObjarr, loadFactor, filter, timeFrame, timeSlice) {
+function setFlights (designDayFlightObjarr, loadFactor, filter, timeFrame, timeSlice, clusterType) {
 	var flights = [],
 		sorted = [],
 		filtered = [],
@@ -56,7 +56,7 @@ function setFlights (designDayFlightObjarr, loadFactor, filter, timeFrame, timeS
 	});
 	sorted.forEach(function(flight) {
 		var pax = aviation.class.Pax(aviation.get.flightProfileByAircraftType(flight.getCategory()), flight, timeSlice);
-		flight.findGate(aviation.get.gates(), "cluster");
+		flight.findGate(aviation.get.gates(), clusterType);
 		matrix = pax.getFlowDistributionMatrix(matrix, aviation.get.passengerProfiles());
 	});
 	matrix.sortRowCols(1, function(pa, pb){

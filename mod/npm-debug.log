@@ -6,12 +6,12 @@
 1 verbose cli   'grunt-smash' ]
 2 info using npm@2.15.8
 3 info using node@v4.4.7
-4 verbose install initial load of D:\_git\aviation-input-analysis\mod\package.json
+4 verbose install initial load of H:\_git\cdr-aviation-input-generator\mod\package.json
 5 warn package.json aviation@0.0.1 No README data
-6 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt\package.json
-7 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-jshint\package.json
-8 verbose installManyTop reading scoped package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-uglify\package.json
-9 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\package.json
+6 verbose installManyTop reading scoped package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt\package.json
+7 verbose installManyTop reading scoped package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-contrib-jshint\package.json
+8 verbose installManyTop reading scoped package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-contrib-uglify\package.json
+9 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\package.json
 10 silly cache add args [ 'grunt-smash', null ]
 11 verbose cache add spec grunt-smash
 12 silly cache add parsed spec Result {
@@ -38,33 +38,33 @@
 21 verbose addNameTag registry:https://registry.npmjs.org/grunt-smash not in flight; fetching
 22 verbose request uri https://registry.npmjs.org/grunt-smash
 23 verbose request no auth needed
-24 info attempt registry request try #1 at 2:28:04 PM
-25 verbose request id a6e85b14e2fe3a1d
+24 info attempt registry request try #1 at 11:43:43 AM
+25 verbose request id 3f0e7c980317d382
 26 verbose etag "ANPNWZ7RQNAQO68ZHRQ7CIBV0"
 27 http request GET https://registry.npmjs.org/grunt-smash
 28 http 304 https://registry.npmjs.org/grunt-smash
-29 verbose headers { date: 'Wed, 12 Oct 2016 21:28:04 GMT',
+29 verbose headers { date: 'Wed, 09 Nov 2016 19:43:43 GMT',
 29 verbose headers   via: '1.1 varnish',
 29 verbose headers   'cache-control': 'max-age=300',
 29 verbose headers   etag: '"ANPNWZ7RQNAQO68ZHRQ7CIBV0"',
 29 verbose headers   age: '0',
 29 verbose headers   connection: 'keep-alive',
-29 verbose headers   'x-served-by': 'cache-sea1922-SEA',
+29 verbose headers   'x-served-by': 'cache-sjc3637-SJC',
 29 verbose headers   'x-cache': 'MISS',
 29 verbose headers   'x-cache-hits': '0',
-29 verbose headers   'x-timer': 'S1476307684.656875,VS0,VE31',
+29 verbose headers   'x-timer': 'S1478720623.482063,VS0,VE360',
 29 verbose headers   vary: 'Accept-Encoding' }
 30 silly get cb [ 304,
-30 silly get   { date: 'Wed, 12 Oct 2016 21:28:04 GMT',
+30 silly get   { date: 'Wed, 09 Nov 2016 19:43:43 GMT',
 30 silly get     via: '1.1 varnish',
 30 silly get     'cache-control': 'max-age=300',
 30 silly get     etag: '"ANPNWZ7RQNAQO68ZHRQ7CIBV0"',
 30 silly get     age: '0',
 30 silly get     connection: 'keep-alive',
-30 silly get     'x-served-by': 'cache-sea1922-SEA',
+30 silly get     'x-served-by': 'cache-sjc3637-SJC',
 30 silly get     'x-cache': 'MISS',
 30 silly get     'x-cache-hits': '0',
-30 silly get     'x-timer': 'S1476307684.656875,VS0,VE31',
+30 silly get     'x-timer': 'S1478720623.482063,VS0,VE360',
 30 silly get     vary: 'Accept-Encoding' } ]
 31 verbose etag https://registry.npmjs.org/grunt-smash from cache
 32 verbose get saving grunt-smash to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-smash\.cache.json
@@ -108,19 +108,19 @@
 41 silly install resolved     directories: {},
 41 silly install resolved     _shasum: '77282b48b1372aeb7d67456f1277e9c9c5219741',
 41 silly install resolved     _resolved: 'https://registry.npmjs.org/grunt-smash/-/grunt-smash-0.1.0.tgz' } ]
-42 info install grunt-smash@0.1.0 into D:\_git\aviation-input-analysis\mod
+42 info install grunt-smash@0.1.0 into H:\_git\cdr-aviation-input-generator\mod
 43 info installOne grunt-smash@0.1.0
-44 verbose installOne of grunt-smash to D:\_git\aviation-input-analysis\mod not in flight; installing
+44 verbose installOne of grunt-smash to H:\_git\cdr-aviation-input-generator\mod not in flight; installing
 45 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
-46 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-2a0f5f19149c29ae.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-47 silly install write writing grunt-smash 0.1.0 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+46 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-1412208b03e67c56.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+47 silly install write writing grunt-smash 0.1.0 to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
 48 verbose unbuild node_modules\grunt-smash
-49 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash is being purged from base D:\_git\aviation-input-analysis\mod
-50 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+49 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash is being purged from base H:\_git\cdr-aviation-input-generator\mod
+50 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
 51 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\grunt-smash\0.1.0\package.tgz
-52 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-53 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash is being purged
-54 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+52 verbose tar unpacking to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+53 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash is being purged
+54 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
 55 silly gunzTarPerm modes [ '777', '666' ]
 56 silly gunzTarPerm extractEntry package.json
 57 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
@@ -148,200 +148,174 @@
 79 silly gunzTarPerm modified mode [ 'test/fixtures/baz.js', 420, 438 ]
 80 silly gunzTarPerm extractEntry test/fixtures/foo.js
 81 silly gunzTarPerm modified mode [ 'test/fixtures/foo.js', 420, 438 ]
-82 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+82 verbose write writing to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\package.json
 83 info preinstall grunt-smash@0.1.0
-84 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
+84 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\package.json
 85 silly prepareForInstallMany adding smash@~0.0.11 from grunt-smash dependencies
 86 silly prepareForInstallMany adding queue-async@~1.0.3 from grunt-smash dependencies
 87 silly prepareForInstallMany adding grunt@~0.4.1 from grunt-smash peerDependencies
 88 warn peerDependencies The peer dependency grunt@~0.4.1 included from grunt-smash will no
 89 warn peerDependencies longer be automatically installed to fulfill the peerDependency
 90 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
-91 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
-92 silly cache add args [ 'smash@~0.0.11', null ]
-93 verbose cache add spec smash@~0.0.11
-94 silly cache add args [ 'queue-async@~1.0.3', null ]
-95 verbose cache add spec queue-async@~1.0.3
-96 silly cache add parsed spec Result {
-96 silly cache add   raw: 'smash@~0.0.11',
-96 silly cache add   scope: null,
-96 silly cache add   name: 'smash',
-96 silly cache add   rawSpec: '~0.0.11',
-96 silly cache add   spec: '>=0.0.11 <0.1.0',
-96 silly cache add   type: 'range' }
-97 silly addNamed smash@>=0.0.11 <0.1.0
-98 verbose addNamed ">=0.0.11 <0.1.0" is a valid semver range for smash
-99 silly addNameRange { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: false }
-100 silly mapToRegistry name smash
-101 silly mapToRegistry using default registry
-102 silly mapToRegistry registry https://registry.npmjs.org/
-103 silly mapToRegistry data Result {
-103 silly mapToRegistry   raw: 'smash',
-103 silly mapToRegistry   scope: null,
-103 silly mapToRegistry   name: 'smash',
-103 silly mapToRegistry   rawSpec: '',
-103 silly mapToRegistry   spec: 'latest',
-103 silly mapToRegistry   type: 'tag' }
-104 silly mapToRegistry uri https://registry.npmjs.org/smash
-105 verbose addNameRange registry:https://registry.npmjs.org/smash not in flight; fetching
+91 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\package.json
+92 silly cache add args [ 'queue-async@~1.0.3', null ]
+93 verbose cache add spec queue-async@~1.0.3
+94 silly cache add parsed spec Result {
+94 silly cache add   raw: 'queue-async@~1.0.3',
+94 silly cache add   scope: null,
+94 silly cache add   name: 'queue-async',
+94 silly cache add   rawSpec: '~1.0.3',
+94 silly cache add   spec: '>=1.0.3 <1.1.0',
+94 silly cache add   type: 'range' }
+95 silly addNamed queue-async@>=1.0.3 <1.1.0
+96 verbose addNamed ">=1.0.3 <1.1.0" is a valid semver range for queue-async
+97 silly addNameRange { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: false }
+98 silly mapToRegistry name queue-async
+99 silly mapToRegistry using default registry
+100 silly mapToRegistry registry https://registry.npmjs.org/
+101 silly mapToRegistry data Result {
+101 silly mapToRegistry   raw: 'queue-async',
+101 silly mapToRegistry   scope: null,
+101 silly mapToRegistry   name: 'queue-async',
+101 silly mapToRegistry   rawSpec: '',
+101 silly mapToRegistry   spec: 'latest',
+101 silly mapToRegistry   type: 'tag' }
+102 silly mapToRegistry uri https://registry.npmjs.org/queue-async
+103 verbose addNameRange registry:https://registry.npmjs.org/queue-async not in flight; fetching
+104 silly cache add args [ 'smash@~0.0.11', null ]
+105 verbose cache add spec smash@~0.0.11
 106 silly cache add parsed spec Result {
-106 silly cache add   raw: 'queue-async@~1.0.3',
+106 silly cache add   raw: 'smash@~0.0.11',
 106 silly cache add   scope: null,
-106 silly cache add   name: 'queue-async',
-106 silly cache add   rawSpec: '~1.0.3',
-106 silly cache add   spec: '>=1.0.3 <1.1.0',
+106 silly cache add   name: 'smash',
+106 silly cache add   rawSpec: '~0.0.11',
+106 silly cache add   spec: '>=0.0.11 <0.1.0',
 106 silly cache add   type: 'range' }
-107 silly addNamed queue-async@>=1.0.3 <1.1.0
-108 verbose addNamed ">=1.0.3 <1.1.0" is a valid semver range for queue-async
-109 silly addNameRange { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: false }
-110 silly mapToRegistry name queue-async
+107 silly addNamed smash@>=0.0.11 <0.1.0
+108 verbose addNamed ">=0.0.11 <0.1.0" is a valid semver range for smash
+109 silly addNameRange { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: false }
+110 silly mapToRegistry name smash
 111 silly mapToRegistry using default registry
 112 silly mapToRegistry registry https://registry.npmjs.org/
 113 silly mapToRegistry data Result {
-113 silly mapToRegistry   raw: 'queue-async',
+113 silly mapToRegistry   raw: 'smash',
 113 silly mapToRegistry   scope: null,
-113 silly mapToRegistry   name: 'queue-async',
+113 silly mapToRegistry   name: 'smash',
 113 silly mapToRegistry   rawSpec: '',
 113 silly mapToRegistry   spec: 'latest',
 113 silly mapToRegistry   type: 'tag' }
-114 silly mapToRegistry uri https://registry.npmjs.org/queue-async
-115 verbose addNameRange registry:https://registry.npmjs.org/queue-async not in flight; fetching
+114 silly mapToRegistry uri https://registry.npmjs.org/smash
+115 verbose addNameRange registry:https://registry.npmjs.org/smash not in flight; fetching
 116 verbose request uri https://registry.npmjs.org/smash
 117 verbose request no auth needed
-118 info attempt registry request try #1 at 2:28:05 PM
+118 info attempt registry request try #1 at 11:43:44 AM
 119 verbose etag "2I4T5E8Z0IKSW6PLW52NWH5OS"
 120 http request GET https://registry.npmjs.org/smash
 121 verbose request uri https://registry.npmjs.org/queue-async
 122 verbose request no auth needed
-123 info attempt registry request try #1 at 2:28:05 PM
+123 info attempt registry request try #1 at 11:43:44 AM
 124 verbose etag "1MUAGVF2VHPIFYVKYGDVINJ5X"
 125 http request GET https://registry.npmjs.org/queue-async
-126 http 304 https://registry.npmjs.org/queue-async
-127 verbose headers { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+126 http 304 https://registry.npmjs.org/smash
+127 verbose headers { date: 'Wed, 09 Nov 2016 19:43:44 GMT',
 127 verbose headers   via: '1.1 varnish',
 127 verbose headers   'cache-control': 'max-age=300',
-127 verbose headers   etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
-127 verbose headers   age: '111',
+127 verbose headers   etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
+127 verbose headers   age: '0',
 127 verbose headers   connection: 'keep-alive',
-127 verbose headers   'x-served-by': 'cache-sea1923-SEA',
-127 verbose headers   'x-cache': 'HIT',
-127 verbose headers   'x-cache-hits': '2',
-127 verbose headers   'x-timer': 'S1476307685.365838,VS0,VE0',
+127 verbose headers   'x-served-by': 'cache-sjc3637-SJC',
+127 verbose headers   'x-cache': 'MISS',
+127 verbose headers   'x-cache-hits': '0',
+127 verbose headers   'x-timer': 'S1478720624.535299,VS0,VE151',
 127 verbose headers   vary: 'Accept-Encoding' }
 128 silly get cb [ 304,
-128 silly get   { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
+128 silly get   { date: 'Wed, 09 Nov 2016 19:43:44 GMT',
 128 silly get     via: '1.1 varnish',
 128 silly get     'cache-control': 'max-age=300',
-128 silly get     etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
-128 silly get     age: '111',
+128 silly get     etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
+128 silly get     age: '0',
 128 silly get     connection: 'keep-alive',
-128 silly get     'x-served-by': 'cache-sea1923-SEA',
-128 silly get     'x-cache': 'HIT',
-128 silly get     'x-cache-hits': '2',
-128 silly get     'x-timer': 'S1476307685.365838,VS0,VE0',
+128 silly get     'x-served-by': 'cache-sjc3637-SJC',
+128 silly get     'x-cache': 'MISS',
+128 silly get     'x-cache-hits': '0',
+128 silly get     'x-timer': 'S1478720624.535299,VS0,VE151',
 128 silly get     vary: 'Accept-Encoding' } ]
-129 verbose etag https://registry.npmjs.org/queue-async from cache
-130 verbose get saving queue-async to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\queue-async\.cache.json
+129 verbose etag https://registry.npmjs.org/smash from cache
+130 verbose get saving smash to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\smash\.cache.json
 131 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-132 silly addNameRange number 2 { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: true }
-133 silly addNameRange versions [ 'queue-async',
-133 silly addNameRange   [ '0.0.2',
-133 silly addNameRange     '1.0.0',
-133 silly addNameRange     '1.0.1',
-133 silly addNameRange     '1.0.2',
-133 silly addNameRange     '1.0.3',
-133 silly addNameRange     '1.0.4',
-133 silly addNameRange     '1.0.5',
-133 silly addNameRange     '1.0.6',
-133 silly addNameRange     '1.0.7',
-133 silly addNameRange     '1.1.0',
-133 silly addNameRange     '1.1.1',
-133 silly addNameRange     '1.2.0',
-133 silly addNameRange     '1.2.1' ] ]
-134 silly addNamed queue-async@1.0.7
-135 verbose addNamed "1.0.7" is a plain semver version for queue-async
-136 warn deprecated queue-async@1.0.7: renamed to d3-queue
-137 silly cache afterAdd queue-async@1.0.7
-138 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json not in flight; writing
-139 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-140 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json written
-141 http 304 https://registry.npmjs.org/smash
-142 verbose headers { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
-142 verbose headers   via: '1.1 varnish',
-142 verbose headers   'cache-control': 'max-age=300',
-142 verbose headers   etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
-142 verbose headers   age: '0',
-142 verbose headers   connection: 'keep-alive',
-142 verbose headers   'x-served-by': 'cache-sea1922-SEA',
-142 verbose headers   'x-cache': 'MISS',
-142 verbose headers   'x-cache-hits': '0',
-142 verbose headers   'x-timer': 'S1476307685.311318,VS0,VE91',
-142 verbose headers   vary: 'Accept-Encoding' }
-143 silly get cb [ 304,
-143 silly get   { date: 'Wed, 12 Oct 2016 21:28:05 GMT',
-143 silly get     via: '1.1 varnish',
-143 silly get     'cache-control': 'max-age=300',
-143 silly get     etag: '"2I4T5E8Z0IKSW6PLW52NWH5OS"',
-143 silly get     age: '0',
-143 silly get     connection: 'keep-alive',
-143 silly get     'x-served-by': 'cache-sea1922-SEA',
-143 silly get     'x-cache': 'MISS',
-143 silly get     'x-cache-hits': '0',
-143 silly get     'x-timer': 'S1476307685.311318,VS0,VE91',
-143 silly get     vary: 'Accept-Encoding' } ]
-144 verbose etag https://registry.npmjs.org/smash from cache
-145 verbose get saving smash to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\smash\.cache.json
-146 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-147 silly addNameRange number 2 { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: true }
-148 silly addNameRange versions [ 'smash',
-148 silly addNameRange   [ '0.0.1',
-148 silly addNameRange     '0.0.2',
-148 silly addNameRange     '0.0.3',
-148 silly addNameRange     '0.0.4',
-148 silly addNameRange     '0.0.5',
-148 silly addNameRange     '0.0.6',
-148 silly addNameRange     '0.0.7',
-148 silly addNameRange     '0.0.8',
-148 silly addNameRange     '0.0.9',
-148 silly addNameRange     '0.0.10',
-148 silly addNameRange     '0.0.11',
-148 silly addNameRange     '0.0.12',
-148 silly addNameRange     '0.0.13',
-148 silly addNameRange     '0.0.14',
-148 silly addNameRange     '0.0.15' ] ]
-149 silly addNamed smash@0.0.15
-150 verbose addNamed "0.0.15" is a plain semver version for smash
-151 silly cache afterAdd smash@0.0.15
-152 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json not in flight; writing
+132 silly addNameRange number 2 { name: 'smash', range: '>=0.0.11 <0.1.0', hasData: true }
+133 silly addNameRange versions [ 'smash',
+133 silly addNameRange   [ '0.0.1',
+133 silly addNameRange     '0.0.2',
+133 silly addNameRange     '0.0.3',
+133 silly addNameRange     '0.0.4',
+133 silly addNameRange     '0.0.5',
+133 silly addNameRange     '0.0.6',
+133 silly addNameRange     '0.0.7',
+133 silly addNameRange     '0.0.8',
+133 silly addNameRange     '0.0.9',
+133 silly addNameRange     '0.0.10',
+133 silly addNameRange     '0.0.11',
+133 silly addNameRange     '0.0.12',
+133 silly addNameRange     '0.0.13',
+133 silly addNameRange     '0.0.14',
+133 silly addNameRange     '0.0.15' ] ]
+134 silly addNamed smash@0.0.15
+135 verbose addNamed "0.0.15" is a plain semver version for smash
+136 silly cache afterAdd smash@0.0.15
+137 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json not in flight; writing
+138 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+139 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json written
+140 http 304 https://registry.npmjs.org/queue-async
+141 verbose headers { date: 'Wed, 09 Nov 2016 19:43:44 GMT',
+141 verbose headers   via: '1.1 varnish',
+141 verbose headers   'cache-control': 'max-age=300',
+141 verbose headers   etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
+141 verbose headers   age: '0',
+141 verbose headers   connection: 'keep-alive',
+141 verbose headers   'x-served-by': 'cache-sjc3646-SJC',
+141 verbose headers   'x-cache': 'MISS',
+141 verbose headers   'x-cache-hits': '0',
+141 verbose headers   'x-timer': 'S1478720624.560587,VS0,VE346',
+141 verbose headers   vary: 'Accept-Encoding' }
+142 silly get cb [ 304,
+142 silly get   { date: 'Wed, 09 Nov 2016 19:43:44 GMT',
+142 silly get     via: '1.1 varnish',
+142 silly get     'cache-control': 'max-age=300',
+142 silly get     etag: '"1MUAGVF2VHPIFYVKYGDVINJ5X"',
+142 silly get     age: '0',
+142 silly get     connection: 'keep-alive',
+142 silly get     'x-served-by': 'cache-sjc3646-SJC',
+142 silly get     'x-cache': 'MISS',
+142 silly get     'x-cache-hits': '0',
+142 silly get     'x-timer': 'S1478720624.560587,VS0,VE346',
+142 silly get     vary: 'Accept-Encoding' } ]
+143 verbose etag https://registry.npmjs.org/queue-async from cache
+144 verbose get saving queue-async to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\queue-async\.cache.json
+145 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+146 silly addNameRange number 2 { name: 'queue-async', range: '>=1.0.3 <1.1.0', hasData: true }
+147 silly addNameRange versions [ 'queue-async',
+147 silly addNameRange   [ '0.0.2',
+147 silly addNameRange     '1.0.0',
+147 silly addNameRange     '1.0.1',
+147 silly addNameRange     '1.0.2',
+147 silly addNameRange     '1.0.3',
+147 silly addNameRange     '1.0.4',
+147 silly addNameRange     '1.0.5',
+147 silly addNameRange     '1.0.6',
+147 silly addNameRange     '1.0.7',
+147 silly addNameRange     '1.1.0',
+147 silly addNameRange     '1.1.1',
+147 silly addNameRange     '1.2.0',
+147 silly addNameRange     '1.2.1' ] ]
+148 silly addNamed queue-async@1.0.7
+149 verbose addNamed "1.0.7" is a plain semver version for queue-async
+150 warn deprecated queue-async@1.0.7: renamed to d3-queue
+151 silly cache afterAdd queue-async@1.0.7
+152 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json not in flight; writing
 153 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
-154 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package\package.json written
-155 silly install resolved [ { name: 'queue-async',
-155 silly install resolved     version: '1.0.7',
-155 silly install resolved     description: 'A little helper for asynchronous JavaScript.',
-155 silly install resolved     keywords: [ 'asynchronous', 'async', 'queue' ],
-155 silly install resolved     author: { name: 'Mike Bostock', url: 'http://bost.ocks.org/mike' },
-155 silly install resolved     repository:
-155 silly install resolved      { type: 'git',
-155 silly install resolved        url: 'git+https://github.com/mbostock/queue.git' },
-155 silly install resolved     main: 'queue.js',
-155 silly install resolved     devDependencies: { 'uglify-js': '2', vows: '0.7' },
-155 silly install resolved     scripts: { test: 'vows; echo' },
-155 silly install resolved     bugs: { url: 'https://github.com/mbostock/queue/issues' },
-155 silly install resolved     _id: 'queue-async@1.0.7',
-155 silly install resolved     dist:
-155 silly install resolved      { shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
-155 silly install resolved        tarball: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz' },
-155 silly install resolved     _from: 'queue-async@>=1.0.3 <1.1.0',
-155 silly install resolved     _npmVersion: '1.3.11',
-155 silly install resolved     _npmUser: { name: 'mbostock', email: 'mbostock@gmail.com' },
-155 silly install resolved     maintainers: [ [Object] ],
-155 silly install resolved     deprecated: 'renamed to d3-queue',
-155 silly install resolved     directories: {},
-155 silly install resolved     _shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
-155 silly install resolved     _resolved: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz',
-155 silly install resolved     readme: 'ERROR: No README data found!',
-155 silly install resolved     homepage: 'https://github.com/mbostock/queue#readme' },
-155 silly install resolved   { name: 'smash',
+154 verbose afterAdd C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package\package.json written
+155 silly install resolved [ { name: 'smash',
 155 silly install resolved     version: '0.0.15',
 155 silly install resolved     description: 'Concatenate files together using import statements.',
 155 silly install resolved     keywords: [ 'import', 'module' ],
@@ -372,33 +346,59 @@
 155 silly install resolved     maintainers: [ [Object] ],
 155 silly install resolved     directories: {},
 155 silly install resolved     _resolved: 'https://registry.npmjs.org/smash/-/smash-0.0.15.tgz',
-155 silly install resolved     readme: 'ERROR: No README data found!' } ]
-156 info install queue-async@1.0.7 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-157 info install smash@0.0.15 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-158 info installOne queue-async@1.0.7
-159 verbose installOne of queue-async to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash not in flight; installing
+155 silly install resolved     readme: 'ERROR: No README data found!' },
+155 silly install resolved   { name: 'queue-async',
+155 silly install resolved     version: '1.0.7',
+155 silly install resolved     description: 'A little helper for asynchronous JavaScript.',
+155 silly install resolved     keywords: [ 'asynchronous', 'async', 'queue' ],
+155 silly install resolved     author: { name: 'Mike Bostock', url: 'http://bost.ocks.org/mike' },
+155 silly install resolved     repository:
+155 silly install resolved      { type: 'git',
+155 silly install resolved        url: 'git+https://github.com/mbostock/queue.git' },
+155 silly install resolved     main: 'queue.js',
+155 silly install resolved     devDependencies: { 'uglify-js': '2', vows: '0.7' },
+155 silly install resolved     scripts: { test: 'vows; echo' },
+155 silly install resolved     bugs: { url: 'https://github.com/mbostock/queue/issues' },
+155 silly install resolved     _id: 'queue-async@1.0.7',
+155 silly install resolved     dist:
+155 silly install resolved      { shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
+155 silly install resolved        tarball: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz' },
+155 silly install resolved     _from: 'queue-async@>=1.0.3 <1.1.0',
+155 silly install resolved     _npmVersion: '1.3.11',
+155 silly install resolved     _npmUser: { name: 'mbostock', email: 'mbostock@gmail.com' },
+155 silly install resolved     maintainers: [ [Object] ],
+155 silly install resolved     deprecated: 'renamed to d3-queue',
+155 silly install resolved     directories: {},
+155 silly install resolved     _shasum: '22ae0a1dac4a92f5bcd4634f993c682a2a810945',
+155 silly install resolved     _resolved: 'https://registry.npmjs.org/queue-async/-/queue-async-1.0.7.tgz',
+155 silly install resolved     readme: 'ERROR: No README data found!',
+155 silly install resolved     homepage: 'https://github.com/mbostock/queue#readme' } ]
+156 info install smash@0.0.15 into H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+157 info install queue-async@1.0.7 into H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+158 info installOne smash@0.0.15
+159 verbose installOne of smash to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash not in flight; installing
 160 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
-161 info installOne smash@0.0.15
-162 verbose installOne of smash to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash not in flight; installing
+161 info installOne queue-async@1.0.7
+162 verbose installOne of queue-async to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash not in flight; installing
 163 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
-164 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-583f7391ff3b8866.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
-165 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-4ef1b4d1596e6f11.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
-166 silly install write writing smash 0.0.15 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
-167 silly install write writing queue-async 1.0.7 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+164 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-3e5d33afaedd5b4e.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
+165 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-5dd0b4933e530390.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
+166 silly install write writing smash 0.0.15 to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
+167 silly install write writing queue-async 1.0.7 to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
 168 verbose unbuild node_modules\grunt-smash\node_modules\queue-async
 169 verbose unbuild node_modules\grunt-smash\node_modules\smash
-170 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async is being purged from base D:\_git\aviation-input-analysis\mod
-171 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
-172 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash is being purged from base D:\_git\aviation-input-analysis\mod
-173 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+170 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async is being purged from base H:\_git\cdr-aviation-input-generator\mod
+171 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
+172 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash is being purged from base H:\_git\cdr-aviation-input-generator\mod
+173 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
 174 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\queue-async\1.0.7\package.tgz
-175 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
-176 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async is being purged
-177 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+175 verbose tar unpacking to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
+176 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async is being purged
+177 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
 178 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\smash\0.0.15\package.tgz
-179 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
-180 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash is being purged
-181 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+179 verbose tar unpacking to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
+180 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash is being purged
+181 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
 182 silly gunzTarPerm modes [ '777', '666' ]
 183 silly gunzTarPerm modes [ '777', '666' ]
 184 silly gunzTarPerm extractEntry package.json
@@ -415,20 +415,20 @@
 195 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
 196 silly gunzTarPerm extractEntry LICENSE
 197 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
-198 silly gunzTarPerm extractEntry index.js
-199 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+198 silly gunzTarPerm extractEntry queue.js
+199 silly gunzTarPerm modified mode [ 'queue.js', 420, 438 ]
 200 silly gunzTarPerm extractEntry LICENSE
 201 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
-202 silly gunzTarPerm extractEntry queue.js
-203 silly gunzTarPerm modified mode [ 'queue.js', 420, 438 ]
-204 silly gunzTarPerm extractEntry lib/smash/emit-imports.js
-205 silly gunzTarPerm modified mode [ 'lib/smash/emit-imports.js', 420, 438 ]
-206 silly gunzTarPerm extractEntry lib/smash/emit-lines.js
-207 silly gunzTarPerm modified mode [ 'lib/smash/emit-lines.js', 420, 438 ]
-208 silly gunzTarPerm extractEntry queue.min.js
-209 silly gunzTarPerm modified mode [ 'queue.min.js', 420, 438 ]
-210 silly gunzTarPerm extractEntry Makefile
-211 silly gunzTarPerm modified mode [ 'Makefile', 420, 438 ]
+202 silly gunzTarPerm extractEntry index.js
+203 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+204 silly gunzTarPerm extractEntry queue.min.js
+205 silly gunzTarPerm modified mode [ 'queue.min.js', 420, 438 ]
+206 silly gunzTarPerm extractEntry Makefile
+207 silly gunzTarPerm modified mode [ 'Makefile', 420, 438 ]
+208 silly gunzTarPerm extractEntry lib/smash/emit-imports.js
+209 silly gunzTarPerm modified mode [ 'lib/smash/emit-imports.js', 420, 438 ]
+210 silly gunzTarPerm extractEntry lib/smash/emit-lines.js
+211 silly gunzTarPerm modified mode [ 'lib/smash/emit-lines.js', 420, 438 ]
 212 silly gunzTarPerm extractEntry lib/smash/expand-file.js
 213 silly gunzTarPerm modified mode [ 'lib/smash/expand-file.js', 420, 438 ]
 214 silly gunzTarPerm extractEntry lib/smash/load.js
@@ -521,26 +521,26 @@
 301 silly gunzTarPerm modified mode [ 'test/data/imports-foo.js', 420, 438 ]
 302 silly gunzTarPerm extractEntry src/package.js
 303 silly gunzTarPerm modified mode [ 'src/package.js', 420, 438 ]
-304 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+304 verbose write writing to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
 305 info preinstall queue-async@1.0.7
-306 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
-307 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+306 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
+307 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async\package.json
 308 silly install resolved []
-309 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
-310 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
+309 verbose about to build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
+310 info build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
 311 info linkStuff queue-async@1.0.7
-312 silly linkStuff queue-async@1.0.7 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules as its parent node_modules
+312 silly linkStuff queue-async@1.0.7 has H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules as its parent node_modules
 313 verbose linkBins queue-async@1.0.7
 314 verbose linkMans queue-async@1.0.7
 315 verbose rebuildBundles queue-async@1.0.7
 316 info install queue-async@1.0.7
 317 info postinstall queue-async@1.0.7
-318 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-4ef1b4d1596e6f11.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\queue-async
-319 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+318 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\queue-async-5dd0b4933e530390.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\queue-async
+319 verbose write writing to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\package.json
 320 info preinstall smash@0.0.15
-321 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+321 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\package.json
 322 silly prepareForInstallMany adding optimist@0.3.x from smash dependencies
-323 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\package.json
+323 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\package.json
 324 silly cache add args [ 'optimist@0.3.x', null ]
 325 verbose cache add spec optimist@0.3.x
 326 silly cache add parsed spec Result {
@@ -567,42 +567,42 @@
 335 verbose addNameRange registry:https://registry.npmjs.org/optimist not in flight; fetching
 336 verbose request uri https://registry.npmjs.org/optimist
 337 verbose request no auth needed
-338 info attempt registry request try #1 at 2:28:06 PM
-339 verbose etag "2NB2ROHJ4GTU9A3BEFFXFSKL8"
+338 info attempt registry request try #1 at 11:43:46 AM
+339 verbose etag "8ZDPHXL00R9UQVIVA976647Y0"
 340 http request GET https://registry.npmjs.org/optimist
 341 http 200 https://registry.npmjs.org/optimist
 342 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-342 verbose headers   etag: '"8ZDPHXL00R9UQVIVA976647Y0"',
+342 verbose headers   etag: '"99GFH1CJJT9Z9BYW2JO0Z6LFM"',
 342 verbose headers   'content-type': 'application/json',
 342 verbose headers   'content-encoding': 'gzip',
 342 verbose headers   'cache-control': 'max-age=300',
-342 verbose headers   'content-length': '9316',
+342 verbose headers   'content-length': '9332',
 342 verbose headers   'accept-ranges': 'bytes',
-342 verbose headers   date: 'Wed, 12 Oct 2016 21:28:06 GMT',
+342 verbose headers   date: 'Wed, 09 Nov 2016 19:43:46 GMT',
 342 verbose headers   via: '1.1 varnish',
-342 verbose headers   age: '243',
+342 verbose headers   age: '121',
 342 verbose headers   connection: 'keep-alive',
-342 verbose headers   'x-served-by': 'cache-sea1923-SEA',
+342 verbose headers   'x-served-by': 'cache-sjc3637-SJC',
 342 verbose headers   'x-cache': 'HIT',
-342 verbose headers   'x-cache-hits': '45',
-342 verbose headers   'x-timer': 'S1476307686.827973,VS0,VE0',
+342 verbose headers   'x-cache-hits': '3',
+342 verbose headers   'x-timer': 'S1478720626.461338,VS0,VE0',
 342 verbose headers   vary: 'Accept-Encoding' }
 343 silly get cb [ 200,
 343 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-343 silly get     etag: '"8ZDPHXL00R9UQVIVA976647Y0"',
+343 silly get     etag: '"99GFH1CJJT9Z9BYW2JO0Z6LFM"',
 343 silly get     'content-type': 'application/json',
 343 silly get     'content-encoding': 'gzip',
 343 silly get     'cache-control': 'max-age=300',
-343 silly get     'content-length': '9316',
+343 silly get     'content-length': '9332',
 343 silly get     'accept-ranges': 'bytes',
-343 silly get     date: 'Wed, 12 Oct 2016 21:28:06 GMT',
+343 silly get     date: 'Wed, 09 Nov 2016 19:43:46 GMT',
 343 silly get     via: '1.1 varnish',
-343 silly get     age: '243',
+343 silly get     age: '121',
 343 silly get     connection: 'keep-alive',
-343 silly get     'x-served-by': 'cache-sea1923-SEA',
+343 silly get     'x-served-by': 'cache-sjc3637-SJC',
 343 silly get     'x-cache': 'HIT',
-343 silly get     'x-cache-hits': '45',
-343 silly get     'x-timer': 'S1476307686.827973,VS0,VE0',
+343 silly get     'x-cache-hits': '3',
+343 silly get     'x-timer': 'S1478720626.461338,VS0,VE0',
 343 silly get     vary: 'Accept-Encoding' } ]
 344 verbose get saving optimist to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\optimist\.cache.json
 345 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
@@ -691,19 +691,19 @@
 354 silly install resolved     bugs: { url: 'https://github.com/substack/node-optimist/issues' },
 354 silly install resolved     readme: 'ERROR: No README data found!',
 354 silly install resolved     homepage: 'https://github.com/substack/node-optimist#readme' } ]
-355 info install optimist@0.3.7 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+355 info install optimist@0.3.7 into H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
 356 info installOne optimist@0.3.7
-357 verbose installOne of optimist to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash not in flight; installing
+357 verbose installOne of optimist to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash not in flight; installing
 358 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
-359 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-fe951875cdfc235e.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
-360 silly install write writing optimist 0.3.7 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+359 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-c9d9c673c3392d48.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+360 silly install write writing optimist 0.3.7 to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
 361 verbose unbuild node_modules\grunt-smash\node_modules\smash\node_modules\optimist
-362 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged from base D:\_git\aviation-input-analysis\mod
-363 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+362 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged from base H:\_git\cdr-aviation-input-generator\mod
+363 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
 364 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\optimist\0.3.7\package.tgz
-365 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
-366 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged
-367 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+365 verbose tar unpacking to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+366 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist is being purged
+367 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
 368 silly gunzTarPerm modes [ '777', '666' ]
 369 silly gunzTarPerm extractEntry package.json
 370 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
@@ -755,11 +755,11 @@
 416 silly gunzTarPerm modified mode [ 'test/_/argv.js', 420, 438 ]
 417 silly gunzTarPerm extractEntry .travis.yml
 418 silly gunzTarPerm modified mode [ '.travis.yml', 420, 438 ]
-419 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+419 verbose write writing to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
 420 info preinstall optimist@0.3.7
-421 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+421 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
 422 silly prepareForInstallMany adding wordwrap@~0.0.2 from optimist dependencies
-423 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
+423 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\package.json
 424 silly cache add args [ 'wordwrap@~0.0.2', null ]
 425 verbose cache add spec wordwrap@~0.0.2
 426 silly cache add parsed spec Result {
@@ -786,32 +786,32 @@
 435 verbose addNameRange registry:https://registry.npmjs.org/wordwrap not in flight; fetching
 436 verbose request uri https://registry.npmjs.org/wordwrap
 437 verbose request no auth needed
-438 info attempt registry request try #1 at 2:28:07 PM
-439 verbose etag "EJIKDPZLF7J8QHRSPBCBABX9T"
+438 info attempt registry request try #1 at 11:43:47 AM
+439 verbose etag "6Y7XZHAQEALAMS9JQ5TYUE3OK"
 440 http request GET https://registry.npmjs.org/wordwrap
 441 http 304 https://registry.npmjs.org/wordwrap
-442 verbose headers { date: 'Wed, 12 Oct 2016 21:28:07 GMT',
+442 verbose headers { date: 'Wed, 09 Nov 2016 19:43:47 GMT',
 442 verbose headers   via: '1.1 varnish',
 442 verbose headers   'cache-control': 'max-age=300',
-442 verbose headers   etag: '"EJIKDPZLF7J8QHRSPBCBABX9T"',
-442 verbose headers   age: '30',
+442 verbose headers   etag: '"6Y7XZHAQEALAMS9JQ5TYUE3OK"',
+442 verbose headers   age: '225',
 442 verbose headers   connection: 'keep-alive',
-442 verbose headers   'x-served-by': 'cache-sea1922-SEA',
+442 verbose headers   'x-served-by': 'cache-sjc3646-SJC',
 442 verbose headers   'x-cache': 'HIT',
-442 verbose headers   'x-cache-hits': '10',
-442 verbose headers   'x-timer': 'S1476307687.605047,VS0,VE0',
+442 verbose headers   'x-cache-hits': '3',
+442 verbose headers   'x-timer': 'S1478720627.282512,VS0,VE0',
 442 verbose headers   vary: 'Accept-Encoding' }
 443 silly get cb [ 304,
-443 silly get   { date: 'Wed, 12 Oct 2016 21:28:07 GMT',
+443 silly get   { date: 'Wed, 09 Nov 2016 19:43:47 GMT',
 443 silly get     via: '1.1 varnish',
 443 silly get     'cache-control': 'max-age=300',
-443 silly get     etag: '"EJIKDPZLF7J8QHRSPBCBABX9T"',
-443 silly get     age: '30',
+443 silly get     etag: '"6Y7XZHAQEALAMS9JQ5TYUE3OK"',
+443 silly get     age: '225',
 443 silly get     connection: 'keep-alive',
-443 silly get     'x-served-by': 'cache-sea1922-SEA',
+443 silly get     'x-served-by': 'cache-sjc3646-SJC',
 443 silly get     'x-cache': 'HIT',
-443 silly get     'x-cache-hits': '10',
-443 silly get     'x-timer': 'S1476307687.605047,VS0,VE0',
+443 silly get     'x-cache-hits': '3',
+443 silly get     'x-timer': 'S1478720627.282512,VS0,VE0',
 443 silly get     vary: 'Accept-Encoding' } ]
 444 verbose etag https://registry.npmjs.org/wordwrap from cache
 445 verbose get saving wordwrap to C:\Users\sfolmj\AppData\Roaming\npm-cache\registry.npmjs.org\wordwrap\.cache.json
@@ -856,19 +856,19 @@
 455 silly install resolved     maintainers: [ [Object] ],
 455 silly install resolved     _resolved: 'https://registry.npmjs.org/wordwrap/-/wordwrap-0.0.3.tgz',
 455 silly install resolved     readme: 'ERROR: No README data found!' } ]
-456 info install wordwrap@0.0.3 into D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+456 info install wordwrap@0.0.3 into H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
 457 info installOne wordwrap@0.0.3
-458 verbose installOne of wordwrap to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist not in flight; installing
+458 verbose installOne of wordwrap to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist not in flight; installing
 459 verbose correctMkdir C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
-460 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-f5a48cb61d223e42.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
-461 silly install write writing wordwrap 0.0.3 to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+460 verbose lock using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-899e368a66c1a5a7.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+461 silly install write writing wordwrap 0.0.3 to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
 462 verbose unbuild node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
-463 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged from base D:\_git\aviation-input-analysis\mod
-464 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+463 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged from base H:\_git\cdr-aviation-input-generator\mod
+464 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
 465 verbose tar unpack C:\Users\sfolmj\AppData\Roaming\npm-cache\wordwrap\0.0.3\package.tgz
-466 verbose tar unpacking to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
-467 silly gentlyRm D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged
-468 verbose gentlyRm don't care about contents; nuking D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+466 verbose tar unpacking to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+467 silly gentlyRm H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap is being purged
+468 verbose gentlyRm don't care about contents; nuking H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
 469 silly gunzTarPerm modes [ '777', '666' ]
 470 silly gunzTarPerm extractEntry package.json
 471 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
@@ -888,67 +888,67 @@
 485 silly gunzTarPerm modified mode [ 'test/wrap.js', 420, 438 ]
 486 silly gunzTarPerm extractEntry test/idleness.txt
 487 silly gunzTarPerm modified mode [ 'test/idleness.txt', 420, 438 ]
-488 verbose write writing to D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+488 verbose write writing to H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
 489 info preinstall wordwrap@0.0.3
-490 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
-491 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+490 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
+491 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap\package.json
 492 silly install resolved []
-493 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
-494 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+493 verbose about to build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+494 info build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
 495 info linkStuff wordwrap@0.0.3
-496 silly linkStuff wordwrap@0.0.3 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules as its parent node_modules
+496 silly linkStuff wordwrap@0.0.3 has H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules as its parent node_modules
 497 verbose linkBins wordwrap@0.0.3
 498 verbose linkMans wordwrap@0.0.3
 499 verbose rebuildBundles wordwrap@0.0.3
 500 info install wordwrap@0.0.3
 501 info postinstall wordwrap@0.0.3
-502 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-f5a48cb61d223e42.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
-503 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
-504 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+502 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\wordwrap-899e368a66c1a5a7.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist\node_modules\wordwrap
+503 verbose about to build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+504 info build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
 505 info linkStuff optimist@0.3.7
-506 silly linkStuff optimist@0.3.7 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules as its parent node_modules
+506 silly linkStuff optimist@0.3.7 has H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules as its parent node_modules
 507 verbose linkBins optimist@0.3.7
 508 verbose linkMans optimist@0.3.7
 509 verbose rebuildBundles optimist@0.3.7
 510 verbose rebuildBundles [ 'wordwrap' ]
 511 info install optimist@0.3.7
 512 info postinstall optimist@0.3.7
-513 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-fe951875cdfc235e.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
-514 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
-515 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
+513 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\optimist-c9d9c673c3392d48.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash\node_modules\optimist
+514 verbose about to build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
+515 info build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
 516 info linkStuff smash@0.0.15
-517 silly linkStuff smash@0.0.15 has D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules as its parent node_modules
+517 silly linkStuff smash@0.0.15 has H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules as its parent node_modules
 518 verbose linkBins smash@0.0.15
 519 verbose link bins [ { smash: 'smash' },
-519 verbose link bins   'D:\\_git\\aviation-input-analysis\\mod\\node_modules\\grunt-smash\\node_modules\\.bin',
+519 verbose link bins   'H:\\_git\\cdr-aviation-input-generator\\mod\\node_modules\\grunt-smash\\node_modules\\.bin',
 519 verbose link bins   false ]
 520 verbose linkMans smash@0.0.15
 521 verbose rebuildBundles smash@0.0.15
 522 verbose rebuildBundles [ 'optimist' ]
 523 info install smash@0.0.15
 524 info postinstall smash@0.0.15
-525 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-583f7391ff3b8866.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\node_modules\smash
-526 verbose about to build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-527 info build D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
+525 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\smash-3e5d33afaedd5b4e.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\node_modules\smash
+526 verbose about to build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+527 info build H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
 528 info linkStuff grunt-smash@0.1.0
-529 silly linkStuff grunt-smash@0.1.0 has D:\_git\aviation-input-analysis\mod\node_modules as its parent node_modules
+529 silly linkStuff grunt-smash@0.1.0 has H:\_git\cdr-aviation-input-generator\mod\node_modules as its parent node_modules
 530 verbose linkBins grunt-smash@0.1.0
 531 verbose linkMans grunt-smash@0.1.0
 532 verbose rebuildBundles grunt-smash@0.1.0
 533 verbose rebuildBundles [ '.bin', 'queue-async', 'smash' ]
 534 info install grunt-smash@0.1.0
 535 info postinstall grunt-smash@0.1.0
-536 verbose readDependencies loading dependencies from D:\_git\aviation-input-analysis\mod\package.json
-537 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt\package.json
-538 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-jshint\package.json
-539 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-contrib-uglify\package.json
-540 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash\package.json
-541 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\.bin\grunt\package.json
-542 verbose targetResolver reading package data from D:\_git\aviation-input-analysis\mod\node_modules\.bin\grunt.cmd\package.json
-543 verbose already installed skipping grunt@~0.4.1 D:\_git\aviation-input-analysis\mod
+536 verbose readDependencies loading dependencies from H:\_git\cdr-aviation-input-generator\mod\package.json
+537 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt\package.json
+538 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-contrib-jshint\package.json
+539 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-contrib-uglify\package.json
+540 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash\package.json
+541 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\.bin\grunt\package.json
+542 verbose targetResolver reading package data from H:\_git\cdr-aviation-input-generator\mod\node_modules\.bin\grunt.cmd\package.json
+543 verbose already installed skipping grunt@~0.4.1 H:\_git\cdr-aviation-input-generator\mod
 544 silly install resolved []
-545 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-2a0f5f19149c29ae.lock for D:\_git\aviation-input-analysis\mod\node_modules\grunt-smash
-546 verbose validateInstall loading D:\_git\aviation-input-analysis\mod\package.json for validation
+545 verbose unlock done using C:\Users\sfolmj\AppData\Roaming\npm-cache\_locks\grunt-smash-1412208b03e67c56.lock for H:\_git\cdr-aviation-input-generator\mod\node_modules\grunt-smash
+546 verbose validateInstall loading H:\_git\cdr-aviation-input-generator\mod\package.json for validation
 547 verbose stack Error: The package grunt@1.0.1 does not satisfy its siblings' peerDependencies requirements!
 547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:125:32
 547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:268:7
@@ -960,7 +960,7 @@
 547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
 547 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
 547 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
-548 verbose cwd D:\_git\aviation-input-analysis\mod
+548 verbose cwd H:\_git\cdr-aviation-input-generator\mod
 549 error Windows_NT 6.1.7601
 550 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save-dev" "grunt-smash"
 551 error node v4.4.7

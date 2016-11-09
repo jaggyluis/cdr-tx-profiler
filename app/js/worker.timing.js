@@ -40,6 +40,7 @@ self.addEventListener('message', function(e) {
 		gateLayout = wrangleGateLayoutData(responseText);
 
 		e.data.gates = gateLayout;
+		e.data.clusterType = "random"; //cluster, random
 
 		aviation.clear();
 		aviation.set(e.data, function() {
