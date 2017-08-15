@@ -345,7 +345,22 @@ var app = app || {};
 			div.style.height = divheight.toString() + 'px';
 
 			var parcoords = d3.parcoords()('#passenger-profile-parcoords')
-			    .data(passengerProfiles.map(function(d) {return d.wrangle(); }))
+			    .data(passengerProfiles.map(function (d) {
+
+			        var wrangled = d.wrangle();
+                      
+                    return {
+                        'name': wrangled.name,
+                        'count': wrangled.count,
+                        'gender': wrangled.gender,
+                        'percentage': wrangled.percentage,
+                        'bags': wrangled.bags,
+                        'brshop': wrangled.brshop,
+                        'shop': wrangled.shop,
+                        'brfood': wrangled.brfood,
+                        'food': wrangled.food,
+                    }
+			    }))
 			    .hideAxis([])
 			    .color(color)
 			    .alpha(0.3)

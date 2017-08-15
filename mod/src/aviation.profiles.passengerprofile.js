@@ -13,16 +13,17 @@ function PassengerProfile (name, profileData) {
 }
 PassengerProfile.prototype = {};
 PassengerProfile.prototype.wrangle = function () {
-	return {
-		'name' : this.name,
-		'count' : this.data.count,
-		'percentage' : this.data.percentage,
-		'bags' : this.data.bags,
-		'brshop' : this.data.brshop,
-		'shop' : this.data.shop,
-		'brfood' : this.data.brfood,
-		'food' : this.data.food,
-	};
+
+    var data = this.data;
+    var wrangled = {
+        'name': this.name,
+    };
+
+    Object.keys(data).forEach(function (k) {
+        wrangled[k] = data[k];
+    });
+
+    return wrangled;
 };
 PassengerProfile.prototype.serialize = function () {
 		return 	{

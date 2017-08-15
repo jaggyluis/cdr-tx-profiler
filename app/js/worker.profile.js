@@ -11,7 +11,8 @@ function wrangleDesignDayData (designDayData) {
 
 	//
 	// SFO specific turnaround time calculator
-	//
+    //
+
 	function calcTT(flight) {
 
 		var minTurnaroundTime = 35; // min
@@ -95,7 +96,121 @@ function wrangleDesignDayData (designDayData) {
 
 	}, []);
 }
-function wranglePassengerData (passengerData, lexicon) {
+
+function wranglePassengerData(passengerData, lexicon) {
+
+    function getAirline(passenger) {
+        return lexicon['AIRLINE'][passenger['AIRLINE']]; // TODO - BROKEN!!!
+    }
+
+    function getDestination(passenger) {
+        return lexicon['DEST'][passenger['DEST']]; // TODO - BROKEN!!!
+    }
+
+    function getArrival(passenger) {
+        return aviation.core.time.toDecimalDay(passenger['ARRTIME']);
+    }
+
+    function getDeparture(passenger) {
+        return aviation.core.time.toDecimalDay(passenger['DEPTIME']);
+    }
+
+    function getPurpose(passenger) {
+
+        var purps = [passenger['PURP1'], passenger['PURP2'], passenger['PURP3']];
+        var vals = purps.map(function (p) {
+            return lexicon['PURP'][p];
+        })
+        return vals[0] || 'other';
+    }
+
+    function getAMPM(passenger) {
+        return aviation.core.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 'pre9AM' : 'post9AM'
+    }
+
+    function getDomesticInternational(passenger) {
+        return lexicon['DESTGEO'][passenger['DESTGEO']];
+    }
+
+    function getDepartingTransfer(passenger) {
+        var gettos = [passenger['GETTO1'], passenger['GETTO2'], passenger['GETTO3']];
+        var vals = gettos.map(function (g) {
+            return g === 3 ? 'transfer' : 'departing'; // TODO - replace with lexicon
+        })
+        return vals.includes('transfer') ? 'transfer' : 'departing';
+    }
+
+    function getGender(passenger) {
+        return lexicon['GENDER'][passenger['GENDER']];
+    }
+
+    function getTerminal(passenger) {
+
+        if (passenger["TERMINAL"] != undefined) {
+            return "terminal-" + passenger["TERMINAL"];
+        }
+
+        if (passenger["BAREA"] != undefined) {
+            return "terminal-" + lexicon["BAREA"][passenger["BAREA"]];
+        }
+
+        var gateRanges = Object.keys(lexicon["GATE"]);
+        var gateRange = null;
+
+        gateRanges.forEach(function (range) {
+            
+            var domain = range.split('-');
+
+            if (Number(domain[0]) < passenger["GATE"] && Number(domain[1]) > passenger["GATE"]) {
+                gateRange = range;
+            }
+        })
+
+        return "terminal-" + lexicon["BAREA"][lexicon["GATE"][gateRange]];
+    }
+
+    function getWeight(passenger) {
+        return passenger['WEIGHT'] ? passenger['WEIGHT'] : 1;
+    }
+
+    function getGate(passenger) {
+        return passenger['GATE'];
+    }
+
+    function getBags(passenger) {
+        return lexicon['BAGS'][passenger['BAGS']];
+    }
+
+    function getShop(passenger) {
+        return lexicon['SHOP'][passenger['SHOP']];
+    }
+
+    function getFood(passenger) {
+        return lexicon['FOOD'][passenger['FOOD']];
+    }
+
+    function getPreCheck(passenger) {
+        return lexicon['TSAPRE'][passenger['TSAPRE']];
+    }
+
+    function getAge(passenger) {
+
+        if (passenger['AGE'] === null) {
+            return null;
+        }
+
+        var ageRange = lexicon['AGE'][passenger['AGE']];
+
+        if (ageRange != undefined) {
+            return Number(ageRange.split(/[-<]/)[0]);
+        } else {
+            return Number(passenger['AGE'].split(/[-<]/)[0]);
+        }
+    }
+
+    function getPet(passenger) {
+        return lexicon['PET'][passenger['PET']];
+    }
 
 	return passengerData.reduce(function(arr, passenger) {
 
@@ -105,31 +220,28 @@ function wranglePassengerData (passengerData, lexicon) {
 
 		var p =  {
 
-			'airline' : lexicon['AIRLINE'][passenger['AIRLINE']],
-			'destination' : lexicon['DESTINATION'][passenger['DEST']],
-			'arrival' : aviation.core.time.toDecimalDay(passenger['ARRTIME']),
-			'departure' : aviation.core.time.toDecimalDay(passenger['DEPTIME']),
-			'am' : aviation.core.time.toDecimalDay(passenger['DEPTIME']) < 0.375 ? 
-				'pre9AM' : 
-				'post9AM',
-			'di' : passenger['DESTGEO'] < 4
-						? 'domestic'
-						: 'international',
-			'dt' : [passenger['Q3GETTO1'],passenger['Q3GETTO2'],passenger['Q3GETTO3']].includes(3)
-						? 'transfer'
-						: 'departing',
-			'type' : [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(1)
-						? 'business'
-						: [passenger['Q2PURP1'],passenger['Q2PURP2'],passenger['Q2PURP3']].includes(2)
-							? 'leisure'
-							: 'other',
-			'weight' : passenger['WEIGHT'] ? passenger['WEIGHT'] : 1,
-			'gate' : passenger['GATE'],
-			'bags' : passenger['Q4BAGS'] === 1 ? true : false,
-			'shop' : passenger['Q4STORE'] === 1 ? true : false,
+		    'airline': getAirline(passenger),
+		    'destination' : getDestination(passenger),
+		    'arrival' : getArrival(passenger),
+		    'departure' : getDeparture(passenger),
+		    'am': getAMPM(passenger) ,
+		    'di': getDomesticInternational(passenger),
+		    'dt' : getDepartingTransfer(passenger),
+		    'type' : getPurpose(passenger),
+		    'gender' : getGender(passenger),
+			'weight' : getWeight(passenger),
+			'gate' : getGate(passenger),
+			'bags': getBags(passenger),
+			'shop': getShop(passenger),
 			'brshop' : null,
-			'food' : passenger['Q4FOOD'] === 1 ? true : false,
-			'brfood' : null,
+			'food': getFood(passenger),
+			'brfood': null,
+			'terminal': getTerminal(passenger),
+			'tsapre': getPreCheck(passenger),
+            'age': getAge(passenger),
+            'home' : null,
+			'pet':  getPet(passenger),
+            'frequent' : null,
 		};
 
 		arr.push(p);
@@ -138,6 +250,7 @@ function wranglePassengerData (passengerData, lexicon) {
 
 	}, []);
 }
+
 function wranglePropensityData (propensityData) {
 
 	var pts = propensityData.reduce(function(arr, passenger) {
@@ -159,7 +272,8 @@ function wranglePropensityData (propensityData) {
 
 	//
 	// From somewhere on stackOverflow - not sure
-	//
+    //
+
 	var order = 1;
 	var xArr = pts.map(function(pt) {
 
@@ -215,7 +329,7 @@ var designDayFilePath = '../doc/designday.csv',
 	designDayData;
 
 var passengerFilePath = '../doc/passengerdata/sfo/',
-	passengerFiles = ['p13.csv', 'p14.csv', 'p15.csv'],
+	passengerFiles = [/*'p11.csv', 'p12.csv', 'p13.csv', 'p14.csv', 'p15.csv', */'p16.csv'],
 	passengerData = [];
 
 var lexiconFilePath = '../doc/passengerdata/sfo/lexicon.json',
@@ -225,13 +339,14 @@ var propensityFilePath = '../doc/passengerdata/dia/propensities.csv',
 	propensityData,
 	propensityfunc;
 
-var typeData = ['di', 'type', 'dt', 'am', 'bags'],
+var typeData = ['di', 'type', 'dt', 'am' /*,'bags'*/],
 	timeSlice;
-
 
 self.addEventListener('message', function(e) {
 
-	passengerFiles.forEach(function (file, i) {
+    passengerFiles.forEach(function (file, i) {
+
+        console.log(file);
 
 	    d3.csv(passengerFilePath+file, function (responseText) {
 	        
@@ -247,7 +362,9 @@ self.addEventListener('message', function(e) {
 
 		    			propensityData = responseText;
 
-		    			d3.csv(designDayFilePath, function(responseText) {
+		    			d3.csv(designDayFilePath, function (responseText) {
+
+		    			    console.log("passenger count : " + passengerData.length);
 
 		    				passengerData = wranglePassengerData(passengerData, lexiconData);
 		    				passengerData = passengerData.filter(function(passenger) {
@@ -269,7 +386,8 @@ self.addEventListener('message', function(e) {
 
 								return false;
 
-							});
+		    				});
+
 			    			designDayData = wrangleDesignDayData(responseText);
 			    			propensityFunc = wranglePropensityData(propensityData);
 			    			timeSlice = e.data.timeSlice;

@@ -17,7 +17,7 @@ function Passenger (flight, passengerProfile) {
 	this.profile = passengerProfile;
 	this._attributes = {
 		'passengerType' : this.profile.name,
-		'gender' : ['M', 'F'][Math.round(Math.random())],
+		'gender': ['M', 'F'][aviation.core.math.getRandomBinaryWithProbablity(this.profile.data.gender / 100)],
 		'bags' : [false,true][aviation.core.math.getRandomBinaryWithProbablity(this.profile.data.bags / 100)],
 		'isPreCheck' : [false,true][aviation.core.math.getRandomBinaryWithProbablity(0.2)], //verify
 		'isTransfer' : this.profile.name.match(/transfer/) ? true : false,

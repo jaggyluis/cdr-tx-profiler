@@ -1,0 +1,15 @@
+id,min,mean,max,weight,color,label
+bags,20,33,50,1,#9E0041,bags
+brshop,25,65,70,1,#C32F4B,brshop
+shop,30,41,50,1,#E1514B,shop
+brfood,20,74,80,1,#F47245,brfood
+food,40,53,60,1,#FB9F59,food
+tsapre,20,60,80,1,#FEC574,tsapre
+age,0,0,0,1,#FAE38C,age
+pet,1,2,3,1,#EAF195,pet
+frequent,50,88,90,1,#C7E89E,frequent
+gender,40,65,70,1,#9CD6A4,gender
+arrival,30,45,60,1,#6CC4A4,arrival
+temp,40,53,60,1,#4D9DB4,temp
+temp,20,60,80,1,#4776B4,temp
+temp,0,0,0,1,#5E4EA1,temp

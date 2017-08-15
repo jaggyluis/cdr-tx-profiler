@@ -84557,7 +84557,7 @@ function Passenger (flight, passengerProfile) {
 	this.profile = passengerProfile;
 	this._attributes = {
 		'passengerType' : this.profile.name,
-		'gender' : ['M', 'F'][Math.round(Math.random())],
+		'gender': ['M', 'F'][aviation.core.math.getRandomBinaryWithProbablity(this.profile.data.gender / 100)],
 		'bags' : [false,true][aviation.core.math.getRandomBinaryWithProbablity(this.profile.data.bags / 100)],
 		'isPreCheck' : [false,true][aviation.core.math.getRandomBinaryWithProbablity(0.2)], //verify
 		'isTransfer' : this.profile.name.match(/transfer/) ? true : false,
@@ -85030,16 +85030,29 @@ function PassengerProfile (name, profileData) {
 }
 PassengerProfile.prototype = {};
 PassengerProfile.prototype.wrangle = function () {
-	return {
-		'name' : this.name,
-		'count' : this.data.count,
-		'percentage' : this.data.percentage,
-		'bags' : this.data.bags,
-		'brshop' : this.data.brshop,
-		'shop' : this.data.shop,
-		'brfood' : this.data.brfood,
-		'food' : this.data.food,
-	};
+
+    /*
+    return {
+        'name': this.name,
+        'count': this.data.count,
+        'gender': this.data.gender,
+        'percentage': this.data.percentage,
+        'bags': this.data.bags,
+        'brshop': this.data.brshop,
+        'shop': this.data.shop,
+        'brfood': this.data.brfood,
+        'food': this.data.food,
+    }*/
+    var data = this.data;
+    var wrangled = {
+        'name': this.name,
+    };
+
+    Object.keys(data).forEach(function (k) {
+        wrangled[k] = data[k];
+    });
+
+    return wrangled;
 };
 PassengerProfile.prototype.serialize = function () {
 		return 	{
