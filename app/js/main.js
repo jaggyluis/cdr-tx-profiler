@@ -8,6 +8,7 @@ var app = app || {};
 		this._view.init();
 		this._timeSlice = 1;
 	};
+
 	app.runPassengerProfileSimulation = function(cb) {
 
 		var self = this,
@@ -18,6 +19,8 @@ var app = app || {};
 			self._flightProfiles = e.data.flightProfiles;
 			self._passengerProfiles = e.data.passengerProfiles;
 			self._designDay = e.data.flights;
+
+			console.log(self._passengerProfiles);
 
 			e.data.flightProfiles = e.data.flightProfiles.map(function(f) {
 				return aviation.profiles.FlightProfile.deserialize(f.data); 
@@ -35,6 +38,7 @@ var app = app || {};
 			"timeSlice" : self._timeSlice
 		});
 	};
+
 	app.runPassengerTimingSimulation = function(cb) {
 
 		var self = this,

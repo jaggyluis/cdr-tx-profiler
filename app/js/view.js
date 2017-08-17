@@ -335,9 +335,9 @@ var app = app || {};
 		},
 		buildPassengerProfilesTable : function (passengerProfiles) {
 
-			var self = this,
-				color = function(d) {return self.getColor(d.name); },
-				divheight = passengerProfiles.length * 10;
+		    var self = this,
+				color = function (d) { return self.getColor(d.name); },
+				divheight = 300;
 
 			var div = document.getElementById('passenger-profile-parcoords');
 		
@@ -346,35 +346,24 @@ var app = app || {};
 
 			var parcoords = d3.parcoords()('#passenger-profile-parcoords')
 			    .data(passengerProfiles.map(function (d) {
-
-			        var wrangled = d.wrangle();
-                      
-                    return {
-                        'name': wrangled.name,
-                        'count': wrangled.count,
-                        'gender': wrangled.gender,
-                        'percentage': wrangled.percentage,
-                        'bags': wrangled.bags,
-                        'brshop': wrangled.brshop,
-                        'shop': wrangled.shop,
-                        'brfood': wrangled.brfood,
-                        'food': wrangled.food,
-                    }
+			        return d.wrangle();
 			    }))
-			    .hideAxis([])
+			    .hideAxis(['name', 'passengerType', 'departure', 'arrival', 'gate', 'weight'])
 			    .color(color)
 			    .alpha(0.3)
 			    .composite("darken")
-			    .margin({ top: 20, left: 200, bottom: 10, right: 0 })
+			    .margin({ top: 20, left: 50 /*200*/, bottom: 10, right: 0 })
 			    .mode("queue")
 			    .render()
-			    //.reorderable();
+			    .reorderable()
 			    .brushMode("1D-axes");  // enable brushing
 
 			var grid = d3.divgrid();
 
 			d3.select("#passenger-profile-table")
-			    .datum(passengerProfiles.slice().map(function(d) {return d.wrangle(); }))
+			    .datum(passengerProfiles.slice().map(function (d) {
+			        return  d.wrangle();
+			    }))
 			    .call(grid)
 			    .selectAll(".row")
 			    .on({

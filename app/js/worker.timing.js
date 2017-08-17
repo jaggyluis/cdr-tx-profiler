@@ -1,4 +1,4 @@
-importScripts('lib/aviation.min.js', 'lib/d3.v3.min.js');
+importScripts('../../mod/.build/aviation.min.js', 'lib/d3.v3.min.js');
 
 function wrangleGateLayoutData (gateLayoutData) {
 

@@ -1,11 +1,30 @@
-importScripts('lib/aviation.min.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
+importScripts('../../mod/.build/aviation.min.js', 'lib/numeric.js', 'lib/d3.v3.min.js');
 
 function loadFile(filePath, done) {
+
     var xhr = new XMLHttpRequest();
+
     xhr.onload = function () { return done(this.responseText); };
     xhr.open("GET", filePath, true);
     xhr.send();
 }
+
+var defaultColors = [
+    '#9E0041',
+    '#C32F4B',
+    '#E1514B',
+    '#F47245',
+    '#FB9F59',
+    '#FEC574',
+    '#FAE38C',
+    '#EAF195',
+    '#C7E89E',
+    '#9CD6A4',
+    '#6CC4A4',
+    '#4D9DB4',
+    '#4776B4',
+    '#5E4EA1'
+]
 
 function wrangleDesignDayData (designDayData) {
 
@@ -133,6 +152,7 @@ function wranglePassengerData(passengerData, lexicon) {
     }
 
     function getDepartingTransfer(passenger) {
+
         var gettos = [passenger['GETTO1'], passenger['GETTO2'], passenger['GETTO3']];
         var vals = gettos.map(function (g) {
             return g === 3 ? 'transfer' : 'departing'; // TODO - replace with lexicon
@@ -144,14 +164,24 @@ function wranglePassengerData(passengerData, lexicon) {
         return lexicon['GENDER'][passenger['GENDER']];
     }
 
+    function getPercMale(passenger) {
+
+        var gender = getGender(passenger);
+
+        if (gender === "M") return true;
+        if (gender === "F" ) return false;
+
+        return null;
+    }
+
     function getTerminal(passenger) {
 
         if (passenger["TERMINAL"] != undefined) {
-            return "terminal-" + passenger["TERMINAL"];
+            return "t-" + passenger["TERMINAL"];
         }
 
         if (passenger["BAREA"] != undefined) {
-            return "terminal-" + lexicon["BAREA"][passenger["BAREA"]];
+            return "t-" + lexicon["BAREA"][passenger["BAREA"]];
         }
 
         var gateRanges = Object.keys(lexicon["GATE"]);
@@ -166,7 +196,13 @@ function wranglePassengerData(passengerData, lexicon) {
             }
         })
 
-        return "terminal-" + lexicon["BAREA"][lexicon["GATE"][gateRange]];
+        var terminal = lexicon["BAREA"][lexicon["GATE"][gateRange]];
+
+        if (terminal !== undefined) {
+            return "t-" + terminal;
+        }
+
+        return null;
     }
 
     function getWeight(passenger) {
@@ -185,8 +221,24 @@ function wranglePassengerData(passengerData, lexicon) {
         return lexicon['SHOP'][passenger['SHOP']];
     }
 
+    function getNoShop(passenger) {
+        return lexicon['NOSHOP'][passenger['NOSHOP']];
+    }
+
+    function getBrShop(passenger) {
+        return getNoShop(passenger);
+    }
+
     function getFood(passenger) {
         return lexicon['FOOD'][passenger['FOOD']];
+    }
+
+    function getNoFood(passenger) {
+        return lexicon['NOFOOD'][passenger['NOFOOD']];
+    }
+
+    function getBrFood(passenger) {
+        return getNoFood(passenger);
     }
 
     function getPreCheck(passenger) {
@@ -200,16 +252,39 @@ function wranglePassengerData(passengerData, lexicon) {
         }
 
         var ageRange = lexicon['AGE'][passenger['AGE']];
+        var age = null;
 
         if (ageRange != undefined) {
-            return Number(ageRange.split(/[-<]/)[0]);
+            age = ageRange.split(/[-<]/);
         } else {
-            return Number(passenger['AGE'].split(/[-<]/)[0]);
+            if (typeof passenger['AGE'] == 'string') {
+                age = passenger['AGE'].split(/[-<]/);
+            }
         }
+
+        if (age === null) {
+            return null;
+        } else {
+            age = [Number(age[0]), Number(age[1])];
+        }
+
+        age = isNaN(age[0] / age[1])
+            ? isNaN(age[1])
+                ? isNaN(age[0])
+                    ? null
+                    : age[0]
+                : age[1]
+            : (age[0] + age[1]) / 2;
+
+        return age;
     }
 
     function getPet(passenger) {
         return lexicon['PET'][passenger['PET']];
+    }
+
+    function getFrequentFlyer(passenger) {
+        return lexicon['HIFLYER'][passenger['HIFLYER']];
     }
 
 	return passengerData.reduce(function(arr, passenger) {
@@ -228,119 +303,46 @@ function wranglePassengerData(passengerData, lexicon) {
 		    'di': getDomesticInternational(passenger),
 		    'dt' : getDepartingTransfer(passenger),
 		    'type' : getPurpose(passenger),
-		    'gender' : getGender(passenger),
+		    'gender': getGender(passenger),
+		    'percmale' : getPercMale(passenger),
 			'weight' : getWeight(passenger),
 			'gate' : getGate(passenger),
 			'bags': getBags(passenger),
 			'shop': getShop(passenger),
-			'brshop' : null,
+			'brshop': getBrShop(passenger),
 			'food': getFood(passenger),
-			'brfood': null,
+			'brfood': getBrFood(passenger),
 			'terminal': getTerminal(passenger),
 			'tsapre': getPreCheck(passenger),
             'age': getAge(passenger),
             'home' : null,
 			'pet':  getPet(passenger),
-            'frequent' : null,
+            'frequent' : getFrequentFlyer(passenger),
 		};
+
+		Object.keys(p).forEach(function (k) {
+		    if (p[k] == undefined) p[k] = null;
+		})
 
 		arr.push(p);
 
 		return arr;
 
 	}, []);
-}
-
-function wranglePropensityData (propensityData) {
-
-	var pts = propensityData.reduce(function(arr, passenger) {
-
-		passenger = aviation.core.obj.parse(passenger);
-
-		if (aviation.core.obj.isNull(passenger)) return arr;
-
-		var p =  {
-			x : passenger.buy,
-			y : passenger.browse
-		};
-
-		arr.push(p);
-
-		return arr;
-
-	}, []);
-
-	//
-	// From somewhere on stackOverflow - not sure
-    //
-
-	var order = 1;
-	var xArr = pts.map(function(pt) {
-
-	    return pt.x;
-	});
-	var yArr = pts.map(function(pt) {
-
-	    return pt.y;
-	});
-	var xMatrix = [];
-	var xTemp = [];
-	var yMatrix = numeric.transpose([yArr]);
-
-	for (j=0;j<xArr.length;j++) {
-	    xTemp = [];
-	    for(i=0;i<=order;i++)
-	    {
-	        xTemp.push(1*Math.pow(xArr[j],i));
-	    }
-	    xMatrix.push(xTemp);
-	}
-	var xMatrixT = numeric.transpose(xMatrix);
-	var dot1 = numeric.dot(xMatrixT,xMatrix);
-	var dotInv = numeric.inv(dot1);
-	var dot2 = numeric.dot(xMatrixT,yMatrix);
-	var solution = numeric.dot(dotInv,dot2);
-
-	var fn = function(x) {
-
-	    var y = 0;
-
-	    for (var i=0; i<solution.length; i++) {
-	      y+= solution[i] * Math.pow(x, i);
-	    }
-
-	    if (y < 0) {
-	    	
-	    	y =  0;
-	    
-	    } else if (y > 1) {
-
-	    	y = 1;
-	    }
-
-	    return y;
-	    
-	};
-
-	return fn;
 }
 
 var designDayFilePath = '../doc/designday.csv',
 	designDayData;
 
 var passengerFilePath = '../doc/passengerdata/sfo/',
-	passengerFiles = [/*'p11.csv', 'p12.csv', 'p13.csv', 'p14.csv', 'p15.csv', */'p16.csv'],
+	passengerFiles = ['p11.csv', 'p12.csv', 'p13.csv', 'p14.csv', 'p15.csv', 'p16.csv'],
 	passengerData = [];
 
 var lexiconFilePath = '../doc/passengerdata/sfo/lexicon.json',
 	lexiconData;
 
-var propensityFilePath = '../doc/passengerdata/dia/propensities.csv',
-	propensityData,
-	propensityfunc;
-
-var typeData = ['di', 'type', 'dt', 'am' /*,'bags'*/],
-	timeSlice;
+var clusterAttributes = ['di', 'type', 'dt', /*'gender', 'am' ,'bags, 'terminal' */],
+    timeSlice;
 
 self.addEventListener('message', function(e) {
 
@@ -358,68 +360,68 @@ self.addEventListener('message', function(e) {
 
 		    		lexiconData = JSON.parse(responseText);
 
-		    		d3.csv(propensityFilePath, function(responseText) {
+		    		d3.csv(designDayFilePath, function (responseText) {
 
-		    			propensityData = responseText;
+		    			console.log("passenger count : " + passengerData.length);
 
-		    			d3.csv(designDayFilePath, function (responseText) {
+		    			passengerData = wranglePassengerData(passengerData, lexiconData);
+		    			passengerData = passengerData.filter(function(passenger) {
 
-		    			    console.log("passenger count : " + passengerData.length);
+		    			    //
+		    			    // 	Passenger cleanup -
+		    			    //  valid passenger data for analysis is between
+		    			    //	30 min and 6 hours in the airport.
+                            //  passengers with no terminal are also filtered out
+		    			    //
 
-		    				passengerData = wranglePassengerData(passengerData, lexiconData);
-		    				passengerData = passengerData.filter(function(passenger) {
+		    			    if (passenger.terminal === null) {
+		    			        return false;
+		    			    }
 
-								if (passenger.arrival && passenger.departure) {
+							if (passenger.arrival && passenger.departure) {
 
-									var t = passenger.departure - passenger.arrival;
+								var t = passenger.departure - passenger.arrival;
 
-									//
-									// 	Passenger cleanup - valid passenger data for analysis is between
-									//	30 min and 6 hours in the airport.
-									//
-
-									if (t < (6/24) && t > (0.5/24)) {
+								if (t < (6/24) && t > (0.5/24)) {
 										
-										return true;
-									}
+									return true;
 								}
+							}
 
-								return false;
+							return false;
 
-		    				});
+		    			});
 
-			    			designDayData = wrangleDesignDayData(responseText);
-			    			propensityFunc = wranglePropensityData(propensityData);
-			    			timeSlice = e.data.timeSlice;
-			   				profiler = aviation.profiles.Profiler(passengerData, designDayData, typeData, timeSlice, propensityFunc);
-			   				profiler.buildProfiles();
+			    		designDayData = wrangleDesignDayData(responseText);
+			    		timeSlice = e.data.timeSlice;
+			    		profiler = aviation.profiles.Profiler(passengerData, designDayData, clusterAttributes, timeSlice);
+			   			profiler.buildProfiles();
 
-			   				designDayData = designDayData.filter(function(flight) {
+			   			designDayData = designDayData.filter(function(flight) {
 
-			   					//
-			   					//	Flight cleanup - Boarding Area 1 / departing
-			   					//	Delta - BAC / Other - BAB
-			   					//
+			   				//
+			   				//	Flight cleanup - Boarding Area 1 / departing
+			   				//	Delta - BAC / Other - BAB
+			   				//
 
-			    				if (flight.ba === 1 && flight.dep === true) {
+			    			if (flight.ba === 1 && flight.dep === true) {
 
-			    					flight.ba = flight.airline === 'DL' ? 'C' : 'B';
+			    				flight.ba = flight.airline === 'DL' ? 'C' : 'B';
 
-			    					return true;
-			    				}
+			    				return true;
+			    			}
 
-			    				return false;
-			    			})
+			    			return false;
+			    		})
 
-							self.postMessage({
-								"flights" : designDayData,
-								"passengerProfiles" : profiler.passengerProfiles.map(function(p) { return p.serialize(); }),
-								"flightProfiles" : profiler.flightProfiles.map(function(f) { return f.serialize(); }),
-							});
+						self.postMessage({
+							"flights" : designDayData,
+							"passengerProfiles" : profiler.passengerProfiles.map(function(p) { return p.serialize(); }),
+							"flightProfiles" : profiler.flightProfiles.map(function(f) { return f.serialize(); }),
+						});
 
-							close();
-			    		});
-		    		});
+						close();
+			    	});
 		    	});
 	    	}
 	    });
